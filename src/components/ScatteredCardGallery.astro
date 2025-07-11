@@ -60,8 +60,10 @@ const {
 } = Astro.props;
 ---
 
+<!-- Main Container with Side-by-Side Layout -->
 <div
-  class={`scattered-gallery-container relative w-full min-h-screen bg-gradient-to-br from-blue-400 via-blue-500 to-blue-600 overflow-hidden ${className}`}
+  class={`scattered-gallery-container !sticky w-full bg-gradient-to-br from-blue-400 via-blue-500 to-blue-600 overflow-hidden ${className}`}
+  style="min-height: 200vh;"
 >
   <!-- Background pattern -->
   <div class="absolute inset-0 opacity-10">
@@ -76,59 +78,164 @@ const {
     </div>
   </div>
 
-  <!-- Cards container -->
-  <div class="relative w-full h-full p-8 md:p-16" id="cards-container">
-    {
-      cards.map((card, index) => (
+  <!-- Split Layout Container -->
+  <div class="relative w-full h-screen flex" id="split-container">
+    <!-- Dynamic Content Container - holds both text and cards -->
+    <div class="w-full relative" id="content-container">
+      <!-- Text Content - positioned dynamically -->
+      <div
+        class="absolute inset-0 flex items-center pointer-events-none"
+        id="text-container"
+      >
         <div
-          class={`gallery-card absolute ${card.backgroundColor} rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-3xl hover:z-50`}
-          data-card-id={card.id}
-          data-index={index}
-          data-card
+          class="text-content w-1/2 px-8 max-w-lg pointer-events-auto flex items-center justify-center"
+          id="text-content"
         >
-          {card.image && (
-            <img
-              src={card.image}
-              alt={card.alt}
-              class="w-full h-full object-cover"
-              loading="lazy"
-            />
-          )}
-
-          {(card.title || card.subtitle) && (
-            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end">
-              <div class="p-4 text-white">
-                {card.title && (
-                  <h3 class="text-lg font-bold mb-1">{card.title}</h3>
-                )}
-                {card.subtitle && (
-                  <p class="text-sm opacity-90">{card.subtitle}</p>
-                )}
-              </div>
-            </div>
-          )}
+          <div>
+            <h1
+              class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 drop-shadow-2xl"
+              id="main-title"
+              style="text-shadow: 2px 2px 8px rgba(0,0,0,0.8);"
+            >
+              Make your job offers more visible
+            </h1>
+            <p
+              class="text-lg md:text-xl text-white/90 drop-shadow-lg"
+              id="main-description"
+              style="text-shadow: 1px 1px 4px rgba(0,0,0,0.6);"
+            >
+              Transform scattered opportunities into organized, discoverable
+              career paths
+            </p>
+          </div>
         </div>
-      ))
-    }
+      </div>
+
+      <!-- Cards Container - spans full width for positioning flexibility -->
+      <div class="absolute inset-0 pointer-events-none" id="cards-container">
+        {
+          cards.map((card, index) => (
+            <div
+              class={`gallery-card absolute ${card.backgroundColor} rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-3xl hover:z-50 pointer-events-auto`}
+              data-card-id={card.id}
+              data-index={index}
+              data-card
+            >
+              {card.image && (
+                <img
+                  src={card.image}
+                  alt={card.alt}
+                  class="w-full h-full object-cover"
+                  loading="lazy"
+                />
+              )}
+
+              {(card.title || card.subtitle) && (
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end">
+                  <div class="p-4 text-white">
+                    {card.title && (
+                      <h3 class="text-lg font-bold mb-1">{card.title}</h3>
+                    )}
+                    {card.subtitle && (
+                      <p class="text-sm opacity-90">{card.subtitle}</p>
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
+          ))
+        }
+      </div>
+
+      <!-- Grid placeholders for target positions -->
+      <div class="absolute inset-0 pointer-events-none" id="grid-container">
+        <!-- Grid positioned on left side for target state -->
+        <div class="w-1/2 flex items-center justify-center">
+          <div
+            class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-2xl w-full px-8"
+            id="grid-layout"
+          >
+            {
+              cards.map((card, index) => (
+                <div
+                  class="grid-placeholder bg-transparent rounded-2xl"
+                  data-grid-index={index}
+                  style="aspect-ratio: 4/3;"
+                />
+              ))
+            }
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+  <!-- End Split Layout Container -->
 </div>
+<!-- End Main Container -->
+
+<!-- Additional content to demonstrate pinning effect -->
+<section class="bg-gray-100 py-20">
+  <div class="container mx-auto px-8 text-center">
+    <h2 class="text-4xl font-bold text-gray-800 mb-6">Next Section</h2>
+    <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+      This section appears after the pinned gallery section. The pinning effect
+      keeps the gallery in view while you scroll through the transformation.
+    </p>
+  </div>
+</section>
+
+<section class="bg-white py-20">
+  <div class="container mx-auto px-8 text-center">
+    <h2 class="text-4xl font-bold text-gray-800 mb-6">More Content</h2>
+    <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+      Additional content to provide more scrolling space and demonstrate the
+      smooth transition after the pinned section.
+    </p>
+  </div>
+</section>
 
 <style>
   .scattered-gallery-container {
     position: relative;
+    min-height: 100vh;
   }
 
+  /* Split container for pinning */
+  #split-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  /* Content container for flexible positioning */
+  #content-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Text content positioning */
+  .text-content {
+    position: relative;
+    transition: transform 0.1s ease-out;
+    will-change: transform;
+  }
+
+  /* Gallery cards */
   .gallery-card {
     cursor: pointer;
     backface-visibility: hidden;
     transform-style: preserve-3d;
-  }
-
-  /* Base card styles - positioning will be handled by JavaScript */
-  .gallery-card {
+    will-change: transform, left, top, width, height;
     /* Default sizes that will be overridden by JS */
     width: 280px;
     height: 200px;
+  }
+
+  /* Grid container positioning */
+  #grid-container {
+    pointer-events: none;
   }
 
   /* Mobile responsive adjustments */
@@ -136,6 +243,10 @@ const {
     .gallery-card {
       width: 200px;
       height: 150px;
+    }
+
+    .text-content {
+      padding: 1rem;
     }
   }
 
@@ -149,17 +260,36 @@ const {
     .scattered-gallery-container {
       padding: 1rem;
     }
+
+    .text-content h1 {
+      font-size: 2rem !important;
+    }
+
+    .text-content p {
+      font-size: 1rem !important;
+    }
   }
 
   /* Accessibility: Respect reduced motion preferences */
   @media (prefers-reduced-motion: reduce) {
     .gallery-card {
-      transition: none;
+      transition: none !important;
       transform: none !important;
     }
 
     .gallery-card:hover {
       transform: none !important;
+    }
+
+    .text-content {
+      transition: none !important;
+    }
+
+    /* Disable all GSAP animations for reduced motion */
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
     }
   }
 
@@ -167,9 +297,28 @@ const {
   .gallery-card:hover {
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
   }
+
+  /* Focus styles for accessibility */
+  .gallery-card:focus {
+    outline: 2px solid rgba(255, 255, 255, 0.8);
+    outline-offset: 4px;
+  }
+
+  /* Smooth performance optimizations */
+  .gallery-card,
+  .text-content {
+    transform: translateZ(0); /* Force hardware acceleration */
+  }
 </style>
 
 <script>
+  import { gsap } from "gsap";
+  import { Flip } from "gsap/Flip";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  // Register GSAP plugins
+  gsap.registerPlugin(ScrollTrigger, Flip);
+
   interface CardPosition {
     x: number;
     y: number;
@@ -177,6 +326,12 @@ const {
     width: number;
     height: number;
     zIndex: number;
+  }
+
+  interface AnimationState {
+    isGridMode: boolean;
+    flipState: any;
+    scrollTrigger: ScrollTrigger | null;
   }
 
   // Seeded random number generator for consistent but random-looking layout
@@ -205,9 +360,13 @@ const {
         const seedRot = i * 789 + attempts * 19;
         const seedSize = i * 321 + attempts * 11;
 
-        // Generate random position
+        // Generate random position - constrain to right half of container (initial state)
+        const rightHalfStart = containerWidth / 2;
+        const rightHalfWidth = containerWidth / 2;
         const x =
-          padding + seededRandom(seedX) * (containerWidth - padding * 2 - 300);
+          rightHalfStart +
+          padding +
+          seededRandom(seedX) * (rightHalfWidth - padding * 2 - 300);
         const y =
           padding + seededRandom(seedY) * (containerHeight - padding * 2 - 250);
 
@@ -248,6 +407,13 @@ const {
 
     return positions;
   }
+
+  // Global animation state
+  let animationState: AnimationState = {
+    isGridMode: false,
+    flipState: null,
+    scrollTrigger: null,
+  };
 
   function applyRandomPositioning() {
     const container = document.getElementById("cards-container");
@@ -298,10 +464,184 @@ const {
     });
   }
 
-  function initializeGallery() {
-    // Apply random positioning
+  function animateToGrid() {
+    const cards = document.querySelectorAll(
+      "[data-card]"
+    ) as NodeListOf<HTMLElement>;
+    const gridPlaceholders = document.querySelectorAll(
+      ".grid-placeholder"
+    ) as NodeListOf<HTMLElement>;
+    const textContent = document.getElementById("text-content");
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    if (cards.length === 0 || gridPlaceholders.length === 0 || !textContent)
+      return;
+
+    // Record the current state for Flip
+    const state = Flip.getState([...cards, textContent]);
+
+    // Move cards to grid positions on the LEFT side (target state)
+    cards.forEach((card, index) => {
+      const placeholder = gridPlaceholders[index];
+      if (!placeholder) return;
+
+      const placeholderRect = placeholder.getBoundingClientRect();
+      const containerRect = document
+        .getElementById("cards-container")!
+        .getBoundingClientRect();
+
+      // Calculate position relative to container
+      const left = placeholderRect.left - containerRect.left;
+      const top = placeholderRect.top - containerRect.top;
+
+      // Apply grid positioning on left side
+      card.style.left = `${left}px`;
+      card.style.top = `${top}px`;
+      card.style.width = `${placeholderRect.width}px`;
+      card.style.height = `${placeholderRect.height}px`;
+      card.style.transform = "rotate(0deg)";
+      card.style.zIndex = "10";
+    });
+
+    // Move text to RIGHT side (target state)
+    const containerRect = document
+      .getElementById("content-container")!
+      .getBoundingClientRect();
+    const rightSideStart = containerRect.width / 2;
+    textContent.style.transform = `translateX(${rightSideStart}px)`;
+
+    // Animate layout transition
+    if (!prefersReducedMotion) {
+      // Animate cards and text with Flip
+      Flip.from(state, {
+        duration: 0.6,
+        ease: "power2.inOut",
+        stagger: 0.02,
+        simple: true, // Disables rotation and scale interpolation for smoother transition
+      });
+    }
+
+    animationState.isGridMode = true;
+  }
+
+  function animateToScattered() {
+    const cards = document.querySelectorAll(
+      "[data-card]"
+    ) as NodeListOf<HTMLElement>;
+    const textContent = document.getElementById("text-content");
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    if (cards.length === 0 || !textContent) return;
+
+    // Record the current state for Flip
+    const state = Flip.getState([...cards, textContent]);
+
+    // Apply scattered positioning (back to right side - initial state)
     applyRandomPositioning();
 
+    // Move text back to LEFT side (initial state)
+    textContent.style.transform = "translateX(0px)";
+
+    // Animate layout switch back: Cards move to right, Text moves to left
+    if (!prefersReducedMotion) {
+      // Animate cards and text with Flip
+      Flip.from(state, {
+        duration: 0.6,
+        ease: "power2.inOut",
+        stagger: 0.02,
+        simple: true, // Disables rotation and scale interpolation for smoother transition
+      });
+    }
+
+    animationState.isGridMode = false;
+  }
+
+  function setupScrollTrigger() {
+    const container = document.querySelector(".scattered-gallery-container");
+    const splitContainer = document.querySelector("#split-container");
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    if (!container || !splitContainer) return;
+
+    // Clean up existing scroll trigger
+    if (animationState.scrollTrigger) {
+      animationState.scrollTrigger.kill();
+    }
+
+    // Main scroll trigger with pinning to keep section in view during transition
+    animationState.scrollTrigger = ScrollTrigger.create({
+      trigger: container,
+      start: "top top",
+      end: "+=300vh", // Pin for 1.5 viewport heights of scrolling for smoother transition
+      pin: splitContainer, // Pin the split container to keep it in viewport
+      pinSpacing: true, // Add spacing after pinned section
+      scrub: 1, // Smooth scrubbing tied to scroll position
+      onUpdate: (self) => {
+        const progress = self.progress;
+
+        // Trigger layout transformation at 50% scroll progress
+        if (progress > 0.5 && !animationState.isGridMode) {
+          animateToGrid();
+        } else if (progress <= 0.5 && animationState.isGridMode) {
+          animateToScattered();
+        }
+      },
+      onRefresh: () => {
+        // Recalculate positions when ScrollTrigger refreshes (e.g., on resize)
+        if (!animationState.isGridMode) {
+          applyRandomPositioning();
+        }
+      },
+    });
+
+    // Initial text animation on page load
+    if (!prefersReducedMotion) {
+      gsap.fromTo(
+        "#main-title",
+        { opacity: 0, y: 50 },
+        { opacity: 1, y: 0, duration: 1, ease: "power2.out" }
+      );
+      gsap.fromTo(
+        "#main-description",
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 1, delay: 0.3, ease: "power2.out" }
+      );
+    } else {
+      // Set initial state for reduced motion
+      gsap.set(["#main-title", "#main-description"], {
+        opacity: 1,
+        y: 0,
+      });
+    }
+  }
+
+  function initializeGallery() {
+    // Clean up existing ScrollTriggers
+    ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+
+    // Reset animation state
+    animationState.isGridMode = false;
+    animationState.flipState = null;
+
+    // Ensure text is in initial position (left side)
+    const textContent = document.getElementById("text-content");
+    if (textContent) {
+      textContent.style.transform = "translateX(0px)";
+    }
+
+    // Apply initial scattered positioning (right side)
+    applyRandomPositioning();
+
+    // Setup scroll-triggered animations with pinning
+    setupScrollTrigger();
+
+    // Setup card interactions
     const cards = document.querySelectorAll(
       "[data-card]"
     ) as NodeListOf<HTMLElement>;
@@ -310,6 +650,7 @@ const {
       // Add keyboard navigation
       card.setAttribute("tabindex", "0");
       card.setAttribute("role", "button");
+      card.setAttribute("aria-label", `Brand card ${index + 1}`);
 
       // Add click handler for potential interactions
       card.addEventListener("click", () => {
@@ -356,9 +697,60 @@ const {
   // Re-initialize on navigation (for SPA-like behavior)
   document.addEventListener("astro:page-load", initializeGallery);
 
-  // Re-position on resize
+  // Re-position on resize with proper layout handling
   window.addEventListener("resize", () => {
     clearTimeout((window as any).resizeTimeout);
-    (window as any).resizeTimeout = setTimeout(applyRandomPositioning, 250);
+    (window as any).resizeTimeout = setTimeout(() => {
+      const textContent = document.getElementById("text-content");
+
+      if (animationState.isGridMode) {
+        // If in grid mode, re-apply grid positioning and text positioning
+        const cards = document.querySelectorAll(
+          "[data-card]"
+        ) as NodeListOf<HTMLElement>;
+        const gridPlaceholders = document.querySelectorAll(
+          ".grid-placeholder"
+        ) as NodeListOf<HTMLElement>;
+
+        // Reposition cards to grid on left side
+        cards.forEach((card, index) => {
+          const placeholder = gridPlaceholders[index];
+          if (!placeholder) return;
+
+          const placeholderRect = placeholder.getBoundingClientRect();
+          const containerRect = document
+            .getElementById("cards-container")!
+            .getBoundingClientRect();
+
+          const left = placeholderRect.left - containerRect.left;
+          const top = placeholderRect.top - containerRect.top;
+
+          card.style.left = `${left}px`;
+          card.style.top = `${top}px`;
+          card.style.width = `${placeholderRect.width}px`;
+          card.style.height = `${placeholderRect.height}px`;
+        });
+
+        // Reposition text to right side
+        if (textContent) {
+          const containerRect = document
+            .getElementById("content-container")!
+            .getBoundingClientRect();
+          const rightSideStart = containerRect.width / 2;
+          textContent.style.transform = `translateX(${rightSideStart}px)`;
+        }
+      } else {
+        // If in scattered mode, re-apply scattered positioning and reset text
+        applyRandomPositioning();
+
+        // Reset text to left side
+        if (textContent) {
+          textContent.style.transform = "translateX(0px)";
+        }
+      }
+
+      // Refresh ScrollTrigger to recalculate positions
+      ScrollTrigger.refresh();
+    }, 250);
   });
 </script>
