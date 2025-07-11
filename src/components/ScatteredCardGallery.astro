@@ -634,15 +634,18 @@ const {
     ScrollTrigger.create({
       trigger: container,
       start: "top top",
-      end: "+=200vh", // Pin for 2 viewport heights of scrolling
+      end: "+=400vh", // Pin for 4 viewport heights of scrolling (longer duration)
       pin: splitContainer, // Pin the split container to keep it in viewport
       pinSpacing: true, // Add spacing after pinned section
       scrub: 1, // Smooth scrubbing tied to scroll position
       onUpdate: (self) => {
         if (scrollTimeline) {
-          // Update timeline progress based on scroll progress
-          scrollTimeline.progress(self.progress);
-          animationState.currentProgress = self.progress;
+          // Map scroll progress to animation progress with extended hold at end
+          // Animation completes at 50% scroll, then holds the final state
+          let animationProgress = Math.min(self.progress * 2, 1);
+
+          scrollTimeline.progress(animationProgress);
+          animationState.currentProgress = animationProgress;
         }
       },
       onRefresh: () => {
