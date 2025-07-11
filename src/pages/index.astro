@@ -1,4 +1,10 @@
 ---
+import Header from "../components/Header.astro";
+import AboutSection from "../components/AboutSection.astro";
+import ServicesSection from "../components/ServicesSection.astro";
+import PricingSection from "../components/PricingSection.astro";
+import TestimonialsSection from "../components/TestimonialsSection.astro";
+import FAQSection from "../components/FAQSection.astro";
 import SimpleCardStack from "../components/SimpleCardStack.astro";
 import ContactForm from "../components/ContactForm.astro";
 import App from "../layouts/App.astro";
@@ -10,10 +16,19 @@ import App from "../layouts/App.astro";
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <title>Astro</title>
+    <title>
+      Nutzy - Gen-Z Recruitment Platform | Visuele Vacatures & Creator Network
+    </title>
+    <meta
+      name="description"
+      content="Bereik Gen-Z talent met Nutzy's visuele recruitment platform. Van visuele vacatures tot creator partnerships - transformeer jouw recruitment aanpak."
+    />
   </head>
   <body>
     <App>
+      <Header />
+
+      <!-- Hero Section -->
       <section
         class="h-svh rose-bg flex px-16 gap-16 justify-center items-center relative"
       >
@@ -743,6 +758,22 @@ import App from "../layouts/App.astro";
           </div>
         </div>
       </section>
+
+      <!-- About Section -->
+      <AboutSection />
+
+      <!-- Services Section -->
+      <ServicesSection />
+
+      <!-- Pricing Section -->
+      <PricingSection />
+
+      <!-- Testimonials Section -->
+      <TestimonialsSection />
+
+      <!-- FAQ Section -->
+      <FAQSection />
+
       <!-- Contact Section -->
       <section
         class="min-h-svh bg-gradient-to-br from-purple-50 to-pink-50 py-20 px-16"
