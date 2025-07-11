@@ -102,21 +102,22 @@ const {
               id="text-content"
             >
               <div>
+                <!-- First text (initial state) -->
                 <h1
-                  class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 drop-shadow-2xl"
-                  id="main-title"
+                  class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 drop-shadow-2xl absolute inset-0"
+                  id="main-title-first"
                   style="text-shadow: 2px 2px 8px rgba(0,0,0,0.8);"
                 >
-                  Make your job offers more visible
+                  Word niet 1 van de 1000 vacatures
                 </h1>
-                <p
-                  class="text-lg md:text-xl text-white/90 drop-shadow-lg"
-                  id="main-description"
-                  style="text-shadow: 1px 1px 4px rgba(0,0,0,0.6);"
+                <!-- Second text (final state) -->
+                <h1
+                  class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 drop-shadow-2xl absolute inset-0"
+                  id="main-title-second"
+                  style="text-shadow: 2px 2px 8px rgba(0,0,0,0.8); opacity: 0;"
                 >
-                  Transform scattered opportunities into organized, discoverable
-                  career paths
-                </p>
+                  Zorg dat je opvalt
+                </h1>
               </div>
             </div>
           </div>
@@ -501,8 +502,11 @@ const {
       "[data-card]"
     ) as NodeListOf<HTMLElement>;
     const textContent = document.getElementById("text-content");
+    const firstTitle = document.getElementById("main-title-first");
+    const secondTitle = document.getElementById("main-title-second");
 
-    if (cards.length === 0 || !textContent) return timeline;
+    if (cards.length === 0 || !textContent || !firstTitle || !secondTitle)
+      return timeline;
 
     // Calculate positions
     const scatteredPositions = calculateScatteredPositions();
@@ -541,8 +545,10 @@ const {
       });
     });
 
-    // Set initial text position (left side)
+    // Set initial text position (left side) and text states
     gsap.set(textContent, { x: 0 });
+    gsap.set(firstTitle, { opacity: 1 });
+    gsap.set(secondTitle, { opacity: 0 });
 
     // Create timeline animations
     cards.forEach((card, index) => {
@@ -581,6 +587,29 @@ const {
       ); // All cards animate simultaneously
     });
 
+    // Animate text transition from first to second title
+    // First title fades out
+    timeline.to(
+      firstTitle,
+      {
+        opacity: 0,
+        duration: 0.5,
+        ease: "power2.inOut",
+      },
+      0.25 // Start slightly after cards begin moving
+    );
+
+    // Second title fades in
+    timeline.to(
+      secondTitle,
+      {
+        opacity: 1,
+        duration: 0.5,
+        ease: "power2.inOut",
+      },
+      0.5 // Start when first title is halfway faded
+    );
+
     // Animate text from left to right
     const containerRect = document
       .getElementById("content-container")!
@@ -612,10 +641,13 @@ const {
 
     if (!container || !splitContainer || prefersReducedMotion) {
       // Set initial state for reduced motion
-      gsap.set(["#main-title", "#main-description"], {
+      gsap.set(["#main-title-first", "#main-title-second"], {
         opacity: 1,
         y: 0,
       });
+      // Show first title, hide second for reduced motion
+      gsap.set("#main-title-first", { opacity: 1 });
+      gsap.set("#main-title-second", { opacity: 0 });
       return;
     }
 
@@ -658,17 +690,14 @@ const {
       },
     });
 
-    // Initial text animation on page load
+    // Initial text animation on page load - only animate first title
     gsap.fromTo(
-      "#main-title",
+      "#main-title-first",
       { opacity: 0, y: 50 },
       { opacity: 1, y: 0, duration: 1, ease: "power2.out" }
     );
-    gsap.fromTo(
-      "#main-description",
-      { opacity: 0, y: 30 },
-      { opacity: 1, y: 0, duration: 1, delay: 0.3, ease: "power2.out" }
-    );
+    // Set second title to hidden initially
+    gsap.set("#main-title-second", { opacity: 0, y: 50 });
   }
 
   function initializeGallery() {
