@@ -1,4 +1,6 @@
 ---
+import SimpleCardStack from "../components/SimpleCardStack.astro";
+import ContactForm from "../components/ContactForm.astro";
 import App from "../layouts/App.astro";
 ---
 
@@ -17,14 +19,14 @@ import App from "../layouts/App.astro";
       >
         <div class="w-1/3">
           <div>
-            <h1 class="text-8xl font-normal text-white">
+            <h1 class="text-8xl font-normal text-white split">
               Moeite met <br /> Gen-z <br /> bereiken?
             </h1>
             <button
               class="group relative mt-8 overflow-hidden rounded-2xl bg-gradient-to-r from-purple-600 via-pink-600 to-purple-800 px-8 py-4 text-2xl font-semibold text-white shadow-2xl transition-all duration-300 hover:scale-105 hover:shadow-purple-500/25 focus:outline-none focus:ring-4 focus:ring-purple-500/50 active:scale-95"
             >
               <span class="relative z-10 flex items-center gap-3">
-                Contact opnemen
+                Demo aanvragen
                 <svg
                   class="h-6 w-6 transition-transform duration-300 group-hover:translate-x-1"
                   fill="none"
@@ -64,31 +66,887 @@ import App from "../layouts/App.astro";
           </div>
         </div>
       </section>
-      <section class="h-svh bg-white">
-        <div class="relative h-96 w-80 ml-12">
-          <div
-            class="bg-white absolute top-0 left-0 h-96 w-96 -skew-4 rounded-lg shadow-xl"
-          >
-            Afbeelding
-          </div>
-          <div
-            class="bg-white absolute top-8 left-8 h-96 w-96 -skew-4 rounded-lg shadow-xl"
-          >
-            Afbeelding
-          </div>
-          <div
-            class="bg-white absolute top-16 left-16 h-96 w-96 -skew-4 rounded-lg shadow-xl"
-          >
-            Afbeelding
-          </div>
-          <div
-            class="bg-white absolute top-24 left-24 h-96 w-96 -skew-4 rounded-lg shadow-xl"
-          >
-            Afbeelding
+      <!-- Intro Section -->
+      <section
+        class="min-h-svh bg-gradient-to-br from-white to-purple-50 py-20 px-16"
+      >
+        <div class="max-w-7xl mx-auto">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <!-- Text Content -->
+            <div class="intro-content" data-intro-content>
+              <div class="mb-8">
+                <span
+                  class="inline-block px-4 py-2 bg-purple-100 text-purple-700 rounded-full text-sm font-semibold mb-6"
+                >
+                  ✨ Ontdek ons verhaal
+                </span>
+                <h2 class="text-5xl font-bold text-purple-900 mb-6 split-intro">
+                  Van uitdaging naar <br />
+                  <span
+                    class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600"
+                  >
+                    innovatie
+                  </span>
+                </h2>
+                <p class="text-xl text-purple-700 leading-relaxed mb-8">
+                  Toen Nadine merkte dat traditionele recruitment Gen-Z
+                  kandidaten niet meer bereikte, besloot ze het roer om te
+                  gooien. Wat begon als een persoonlijke frustratie, groeide uit
+                  tot een revolutionaire aanpak die de recruitment wereld
+                  verandert.
+                </p>
+              </div>
+
+              <div class="space-y-6 mb-8">
+                <div class="flex items-start gap-4">
+                  <div
+                    class="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center flex-shrink-0"
+                  >
+                    <svg
+                      class="w-6 h-6 text-white"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 class="text-lg font-semibold text-gray-800 mb-2">
+                      Het probleem
+                    </h4>
+                    <p class="text-gray-600">
+                      67% van Gen-Z kandidaten haakt af bij traditionele
+                      sollicitatieprocedures. Lange formulieren en generieke
+                      vacatures spreken hen niet aan.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="flex items-start gap-4">
+                  <div
+                    class="w-12 h-12 bg-gradient-to-br from-pink-500 to-purple-500 rounded-full flex items-center justify-center flex-shrink-0"
+                  >
+                    <svg
+                      class="w-6 h-6 text-white"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 class="text-lg font-semibold text-gray-800 mb-2">
+                      Onze oplossing
+                    </h4>
+                    <p class="text-gray-600">
+                      Een interactief jobplatform dat Gen-Z aanspreekt met video
+                      content, gamification en authentieke bedrijfsverhalen.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="flex items-start gap-4">
+                  <div
+                    class="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center flex-shrink-0"
+                  >
+                    <svg
+                      class="w-6 h-6 text-white"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 class="text-lg font-semibold text-gray-800 mb-2">
+                      Het resultaat
+                    </h4>
+                    <p class="text-gray-600">
+                      3x meer succesvolle matches en 85% hogere
+                      kandidaattevredenheid binnen de eerste maand.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex flex-col sm:flex-row gap-4">
+                <button
+                  class="group relative overflow-hidden rounded-2xl bg-gradient-to-r from-purple-600 via-pink-600 to-purple-800 px-8 py-4 text-lg font-semibold text-white shadow-2xl transition-all duration-300 hover:scale-105 hover:shadow-purple-500/25 focus:outline-none focus:ring-4 focus:ring-purple-500/50 active:scale-95"
+                  data-nadine-story-btn
+                >
+                  <span class="relative z-10 flex items-center gap-3">
+                    Nadine's verhaal
+                    <svg
+                      class="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1m4 0h1m-6 4h8m-9-4V8a3 3 0 013-3h6a3 3 0 013 3v2M7 21h10a2 2 0 002-2v-5a2 2 0 00-2-2H7a2 2 0 00-2 2v5a2 2 0 002 2z"
+                      ></path>
+                    </svg>
+                  </span>
+                  <div
+                    class="absolute inset-0 bg-gradient-to-r from-purple-700 via-pink-700 to-purple-900 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                  >
+                  </div>
+                </button>
+
+                <button
+                  class="group relative overflow-hidden rounded-2xl border-2 border-purple-600 px-8 py-4 text-lg font-semibold text-purple-600 transition-all duration-300 hover:bg-purple-600 hover:text-white focus:outline-none focus:ring-4 focus:ring-purple-500/50 active:scale-95"
+                  data-platform-demo-btn
+                >
+                  <span class="relative z-10 flex items-center gap-3">
+                    Platform demo
+                    <svg
+                      class="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1m4 0h1m-6 4h8m-9-4V8a3 3 0 013-3h6a3 3 0 013 3v2M7 21h10a2 2 0 002-2v-5a2 2 0 00-2-2H7a2 2 0 00-2 2v5a2 2 0 002 2z"
+                      ></path>
+                    </svg>
+                  </span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Visual Content -->
+            <div class="intro-visual" data-intro-visual>
+              <div class="relative">
+                <!-- Main Image/Video Placeholder -->
+                <div
+                  class="relative rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-purple-400 to-pink-500 aspect-video"
+                >
+                  <div
+                    class="absolute inset-0 flex items-center justify-center"
+                  >
+                    <div class="text-center text-white">
+                      <div
+                        class="w-20 h-20 bg-white bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4"
+                      >
+                        <svg
+                          class="w-10 h-10"
+                          fill="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path d="M8 5v14l11-7z"></path>
+                        </svg>
+                      </div>
+                      <h4 class="text-xl font-semibold mb-2">
+                        Nadine's verhaal
+                      </h4>
+                      <p class="text-sm opacity-90">Ontdek hoe alles begon</p>
+                    </div>
+                  </div>
+                  <div
+                    class="absolute inset-0 bg-black bg-opacity-20 hover:bg-opacity-10 transition-all duration-300 cursor-pointer"
+                    data-video-overlay
+                  >
+                  </div>
+                </div>
+
+                <!-- Floating Stats -->
+                <div
+                  class="absolute -bottom-6 -left-6 bg-white rounded-2xl p-6 shadow-xl"
+                >
+                  <div class="text-center">
+                    <div class="text-3xl font-bold text-purple-600 mb-1">
+                      3x
+                    </div>
+                    <div class="text-sm text-gray-600">Meer matches</div>
+                  </div>
+                </div>
+
+                <div
+                  class="absolute -top-6 -right-6 bg-white rounded-2xl p-6 shadow-xl"
+                >
+                  <div class="text-center">
+                    <div class="text-3xl font-bold text-pink-600 mb-1">85%</div>
+                    <div class="text-sm text-gray-600">Tevredenheid</div>
+                  </div>
+                </div>
+
+                <!-- Decorative Elements -->
+                <div
+                  class="absolute -z-10 top-8 left-8 w-32 h-32 bg-purple-200 rounded-full opacity-50"
+                >
+                </div>
+                <div
+                  class="absolute -z-10 bottom-8 right-8 w-24 h-24 bg-pink-200 rounded-full opacity-50"
+                >
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
-      <section class="h-svh bg-green-500">Astro</section>
+      <!-- Facts & Figures Section -->
+      <section
+        class="h-svh bg-gradient-to-br from-purple-100 to-purple-200 flex items-center justify-center px-16"
+      >
+        <div class="max-w-7xl mx-auto">
+          <div class="text-center mb-16">
+            <h2 class="text-6xl font-bold text-purple-900 mb-6">
+              Facts & Figures
+            </h2>
+            <p class="text-xl text-purple-700 max-w-3xl mx-auto">
+              Gen-Z recruitment is evolving rapidly. Here's what the data tells
+              us about reaching the next generation of talent.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- Statistic 1 -->
+            <div
+              class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 text-center"
+            >
+              <div class="text-5xl font-bold text-purple-600 mb-4">72%</div>
+              <h3 class="text-xl font-semibold text-gray-800 mb-2">
+                Mobile-First
+              </h3>
+              <p class="text-gray-600">
+                of Gen-Z job seekers use mobile devices as their primary job
+                search tool
+              </p>
+            </div>
+
+            <!-- Statistic 2 -->
+            <div
+              class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 text-center"
+            >
+              <div class="text-5xl font-bold text-pink-600 mb-4">3.2s</div>
+              <h3 class="text-xl font-semibold text-gray-800 mb-2">
+                Attention Span
+              </h3>
+              <p class="text-gray-600">
+                average time Gen-Z spends on a job posting before deciding to
+                apply
+              </p>
+            </div>
+
+            <!-- Statistic 3 -->
+            <div
+              class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 text-center"
+            >
+              <div class="text-5xl font-bold text-purple-600 mb-4">89%</div>
+              <h3 class="text-xl font-semibold text-gray-800 mb-2">
+                Social Proof
+              </h3>
+              <p class="text-gray-600">
+                want to see company culture and employee testimonials before
+                applying
+              </p>
+            </div>
+
+            <!-- Statistic 4 -->
+            <div
+              class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 text-center"
+            >
+              <div class="text-5xl font-bold text-pink-600 mb-4">45%</div>
+              <h3 class="text-xl font-semibold text-gray-800 mb-2">
+                Video Content
+              </h3>
+              <p class="text-gray-600">
+                prefer video job descriptions over traditional text-based
+                postings
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="mt-16 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
+          >
+            <div>
+              <h3 class="text-3xl font-bold text-purple-900 mb-6">
+                Why Traditional Recruitment Fails
+              </h3>
+              <ul class="space-y-4 text-lg text-purple-700">
+                <li class="flex items-start gap-3">
+                  <span class="text-red-500 text-xl">✗</span>
+                  <span
+                    >Lengthy application processes lose 67% of candidates</span
+                  >
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="text-red-500 text-xl">✗</span>
+                  <span
+                    >Generic job descriptions don't resonate with Gen-Z values</span
+                  >
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="text-red-500 text-xl">✗</span>
+                  <span
+                    >Lack of transparency about company culture and growth
+                    opportunities</span
+                  >
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 class="text-3xl font-bold text-purple-900 mb-6">
+                Our Approach Works
+              </h3>
+              <ul class="space-y-4 text-lg text-purple-700">
+                <li class="flex items-start gap-3">
+                  <span class="text-green-500 text-xl">✓</span>
+                  <span>3x higher application completion rates</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="text-green-500 text-xl">✓</span>
+                  <span
+                    >Authentic storytelling that showcases real company culture</span
+                  >
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="text-green-500 text-xl">✓</span>
+                  <span
+                    >Interactive content that engages and informs simultaneously</span
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Logo Section with Infinite Scroll -->
+      <section class="h-24 bg-purple-100 w-full overflow-hidden relative">
+        <div class="logo-scroll-container flex items-center h-full">
+          <div class="logo-scroll-track flex items-center gap-16 h-full">
+            <!-- First set of logos -->
+            <div
+              class="flex items-center justify-center h-16 w-32 bg-white rounded-lg shadow-md"
+            >
+              <span class="text-purple-600 font-bold text-lg">TechCorp</span>
+            </div>
+            <div
+              class="flex items-center justify-center h-16 w-32 bg-white rounded-lg shadow-md"
+            >
+              <span class="text-pink-600 font-bold text-lg">InnovateLab</span>
+            </div>
+            <div
+              class="flex items-center justify-center h-16 w-32 bg-white rounded-lg shadow-md"
+            >
+              <span class="text-purple-600 font-bold text-lg">StartupX</span>
+            </div>
+            <div
+              class="flex items-center justify-center h-16 w-32 bg-white rounded-lg shadow-md"
+            >
+              <span class="text-pink-600 font-bold text-lg">FutureWorks</span>
+            </div>
+            <div
+              class="flex items-center justify-center h-16 w-32 bg-white rounded-lg shadow-md"
+            >
+              <span class="text-purple-600 font-bold text-lg">NextGen</span>
+            </div>
+            <div
+              class="flex items-center justify-center h-16 w-32 bg-white rounded-lg shadow-md"
+            >
+              <span class="text-pink-600 font-bold text-lg">DigitalFirst</span>
+            </div>
+
+            <!-- Duplicate set for seamless loop -->
+            <div
+              class="flex items-center justify-center h-16 w-32 bg-white rounded-lg shadow-md"
+            >
+              <span class="text-purple-600 font-bold text-lg">TechCorp</span>
+            </div>
+            <div
+              class="flex items-center justify-center h-16 w-32 bg-white rounded-lg shadow-md"
+            >
+              <span class="text-pink-600 font-bold text-lg">InnovateLab</span>
+            </div>
+            <div
+              class="flex items-center justify-center h-16 w-32 bg-white rounded-lg shadow-md"
+            >
+              <span class="text-purple-600 font-bold text-lg">StartupX</span>
+            </div>
+            <div
+              class="flex items-center justify-center h-16 w-32 bg-white rounded-lg shadow-md"
+            >
+              <span class="text-pink-600 font-bold text-lg">FutureWorks</span>
+            </div>
+            <div
+              class="flex items-center justify-center h-16 w-32 bg-white rounded-lg shadow-md"
+            >
+              <span class="text-purple-600 font-bold text-lg">NextGen</span>
+            </div>
+            <div
+              class="flex items-center justify-center h-16 w-32 bg-white rounded-lg shadow-md"
+            >
+              <span class="text-pink-600 font-bold text-lg">DigitalFirst</span>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section
+        class="h-svh bg-purple-300 flex px-64 gap-16 justify-center items-center relative"
+      >
+        <div class="w-full">
+          <div>
+            <h1 class="text-8xl font-normal text-white split">
+              Join onze <br /> Squad!
+            </h1>
+            <button
+              class="group relative mt-8 overflow-hidden rounded-2xl bg-gradient-to-r from-purple-600 via-pink-600 to-purple-800 px-8 py-4 text-2xl font-semibold text-white shadow-2xl transition-all duration-300 hover:scale-105 hover:shadow-purple-500/25 focus:outline-none focus:ring-4 focus:ring-purple-500/50 active:scale-95"
+            >
+              <span class="relative z-10 flex items-center gap-3">
+                Join
+                <svg
+                  class="h-6 w-6 transition-transform duration-300 group-hover:translate-x-1"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                </svg>
+              </span>
+              <div
+                class="absolute inset-0 bg-gradient-to-r from-purple-700 via-pink-700 to-purple-900 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+              >
+              </div>
+            </button>
+          </div>
+        </div>
+        <div class="relative w-full flex">
+          <!-- Photo Gallery -->
+          <div class="w-full grid grid-cols-2 gap-6">
+            <div class="relative group overflow-hidden rounded-2xl shadow-lg">
+              <div
+                class="h-64 bg-gradient-to-br from-purple-400 to-pink-500 flex items-center justify-center"
+              >
+                <div class="text-center text-white">
+                  <div class="text-6xl mb-4">👥</div>
+                  <h4 class="text-xl font-semibold">Team Collaboration</h4>
+                  <p class="text-sm opacity-90">
+                    Gen-Z thrives in collaborative environments
+                  </p>
+                </div>
+              </div>
+              <div
+                class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300"
+              >
+              </div>
+            </div>
+
+            <div class="relative group overflow-hidden rounded-2xl shadow-lg">
+              <div
+                class="h-64 bg-gradient-to-br from-pink-400 to-purple-500 flex items-center justify-center"
+              >
+                <div class="text-center text-white">
+                  <div class="text-6xl mb-4">🚀</div>
+                  <h4 class="text-xl font-semibold">Innovation Focus</h4>
+                  <p class="text-sm opacity-90">
+                    Cutting-edge projects attract top talent
+                  </p>
+                </div>
+              </div>
+              <div
+                class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300"
+              >
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Blog Section -->
+      <section
+        class="min-h-svh bg-gradient-to-br from-purple-50 to-pink-50 py-20 px-16"
+      >
+        <div class="max-w-7xl mx-auto">
+          <div class="text-center mb-16">
+            <h2 class="text-6xl font-bold text-purple-900 mb-6">
+              Latest Insights
+            </h2>
+            <p class="text-xl text-purple-700 max-w-3xl mx-auto">
+              Stay ahead of the curve with our latest research and insights on
+              Gen-Z recruitment trends.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Blog Post 1 -->
+            <article
+              class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 group"
+            >
+              <div
+                class="h-48 bg-gradient-to-br from-purple-400 to-pink-500 relative overflow-hidden"
+              >
+                <div
+                  class="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-10 transition-all duration-300"
+                >
+                </div>
+                <div class="absolute bottom-4 left-4 text-white">
+                  <span
+                    class="bg-white bg-opacity-20 px-3 py-1 rounded-full text-sm font-medium"
+                    >Trends</span
+                  >
+                </div>
+              </div>
+              <div class="p-6">
+                <h3
+                  class="text-xl font-bold text-gray-900 mb-3 group-hover:text-purple-600 transition-colors duration-300"
+                >
+                  The Rise of Video-First Job Applications
+                </h3>
+                <p class="text-gray-600 mb-4 line-clamp-3">
+                  Discover how Gen-Z candidates are revolutionizing the
+                  application process with video submissions and what this means
+                  for recruiters.
+                </p>
+                <div class="flex items-center justify-between">
+                  <span class="text-sm text-gray-500">March 15, 2024</span>
+                  <button
+                    class="text-purple-600 font-medium hover:text-purple-800 transition-colors duration-300"
+                  >
+                    Read More →
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            <!-- Blog Post 2 -->
+            <article
+              class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 group"
+            >
+              <div
+                class="h-48 bg-gradient-to-br from-pink-400 to-purple-500 relative overflow-hidden"
+              >
+                <div
+                  class="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-10 transition-all duration-300"
+                >
+                </div>
+                <div class="absolute bottom-4 left-4 text-white">
+                  <span
+                    class="bg-white bg-opacity-20 px-3 py-1 rounded-full text-sm font-medium"
+                    >Strategy</span
+                  >
+                </div>
+              </div>
+              <div class="p-6">
+                <h3
+                  class="text-xl font-bold text-gray-900 mb-3 group-hover:text-purple-600 transition-colors duration-300"
+                >
+                  Building Authentic Employer Brands for Gen-Z
+                </h3>
+                <p class="text-gray-600 mb-4 line-clamp-3">
+                  Learn the key strategies for creating an employer brand that
+                  resonates with Gen-Z values and attracts top young talent.
+                </p>
+                <div class="flex items-center justify-between">
+                  <span class="text-sm text-gray-500">March 10, 2024</span>
+                  <button
+                    class="text-purple-600 font-medium hover:text-purple-800 transition-colors duration-300"
+                  >
+                    Read More →
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            <!-- Blog Post 3 -->
+            <article
+              class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 group"
+            >
+              <div
+                class="h-48 bg-gradient-to-br from-purple-500 to-pink-400 relative overflow-hidden"
+              >
+                <div
+                  class="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-10 transition-all duration-300"
+                >
+                </div>
+                <div class="absolute bottom-4 left-4 text-white">
+                  <span
+                    class="bg-white bg-opacity-20 px-3 py-1 rounded-full text-sm font-medium"
+                    >Research</span
+                  >
+                </div>
+              </div>
+              <div class="p-6">
+                <h3
+                  class="text-xl font-bold text-gray-900 mb-3 group-hover:text-purple-600 transition-colors duration-300"
+                >
+                  Mobile-First Recruitment: A Gen-Z Necessity
+                </h3>
+                <p class="text-gray-600 mb-4 line-clamp-3">
+                  Explore our latest research on mobile recruitment trends and
+                  why a mobile-first approach is crucial for reaching Gen-Z
+                  candidates.
+                </p>
+                <div class="flex items-center justify-between">
+                  <span class="text-sm text-gray-500">March 5, 2024</span>
+                  <button
+                    class="text-purple-600 font-medium hover:text-purple-800 transition-colors duration-300"
+                  >
+                    Read More →
+                  </button>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div class="text-center mt-12">
+            <button
+              class="group relative overflow-hidden rounded-2xl bg-gradient-to-r from-purple-600 via-pink-600 to-purple-800 px-8 py-4 text-xl font-semibold text-white shadow-2xl transition-all duration-300 hover:scale-105 hover:shadow-purple-500/25 focus:outline-none focus:ring-4 focus:ring-purple-500/50 active:scale-95"
+            >
+              <span class="relative z-10 flex items-center gap-3">
+                View All Articles
+                <svg
+                  class="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                </svg>
+              </span>
+              <div
+                class="absolute inset-0 bg-gradient-to-r from-purple-700 via-pink-700 to-purple-900 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+              >
+              </div>
+            </button>
+          </div>
+        </div>
+      </section>
+      <!-- Contact Section -->
+      <section
+        class="min-h-svh bg-gradient-to-br from-purple-50 to-pink-50 py-20 px-16"
+      >
+        <ContactForm />
+      </section>
     </App>
   </body>
 </html>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  import { SplitText } from "gsap/SplitText";
+
+  gsap.registerPlugin(SplitText, ScrollTrigger);
+
+  // Text animation
+  let split = SplitText.create(".split", { type: "words, chars" });
+  gsap.from(split.chars, {
+    duration: 1,
+    y: 100, // animate from 100px below
+    autoAlpha: 0, // fade in from opacity: 0 and visibility: hidden
+    stagger: 0.05, // 0.05 seconds between each
+  });
+
+  // Intro section animations
+  function initIntroAnimations(): void {
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    if (prefersReducedMotion) return;
+
+    // Animate intro title
+    const introTitle = document.querySelector(".split-intro");
+    if (introTitle) {
+      const split = SplitText.create(introTitle, { type: "words, chars" });
+      gsap.fromTo(
+        split.chars,
+        { opacity: 0, y: 100 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          stagger: 0.05,
+          scrollTrigger: {
+            trigger: introTitle,
+            start: "top 80%",
+            end: "bottom 20%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+    }
+
+    // Animate intro content
+    const introContent = document.querySelector("[data-intro-content]");
+    if (introContent) {
+      gsap.fromTo(
+        introContent,
+        { opacity: 0, x: -50 },
+        {
+          opacity: 1,
+          x: 0,
+          duration: 0.8,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: introContent,
+            start: "top 80%",
+            end: "bottom 20%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+    }
+
+    // Animate intro visual
+    const introVisual = document.querySelector("[data-intro-visual]");
+    if (introVisual) {
+      gsap.fromTo(
+        introVisual,
+        { opacity: 0, x: 50 },
+        {
+          opacity: 1,
+          x: 0,
+          duration: 0.8,
+          ease: "power2.out",
+          delay: 0.2,
+          scrollTrigger: {
+            trigger: introVisual,
+            start: "top 80%",
+            end: "bottom 20%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+    }
+  }
+
+  // Button functionality
+  function initButtonHandlers(): void {
+    // Nadine's story button
+    const nadineBtn = document.querySelector("[data-nadine-story-btn]");
+    if (nadineBtn) {
+      nadineBtn.addEventListener("click", () => {
+        // Placeholder for Nadine's story modal or page navigation
+        console.log("Opening Nadine's story...");
+        // You can implement modal or navigation logic here
+      });
+    }
+
+    // Platform demo button
+    const demoBtn = document.querySelector("[data-platform-demo-btn]");
+    if (demoBtn) {
+      demoBtn.addEventListener("click", () => {
+        // Scroll to contact form or open demo
+        const contactSection = document.querySelector("[data-contact-form]");
+        if (contactSection) {
+          contactSection.scrollIntoView({ behavior: "smooth" });
+        }
+      });
+    }
+
+    // Video overlay click handler
+    const videoOverlay = document.querySelector("[data-video-overlay]");
+    if (videoOverlay) {
+      videoOverlay.addEventListener("click", () => {
+        // Placeholder for video modal
+        console.log("Opening video...");
+        // You can implement video modal logic here
+      });
+    }
+  }
+
+  // Infinite logo scroll animation
+  function initLogoScroll(): void {
+    const logoTrack = document.querySelector(
+      ".logo-scroll-track"
+    ) as HTMLElement;
+    if (!logoTrack) return;
+
+    // Check for reduced motion preference
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    if (prefersReducedMotion) {
+      // If user prefers reduced motion, don't animate
+      return;
+    }
+
+    // Calculate the width of half the logos (since we duplicated them)
+    const logoItems = logoTrack.children;
+    const halfWidth = Array.from(logoItems)
+      .slice(0, logoItems.length / 2)
+      .reduce((total, item) => {
+        const element = item as HTMLElement;
+        return total + element.offsetWidth + 64; // 64px is the gap (gap-16 = 4rem = 64px)
+      }, 0);
+
+    // Set initial position
+    gsap.set(logoTrack, { x: 0 });
+
+    // Create infinite scroll animation
+    const tl = gsap.timeline({ repeat: -1 });
+    tl.to(logoTrack, {
+      x: -halfWidth,
+      duration: 20, // Adjust speed as needed
+      ease: "none",
+    });
+
+    // Pause/resume animation based on visibility and user preference
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          tl.play();
+        } else {
+          tl.pause();
+        }
+      });
+    });
+
+    const parentElement = logoTrack.parentElement;
+    if (parentElement) {
+      observer.observe(parentElement);
+    }
+
+    // Listen for changes in motion preference
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    mediaQuery.addEventListener("change", (e) => {
+      if (e.matches) {
+        tl.pause();
+        gsap.set(logoTrack, { x: 0 });
+      } else {
+        tl.play();
+      }
+    });
+  }
+
+  // Initialize when DOM is ready
+  document.addEventListener("DOMContentLoaded", () => {
+    initIntroAnimations();
+    initButtonHandlers();
+    initLogoScroll();
+  });
+</script>

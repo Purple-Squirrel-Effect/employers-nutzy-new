@@ -40,3 +40,20 @@ button {
   ); /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to right, #cc2b5e, #753a88);
 }
+
+/* Line clamp utility for blog excerpts */
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Ensure smooth scrolling for logo animation */
+.logo-scroll-container {
+  will-change: transform;
+}
+
+.logo-scroll-track {
+  will-change: transform;
+}
