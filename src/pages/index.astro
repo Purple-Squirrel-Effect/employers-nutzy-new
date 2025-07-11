@@ -30,7 +30,7 @@ import App from "../layouts/App.astro";
 
       <!-- Hero Section -->
       <section
-        class="h-svh rose-bg flex px-16 gap-16 justify-center items-center relative"
+        class="hero-section rose-bg flex px-16 gap-16 justify-center items-center relative"
       >
         <div class="w-1/3">
           <div>
@@ -981,3 +981,33 @@ import App from "../layouts/App.astro";
     initLogoScroll();
   });
 </script>
+
+<style>
+  /* Hero section responsive height compensation for fixed header */
+  .hero-section {
+    min-height: calc(100svh - 4rem); /* Mobile: account for 64px header */
+    padding-top: 4rem; /* Mobile: 64px header height */
+  }
+
+  @media (min-width: 1024px) {
+    .hero-section {
+      min-height: calc(100svh - 5rem); /* Desktop: account for 80px header */
+      padding-top: 5rem; /* Desktop: 80px header height */
+    }
+  }
+
+  /* Ensure proper spacing for responsive design */
+  @media (max-width: 768px) {
+    .hero-section {
+      padding-left: 2rem;
+      padding-right: 2rem;
+      gap: 2rem;
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .hero-section .w-1\/3 {
+      width: 100%;
+    }
+  }
+</style>
