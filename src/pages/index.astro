@@ -1,16 +1,94 @@
 ---
-
+import App from "../layouts/App.astro";
 ---
 
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Astro</title>
+  </head>
+  <body>
+    <App>
+      <section
+        class="h-svh rose-bg flex px-16 gap-16 justify-center items-center relative"
+      >
+        <div class="w-1/3">
+          <div>
+            <h1 class="text-8xl font-normal text-white">
+              Moeite met <br /> Gen-z <br /> bereiken?
+            </h1>
+            <button
+              class="group relative mt-8 overflow-hidden rounded-2xl bg-gradient-to-r from-purple-600 via-pink-600 to-purple-800 px-8 py-4 text-2xl font-semibold text-white shadow-2xl transition-all duration-300 hover:scale-105 hover:shadow-purple-500/25 focus:outline-none focus:ring-4 focus:ring-purple-500/50 active:scale-95"
+            >
+              <span class="relative z-10 flex items-center gap-3">
+                Contact opnemen
+                <svg
+                  class="h-6 w-6 transition-transform duration-300 group-hover:translate-x-1"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                </svg>
+              </span>
+              <div
+                class="absolute inset-0 bg-gradient-to-r from-purple-700 via-pink-700 to-purple-900 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+              >
+              </div>
+            </button>
+          </div>
+        </div>
+        <div class="relative w-full flex">
+          <div class="w-1/3 relative z-10 rounded-lg bg-white">
+            <img
+              class="rounded-lg shadow-2xl"
+              src="/img/joboffer.png"
+              alt="Product 1"
+            />
+          </div>
+          <div
+            class="min-w-lg w-3/4 h-60 relative z-0 bg-white rounded-lg -translate-x-12 -translate-y-24"
+          >
+            <img
+              class="rounded-lg shadow-2xl"
+              src="/img/fanpage.png"
+              alt="Product 1"
+            />
+          </div>
+        </div>
+      </section>
+      <section class="h-svh bg-white">
+        <div class="relative h-96 w-80 ml-12">
+          <div
+            class="bg-white absolute top-0 left-0 h-96 w-96 -skew-4 rounded-lg shadow-xl"
+          >
+            Afbeelding
+          </div>
+          <div
+            class="bg-white absolute top-8 left-8 h-96 w-96 -skew-4 rounded-lg shadow-xl"
+          >
+            Afbeelding
+          </div>
+          <div
+            class="bg-white absolute top-16 left-16 h-96 w-96 -skew-4 rounded-lg shadow-xl"
+          >
+            Afbeelding
+          </div>
+          <div
+            class="bg-white absolute top-24 left-24 h-96 w-96 -skew-4 rounded-lg shadow-xl"
+          >
+            Afbeelding
+          </div>
+        </div>
+      </section>
+      <section class="h-svh bg-green-500">Astro</section>
+    </App>
+  </body>
 </html>
