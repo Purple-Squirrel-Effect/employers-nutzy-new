@@ -1,0 +1,364 @@
+---
+export interface Props {
+  cards?: Array<{
+    id: string;
+    image: string;
+    alt: string;
+    title?: string;
+    subtitle?: string;
+    backgroundColor?: string;
+  }>;
+  className?: string;
+}
+
+const {
+  cards = [
+    {
+      id: "card-1",
+      image: "/api/placeholder/300/200",
+      alt: "Brand Card 1",
+      title: "gotiket",
+      backgroundColor: "bg-blue-600",
+    },
+    {
+      id: "card-2",
+      image: "/api/placeholder/280/180",
+      alt: "Brand Card 2",
+      title: "Rijksen",
+      subtitle: "Web Designer",
+      backgroundColor: "bg-white",
+    },
+    {
+      id: "card-3",
+      image: "/api/placeholder/320/220",
+      alt: "Brand Card 3",
+      title: "gotiket",
+      backgroundColor: "bg-purple-700",
+    },
+    {
+      id: "card-4",
+      image: "/api/placeholder/290/190",
+      alt: "Brand Card 4",
+      title: "Aleksandrs Baskakows",
+      backgroundColor: "bg-white",
+    },
+    {
+      id: "card-5",
+      image: "/api/placeholder/310/210",
+      alt: "Brand Card 5",
+      backgroundColor: "bg-blue-900",
+    },
+    {
+      id: "card-6",
+      image: "/api/placeholder/300/200",
+      alt: "Brand Card 6",
+      title: "gotiket",
+      backgroundColor: "bg-white",
+    },
+  ],
+  className = "",
+} = Astro.props;
+---
+
+<div
+  class={`scattered-gallery-container relative w-full min-h-screen bg-gradient-to-br from-blue-400 via-blue-500 to-blue-600 overflow-hidden ${className}`}
+>
+  <!-- Background pattern -->
+  <div class="absolute inset-0 opacity-10">
+    <div class="absolute top-10 left-10 w-4 h-4 bg-white rounded-full"></div>
+    <div class="absolute top-20 left-32 w-3 h-3 bg-white rounded-full"></div>
+    <div class="absolute top-32 left-20 w-2 h-2 bg-white rounded-full"></div>
+    <div class="absolute top-40 left-48 w-3 h-3 bg-white rounded-full"></div>
+    <div class="absolute top-16 right-20 w-4 h-4 bg-white rounded-full"></div>
+    <div class="absolute top-36 right-32 w-2 h-2 bg-white rounded-full"></div>
+    <div class="absolute bottom-20 left-16 w-3 h-3 bg-white rounded-full"></div>
+    <div class="absolute bottom-32 right-24 w-4 h-4 bg-white rounded-full">
+    </div>
+  </div>
+
+  <!-- Cards container -->
+  <div class="relative w-full h-full p-8 md:p-16" id="cards-container">
+    {
+      cards.map((card, index) => (
+        <div
+          class={`gallery-card absolute ${card.backgroundColor} rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-3xl hover:z-50`}
+          data-card-id={card.id}
+          data-index={index}
+          data-card
+        >
+          {card.image && (
+            <img
+              src={card.image}
+              alt={card.alt}
+              class="w-full h-full object-cover"
+              loading="lazy"
+            />
+          )}
+
+          {(card.title || card.subtitle) && (
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end">
+              <div class="p-4 text-white">
+                {card.title && (
+                  <h3 class="text-lg font-bold mb-1">{card.title}</h3>
+                )}
+                {card.subtitle && (
+                  <p class="text-sm opacity-90">{card.subtitle}</p>
+                )}
+              </div>
+            </div>
+          )}
+        </div>
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  .scattered-gallery-container {
+    position: relative;
+  }
+
+  .gallery-card {
+    cursor: pointer;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+  }
+
+  /* Base card styles - positioning will be handled by JavaScript */
+  .gallery-card {
+    /* Default sizes that will be overridden by JS */
+    width: 280px;
+    height: 200px;
+  }
+
+  /* Mobile responsive adjustments */
+  @media (max-width: 768px) {
+    .gallery-card {
+      width: 200px;
+      height: 150px;
+    }
+  }
+
+  /* Small mobile adjustments */
+  @media (max-width: 480px) {
+    .gallery-card {
+      width: 160px;
+      height: 120px;
+    }
+
+    .scattered-gallery-container {
+      padding: 1rem;
+    }
+  }
+
+  /* Accessibility: Respect reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    .gallery-card {
+      transition: none;
+      transform: none !important;
+    }
+
+    .gallery-card:hover {
+      transform: none !important;
+    }
+  }
+
+  /* Enhanced shadow for hover state */
+  .gallery-card:hover {
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+  }
+</style>
+
+<script>
+  interface CardPosition {
+    x: number;
+    y: number;
+    rotation: number;
+    width: number;
+    height: number;
+    zIndex: number;
+  }
+
+  // Seeded random number generator for consistent but random-looking layout
+  function seededRandom(seed: number): number {
+    const x = Math.sin(seed) * 10000;
+    return x - Math.floor(x);
+  }
+
+  function generateCardPositions(
+    cardCount: number,
+    containerWidth: number,
+    containerHeight: number
+  ): CardPosition[] {
+    const positions: CardPosition[] = [];
+    const padding = 50; // Minimum distance from edges
+    const minDistance = 100; // Minimum distance between card centers
+
+    for (let i = 0; i < cardCount; i++) {
+      let attempts = 0;
+      let position: CardPosition;
+
+      do {
+        // Use index as seed for consistent positioning across reloads
+        const seedX = i * 123 + attempts * 7;
+        const seedY = i * 456 + attempts * 13;
+        const seedRot = i * 789 + attempts * 19;
+        const seedSize = i * 321 + attempts * 11;
+
+        // Generate random position
+        const x =
+          padding + seededRandom(seedX) * (containerWidth - padding * 2 - 300);
+        const y =
+          padding + seededRandom(seedY) * (containerHeight - padding * 2 - 250);
+
+        // Random rotation between -20 and 20 degrees
+        const rotation = (seededRandom(seedRot) - 0.5) * 40;
+
+        // Slight size variation
+        const sizeVariation = seededRandom(seedSize) * 40 - 20;
+        const width = Math.max(200, 280 + sizeVariation);
+        const height = Math.max(150, 200 + sizeVariation * 0.7);
+
+        position = {
+          x,
+          y,
+          rotation,
+          width,
+          height,
+          zIndex: 10 + i,
+        };
+
+        // Check if position overlaps with existing cards
+        const overlaps = positions.some((existingPos) => {
+          const dx = position.x - existingPos.x;
+          const dy = position.y - existingPos.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+          return distance < minDistance;
+        });
+
+        if (!overlaps || attempts > 50) {
+          break;
+        }
+
+        attempts++;
+      } while (attempts < 100);
+
+      positions.push(position);
+    }
+
+    return positions;
+  }
+
+  function applyRandomPositioning() {
+    const container = document.getElementById("cards-container");
+    const cards = document.querySelectorAll(
+      "[data-card]"
+    ) as NodeListOf<HTMLElement>;
+
+    if (!container || cards.length === 0) return;
+
+    const containerRect = container.getBoundingClientRect();
+    const containerWidth = containerRect.width;
+    const containerHeight = Math.max(containerRect.height, window.innerHeight);
+
+    // Generate positions
+    const positions = generateCardPositions(
+      cards.length,
+      containerWidth,
+      containerHeight
+    );
+
+    // Apply positions to cards
+    cards.forEach((card, index) => {
+      const position = positions[index];
+      if (!position) return;
+
+      // Apply responsive sizing
+      const isMobile = window.innerWidth <= 768;
+      const isSmallMobile = window.innerWidth <= 480;
+
+      let finalWidth = position.width;
+      let finalHeight = position.height;
+
+      if (isSmallMobile) {
+        finalWidth = Math.min(finalWidth, 160);
+        finalHeight = Math.min(finalHeight, 120);
+      } else if (isMobile) {
+        finalWidth = Math.min(finalWidth, 200);
+        finalHeight = Math.min(finalHeight, 150);
+      }
+
+      // Apply styles
+      card.style.left = `${position.x}px`;
+      card.style.top = `${position.y}px`;
+      card.style.width = `${finalWidth}px`;
+      card.style.height = `${finalHeight}px`;
+      card.style.transform = `rotate(${position.rotation}deg)`;
+      card.style.zIndex = position.zIndex.toString();
+    });
+  }
+
+  function initializeGallery() {
+    // Apply random positioning
+    applyRandomPositioning();
+
+    const cards = document.querySelectorAll(
+      "[data-card]"
+    ) as NodeListOf<HTMLElement>;
+
+    cards.forEach((card, index) => {
+      // Add keyboard navigation
+      card.setAttribute("tabindex", "0");
+      card.setAttribute("role", "button");
+
+      // Add click handler for potential interactions
+      card.addEventListener("click", () => {
+        console.log(`Card ${index + 1} clicked`);
+        // Add your click logic here
+      });
+
+      // Add keyboard support
+      card.addEventListener("keydown", (e: KeyboardEvent) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          (card as HTMLElement).click();
+        }
+      });
+
+      // Enhanced hover effects (respecting reduced motion)
+      const prefersReducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+      ).matches;
+
+      if (!prefersReducedMotion) {
+        let originalTransform = "";
+
+        card.addEventListener("mouseenter", () => {
+          originalTransform = card.style.transform;
+          card.style.transform =
+            originalTransform + " translateY(-10px) scale(1.05)";
+        });
+
+        card.addEventListener("mouseleave", () => {
+          card.style.transform = originalTransform;
+        });
+      }
+    });
+  }
+
+  // Initialize when DOM is ready
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initializeGallery);
+  } else {
+    initializeGallery();
+  }
+
+  // Re-initialize on navigation (for SPA-like behavior)
+  document.addEventListener("astro:page-load", initializeGallery);
+
+  // Re-position on resize
+  window.addEventListener("resize", () => {
+    clearTimeout((window as any).resizeTimeout);
+    (window as any).resizeTimeout = setTimeout(applyRandomPositioning, 250);
+  });
+</script>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Town SVG Test Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            max-width: 900px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .svg-container {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+            border: 3px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            background: #f9f9f9;
+        }
+
+        .town-svg {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .size-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            background: #667eea;
+            color: white;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .size-btn:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .size-btn.active {
+            background: #764ba2;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .info {
+            background: #f0f8ff;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .info h3 {
+            margin-top: 0;
+            color: #333;
+        }
+
+        .info p {
+            margin-bottom: 0;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .controls {
+                gap: 10px;
+            }
+            
+            .size-btn {
+                padding: 8px 16px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏘️ Town SVG Viewer</h1>
+        
+        <div class="info">
+            <h3>About This Town</h3>
+            <p>This SVG illustration features a charming town scene with three unique houses, trees, mountains, a road, street lamp, and various atmospheric details. The image is fully scalable and uses gradients for realistic lighting effects.</p>
+        </div>
+
+        <div class="controls">
+            <button class="size-btn active" onclick="setSize('100%')">Full Size</button>
+            <button class="size-btn" onclick="setSize('75%')">75%</button>
+            <button class="size-btn" onclick="setSize('50%')">50%</button>
+            <button class="size-btn" onclick="setSize('25%')">25%</button>
+        </div>
+
+        <div class="svg-container">
+            <img src="town.svg" alt="Town SVG Illustration" class="town-svg" id="townSvg">
+        </div>
+
+        <div class="info">
+            <h3>SVG Features</h3>
+            <p><strong>Elements included:</strong> Sky gradient, sun, clouds, mountains, three houses with different architectural styles, trees, road with lane markings, street lamp, wooden fence, flying birds, and a mailbox.</p>
+            <p><strong>Dimensions:</strong> 800x600 pixels (scalable vector format)</p>
+            <p><strong>File:</strong> town.svg</p>
+        </div>
+    </div>
+
+    <script>
+        function setSize(size) {
+            const svg = document.getElementById('townSvg');
+            const buttons = document.querySelectorAll('.size-btn');
+            
+            // Remove active class from all buttons
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+            
+            // Set the size
+            svg.style.width = size;
+            svg.style.height = 'auto';
+        }
+
+        // Add some interactive hover effects
+        document.addEventListener('DOMContentLoaded', function() {
+            const svg = document.getElementById('townSvg');
+            
+            svg.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.02)';
+                this.style.transition = 'transform 0.3s ease';
+            });
+            
+            svg.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>
