@@ -1,0 +1,80 @@
+<svg width="340" height="210" viewBox="0 0 340 210" xmlns="http://www.w3.org/2000/svg">
+  <!-- Job Detail Page Wireframe -->
+  <defs>
+    <pattern id="detailDots" patternUnits="userSpaceOnUse" width="4" height="4">
+      <circle cx="2" cy="2" r="0.5" fill="#9ca3af"/>
+    </pattern>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="340" height="210" fill="#ffffff"/>
+  
+  <!-- Header -->
+  <rect x="0" y="0" width="340" height="35" fill="#ffffff" stroke="#e5e7eb" stroke-width="1"/>
+  
+  <!-- Back Button -->
+  <rect x="15" y="12" width="20" height="12" fill="#f3f4f6" stroke="#d1d5db" stroke-width="1" rx="2"/>
+  <text x="25" y="20" fill="#374151" font-family="Arial, sans-serif" font-size="6" text-anchor="middle">← Back</text>
+  
+  <!-- Company Logo -->
+  <rect x="280" y="10" width="45" height="15" fill="#412683" rx="2"/>
+  <text x="302" y="20" fill="white" font-family="Arial, sans-serif" font-size="6" text-anchor="middle">COMPANY</text>
+  
+  <!-- Job Header -->
+  <rect x="15" y="45" width="220" height="60" fill="#f8fafc" stroke="#e5e7eb" stroke-width="1" rx="6"/>
+  <rect x="25" y="55" width="120" height="10" fill="#374151" rx="2"/>
+  <text x="25" y="67" fill="#374151" font-family="Arial, sans-serif" font-size="8" font-weight="bold">Senior Frontend Developer</text>
+  <rect x="25" y="72" width="80" height="6" fill="#6b7280" rx="1"/>
+  <text x="25" y="80" fill="#6b7280" font-family="Arial, sans-serif" font-size="6">Tech Innovations Inc.</text>
+  <rect x="25" y="85" width="50" height="5" fill="#9ca3af" rx="1"/>
+  <text x="25" y="92" fill="#9ca3af" font-family="Arial, sans-serif" font-size="5">San Francisco, CA</text>
+  <rect x="25" y="95" width="40" height="5" fill="#10b981" rx="1"/>
+  <text x="25" y="102" fill="#10b981" font-family="Arial, sans-serif" font-size="5">$90k - $130k</text>
+  
+  <!-- Apply Button -->
+  <rect x="245" y="45" width="80" height="60" fill="#412683" rx="6"/>
+  <text x="285" y="70" fill="white" font-family="Arial, sans-serif" font-size="10" text-anchor="middle" font-weight="bold">Apply Now</text>
+  <text x="285" y="85" fill="#e9d5ff" font-family="Arial, sans-serif" font-size="6" text-anchor="middle">Quick Apply</text>
+  <circle cx="285" cy="95" r="8" fill="#581c87"/>
+  <text x="285" y="98" fill="white" font-family="Arial, sans-serif" font-size="6" text-anchor="middle">→</text>
+  
+  <!-- Job Details -->
+  <rect x="15" y="115" width="150" height="80" fill="#ffffff"/>
+  
+  <!-- Job Description -->
+  <text x="15" y="130" fill="#374151" font-family="Arial, sans-serif" font-size="8" font-weight="bold">Job Description</text>
+  <rect x="15" y="135" width="140" height="3" fill="#6b7280" rx="1"/>
+  <rect x="15" y="142" width="130" height="3" fill="#6b7280" rx="1"/>
+  <rect x="15" y="149" width="135" height="3" fill="#6b7280" rx="1"/>
+  <rect x="15" y="156" width="120" height="3" fill="#6b7280" rx="1"/>
+  
+  <!-- Requirements -->
+  <text x="15" y="175" fill="#374151" font-family="Arial, sans-serif" font-size="8" font-weight="bold">Requirements</text>
+  <circle cx="20" cy="183" r="1" fill="#412683"/>
+  <rect x="25" y="181" width="100" height="3" fill="#6b7280" rx="1"/>
+  <circle cx="20" cy="190" r="1" fill="#412683"/>
+  <rect x="25" y="188" width="90" height="3" fill="#6b7280" rx="1"/>
+  
+  <!-- Company Info Sidebar -->
+  <rect x="175" y="115" width="150" height="80" fill="#f8fafc" stroke="#e5e7eb" stroke-width="1" rx="6"/>
+  
+  <!-- Company Details -->
+  <text x="185" y="130" fill="#374151" font-family="Arial, sans-serif" font-size="8" font-weight="bold">About Company</text>
+  <rect x="185" y="140" width="60" height="25" fill="url(#detailDots)" stroke="#d1d5db" stroke-width="1" rx="2"/>
+  <rect x="255" y="142" width="60" height="4" fill="#374151" rx="1"/>
+  <rect x="255" y="149" width="55" height="3" fill="#6b7280" rx="1"/>
+  <rect x="255" y="156" width="50" height="3" fill="#6b7280" rx="1"/>
+  
+  <!-- Company Stats -->
+  <rect x="185" y="175" width="40" height="15" fill="#ffffff" stroke="#e5e7eb" stroke-width="1" rx="2"/>
+  <text x="205" y="185" fill="#374151" font-family="Arial, sans-serif" font-size="6" text-anchor="middle" font-weight="bold">500+</text>
+  <text x="205" y="191" fill="#6b7280" font-family="Arial, sans-serif" font-size="4" text-anchor="middle">Employees</text>
+  
+  <rect x="235" y="175" width="40" height="15" fill="#ffffff" stroke="#e5e7eb" stroke-width="1" rx="2"/>
+  <text x="255" y="185" fill="#374151" font-family="Arial, sans-serif" font-size="6" text-anchor="middle" font-weight="bold">2019</text>
+  <text x="255" y="191" fill="#6b7280" font-family="Arial, sans-serif" font-size="4" text-anchor="middle">Founded</text>
+  
+  <rect x="285" y="175" width="35" height="15" fill="#ffffff" stroke="#e5e7eb" stroke-width="1" rx="2"/>
+  <text x="302" y="185" fill="#374151" font-family="Arial, sans-serif" font-size="6" text-anchor="middle" font-weight="bold">Tech</text>
+  <text x="302" y="191" fill="#6b7280" font-family="Arial, sans-serif" font-size="4" text-anchor="middle">Industry</text>
+</svg>

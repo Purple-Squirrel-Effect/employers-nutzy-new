@@ -1,11 +1,15 @@
 ---
+import BrowserMockup from "./BrowserMockup.astro";
+
 export interface Props {
   cards?: Array<{
     id: string;
-    image: string;
+    image?: string;
+    wireframe?: string;
     alt: string;
     title?: string;
     subtitle?: string;
+    websiteType?: string;
     backgroundColor?: string;
   }>;
   className?: string;
@@ -15,44 +19,51 @@ const {
   cards = [
     {
       id: "card-1",
-      image: "/api/placeholder/300/200",
-      alt: "Brand Card 1",
-      title: "gotiket",
+      wireframe: "/img/wireframes/job-board-wireframe.svg",
+      alt: "Job Board Platform",
+      title: "JobFind",
+      websiteType: "job-board",
       backgroundColor: "bg-blue-600",
     },
     {
       id: "card-2",
-      image: "/api/placeholder/280/180",
-      alt: "Brand Card 2",
-      title: "Rijksen",
-      subtitle: "Web Designer",
+      wireframe: "/img/wireframes/linkedin-wireframe.svg",
+      alt: "Professional Network",
+      title: "CareerNet",
+      subtitle: "Professional Platform",
+      websiteType: "professional-network",
       backgroundColor: "bg-white",
     },
     {
       id: "card-3",
-      image: "/api/placeholder/320/220",
-      alt: "Brand Card 3",
-      title: "gotiket",
+      wireframe: "/img/wireframes/job-detail-wireframe.svg",
+      alt: "Job Detail Page",
+      title: "Position View",
+      websiteType: "job-detail",
       backgroundColor: "bg-purple-700",
     },
     {
       id: "card-4",
-      image: "/api/placeholder/290/190",
-      alt: "Brand Card 4",
-      title: "Aleksandrs Baskakows",
+      wireframe: "/img/wireframes/recruitment-dashboard-wireframe.svg",
+      alt: "Recruitment Dashboard",
+      title: "Talent Hub",
+      websiteType: "recruitment-dashboard",
       backgroundColor: "bg-white",
     },
     {
       id: "card-5",
-      image: "/api/placeholder/310/210",
-      alt: "Brand Card 5",
+      wireframe: "/img/wireframes/job-board-wireframe.svg",
+      alt: "Alternative Job Board",
+      title: "TechJobs",
+      websiteType: "job-board",
       backgroundColor: "bg-blue-900",
     },
     {
       id: "card-6",
-      image: "/api/placeholder/300/200",
-      alt: "Brand Card 6",
-      title: "gotiket",
+      wireframe: "/img/wireframes/linkedin-wireframe.svg",
+      alt: "Professional Platform",
+      title: "NetworkPro",
+      websiteType: "professional-network",
       backgroundColor: "bg-white",
     },
   ],
@@ -188,30 +199,58 @@ const {
             {
               cards.map((card, index) => (
                 <div
-                  class={`gallery-card absolute ${card.backgroundColor} rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-3xl hover:z-50 pointer-events-auto`}
+                  class={`gallery-card absolute rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-3xl hover:z-50 pointer-events-auto`}
                   data-card-id={card.id}
                   data-index={index}
                   data-card
                 >
-                  {card.image && (
-                    <img
-                      src={card.image}
-                      alt={card.alt}
-                      class="w-full h-full object-cover"
-                      loading="lazy"
-                    />
-                  )}
+                  <!-- MacBook Mockup Container -->
+                  <div class="macbook-mockup relative w-full h-full">
+                    <!-- MacBook Device Frame -->
+                    <div class="relative z-10 w-full h-full">
+                      <img
+                        src="/img/macbook-mockup.svg"
+                        alt="Browser tab"
+                        class="w-full h-full object-contain"
+                        loading="lazy"
+                      />
 
-                  {(card.title || card.subtitle) && (
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end">
-                      <div class="p-4 text-white">
-                        {card.title && (
-                          <h3 class="text-lg font-bold mb-1">{card.title}</h3>
-                        )}
-                        {card.subtitle && (
-                          <p class="text-sm opacity-90">{card.subtitle}</p>
-                        )}
+                      <!-- Screen Content Overlay -->
+                      <div class="absolute inset-0">
+                        <!-- Screen area positioned to fill the entire tab -->
+                        <div class="screen-content w-full h-full rounded-lg overflow-hidden">
+                          {card.wireframe ? (
+                            <BrowserMockup
+                              wireframeSrc={card.wireframe}
+                              websiteTitle={card.title || "Website"}
+                              className="w-full h-full"
+                            />
+                          ) : card.image ? (
+                            <img
+                              src={card.image}
+                              alt={card.alt}
+                              class="w-full h-full object-cover"
+                              loading="lazy"
+                            />
+                          ) : (
+                            <div class="w-full h-full bg-gray-100 flex items-center justify-center">
+                              <span class="text-gray-400 text-sm">No content</span>
+                            </div>
+                          )}
+                        </div>
                       </div>
+                    </div>
+                  </div>
+
+                  <!-- Card Title Overlay (positioned outside MacBook) -->
+                  {(card.title || card.subtitle) && (
+                    <div class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-white rounded-lg shadow-lg px-3 py-2 text-center min-w-max">
+                      {card.title && (
+                        <h3 class="text-sm font-bold text-gray-800 mb-0.5">{card.title}</h3>
+                      )}
+                      {card.subtitle && (
+                        <p class="text-xs text-gray-600">{card.subtitle}</p>
+                      )}
                     </div>
                   )}
                 </div>
@@ -231,7 +270,7 @@ const {
                 <div
                   class="single-card-placeholder relative"
                   data-single-card-index="0"
-                  style="width: min(400px, 70vw); height: min(600px, 85vh); opacity: 0;"
+                  style="width: min(330px, 70vw); height: min(600px, 85vh); opacity: 0;"
                 >
                   <!-- iPhone Device Frame -->
                   <div class="relative z-10 w-full h-full" data-iphone-device>
@@ -346,8 +385,8 @@ const {
       <!-- End Split Layout Container -->
     </div>
     <!-- End Main Container -->
-    <!-- <section
-      class="hero-section rose-bg flex px-32 py-16 gap-16 justify-center items-center relative"
+    <section
+      class="hero-section bg-[#581C87] flex px-32 py-16 gap-16 justify-center items-center relative"
     >
       <div class="w-3/5">
         <div>
@@ -403,7 +442,7 @@ const {
           />
         </div>
       </div>
-    </section> -->
+    </section>
   </div>
 </div>
 
@@ -617,9 +656,9 @@ const {
 
 <script>
   import { gsap } from "gsap";
-  import { Flip } from "gsap/Flip";
-  import { ScrollSmoother } from "gsap/ScrollSmoother";
-  import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Flip } from "gsap/Flip";
+import { ScrollSmoother } from "gsap/ScrollSmoother";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
   // Register GSAP plugins
   gsap.registerPlugin(Flip, ScrollTrigger, ScrollSmoother);

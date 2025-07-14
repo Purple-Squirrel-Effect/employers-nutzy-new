@@ -1,0 +1,16 @@
+<svg width="400" height="240" viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg">
+  <!-- Browser Tab/Window Only -->
+  <defs>
+    <!-- Screen area mask -->
+    <mask id="screenMask">
+      <rect width="400" height="240" fill="black"/>
+      <rect x="0" y="0" width="400" height="240" rx="8" ry="8" fill="white"/>
+    </mask>
+  </defs>
+
+  <!-- Browser Window Frame -->
+  <rect x="0" y="0" width="400" height="240" rx="8" ry="8" fill="transparent" stroke="#d1d5db" stroke-width="1"/>
+
+  <!-- Screen content area (for clipping) -->
+  <rect id="screen-content" x="0" y="0" width="400" height="240" rx="8" ry="8" fill="transparent" mask="url(#screenMask)"/>
+</svg>
