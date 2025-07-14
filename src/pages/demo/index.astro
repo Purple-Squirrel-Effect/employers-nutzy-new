@@ -135,42 +135,10 @@ const sampleCards = [
     <App>
       <!-- Scattered Card Gallery Demo -->
       <section class="min-h-screen">
-        <ScatteredCardGallery cards={sampleCards} />
-      </section>
-
-      <!-- Additional demo content -->
-      <section class="p-8 bg-white">
-        <div class="max-w-4xl mx-auto">
-          <h2 class="text-3xl font-bold text-gray-800 mb-6">
-            Nutzy Branding Gallery
-          </h2>
-          <p class="text-lg text-gray-600 mb-8">
-            This scattered card gallery component displays brand assets in an
-            engaging, overlapping layout similar to modern design showcases.
-            Each card is fully responsive and includes hover effects.
-          </p>
-
-          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div class="text-center">
-              <div class="bg-purple-700 h-16 w-16 rounded-lg mx-auto mb-2">
-              </div>
-              <span class="text-sm text-gray-600">Purple</span>
-            </div>
-            <div class="text-center">
-              <div class="bg-indigo-700 h-16 w-16 rounded-lg mx-auto mb-2">
-              </div>
-              <span class="text-sm text-gray-600">Indigo</span>
-            </div>
-            <div class="text-center">
-              <div class="bg-blue-600 h-16 w-16 rounded-lg mx-auto mb-2"></div>
-              <span class="text-sm text-gray-600">Blue</span>
-            </div>
-            <div class="text-center">
-              <div class="bg-blue-900 h-16 w-16 rounded-lg mx-auto mb-2"></div>
-              <span class="text-sm text-gray-600">Navy</span>
-            </div>
-          </div>
-        </div>
+        <ScatteredCardGallery
+          className="max-w-7xl mx-auto"
+          cards={sampleCards}
+        />
       </section>
     </App>
   </body>

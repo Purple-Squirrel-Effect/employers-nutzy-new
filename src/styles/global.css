@@ -2,8 +2,147 @@
 
 @import "tailwindcss";
 
+/* ===== CUSTOM FONTS ===== */
+
+/* Cabinet Grotesk - Modern Sans-Serif */
+@font-face {
+  font-family: "Cabinet Grotesk";
+  src: url("/fonts/cabinet-grotesk/CabinetGrotesk-Variable.woff2")
+      format("woff2"),
+    url("/fonts/cabinet-grotesk/CabinetGrotesk-Variable.woff") format("woff");
+  font-weight: 100 900;
+  font-display: swap;
+  font-style: normal;
+}
+
+/* Satoshi - Geometric Sans-Serif */
+@font-face {
+  font-family: "Satoshi";
+  src: url("/fonts/satoshi/Satoshi-Variable.woff2") format("woff2"),
+    url("/fonts/satoshi/Satoshi-Variable.woff") format("woff");
+  font-weight: 300 900;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Satoshi";
+  src: url("/fonts/satoshi/Satoshi-VariableItalic.woff2") format("woff2"),
+    url("/fonts/satoshi/Satoshi-VariableItalic.woff") format("woff");
+  font-weight: 300 900;
+  font-display: swap;
+  font-style: italic;
+}
+
+/* Plein - Serif Font */
+@font-face {
+  font-family: "Plein";
+  src: url("/fonts/plein/Plein-Variable.woff2") format("woff2"),
+    url("/fonts/plein/Plein-Variable.woff") format("woff");
+  font-weight: 300 900;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Plein";
+  src: url("/fonts/plein/Plein-VariableItalic.woff2") format("woff2"),
+    url("/fonts/plein/Plein-VariableItalic.woff") format("woff");
+  font-weight: 300 900;
+  font-display: swap;
+  font-style: italic;
+}
+
+/* Bespoke Stencil - Display Font */
+@font-face {
+  font-family: "Bespoke Stencil";
+  src: url("/fonts/bespoke-stencil/BespokeStencil-Variable.woff2")
+      format("woff2"),
+    url("/fonts/bespoke-stencil/BespokeStencil-Variable.woff") format("woff");
+  font-weight: 300 900;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Bespoke Stencil";
+  src: url("/fonts/bespoke-stencil/BespokeStencil-VariableItalic.woff2")
+      format("woff2"),
+    url("/fonts/bespoke-stencil/BespokeStencil-VariableItalic.woff")
+      format("woff");
+  font-weight: 300 900;
+  font-display: swap;
+  font-style: italic;
+}
+
+/* Anton - Bold Display Font */
+@font-face {
+  font-family: "Anton";
+  src: url("/fonts/anton/Anton-Regular.woff2") format("woff2"),
+    url("/fonts/anton/Anton-Regular.woff") format("woff");
+  font-weight: 400;
+  font-display: swap;
+  font-style: normal;
+}
+
+/* Nunito - Rounded Sans-Serif */
+@font-face {
+  font-family: "Nunito";
+  src: url("/fonts/nunito/Nunito-Variable.woff2") format("woff2"),
+    url("/fonts/nunito/Nunito-Variable.woff") format("woff");
+  font-weight: 200 900;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Nunito";
+  src: url("/fonts/nunito/Nunito-VariableItalic.woff2") format("woff2"),
+    url("/fonts/nunito/Nunito-VariableItalic.woff") format("woff");
+  font-weight: 200 900;
+  font-display: swap;
+  font-style: italic;
+}
+
+/* Switzer - Modern Sans-Serif */
+@font-face {
+  font-family: "Switzer";
+  src: url("/fonts/switzer/Switzer-Variable.woff2") format("woff2"),
+    url("/fonts/switzer/Switzer-Variable.woff") format("woff");
+  font-weight: 100 900;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Switzer";
+  src: url("/fonts/switzer/Switzer-VariableItalic.woff2") format("woff2"),
+    url("/fonts/switzer/Switzer-VariableItalic.woff") format("woff");
+  font-weight: 100 900;
+  font-display: swap;
+  font-style: italic;
+}
+
+/* Tanker - Heavy Display Font */
+@font-face {
+  font-family: "Tanker";
+  src: url("/fonts/tanker/Tanker-Regular.woff2") format("woff2"),
+    url("/fonts/tanker/Tanker-Regular.woff") format("woff");
+  font-weight: 400;
+  font-display: swap;
+  font-style: normal;
+}
+
 @theme {
   --font-family-lexend: "Lexend", sans-serif;
+  --font-family-cabinet-grotesk: "Cabinet Grotesk", sans-serif;
+  --font-family-satoshi: "Satoshi", sans-serif;
+  --font-family-plein: "Plein", serif;
+  --font-family-bespoke-stencil: "Bespoke Stencil", display;
+  --font-family-anton: "Anton", display;
+  --font-family-nunito: "Nunito", sans-serif;
+  --font-family-switzer: "Switzer", sans-serif;
+  --font-family-tanker: "Tanker", display;
 
   /* Purple color palette */
   --color-purple-50: #faf5ff;
@@ -37,11 +176,27 @@
   --color-yellow-300: #fde047;
   --color-yellow-400: #facc15;
   --color-orange-300: #fdba74;
+
+  /* Font family utilities for Tailwind */
+  --font-cabinet-grotesk: var(--font-family-cabinet-grotesk);
+  --font-satoshi: var(--font-family-satoshi);
+  --font-plein: var(--font-family-plein);
+  --font-bespoke-stencil: var(--font-family-bespoke-stencil);
+  --font-anton: var(--font-family-anton);
+  --font-nunito: var(--font-family-nunito);
+  --font-switzer: var(--font-family-switzer);
+  --font-tanker: var(--font-family-tanker);
 }
 
 /* Apply Lexend as default font family */
 body {
-  font-family: var(--font-family-lexend);
+  font-family: var(--font-family-nunito);
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
 }
 
 h1,
@@ -51,7 +206,7 @@ h4,
 h5,
 h6,
 button {
-  font-family: var(--font-family-lexend);
+  font-family: var(--font-family-switzer);
 }
 
 .gradient-1 {
@@ -89,4 +244,65 @@ button {
 
 .logo-scroll-track {
   will-change: transform;
+}
+
+/* VSK-inspired design utilities */
+.vsk-text-balance {
+  text-wrap: balance;
+}
+
+.vsk-section-spacing {
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+}
+
+@media (min-width: 1024px) {
+  .vsk-section-spacing {
+    padding-top: 8rem;
+    padding-bottom: 8rem;
+  }
+}
+
+/* Enhanced focus states for accessibility */
+.vsk-focus-ring:focus {
+  outline: 2px solid #412683;
+  outline-offset: 2px;
+}
+
+/* Smooth transitions for all interactive elements */
+.vsk-transition {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Font utility classes for Tailwind CSS v4 compatibility */
+.font-cabinet-grotesk {
+  font-family: var(--font-family-cabinet-grotesk);
+}
+
+.font-satoshi {
+  font-family: var(--font-family-satoshi);
+}
+
+.font-plein {
+  font-family: var(--font-family-plein);
+}
+
+.font-bespoke-stencil {
+  font-family: var(--font-family-bespoke-stencil);
+}
+
+.font-anton {
+  font-family: var(--font-family-anton);
+}
+
+.font-nunito {
+  font-family: var(--font-family-nunito);
+}
+
+.font-switzer {
+  font-family: var(--font-family-switzer);
+}
+
+.font-tanker {
+  font-family: var(--font-family-tanker);
 }
