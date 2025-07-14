@@ -1,0 +1,47 @@
+<svg width="300" height="600" viewBox="0 0 300 600" xmlns="http://www.w3.org/2000/svg">
+  <!-- iPhone 14/15 Mockup -->
+  <defs>
+    <!-- Screen area mask -->
+    <mask id="screenMask">
+      <rect width="300" height="600" fill="black"/>
+      <rect x="25" y="80" width="250" height="440" rx="35" ry="35" fill="white"/>
+    </mask>
+    
+    <!-- Gradient for device -->
+    <linearGradient id="deviceGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a1a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2d2d2d;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Screen gradient -->
+    <linearGradient id="screenGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#000000;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1a1a1a;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Device body -->
+  <rect x="0" y="0" width="300" height="600" rx="45" ry="45" fill="url(#deviceGradient)" stroke="#333" stroke-width="2"/>
+  
+  <!-- Screen area -->
+  <rect x="25" y="80" width="250" height="440" rx="35" ry="35" fill="url(#screenGradient)" stroke="#444" stroke-width="1"/>
+  
+  <!-- Dynamic Island (iPhone 14 Pro/15 style) -->
+  <rect x="120" y="25" width="60" height="25" rx="12.5" ry="12.5" fill="#000"/>
+  
+  <!-- Speaker -->
+  <rect x="130" y="15" width="40" height="4" rx="2" ry="2" fill="#333"/>
+  
+  <!-- Volume buttons -->
+  <rect x="-2" y="120" width="6" height="25" rx="3" ry="3" fill="#2d2d2d"/>
+  <rect x="-2" y="160" width="6" height="25" rx="3" ry="3" fill="#2d2d2d"/>
+  
+  <!-- Power button -->
+  <rect x="296" y="140" width="6" height="35" rx="3" ry="3" fill="#2d2d2d"/>
+  
+  <!-- Home indicator -->
+  <rect x="125" y="545" width="50" height="4" rx="2" ry="2" fill="#666"/>
+  
+  <!-- Screen content area (for clipping) -->
+  <rect id="screen-content" x="25" y="80" width="250" height="440" rx="35" ry="35" fill="transparent" mask="url(#screenMask)"/>
+</svg>

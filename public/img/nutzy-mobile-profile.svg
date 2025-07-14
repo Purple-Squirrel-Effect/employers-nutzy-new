@@ -1,0 +1,52 @@
+<svg width="250" height="440" viewBox="0 0 250 440" xmlns="http://www.w3.org/2000/svg">
+  <!-- Nutzy Mobile App Profile Screen -->
+  <defs>
+    <!-- Background gradient -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f8fafc;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f1f5f9;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Purple gradient -->
+    <linearGradient id="purpleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#412683;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#581c87;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="250" height="440" fill="url(#bgGradient)"/>
+  
+  <!-- Status bar -->
+  <rect x="0" y="0" width="250" height="40" fill="#412683"/>
+  <text x="20" y="25" fill="white" font-family="Arial, sans-serif" font-size="12" font-weight="bold">9:41</text>
+  <text x="200" y="25" fill="white" font-family="Arial, sans-serif" font-size="12">100%</text>
+  
+  <!-- Header -->
+  <rect x="0" y="40" width="250" height="60" fill="#412683"/>
+  <text x="20" y="75" fill="white" font-family="Arial, sans-serif" font-size="18" font-weight="bold">Mijn Profiel</text>
+  
+  <!-- Profile section -->
+  <rect x="20" y="120" width="210" height="100" rx="12" ry="12" fill="white" stroke="#e5e7eb" stroke-width="1"/>
+  <circle cx="70" cy="155" r="25" fill="url(#purpleGradient)"/>
+  <text x="60" y="162" fill="white" font-family="Arial, sans-serif" font-size="16" font-weight="bold">JD</text>
+  <text x="105" y="150" fill="#1f2937" font-family="Arial, sans-serif" font-size="16" font-weight="bold">Jenna Doe</text>
+  <text x="105" y="165" fill="#6b7280" font-family="Arial, sans-serif" font-size="12">Content Creator</text>
+  <text x="105" y="180" fill="#6b7280" font-family="Arial, sans-serif" font-size="12">Amsterdam, NL</text>
+  
+  <!-- Stats -->
+  <rect x="20" y="240" width="210" height="60" rx="12" ry="12" fill="white" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="40" y="260" fill="#6b7280" font-family="Arial, sans-serif" font-size="12">Sollicitaties</text>
+  <text x="40" y="280" fill="#1f2937" font-family="Arial, sans-serif" font-size="18" font-weight="bold">12</text>
+  <text x="120" y="260" fill="#6b7280" font-family="Arial, sans-serif" font-size="12">Matches</text>
+  <text x="120" y="280" fill="#1f2937" font-family="Arial, sans-serif" font-size="18" font-weight="bold">8</text>
+  <text x="180" y="260" fill="#6b7280" font-family="Arial, sans-serif" font-size="12">Views</text>
+  <text x="180" y="280" fill="#1f2937" font-family="Arial, sans-serif" font-size="18" font-weight="bold">156</text>
+  
+  <!-- Menu items -->
+  <rect x="20" y="320" width="210" height="40" rx="8" ry="8" fill="white" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="40" y="345" fill="#1f2937" font-family="Arial, sans-serif" font-size="14">Mijn Vacatures</text>
+  
+  <rect x="20" y="370" width="210" height="40" rx="8" ry="8" fill="white" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="40" y="395" fill="#1f2937" font-family="Arial, sans-serif" font-size="14">Instellingen</text>
+</svg>

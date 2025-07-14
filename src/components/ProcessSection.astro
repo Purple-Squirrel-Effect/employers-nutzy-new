@@ -1,0 +1,500 @@
+---
+// ProcessSection component - Showcases Nutzy's Gen-Z recruitment methodology
+interface Props {
+  className?: string;
+}
+
+const { className = "" } = Astro.props;
+
+// Process steps data
+const processSteps = [
+  {
+    number: "01",
+    title: "Ontdekken",
+    subtitle: "Jouw bedrijf & doelen",
+    description: "We duiken diep in jouw bedrijfscultuur, waarden en specifieke recruitment uitdagingen. Samen bepalen we de perfecte strategie om Gen-Z talent aan te trekken.",
+    features: ["Bedrijfscultuur analyse", "Doelgroep research", "Strategie ontwikkeling"],
+    icon: "🔍"
+  },
+  {
+    number: "02", 
+    title: "Creëren",
+    subtitle: "Visuele content & verhalen",
+    description: "Onze creatives maken authentieke, visuele content die jouw bedrijf laat zien zoals het écht is. Van behind-the-scenes video's tot interactieve vacatures.",
+    features: ["Visuele vacatures", "Video content", "Interactieve elementen"],
+    icon: "🎨"
+  },
+  {
+    number: "03",
+    title: "Activeren", 
+    subtitle: "Multi-channel campagnes",
+    description: "We lanceren jouw content op de platforms waar Gen-Z actief is. TikTok, Instagram, LinkedIn - we weten precies waar en hoe we jouw doelgroep bereiken.",
+    features: ["Social media campaigns", "Influencer partnerships", "Targeted advertising"],
+    icon: "🚀"
+  },
+  {
+    number: "04",
+    title: "Optimaliseren",
+    subtitle: "Data-driven verbetering", 
+    description: "Met real-time analytics en feedback van kandidaten optimaliseren we continu jouw recruitment aanpak voor maximale impact en betere resultaten.",
+    features: ["Performance tracking", "A/B testing", "Continuous improvement"],
+    icon: "📊"
+  }
+];
+---
+
+<section id="process" class={`process-section vsk-section-spacing bg-white ${className}`} data-process-section>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Section Header -->
+    <div class="text-center mb-20" data-process-header>
+      <span class="inline-block px-4 py-2 bg-purple-100 text-purple-700 rounded-full text-sm font-semibold mb-6">
+        🎯 Onze Aanpak
+      </span>
+      <h2 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-6 vsk-text-balance split-process">
+        Hoe wij <span style="color: #412683;">Gen-Z talent</span> voor jou vinden
+      </h2>
+      <p class="text-xl text-gray-600 max-w-3xl mx-auto vsk-text-balance">
+        Van eerste kennismaking tot succesvolle plaatsing - onze bewezen 4-staps methode 
+        zorgt ervoor dat jouw vacatures opvallen in de digitale wereld van Gen-Z.
+      </p>
+    </div>
+
+    <!-- Process Steps -->
+    <div class="space-y-24">
+      {processSteps.map((step, index) => (
+        <div 
+          class={`process-step-container ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}
+          data-process-step={index + 1}
+        >
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            <!-- Content Side -->
+            <div class="process-step-content" data-step-content>
+              <div class="flex items-center gap-4 mb-6">
+                <div 
+                  class="process-step-number w-16 h-16 rounded-2xl flex items-center justify-center text-white font-bold text-xl"
+                  style="background-color: #412683;"
+                >
+                  {step.number}
+                </div>
+                <div class="text-4xl" role="img" aria-label={step.title}>
+                  {step.icon}
+                </div>
+              </div>
+              
+              <h3 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
+                {step.title}
+              </h3>
+              <p class="text-lg font-medium mb-6" style="color: #412683;">
+                {step.subtitle}
+              </p>
+              <p class="text-lg text-gray-600 leading-relaxed mb-8">
+                {step.description}
+              </p>
+              
+              <!-- Features List -->
+              <ul class="space-y-3">
+                {step.features.map((feature) => (
+                  <li class="flex items-center gap-3">
+                    <div 
+                      class="w-2 h-2 rounded-full flex-shrink-0"
+                      style="background-color: #412683;"
+                    ></div>
+                    <span class="text-gray-700 font-medium">{feature}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <!-- Visual Side -->
+            <div class="process-step-visual" data-step-visual>
+              <div class="relative">
+                <!-- Main Visual Container -->
+                <div 
+                  class="aspect-square rounded-3xl p-8 flex items-center justify-center relative overflow-hidden"
+                  style="background: linear-gradient(135deg, #412683 0%, #581c87 100%);"
+                >
+                  <!-- Background Pattern -->
+                  <div class="absolute inset-0 opacity-10">
+                    <div class="absolute top-4 left-4 w-8 h-8 border-2 border-white rounded-lg"></div>
+                    <div class="absolute top-8 right-8 w-6 h-6 border-2 border-white rounded-full"></div>
+                    <div class="absolute bottom-8 left-8 w-4 h-4 border-2 border-white rounded-sm"></div>
+                    <div class="absolute bottom-4 right-4 w-10 h-10 border-2 border-white rounded-2xl"></div>
+                  </div>
+                  
+                  <!-- Step Icon -->
+                  <div class="relative z-10 text-center text-white">
+                    <div class="text-8xl mb-4" role="img" aria-label={step.title}>
+                      {step.icon}
+                    </div>
+                    <h4 class="text-2xl font-bold mb-2">{step.title}</h4>
+                    <p class="text-lg opacity-90">{step.subtitle}</p>
+                  </div>
+                  
+                  <!-- Floating Elements -->
+                  <div class="absolute top-1/4 left-1/4 w-3 h-3 bg-white bg-opacity-20 rounded-full animate-pulse"></div>
+                  <div class="absolute bottom-1/3 right-1/4 w-2 h-2 bg-white bg-opacity-30 rounded-full animate-pulse" style="animation-delay: 1s;"></div>
+                </div>
+                
+                <!-- Step Number Badge -->
+                <div 
+                  class="absolute -top-4 -right-4 w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-lg border-4"
+                  style="border-color: #412683;"
+                >
+                  <span class="font-bold text-lg" style="color: #412683;">{step.number}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- CTA Section -->
+    <div class="text-center mt-24" data-process-cta>
+      <div 
+        class="rounded-3xl p-12 text-white relative overflow-hidden"
+        style="background: linear-gradient(135deg, #412683 0%, #581c87 100%);"
+      >
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 opacity-10">
+          <div class="absolute top-8 left-8 w-16 h-16 border-2 border-white rounded-2xl"></div>
+          <div class="absolute bottom-8 right-8 w-12 h-12 border-2 border-white rounded-xl"></div>
+          <div class="absolute top-1/2 left-1/4 w-8 h-8 border-2 border-white rounded-lg"></div>
+        </div>
+        
+        <div class="relative z-10">
+          <h3 class="text-3xl lg:text-4xl font-bold mb-4">
+            Klaar om Gen-Z talent te bereiken?
+          </h3>
+          <p class="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
+            Laat ons je helpen met een moderne recruitment aanpak die écht werkt. 
+            Start vandaag nog met jouw eerste visuele vacature.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a 
+              href="/#contact" 
+              class="group relative overflow-hidden rounded-xl bg-white px-8 py-4 font-semibold shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-white/50"
+              style="color: #412683;"
+            >
+              <span class="relative z-10 flex items-center justify-center gap-2">
+                Gratis Consultatie
+                <svg class="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                </svg>
+              </span>
+            </a>
+            <a 
+              href="/demo" 
+              class="group relative overflow-hidden rounded-xl border-2 border-white px-8 py-4 font-semibold text-white transition-all duration-300 hover:bg-white hover:scale-105 focus:outline-none focus:ring-4 focus:ring-white/50"
+              style="hover:color: #412683;"
+            >
+              <span class="relative z-10 flex items-center justify-center gap-2">
+                Bekijk Demo
+                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1m4 0h1m-6 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { SplitText } from "gsap/SplitText";
+
+  gsap.registerPlugin(ScrollTrigger, SplitText);
+
+  class ProcessSectionController {
+    private processSection: HTMLElement;
+
+    constructor() {
+      this.processSection = document.querySelector("[data-process-section]") as HTMLElement;
+
+      if (this.processSection) {
+        this.init();
+      }
+    }
+
+    private init(): void {
+      this.initAnimations();
+    }
+
+    private initAnimations(): void {
+      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      if (prefersReducedMotion) {
+        // For users who prefer reduced motion, just ensure visibility
+        gsap.set("[data-process-step], [data-process-header], [data-process-cta]", { opacity: 1 });
+        return;
+      }
+
+      this.animateHeader();
+      this.animateProcessSteps();
+      this.animateCTA();
+    }
+
+    private animateHeader(): void {
+      const header = this.processSection.querySelector("[data-process-header]");
+      if (!header) return;
+
+      // Animate the split text title
+      const splitTitle = header.querySelector(".split-process");
+      if (splitTitle) {
+        const split = SplitText.create(splitTitle, { type: "words, chars" });
+        gsap.fromTo(
+          split.chars,
+          { opacity: 0, y: 100 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            stagger: 0.03,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: splitTitle,
+              start: "top 80%",
+              end: "bottom 20%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      }
+
+      // Animate other header elements
+      const headerElements = header.querySelectorAll("span, p");
+      headerElements.forEach((element, index) => {
+        gsap.fromTo(
+          element,
+          { opacity: 0, y: 30 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: "power2.out",
+            delay: index * 0.1 + 0.3,
+            scrollTrigger: {
+              trigger: element,
+              start: "top 85%",
+              end: "bottom 15%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      });
+    }
+
+    private animateProcessSteps(): void {
+      const processSteps = this.processSection.querySelectorAll("[data-process-step]");
+
+      processSteps.forEach((step, index) => {
+        const content = step.querySelector("[data-step-content]");
+        const visual = step.querySelector("[data-step-visual]");
+
+        if (content) {
+          // Animate step content
+          const contentElements = content.querySelectorAll(".process-step-number, h3, p, ul");
+          gsap.fromTo(
+            contentElements,
+            { opacity: 0, x: index % 2 === 0 ? -50 : 50 },
+            {
+              opacity: 1,
+              x: 0,
+              duration: 0.8,
+              ease: "power2.out",
+              stagger: 0.1,
+              scrollTrigger: {
+                trigger: step,
+                start: "top 75%",
+                end: "bottom 25%",
+                toggleActions: "play none none reverse",
+              },
+            }
+          );
+        }
+
+        if (visual) {
+          // Animate step visual
+          gsap.fromTo(
+            visual,
+            { opacity: 0, x: index % 2 === 0 ? 50 : -50, scale: 0.9 },
+            {
+              opacity: 1,
+              x: 0,
+              scale: 1,
+              duration: 1,
+              ease: "power2.out",
+              delay: 0.2,
+              scrollTrigger: {
+                trigger: step,
+                start: "top 75%",
+                end: "bottom 25%",
+                toggleActions: "play none none reverse",
+              },
+            }
+          );
+
+          // Animate floating elements
+          const floatingElements = visual.querySelectorAll(".animate-pulse");
+          floatingElements.forEach((element, i) => {
+            gsap.to(element, {
+              y: "random(-10, 10)",
+              x: "random(-5, 5)",
+              duration: "random(2, 4)",
+              ease: "sine.inOut",
+              repeat: -1,
+              yoyo: true,
+              delay: i * 0.5,
+            });
+          });
+        }
+
+        // Add hover effects for step containers
+        this.addHoverEffects(step);
+      });
+    }
+
+    private animateCTA(): void {
+      const cta = this.processSection.querySelector("[data-process-cta]");
+      if (!cta) return;
+
+      gsap.fromTo(
+        cta,
+        { opacity: 0, y: 50 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: cta,
+            start: "top 80%",
+            end: "bottom 20%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+    }
+
+    private addHoverEffects(step: Element): void {
+      const visual = step.querySelector("[data-step-visual] > div");
+      const content = step.querySelector("[data-step-content]");
+
+      if (visual && content) {
+        step.addEventListener("mouseenter", () => {
+          gsap.to(visual, {
+            scale: 1.05,
+            duration: 0.3,
+            ease: "power2.out",
+          });
+          gsap.to(content.querySelector(".process-step-number"), {
+            scale: 1.1,
+            duration: 0.3,
+            ease: "power2.out",
+          });
+        });
+
+        step.addEventListener("mouseleave", () => {
+          gsap.to(visual, {
+            scale: 1,
+            duration: 0.3,
+            ease: "power2.out",
+          });
+          gsap.to(content.querySelector(".process-step-number"), {
+            scale: 1,
+            duration: 0.3,
+            ease: "power2.out",
+          });
+        });
+      }
+    }
+  }
+
+  // Initialize when DOM is loaded
+  document.addEventListener("DOMContentLoaded", () => {
+    new ProcessSectionController();
+  });
+
+  // Re-initialize on navigation (for SPA-like behavior)
+  document.addEventListener("astro:page-load", () => {
+    new ProcessSectionController();
+  });
+</script>
+
+<style>
+  /* Process Section Styles */
+  .process-section {
+    position: relative;
+  }
+
+  .process-step-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  @media (min-width: 1024px) {
+    .process-step-container {
+      display: block;
+    }
+  }
+
+  .process-step-number {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 10px 25px rgba(65, 38, 131, 0.2);
+  }
+
+  .process-step-visual {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .process-step-content ul li {
+    transition: all 0.2s ease;
+  }
+
+  .process-step-content ul li:hover {
+    transform: translateX(4px);
+  }
+
+  /* CTA Button Styles */
+  .process-section a {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .process-section a:hover {
+    transform: translateY(-2px);
+  }
+
+  /* Accessibility improvements */
+  @media (prefers-reduced-motion: reduce) {
+    .process-step-visual,
+    .process-step-number,
+    .process-section a {
+      transition: none;
+    }
+
+    .animate-pulse {
+      animation: none;
+    }
+  }
+
+  /* Focus states for accessibility */
+  .process-section a:focus {
+    outline: 3px solid #412683;
+    outline-offset: 2px;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .process-step-container {
+      margin-bottom: 3rem;
+    }
+
+    .process-step-visual .aspect-square {
+      aspect-ratio: 4/3;
+    }
+  }
+</style>
