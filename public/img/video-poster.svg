@@ -1,0 +1,36 @@
+<svg width="250" height="440" viewBox="0 0 250 440" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="posterGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#412683;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#6366f1;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="250" height="440" fill="url(#posterGradient)"/>
+  
+  <!-- Nutzy Logo/Branding Area -->
+  <rect x="20" y="40" width="210" height="60" rx="12" fill="rgba(255,255,255,0.1)"/>
+  <text x="125" y="75" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="24" font-weight="bold">Nutzy</text>
+  
+  <!-- Main Content Area -->
+  <rect x="20" y="120" width="210" height="200" rx="16" fill="rgba(255,255,255,0.05)"/>
+  
+  <!-- Play Button -->
+  <circle cx="125" cy="220" r="30" fill="rgba(255,255,255,0.9)"/>
+  <polygon points="115,205 115,235 140,220" fill="#412683"/>
+  
+  <!-- Feature Highlights -->
+  <rect x="30" y="340" width="60" height="40" rx="8" fill="rgba(255,255,255,0.1)"/>
+  <text x="60" y="365" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="12">Gen-Z</text>
+  
+  <rect x="100" y="340" width="60" height="40" rx="8" fill="rgba(255,255,255,0.1)"/>
+  <text x="130" y="365" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="12">Jobs</text>
+  
+  <rect x="170" y="340" width="60" height="40" rx="8" fill="rgba(255,255,255,0.1)"/>
+  <text x="200" y="365" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="12">Visual</text>
+  
+  <!-- Bottom Text -->
+  <text x="125" y="410" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-family="Arial, sans-serif" font-size="14">Product Demo</text>
+</svg>

@@ -1,9 +1,4 @@
 ---
-import IntroSection from "./IntroSection.astro";
-import LogoScrollSection from "./LogoScrollSection.astro";
-import PricingSection from "./PricingSection.astro";
-import ProductShowcaseSection from "./ProductShowcaseSection.astro";
-
 export interface Props {
   cards?: Array<{
     id: string;
@@ -70,11 +65,60 @@ const {
   <div id="smooth-content">
     <!-- Main Container with Side-by-Side Layout -->
     <div
-      class={`scattered-gallery-container w-full bg-gradient-to-br overflow-hidden ${className}`}
+      class={`scattered-gallery-container w-full bg-white overflow-hidden relative ${className}`}
       style="min-height: 100vh;"
     >
-      <!-- Background pattern -->
-      <div class="absolute inset-0 opacity-10">
+      <!-- Company Logo - positioned in top-left corner -->
+      <div class="absolute top-6 left-6 z-50 logo-container">
+        <a
+          href="/"
+          class="flex items-center gap-3 group"
+          aria-label="Nutzy Home"
+        >
+          <svg
+            class="h-12"
+            viewBox="0 0 1123 467"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M118.254 5.79363C119.081 1.9619 114.034 -0.686125 110.585 1.75849C78.8248 24.2918 -9.2276 96.6549 1.06379 199.325C5.8968 247.518 30.5136 283.589 47.8802 304.021C50.1803 306.728 54.9756 306.045 56.2049 302.843C67.2777 273.972 77.6534 240.108 84.7563 201.797C88.5059 181.558 90.9193 162.364 92.3651 144.43C92.701 140.241 99.0138 139.033 101.295 142.719L115.001 164.857C116.063 166.572 118.311 167.414 120.445 166.892C131.904 164.096 147.253 161.477 165.452 161.391C185.485 161.299 202.222 164.308 214.338 167.409C216.511 167.964 218.817 167.109 219.878 165.347L233.397 142.897C235.584 139.266 241.754 140.273 242.334 144.354C247.001 177.151 253.733 212.722 263.347 250.483C272.378 285.954 282.764 318.672 293.634 348.45C294.883 351.875 300.098 352.428 302.237 349.364C316.551 328.844 342.31 283.503 331.821 228.504C321.218 172.89 279.223 137.128 266.332 126.962C205.181 78.7387 141.06 87.7452 121.461 44.6771C115.284 31.1049 115.773 17.2876 118.254 5.79363Z"
+              fill="#412683"></path>
+            <path
+              d="M105.498 358.251C104.59 356.889 96.1274 343.709 102.126 330.457C102.811 328.942 105.758 322.848 112.689 318.86C121.293 313.906 130.452 315.415 148.417 318.639C154.814 319.787 161.995 321.394 169.765 323.674C169.667 320.537 169.649 316.257 169.992 311.201C170.884 297.937 171.329 291.305 175.158 288.658C177.644 286.943 186.062 289.534 202.798 294.787C213.849 298.255 219.401 300.06 220.77 303.423C222.334 307.264 220.188 311.473 215.833 319.735C212.058 326.893 208.069 332.39 205.046 336.146C222.911 341.06 234.624 348.826 241.298 354.125C250.049 361.073 252.037 365.292 252.909 368.099C255.687 377.028 252.426 388.566 245.495 394.796C227.228 411.22 188.208 386.527 179.877 398.518C175.192 405.26 183.68 418.631 187.968 423.901C196.273 434.113 207.407 436.803 210.663 437.471C202.881 444.685 195.498 449.531 190.013 452.674C190.013 452.674 176.05 460.674 147.519 465.92C145.762 466.241 142.315 466.823 138.53 465.48C134.946 464.212 132.749 461.82 131.565 460.449C127.058 455.241 117.889 442.562 106.621 425.215C109.037 425.261 136.191 425.538 139.429 414.711C139.777 413.545 139.758 412.559 139.728 412.102C139.237 404.393 127.107 401.57 114.035 392.609C110.337 390.075 105.168 386.09 99.6543 380.135C101.601 372.84 103.549 365.545 105.498 358.251Z"
+              fill="#25B4B3"></path>
+            <path
+              d="M128.118 231.397C128.118 238.689 124.73 244.599 120.552 244.599C116.374 244.599 112.988 238.689 112.988 231.397C112.988 224.105 116.374 218.194 120.552 218.194C124.73 218.194 128.118 224.105 128.118 231.397Z"
+              fill="#412683"></path>
+            <path
+              d="M221.973 230.521C221.973 237.813 218.587 243.723 214.407 243.723C210.231 243.723 206.844 237.813 206.844 230.521C206.844 223.229 210.231 217.318 214.407 217.318C218.587 217.318 221.973 223.229 221.973 230.521Z"
+              fill="#412683"></path>
+            <path
+              d="M187.176 254.551C187.176 248.573 178.254 243.724 167.252 243.724C156.247 243.724 147.326 248.573 147.326 254.551C147.326 260.166 155.188 264.781 165.257 265.323V273.763C165.257 274.976 166.274 275.967 167.52 275.967C168.763 275.967 169.783 274.976 169.783 273.763V265.283C179.589 264.605 187.176 260.065 187.176 254.551Z"
+              fill="#412683"></path>
+            <path
+              d="M545.699 242.829L546.107 155.343H578.365L578.161 239.846C577.957 263.708 588.371 274.842 606.949 274.842C625.529 274.842 635.533 263.708 635.533 239.846L635.737 155.343H668.201L667.997 242.829C667.997 283.788 643.088 305.263 607.153 305.263C571.017 305.263 545.699 283.788 545.699 242.829Z"
+              fill="#412683"></path>
+            <path
+              d="M731.291 183.776H689.232V155.344H805.812V183.776H763.753V302.281H731.291V183.776Z"
+              fill="#412683"></path>
+            <path
+              d="M927.705 159.718L869.719 273.849H927.295V302.281H821.129V297.905L879.316 183.777H819.494L826.641 155.344H927.705V159.718Z"
+              fill="#412683"></path>
+            <path
+              d="M1077.97 155.344L1022.03 247.204V302.281H989.772V248.398L933.627 155.344H972.623L1006.31 216.383L1040 155.344H1077.97Z"
+              fill="#412683"></path>
+            <path
+              d="M1082.53 279.312C1082.38 278.877 1081 274.689 1083.59 271.46C1083.89 271.094 1085.13 269.62 1087.32 268.995C1090.03 268.219 1092.43 269.253 1097.13 271.357C1098.8 272.103 1100.66 273.03 1102.63 274.182C1102.82 273.314 1103.12 272.139 1103.58 270.775C1104.77 267.199 1105.37 265.409 1106.61 264.945C1107.41 264.643 1109.53 265.924 1113.75 268.497C1116.53 270.197 1117.92 271.067 1118.06 272.08C1118.22 273.24 1117.32 274.25 1115.54 276.221C1113.99 277.929 1112.51 279.164 1111.41 279.99C1115.96 282.548 1118.62 285.47 1120.07 287.375C1121.47 289.216 1122.11 290.503 1122.25 291.995C1122.3 292.454 1122.66 296.151 1120 297.726C1118.2 298.789 1116.16 298.212 1115.68 298.066C1115.08 299.059 1114.37 300.101 1113.53 301.156C1110.95 304.42 1108.08 306.658 1105.72 308.156C1104.64 308.746 1103.4 309.348 1101.99 309.901C1100.86 310.351 1099.83 310.682 1098.97 310.926C1098.97 310.926 1094.57 312.174 1086.37 311.682C1085.86 311.653 1084.88 311.576 1083.94 310.954C1083.04 310.363 1082.61 309.559 1082.38 309.102C1081.52 307.368 1079.91 303.269 1078.06 297.75C1077.72 296.276 1077.39 294.142 1077.6 291.581C1077.85 288.673 1078.69 286.384 1079.37 284.917C1080.42 283.048 1081.48 281.181 1082.53 279.312Z"
+              fill="#25B4B3"></path>
+            <path
+              d="M516.3 155.344V304.665H511.808L428.508 221.753V302.279H396.045V152.759H400.741L483.633 235.473V155.344H516.3Z"
+              fill="#412683"></path>
+          </svg>
+        </a>
+      </div>
+      <!-- Background pattern - initially hidden -->
+      <div class="absolute inset-0 opacity-0">
         <div class="absolute top-10 left-10 w-4 h-4 bg-white rounded-full">
         </div>
         <div class="absolute top-20 left-32 w-3 h-3 bg-white rounded-full">
@@ -109,7 +153,7 @@ const {
               <div class="relative">
                 <!-- First title - initial state -->
                 <h1
-                  class="text-4xl md:text-5xl lg:text-8xl font-bold text-black mb-6 drop-shadow-2xl !font-family-anton absolute inset-0"
+                  class="text-4xl md:text-5xl lg:text-8xl font-bold text-black mb-6 drop-shadow-2xl absolute inset-0"
                   id="main-title"
                 >
                   Moeite met <br />
@@ -118,10 +162,11 @@ const {
                 </h1>
                 <!-- Second title - target state -->
                 <h1
-                  class="text-4xl md:text-5xl lg:text-8xl font-bold text-black mb-6 drop-shadow-2xl !font-family-anton absolute inset-0 opacity-0"
+                  class="text-4xl md:text-5xl lg:text-8xl font-bold text-black mb-6 drop-shadow-2xl absolute inset-0 opacity-0"
                   id="second-title"
                 >
-                  Op Nutzy valt je vacature op
+                  Op <span class="text-purple-900">NUTZY</span>
+                  valt je vacature op
                 </h1>
                 <!-- Invisible spacer to maintain layout height -->
                 <h1
@@ -174,23 +219,125 @@ const {
             }
           </div>
 
-          <!-- Grid placeholders for target positions -->
-          <div class="absolute inset-0 pointer-events-none" id="grid-container">
-            <!-- Grid positioned on left side for target state - vertically centered like h-screen flex items-center -->
+          <!-- iPhone Mockup for target position -->
+          <div
+            class="absolute inset-0 pointer-events-none"
+            id="single-card-container"
+          >
+            <!-- iPhone positioned on left side for target state - vertically centered like h-screen flex items-center -->
             <div class="w-1/2 h-full flex items-center justify-center">
-              <div
-                class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-2xl w-full px-8"
-                id="grid-layout"
-              >
-                {
-                  cards.map((card, index) => (
-                    <div
-                      class="grid-placeholder bg-transparent rounded-2xl"
-                      data-grid-index={index}
-                      style="aspect-ratio: 4/3;"
+              <div class="flex items-center justify-center w-full px-8">
+                <!-- iPhone Mockup Container - invisible initially, used for positioning -->
+                <div
+                  class="single-card-placeholder relative"
+                  data-single-card-index="0"
+                  style="width: min(400px, 70vw); height: min(600px, 85vh); opacity: 0;"
+                >
+                  <!-- iPhone Device Frame -->
+                  <div class="relative z-10 w-full h-full" data-iphone-device>
+                    <img
+                      src="/img/iphone-mockup.svg"
+                      alt="iPhone mockup showing Nutzy product video"
+                      class="w-full h-full drop-shadow-2xl"
+                      width="300"
+                      height="600"
+                      loading="lazy"
                     />
-                  ))
-                }
+
+                    <!-- Screen Content Overlay with Video -->
+                    <div class="absolute inset-0 z-20" data-screen-content>
+                      <!-- Video Content Area - Precisely positioned to match iPhone screen -->
+                      <div
+                        class="absolute overflow-hidden bg-black iphone-screen-container"
+                        data-video-container
+                        style="
+                          top: 13.33%;
+                          left: 8.33%;
+                          width: 83.33%;
+                          height: 73.33%;
+                          border-radius: 35px;
+                          clip-path: inset(0 round 35px);
+                        "
+                      >
+                        <!-- Video Element with Accessibility Controls -->
+                        <video
+                          class="w-full h-full object-cover"
+                          data-product-video
+                          muted
+                          loop
+                          playsinline
+                          preload="metadata"
+                          poster="/img/video-poster.svg"
+                          aria-label="Nutzy platform product demonstration video"
+                          style="border-radius: 35px;"
+                        >
+                          <source
+                            src="/videos/nutzy-product-demo.mp4"
+                            type="video/mp4"
+                          />
+                          <source
+                            src="/videos/nutzy-product-demo.webm"
+                            type="video/webm"
+                          />
+                          <!-- Fallback content for browsers that don't support video -->
+                          <div
+                            class="w-full h-full bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center"
+                          >
+                            <div class="text-center text-white p-6">
+                              <div
+                                class="w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4"
+                              >
+                                <svg
+                                  class="w-8 h-8"
+                                  fill="currentColor"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path d="M8 5v14l11-7z"></path>
+                                </svg>
+                              </div>
+                              <h4 class="text-lg font-semibold mb-2">
+                                Product Demo
+                              </h4>
+                              <p class="text-sm opacity-90">
+                                Ontdek Nutzy's platform
+                              </p>
+                            </div>
+                          </div>
+                        </video>
+
+                        <!-- Video Controls Overlay (for accessibility) -->
+                        <div
+                          class="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-20 transition-all duration-300 cursor-pointer flex items-center justify-center opacity-0 hover:opacity-100"
+                          data-video-overlay
+                          role="button"
+                          tabindex="0"
+                          aria-label="Play/pause product video"
+                        >
+                          <div
+                            class="w-12 h-12 bg-white bg-opacity-80 rounded-full flex items-center justify-center"
+                          >
+                            <svg
+                              class="w-6 h-6 text-gray-800"
+                              fill="currentColor"
+                              viewBox="0 0 24 24"
+                              data-play-icon
+                            >
+                              <path d="M8 5v14l11-7z"></path>
+                            </svg>
+                            <svg
+                              class="w-6 h-6 text-gray-800 hidden"
+                              fill="currentColor"
+                              viewBox="0 0 24 24"
+                              data-pause-icon
+                            >
+                              <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"></path>
+                            </svg>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -199,7 +346,7 @@ const {
       <!-- End Split Layout Container -->
     </div>
     <!-- End Main Container -->
-    <section
+    <!-- <section
       class="hero-section rose-bg flex px-32 py-16 gap-16 justify-center items-center relative"
     >
       <div class="w-3/5">
@@ -256,7 +403,7 @@ const {
           />
         </div>
       </div>
-    </section>
+    </section> -->
   </div>
 </div>
 
@@ -264,6 +411,8 @@ const {
   .scattered-gallery-container {
     position: relative;
     min-height: 100vh;
+    transition: background-color 0.3s ease-out;
+    will-change: background-color;
   }
 
   /* Split container for pinning */
@@ -288,19 +437,29 @@ const {
     will-change: transform;
   }
 
+  /* Text elements with smooth color transitions */
+  .text-content h1,
+  .text-content p {
+    transition: color 0.3s ease-out;
+    will-change: color;
+  }
+
   /* Gallery cards */
   .gallery-card {
     cursor: pointer;
     backface-visibility: hidden;
     transform-style: preserve-3d;
-    will-change: transform, left, top, width, height;
+    will-change: transform, left, top, width, height, box-shadow, filter;
+    transition:
+      box-shadow 0.3s ease-out,
+      filter 0.3s ease-out;
     /* Default sizes that will be overridden by JS */
     width: 280px;
     height: 200px;
   }
 
-  /* Grid container positioning */
-  #grid-container {
+  /* Single card container positioning */
+  #single-card-container {
     pointer-events: none;
   }
 
@@ -375,6 +534,85 @@ const {
   .text-content {
     transform: translateZ(0); /* Force hardware acceleration */
   }
+
+  /* Logo container styles */
+  .logo-container {
+    position: absolute;
+    top: 1.5rem;
+    left: 1.5rem;
+    z-index: 50;
+    transition: all 0.3s ease-out;
+    will-change: color, transform;
+  }
+
+  /* Logo responsive adjustments */
+  @media (max-width: 640px) {
+    .logo-container {
+      top: 1rem;
+      left: 1rem;
+    }
+
+    .logo-container .text-xl {
+      font-size: 1.125rem;
+    }
+  }
+
+  /* Logo color transitions for scroll animations */
+  .logo-container a span {
+    transition: color 0.3s ease-out;
+    will-change: color;
+  }
+
+  /* Ensure logo stays above all other elements */
+  .logo-container {
+    pointer-events: auto;
+  }
+
+  /* Logo accessibility improvements */
+  .logo-container a:focus {
+    outline: 2px solid rgba(255, 255, 255, 0.8);
+    outline-offset: 4px;
+    border-radius: 0.75rem;
+  }
+
+  /* Logo hover effects */
+  .logo-container a:hover .text-purple-900 {
+    color: #7c3aed;
+  }
+
+  /* iPhone Screen Container - Precise video containment */
+  .iphone-screen-container {
+    /* Ensure video is perfectly contained within iPhone screen boundaries */
+    position: absolute;
+    overflow: hidden;
+    /* Use CSS mask for perfect screen shape matching */
+    -webkit-mask: radial-gradient(
+      ellipse at center,
+      black 99%,
+      transparent 100%
+    );
+    mask: radial-gradient(ellipse at center, black 99%, transparent 100%);
+    /* Additional containment for video overflow */
+    contain: layout style paint;
+  }
+
+  .iphone-screen-container video {
+    /* Ensure video respects container boundaries */
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+    object-position: center;
+    /* Prevent any potential overflow */
+    transform: scale(0.999); /* Slight scale down to ensure no edge overflow */
+  }
+
+  /* Ensure proper stacking and containment */
+  [data-screen-content] {
+    /* Create a new stacking context */
+    isolation: isolate;
+    /* Ensure content doesn't overflow iPhone frame */
+    overflow: hidden;
+  }
 </style>
 
 <script>
@@ -397,7 +635,7 @@ const {
 
   interface AnimationState {
     scatteredPositions: CardPosition[];
-    gridPositions: CardPosition[];
+    singleCardPositions: CardPosition[];
     currentProgress: number;
     isAnimating: boolean;
     animationFrame: number | null;
@@ -482,7 +720,7 @@ const {
   // Global animation state
   let animationState: AnimationState = {
     scatteredPositions: [],
-    gridPositions: [],
+    singleCardPositions: [],
     currentProgress: 0,
     isAnimating: false,
     animationFrame: null,
@@ -506,39 +744,53 @@ const {
     return generateCardPositions(cards.length, containerWidth, containerHeight);
   }
 
-  function calculateGridPositions(): CardPosition[] {
+  function calculateSingleCardPositions(): CardPosition[] {
     const cards = document.querySelectorAll(
       "[data-card]"
     ) as NodeListOf<HTMLElement>;
-    const gridPlaceholders = document.querySelectorAll(
-      ".grid-placeholder"
-    ) as NodeListOf<HTMLElement>;
+    const singleCardPlaceholder = document.querySelector(
+      ".single-card-placeholder"
+    ) as HTMLElement;
 
-    if (cards.length === 0 || gridPlaceholders.length === 0) return [];
+    if (cards.length === 0 || !singleCardPlaceholder) return [];
 
     const positions: CardPosition[] = [];
     const containerRect = document
       .getElementById("cards-container")!
       .getBoundingClientRect();
 
-    cards.forEach((card, index) => {
-      const placeholder = gridPlaceholders[index];
-      if (!placeholder) return;
+    const placeholderRect = singleCardPlaceholder.getBoundingClientRect();
 
-      const placeholderRect = placeholder.getBoundingClientRect();
+    // Calculate position relative to container for the single prominent card
+    const left = placeholderRect.left - containerRect.left;
+    const top = placeholderRect.top - containerRect.top;
 
-      // Calculate position relative to container
-      const left = placeholderRect.left - containerRect.left;
-      const top = placeholderRect.top - containerRect.top;
+    // Create position for the first card (which will be the prominent one)
+    const prominentCardPosition: CardPosition = {
+      x: left,
+      y: top,
+      width: placeholderRect.width,
+      height: placeholderRect.height,
+      rotation: 0,
+      zIndex: 20, // Higher z-index for prominence
+    };
 
-      positions.push({
-        x: left,
-        y: top,
-        width: placeholderRect.width,
-        height: placeholderRect.height,
-        rotation: 0,
-        zIndex: 10,
-      });
+    // For the first card, use the prominent position
+    positions.push(prominentCardPosition);
+
+    // For all other cards, position them off-screen or make them invisible
+    // by positioning them at the same location but with opacity 0
+    cards.forEach((_, index) => {
+      if (index > 0) {
+        positions.push({
+          x: left,
+          y: top,
+          width: placeholderRect.width,
+          height: placeholderRect.height,
+          rotation: 0,
+          zIndex: 1, // Lower z-index, will be hidden
+        });
+      }
     });
 
     return positions;
@@ -553,17 +805,30 @@ const {
     const textContent = document.getElementById("text-content");
     const mainTitle = document.getElementById("main-title");
     const secondTitle = document.getElementById("second-title");
+    const mainDescription = document.getElementById("main-description");
+    const container = document.querySelector(
+      ".scattered-gallery-container"
+    ) as HTMLElement;
+    const backgroundPattern = container?.querySelector(
+      ".absolute.inset-0.opacity-10"
+    ) as HTMLElement;
 
-    if (cards.length === 0 || !textContent || !mainTitle || !secondTitle)
+    if (
+      cards.length === 0 ||
+      !textContent ||
+      !mainTitle ||
+      !secondTitle ||
+      !container
+    )
       return timeline;
 
     // Calculate positions
     const scatteredPositions = calculateScatteredPositions();
-    const gridPositions = calculateGridPositions();
+    const singleCardPositions = calculateSingleCardPositions();
 
     // Store positions in animation state
     animationState.scatteredPositions = scatteredPositions;
-    animationState.gridPositions = gridPositions;
+    animationState.singleCardPositions = singleCardPositions;
 
     // Set initial scattered positions
     cards.forEach((card, index) => {
@@ -591,50 +856,66 @@ const {
         height: finalHeight,
         rotation: pos.rotation,
         zIndex: pos.zIndex,
+        opacity: 1, // Ensure all cards start visible
       });
     });
+
+    // Set initial state for iPhone mockup (hidden and scaled down)
+    const mockupContainer = document.querySelector(
+      ".single-card-placeholder"
+    ) as HTMLElement;
+    if (mockupContainer) {
+      gsap.set(mockupContainer, {
+        opacity: 0,
+        scale: 0.8,
+      });
+    }
 
     // Set initial text position (left side) and title states
     gsap.set(textContent, { x: 0 });
     gsap.set(mainTitle, { opacity: 1 });
     gsap.set(secondTitle, { opacity: 0 });
 
-    // Create timeline animations
+    // Set initial background state (pure white, no patterns visible)
+    gsap.set(container, { backgroundColor: "#bd7ef2 " });
+    if (backgroundPattern) {
+      gsap.set(backgroundPattern, { opacity: 0 });
+    }
+
+    // Set initial logo state (purple color for white background)
+    const initialLogoText = document.querySelector(".logo-container span");
+    if (initialLogoText) {
+      gsap.set(initialLogoText, { color: "#581c87" }); // Initial purple color
+    }
+
+    // Create timeline animations - fade out all cards and show iPhone mockup
     cards.forEach((card, index) => {
-      const startPos = scatteredPositions[index];
-      const endPos = gridPositions[index];
-      if (!startPos || !endPos) return;
-
-      // Apply responsive sizing for end position
-      const isMobile = window.innerWidth <= 768;
-      const isSmallMobile = window.innerWidth <= 480;
-      let finalWidth = endPos.width;
-      let finalHeight = endPos.height;
-
-      if (isSmallMobile) {
-        finalWidth = Math.min(finalWidth, 160);
-        finalHeight = Math.min(finalHeight, 120);
-      } else if (isMobile) {
-        finalWidth = Math.min(finalWidth, 200);
-        finalHeight = Math.min(finalHeight, 150);
-      }
-
-      // Animate each card from scattered to grid position
+      // All cards fade out during the transition
       timeline.to(
         card,
         {
-          left: endPos.x,
-          top: endPos.y,
-          width: finalWidth,
-          height: finalHeight,
-          rotation: endPos.rotation,
-          zIndex: endPos.zIndex,
-          duration: 1,
+          opacity: 0,
+          scale: 0.8,
+          duration: 0.8,
           ease: "power2.inOut",
         },
         0
-      ); // All cards animate simultaneously
+      );
     });
+
+    // Show iPhone mockup after cards fade out
+    if (mockupContainer) {
+      timeline.to(
+        mockupContainer,
+        {
+          opacity: 1,
+          scale: 1,
+          duration: 0.8,
+          ease: "power2.out",
+        },
+        0.4 // Start showing iPhone after cards begin fading
+      );
+    }
 
     // Animate text from left to right
     const containerRect = document
@@ -651,6 +932,60 @@ const {
       },
       0
     ); // Text animates with cards
+
+    // Add background transition from white to black
+    timeline.to(
+      container,
+      {
+        backgroundColor: "#25B4B3",
+        duration: 1,
+        ease: "power2.inOut",
+      },
+      0
+    );
+
+    // Fade out background pattern during transition
+    if (backgroundPattern) {
+      timeline.to(
+        backgroundPattern,
+        {
+          opacity: 0,
+          duration: 0.8,
+          ease: "power2.inOut",
+        },
+        0.1
+      );
+    }
+
+    // Change text colors to white for better contrast against black background
+    const textElements = [mainTitle, secondTitle];
+    if (mainDescription) {
+      textElements.push(mainDescription);
+    }
+
+    timeline.to(
+      textElements,
+      {
+        color: "#ffffff",
+        duration: 0.8,
+        ease: "power2.inOut",
+      },
+      0.2
+    );
+
+    // Change logo text color to white for better contrast against black background
+    const animationLogoText = document.querySelector(".logo-container span");
+    if (animationLogoText) {
+      timeline.to(
+        animationLogoText,
+        {
+          color: "#ffffff",
+          duration: 0.8,
+          ease: "power2.inOut",
+        },
+        0.2
+      );
+    }
 
     // Add text transition animation - fade out first title and fade in second title
     // This happens at 30% of the animation progress for a smooth transition
@@ -689,9 +1024,17 @@ const {
 
     if (!container || !splitContainer || prefersReducedMotion) {
       // Set initial state for reduced motion - show first title only
-      gsap.set("#main-title", { opacity: 1, y: 0 });
-      gsap.set("#second-title", { opacity: 0, y: 0 });
-      gsap.set("#main-description", { opacity: 1, y: 0 });
+      gsap.set("#main-title", { opacity: 1, y: 0, color: "#000000" });
+      gsap.set("#second-title", { opacity: 0, y: 0, color: "#000000" });
+      gsap.set("#main-description", { opacity: 1, y: 0, color: "#000000" });
+
+      // Set initial logo state for reduced motion
+      const reducedMotionLogoText = document.querySelector(
+        ".logo-container span"
+      );
+      if (reducedMotionLogoText) {
+        gsap.set(reducedMotionLogoText, { color: "#581c87" }); // Keep original purple color
+      }
       return;
     }
 
@@ -750,6 +1093,96 @@ const {
     );
   }
 
+  function setupVideoControls() {
+    const video = document.querySelector(
+      "[data-product-video]"
+    ) as HTMLVideoElement;
+    const videoOverlay = document.querySelector(
+      "[data-video-overlay]"
+    ) as HTMLElement;
+    const playIcon = document.querySelector("[data-play-icon]") as HTMLElement;
+    const pauseIcon = document.querySelector(
+      "[data-pause-icon]"
+    ) as HTMLElement;
+
+    if (!video || !videoOverlay || !playIcon || !pauseIcon) return;
+
+    // Check for reduced motion preference
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    // If user prefers reduced motion, pause the video and show controls
+    if (prefersReducedMotion) {
+      video.pause();
+      video.removeAttribute("autoplay");
+    } else {
+      // Auto-play video when it becomes visible (respecting user preferences)
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+              video.play().catch(() => {
+                // Auto-play failed, show controls
+                videoOverlay.style.opacity = "1";
+              });
+            } else {
+              video.pause();
+            }
+          });
+        },
+        { threshold: 0.5 }
+      );
+
+      observer.observe(video);
+    }
+
+    // Video control functionality
+    function toggleVideo() {
+      if (video.paused) {
+        video.play();
+        playIcon.classList.add("hidden");
+        pauseIcon.classList.remove("hidden");
+      } else {
+        video.pause();
+        playIcon.classList.remove("hidden");
+        pauseIcon.classList.add("hidden");
+      }
+    }
+
+    // Add click handler for video overlay
+    videoOverlay.addEventListener("click", toggleVideo);
+
+    // Add keyboard support for video overlay
+    videoOverlay.addEventListener("keydown", (e: KeyboardEvent) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        toggleVideo();
+      }
+    });
+
+    // Update icon state when video state changes
+    video.addEventListener("play", () => {
+      playIcon.classList.add("hidden");
+      pauseIcon.classList.remove("hidden");
+    });
+
+    video.addEventListener("pause", () => {
+      playIcon.classList.remove("hidden");
+      pauseIcon.classList.add("hidden");
+    });
+
+    // Handle video loading errors gracefully
+    video.addEventListener("error", () => {
+      console.warn("Video failed to load, showing fallback content");
+      const fallbackContent = video.nextElementSibling as HTMLElement;
+      if (fallbackContent) {
+        video.style.display = "none";
+        fallbackContent.style.display = "flex";
+      }
+    });
+  }
+
   function initializeGallery() {
     // Clean up existing ScrollTriggers
     ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
@@ -762,10 +1195,13 @@ const {
     animationState.currentProgress = 0;
     animationState.isAnimating = false;
     animationState.scatteredPositions = [];
-    animationState.gridPositions = [];
+    animationState.singleCardPositions = [];
 
     // Setup scroll-controlled animations with ScrollTrigger
     setupScrollAnimation();
+
+    // Setup video functionality
+    setupVideoControls();
 
     // Setup card interactions
     const cards = document.querySelectorAll(

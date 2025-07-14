@@ -153,8 +153,16 @@ const { className = "" } = Astro.props;
             <div class="absolute inset-0 z-20" data-screen-content>
               <!-- Home Screen -->
               <div
-                class="absolute top-[13.3%] left-[8.3%] w-[83.3%] h-[73.3%] overflow-hidden rounded-[35px]"
+                class="absolute overflow-hidden iphone-screen-container"
                 data-screen-home
+                style="
+                  top: 13.33%;
+                  left: 8.33%;
+                  width: 83.33%;
+                  height: 73.33%;
+                  border-radius: 35px;
+                  clip-path: inset(0 round 35px);
+                "
               >
                 <img
                   src="/img/nutzy-mobile-home.svg"
@@ -168,8 +176,16 @@ const { className = "" } = Astro.props;
 
               <!-- Profile Screen (initially hidden) -->
               <div
-                class="absolute top-[13.3%] left-[8.3%] w-[83.3%] h-[73.3%] overflow-hidden rounded-[35px] opacity-0"
+                class="absolute overflow-hidden iphone-screen-container opacity-0"
                 data-screen-profile
+                style="
+                  top: 13.33%;
+                  left: 8.33%;
+                  width: 83.33%;
+                  height: 73.33%;
+                  border-radius: 35px;
+                  clip-path: inset(0 round 35px);
+                "
               >
                 <img
                   src="/img/nutzy-mobile-profile.svg"
@@ -405,6 +421,32 @@ const { className = "" } = Astro.props;
   /* Enhance drop shadow for better visual impact */
   [data-iphone-device] img {
     filter: drop-shadow(0 25px 50px rgba(0, 0, 0, 0.25));
+  }
+
+  /* iPhone Screen Container - Precise content containment */
+  .iphone-screen-container {
+    /* Ensure content is perfectly contained within iPhone screen boundaries */
+    position: absolute;
+    overflow: hidden;
+    /* Use CSS mask for perfect screen shape matching */
+    -webkit-mask: radial-gradient(
+      ellipse at center,
+      black 99%,
+      transparent 100%
+    );
+    mask: radial-gradient(ellipse at center, black 99%, transparent 100%);
+    /* Additional containment for content overflow */
+    contain: layout style paint;
+  }
+
+  .iphone-screen-container img {
+    /* Ensure images respect container boundaries */
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+    object-position: center;
+    /* Prevent any potential overflow */
+    transform: scale(0.999); /* Slight scale down to ensure no edge overflow */
   }
 
   /* Responsive adjustments */
