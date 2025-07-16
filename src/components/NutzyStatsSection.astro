@@ -13,119 +13,120 @@ const { className = "" } = Astro.props;
   data-nutzy-stats-section
 >
   <div class="min-h-screen bg-gradient-to-br py-20 px-4 sm:px-6 lg:px-64">
-    <div class="grid grid-cols-1">
-      <!-- Section Header -->
-      <div class="text-center mb-4" data-stats-header>
-        <h2 class="text-7xl font-bold text-white mb-6">
-          Nutzy in een paar <br />
-          <span class="text-secondary-200"> kerngetallen </span>
-        </h2>
-        <p class="text-xl text-white max-w-3xl mx-auto leading-relaxed">
-          Ontdek waarom visuele content en beleving het verschil maken in
-          moderne recruitment.
-        </p>
-      </div>
+    <img
+      class="absolute opacity-20 z-0"
+      src="svg/Cohort-analysis-amico.svg"
+      alt="Cohort-analysis-amico"
+    />
+    <!-- Section Header -->
+    <div class="text-center mb-4" data-stats-header>
+      <h2 class="text-7xl font-bold text-white mb-6">
+        Nutzy in een paar <br />
+        <span class="text-secondary-200"> kerngetallen </span>
+      </h2>
+      <p class="text-xl text-white max-w-3xl mx-auto leading-relaxed">
+        Ontdek waarom visuele content en beleving het verschil maken in moderne
+        recruitment.
+      </p>
+    </div>
 
-      <!-- Statistics Grid -->
+    <!-- Statistics Grid -->
+    <div
+      class="grid grid-cols-1 relative z-10 col-span-2 md:grid-cols-2 lg:grid-cols-3 gap-8"
+    >
+      <!-- Statistic 1: Conversie -->
       <div
-        class="grid grid-cols-1 col-span-2 md:grid-cols-2 lg:grid-cols-3 gap-8"
+        class="rounded-2xl p-8 text-center group text-white border-b-8 border-r-8 shadow-3xl bg-primary-800 border-primary-300"
       >
-        <!-- Statistic 1: Conversie -->
-        <div
-          class="rounded-2xl p-8 text-center group text-white border-b-8 border-r-8 shadow-3xl bg-primary-800 border-primary-300"
+        <h6
+          class="text-5xl text-secondary-300 mb-4 group-hover:scale-110 transition-transform duration-300"
         >
-          <h6
-            class="text-5xl text-secondary-300 mb-4 group-hover:scale-110 transition-transform duration-300"
-          >
-            30%
-          </h6>
-          <p class="text-xl font-semibold mb-2">
-            Meer conversie door visuele content
-          </p>
-          <!-- <p class="text-gray-600 leading-relaxed">
+          30%
+        </h6>
+        <p class="text-xl font-semibold mb-2">
+          Meer conversie door visuele content
+        </p>
+        <!-- <p class="text-gray-600 leading-relaxed">
             We realiseren tot 30% meer conversie op sollicitaties door visueel
             maken van content en bieden van beleving.
           </p> -->
-        </div>
+      </div>
 
-        <!-- Statistic 2: Voorkeur visueel -->
-        <div
-          class="rounded-2xl p-8 text-center group text-white border-b-8 border-r-8 shadow-3xl bg-primary-800 border-primary-300"
+      <!-- Statistic 2: Voorkeur visueel -->
+      <div
+        class="rounded-2xl p-8 text-center group text-white border-b-8 border-r-8 shadow-3xl bg-primary-800 border-primary-300"
+      >
+        <h6
+          class="text-5xl text-secondary-300 mb-4 group-hover:scale-110 transition-transform duration-300"
         >
-          <h6
-            class="text-5xl text-secondary-300 mb-4 group-hover:scale-110 transition-transform duration-300"
-          >
-            4x
-          </h6>
-          <p class="text-xl font-semibold mb-2">
-            Voorkeur voor visuele content
-          </p>
-        </div>
+          4x
+        </h6>
+        <p class="text-xl font-semibold mb-2">Voorkeur voor visuele content</p>
+      </div>
 
-        <!-- Statistic 3: Tijd op fanpage -->
-        <div
-          class="rounded-2xl p-8 text-center group text-white border-b-8 border-r-8 shadow-3xl bg-primary-800 border-primary-300"
+      <!-- Statistic 3: Tijd op fanpage -->
+      <div
+        class="rounded-2xl p-8 text-center group text-white border-b-8 border-r-8 shadow-3xl bg-primary-800 border-primary-300"
+      >
+        <h6
+          class="text-5xl text-secondary-300 mb-4 group-hover:scale-110 transition-transform duration-300"
         >
-          <h6
-            class="text-5xl text-secondary-300 mb-4 group-hover:scale-110 transition-transform duration-300"
-          >
-            3.5min
-          </h6>
-          <p class="text-xl font-semibold mb-2">Gemiddelde tijd op fanpage</p>
-          <!-- <p class="text-gray-600 leading-relaxed">
+          3.5min
+        </h6>
+        <p class="text-xl font-semibold mb-2">Gemiddelde tijd op fanpage</p>
+        <!-- <p class="text-gray-600 leading-relaxed">
             Gemiddeld spenderen mensen rond de 3.5 minuut op een fanpage, wat
             uitzonderlijk lang is.
           </p> -->
-        </div>
+      </div>
 
-        <!-- Statistic 4: Visuele verwerking -->
-        <div
-          class="rounded-2xl p-8 text-center group text-white border-b-8 border-r-8 shadow-3xl bg-primary-800 border-primary-300"
+      <!-- Statistic 4: Visuele verwerking -->
+      <div
+        class="rounded-2xl p-8 text-center group text-white border-b-8 border-r-8 shadow-3xl bg-primary-800 border-primary-300"
+      >
+        <h6
+          class="text-5xl text-secondary-300 mb-4 group-hover:scale-110 transition-transform duration-300"
         >
-          <h6
-            class="text-5xl text-secondary-300 mb-4 group-hover:scale-110 transition-transform duration-300"
-          >
-            60.000x
-          </h6>
-          <p class="text-xl font-semibold mb-2">
-            Snelheid van visuele verwerking
-          </p>
-          <!-- <p class="text-gray-600 leading-relaxed">
+          60.000x
+        </h6>
+        <p class="text-xl font-semibold mb-2">
+          Snelheid van visuele verwerking
+        </p>
+        <!-- <p class="text-gray-600 leading-relaxed">
             Het menselijk brein verwerkt visuele content 60.000x sneller dan
             tekst.
           </p> -->
-        </div>
+      </div>
 
-        <!-- Statistic 5: Delen content -->
-        <div
-          class="rounded-2xl p-8 text-center group text-white border-b-8 border-r-8 shadow-3xl bg-primary-800 border-primary-300"
+      <!-- Statistic 5: Delen content -->
+      <div
+        class="rounded-2xl p-8 text-center group text-white border-b-8 border-r-8 shadow-3xl bg-primary-800 border-primary-300"
+      >
+        <h6
+          class="text-5xl text-secondary-300 mb-4 group-hover:scale-110 transition-transform duration-300"
         >
-          <h6
-            class="text-5xl text-secondary-300 mb-4 group-hover:scale-110 transition-transform duration-300"
-          >
-            40x
-          </h6>
-          <p class="text-xl font-semibold mb-2">Delen van visuele content</p>
-          <!-- <p class="text-gray-600 leading-relaxed">
+          40x
+        </h6>
+        <p class="text-xl font-semibold mb-2">Delen van visuele content</p>
+        <!-- <p class="text-gray-600 leading-relaxed">
             Visuele content is 40x waarschijnlijker om gedeeld te worden op
             social media.
           </p> -->
-        </div>
+      </div>
 
-        <!-- Statistic 6: Maandelijkse bezoeken -->
-        <div
-          class="rounded-2xl p-8 text-center group text-white border-b-8 border-r-8 shadow-3xl bg-primary-800 border-primary-300"
+      <!-- Statistic 6: Maandelijkse bezoeken -->
+      <div
+        class="rounded-2xl p-8 text-center group text-white border-b-8 border-r-8 shadow-3xl bg-primary-800 border-primary-300"
+      >
+        <h6
+          class="text-5xl text-secondary-300 mb-4 group-hover:scale-110 transition-transform duration-300"
         >
-          <h6
-            class="text-5xl text-secondary-300 mb-4 group-hover:scale-110 transition-transform duration-300"
-          >
-            40.000
-          </h6>
-          <p class="text-xl font-semibold mb-2">Maandelijkse bezoeken</p>
-          <!-- <p class="text-gray-600 leading-relaxed">
+          40.000
+        </h6>
+        <p class="text-xl font-semibold mb-2">Maandelijkse bezoeken</p>
+        <!-- <p class="text-gray-600 leading-relaxed">
             Onze omgevingen worden zo'n 40.000 keer per maand bezocht.
           </p> -->
-        </div>
       </div>
     </div>
   </div>
