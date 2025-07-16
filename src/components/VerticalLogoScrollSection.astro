@@ -1,0 +1,301 @@
+---
+export interface Props {
+  className?: string;
+  scrollDirection?: "up" | "down";
+  scrollSpeed?: number;
+  position?: "sidebar" | "section";
+}
+
+const {
+  className = "",
+  scrollDirection = "up",
+  scrollSpeed = 1,
+  position = "section",
+} = Astro.props;
+
+// Company logos data
+const logos = [
+  { name: "TechCorp", color: "text-primary-900" },
+  { name: "InnovateLab", color: "text-secondary-500" },
+  { name: "StartupX", color: "text-primary-900" },
+  { name: "FutureWorks", color: "text-secondary-500" },
+  { name: "NextGen", color: "text-primary-900" },
+  { name: "DigitalFirst", color: "text-secondary-500" },
+  { name: "CloudTech", color: "text-primary-900" },
+  { name: "DataFlow", color: "text-secondary-500" },
+];
+
+// Determine container classes based on position
+const containerClasses =
+  position === "sidebar"
+    ? "fixed right-8 top-1/2 -translate-y-1/2 w-48 h-96 z-10"
+    : "w-full max-w-sm mx-auto h-96";
+
+const sectionClasses = position === "sidebar" ? "" : "py-16 bg-gray-50";
+---
+
+<section class={`${sectionClasses} ${className}`}>
+  <div class={`${containerClasses} overflow-hidden relative`}>
+    <!-- Background gradient for better visibility -->
+    <div
+      class="absolute inset-0 bg-gradient-to-b from-transparent via-white/80 to-transparent pointer-events-none z-10"
+    >
+    </div>
+
+    <!-- Scrolling container -->
+    <div
+      class="vertical-logo-scroll-container h-full relative"
+      data-scroll-direction={scrollDirection}
+      data-scroll-speed={scrollSpeed}
+    >
+      <!-- First set of logos -->
+      <div class="vertical-logo-track flex flex-col items-center gap-8 py-8">
+        {
+          logos.map((logo) => (
+            <div class="logo-item flex items-center justify-center h-16 w-36 bg-white rounded-xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl flex-shrink-0">
+              <span class={`${logo.color} font-bold text-lg font-anton`}>
+                {logo.name}
+              </span>
+            </div>
+          ))
+        }
+      </div>
+
+      <!-- Duplicate set for seamless loop -->
+      <div class="vertical-logo-track flex flex-col items-center gap-8 py-8">
+        {
+          logos.map((logo) => (
+            <div class="logo-item flex items-center justify-center h-16 w-36 bg-white rounded-xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl flex-shrink-0">
+              <span class={`${logo.color} font-bold text-lg font-anton`}>
+                {logo.name}
+              </span>
+            </div>
+          ))
+        }
+      </div>
+
+      <!-- Third set for extra smoothness -->
+      <div class="vertical-logo-track flex flex-col items-center gap-8 py-8">
+        {
+          logos.map((logo) => (
+            <div class="logo-item flex items-center justify-center h-16 w-36 bg-white rounded-xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl flex-shrink-0">
+              <span class={`${logo.color} font-bold text-lg font-anton`}>
+                {logo.name}
+              </span>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Ensure smooth performance */
+  .vertical-logo-scroll-container {
+    will-change: transform;
+  }
+
+  .vertical-logo-track {
+    will-change: transform;
+  }
+
+  /* Hide scrollbars */
+  .vertical-logo-scroll-container {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .vertical-logo-scroll-container::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Logo hover effects */
+  .logo-item:hover {
+    transform: scale(1.05);
+    box-shadow:
+      0 20px 25px -5px rgba(0, 0, 0, 0.1),
+      0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+
+  /* Accessibility improvements */
+  .logo-item:focus-within {
+    outline: 2px solid #412683;
+    outline-offset: 2px;
+    border-radius: 0.75rem;
+  }
+
+  /* Reduced motion fallback */
+  @media (prefers-reduced-motion: reduce) {
+    .vertical-logo-scroll-container {
+      animation: none !important;
+    }
+
+    .vertical-logo-track {
+      transform: none !important;
+    }
+  }
+</style>
+
+<script>
+  import { gsap } from "gsap";
+
+  // Register GSAP plugins if needed
+  gsap.registerPlugin();
+
+  interface VerticalScrollState {
+    timeline: gsap.core.Timeline | null;
+    isAnimating: boolean;
+    scrollDirection: "up" | "down";
+    scrollSpeed: number;
+  }
+
+  const scrollState: VerticalScrollState = {
+    timeline: null,
+    isAnimating: false,
+    scrollDirection: "up",
+    scrollSpeed: 1,
+  };
+
+  function createVerticalScrollAnimation(): gsap.core.Timeline {
+    const container = document.querySelector(
+      ".vertical-logo-scroll-container"
+    ) as HTMLElement;
+    const tracks = document.querySelectorAll(
+      ".vertical-logo-track"
+    ) as NodeListOf<HTMLElement>;
+
+    if (!container || !tracks.length) {
+      console.warn("Vertical logo scroll elements not found");
+      return gsap.timeline();
+    }
+
+    // Get scroll direction and speed from data attributes
+    const direction =
+      (container.dataset.scrollDirection as "up" | "down") || "up";
+    const speed = parseFloat(container.dataset.scrollSpeed || "1");
+
+    scrollState.scrollDirection = direction;
+    scrollState.scrollSpeed = speed;
+
+    // Calculate the height of one track for seamless looping
+    const trackHeight = tracks[0].offsetHeight;
+
+    // Create timeline for infinite scroll
+    const timeline = gsap.timeline({ repeat: -1, ease: "none" });
+
+    // Set initial positions
+    tracks.forEach((track, index) => {
+      gsap.set(track, {
+        y: index * trackHeight,
+      });
+    });
+
+    // Animate based on direction
+    const moveDistance = direction === "up" ? -trackHeight : trackHeight;
+    const duration = 20 / speed; // Base duration adjusted by speed
+
+    tracks.forEach((track) => {
+      timeline.to(
+        track,
+        {
+          y: `+=${moveDistance}`,
+          duration: duration,
+          ease: "none",
+        },
+        0
+      );
+    });
+
+    // Reset positions for seamless loop
+    timeline.set(tracks, {
+      y: (index) => {
+        if (direction === "up") {
+          return index === 0 ? trackHeight * 2 : (index - 1) * trackHeight;
+        } else {
+          return index === tracks.length - 1
+            ? -trackHeight
+            : (index + 1) * trackHeight;
+        }
+      },
+    });
+
+    return timeline;
+  }
+
+  function initializeVerticalScroll() {
+    // Check for reduced motion preference
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    if (prefersReducedMotion) {
+      console.log(
+        "Reduced motion detected, skipping vertical scroll animation"
+      );
+      return;
+    }
+
+    // Clean up existing animation
+    if (scrollState.timeline) {
+      scrollState.timeline.kill();
+    }
+
+    // Create and start animation
+    scrollState.timeline = createVerticalScrollAnimation();
+    scrollState.isAnimating = true;
+
+    // Add pause/resume on hover for better UX
+    const container = document.querySelector(
+      ".vertical-logo-scroll-container"
+    ) as HTMLElement;
+    if (container && scrollState.timeline) {
+      container.addEventListener("mouseenter", () => {
+        if (scrollState.timeline) {
+          scrollState.timeline.pause();
+        }
+      });
+
+      container.addEventListener("mouseleave", () => {
+        if (scrollState.timeline) {
+          scrollState.timeline.resume();
+        }
+      });
+    }
+  }
+
+  function handleResize() {
+    // Reinitialize on resize to recalculate positions
+    if (scrollState.isAnimating) {
+      initializeVerticalScroll();
+    }
+  }
+
+  // Initialize when DOM is ready
+  document.addEventListener("DOMContentLoaded", initializeVerticalScroll);
+
+  // Handle resize events with debouncing
+  let resizeTimeout: number;
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(handleResize, 250);
+  });
+
+  // Handle visibility change to pause/resume animation
+  document.addEventListener("visibilitychange", () => {
+    if (scrollState.timeline) {
+      if (document.hidden) {
+        scrollState.timeline.pause();
+      } else {
+        scrollState.timeline.resume();
+      }
+    }
+  });
+
+  // Cleanup on page unload
+  window.addEventListener("beforeunload", () => {
+    if (scrollState.timeline) {
+      scrollState.timeline.kill();
+    }
+  });
+</script>

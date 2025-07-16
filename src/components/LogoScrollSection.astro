@@ -1,93 +1,231 @@
-<section class="h-32 bg-secondary-300 w-full overflow-hidden relative">
+---
+export interface Props {
+  className?: string;
+  scrollSpeed?: number;
+}
+
+const { className = "", scrollSpeed = 1 } = Astro.props;
+
+// Company logos data
+const logos = [
+  { name: "TechCorp", color: "text-primary-900" },
+  { name: "InnovateLab", color: "text-secondary-500" },
+  { name: "StartupX", color: "text-primary-900" },
+  { name: "FutureWorks", color: "text-secondary-500" },
+  { name: "NextGen", color: "text-primary-900" },
+  { name: "DigitalFirst", color: "text-secondary-500" },
+];
+---
+
+<section
+  class={`h-32 bg-secondary-300 w-full overflow-hidden relative ${className}`}
+>
   <div class="logo-scroll-container flex items-center h-full">
-    <div class="logo-scroll-track flex items-center gap-16 h-full">
+    <div
+      class="logo-scroll-track flex items-center gap-16 h-full"
+      data-scroll-speed={scrollSpeed}
+    >
       <!-- First set of logos -->
-      <div
-        class="flex items-center justify-center h-20 w-40 bg-white rounded-2xl shadow-2xl transition-all duration-300 hover:scale-105 hover:shadow-3xl"
-      >
-        <span class="text-primary-900 font-bold text-xl font-anton"
-          >TechCorp</span
-        >
-      </div>
-      <div
-        class="flex items-center justify-center h-20 w-40 bg-white rounded-2xl shadow-2xl transition-all duration-300 hover:scale-105 hover:shadow-3xl"
-      >
-        <span class="text-secondary-500 font-bold text-xl font-anton"
-          >InnovateLab</span
-        >
-      </div>
-      <div
-        class="flex items-center justify-center h-20 w-40 bg-white rounded-2xl shadow-2xl transition-all duration-300 hover:scale-105 hover:shadow-3xl"
-      >
-        <span class="text-primary-900 font-bold text-xl font-anton"
-          >StartupX</span
-        >
-      </div>
-      <div
-        class="flex items-center justify-center h-20 w-40 bg-white rounded-2xl shadow-2xl transition-all duration-300 hover:scale-105 hover:shadow-3xl"
-      >
-        <span class="text-secondary-500 font-bold text-xl font-anton"
-          >FutureWorks</span
-        >
-      </div>
-      <div
-        class="flex items-center justify-center h-20 w-40 bg-white rounded-2xl shadow-2xl transition-all duration-300 hover:scale-105 hover:shadow-3xl"
-      >
-        <span class="text-primary-900 font-bold text-xl font-anton"
-          >NextGen</span
-        >
-      </div>
-      <div
-        class="flex items-center justify-center h-20 w-40 bg-white rounded-2xl shadow-2xl transition-all duration-300 hover:scale-105 hover:shadow-3xl"
-      >
-        <span class="text-secondary-500 font-bold text-xl font-anton"
-          >DigitalFirst</span
-        >
-      </div>
+      {
+        logos.map((logo) => (
+          <div class="flex items-center justify-center h-20 w-40 bg-white rounded-2xl shadow-2xl transition-all duration-300 hover:scale-105 hover:shadow-3xl flex-shrink-0">
+            <span class={`${logo.color} font-bold text-xl font-anton`}>
+              {logo.name}
+            </span>
+          </div>
+        ))
+      }
 
       <!-- Duplicate set for seamless loop -->
-      <div
-        class="flex items-center justify-center h-20 w-40 bg-white rounded-2xl shadow-2xl transition-all duration-300 hover:scale-105 hover:shadow-3xl"
-      >
-        <span class="text-primary-900 font-bold text-xl font-anton"
-          >TechCorp</span
-        >
-      </div>
-      <div
-        class="flex items-center justify-center h-20 w-40 bg-white rounded-2xl shadow-2xl transition-all duration-300 hover:scale-105 hover:shadow-3xl"
-      >
-        <span class="text-secondary-500 font-bold text-xl font-anton"
-          >InnovateLab</span
-        >
-      </div>
-      <div
-        class="flex items-center justify-center h-20 w-40 bg-white rounded-2xl shadow-2xl transition-all duration-300 hover:scale-105 hover:shadow-3xl"
-      >
-        <span class="text-primary-900 font-bold text-xl font-anton"
-          >StartupX</span
-        >
-      </div>
-      <div
-        class="flex items-center justify-center h-20 w-40 bg-white rounded-2xl shadow-2xl transition-all duration-300 hover:scale-105 hover:shadow-3xl"
-      >
-        <span class="text-secondary-500 font-bold text-xl font-anton"
-          >FutureWorks</span
-        >
-      </div>
-      <div
-        class="flex items-center justify-center h-20 w-40 bg-white rounded-2xl shadow-2xl transition-all duration-300 hover:scale-105 hover:shadow-3xl"
-      >
-        <span class="text-primary-900 font-bold text-xl font-anton"
-          >NextGen</span
-        >
-      </div>
-      <div
-        class="flex items-center justify-center h-20 w-40 bg-white rounded-2xl shadow-2xl transition-all duration-300 hover:scale-105 hover:shadow-3xl"
-      >
-        <span class="text-secondary-500 font-bold text-xl font-anton"
-          >DigitalFirst</span
-        >
-      </div>
+      {
+        logos.map((logo) => (
+          <div class="flex items-center justify-center h-20 w-40 bg-white rounded-2xl shadow-2xl transition-all duration-300 hover:scale-105 hover:shadow-3xl flex-shrink-0">
+            <span class={`${logo.color} font-bold text-xl font-anton`}>
+              {logo.name}
+            </span>
+          </div>
+        ))
+      }
+
+      <!-- Third set for extra smoothness -->
+      {
+        logos.map((logo) => (
+          <div class="flex items-center justify-center h-20 w-40 bg-white rounded-2xl shadow-2xl transition-all duration-300 hover:scale-105 hover:shadow-3xl flex-shrink-0">
+            <span class={`${logo.color} font-bold text-xl font-anton`}>
+              {logo.name}
+            </span>
+          </div>
+        ))
+      }
     </div>
   </div>
 </section>
+
+<style>
+  /* Ensure smooth performance */
+  .logo-scroll-container {
+    will-change: transform;
+  }
+
+  .logo-scroll-track {
+    will-change: transform;
+  }
+
+  /* Logo hover effects */
+  .logo-scroll-track > div:hover {
+    transform: scale(1.05);
+    box-shadow:
+      0 20px 25px -5px rgba(0, 0, 0, 0.1),
+      0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+
+  /* Accessibility improvements */
+  .logo-scroll-track > div:focus-within {
+    outline: 2px solid #412683;
+    outline-offset: 2px;
+    border-radius: 1rem;
+  }
+
+  /* Reduced motion fallback */
+  @media (prefers-reduced-motion: reduce) {
+    .logo-scroll-track {
+      animation: none !important;
+      transform: none !important;
+    }
+  }
+</style>
+
+<script>
+  import { gsap } from "gsap";
+
+  interface HorizontalScrollState {
+    timeline: gsap.core.Timeline | null;
+    isAnimating: boolean;
+    scrollSpeed: number;
+  }
+
+  const scrollState: HorizontalScrollState = {
+    timeline: null,
+    isAnimating: false,
+    scrollSpeed: 1,
+  };
+
+  function createHorizontalScrollAnimation(): gsap.core.Timeline {
+    const track = document.querySelector(".logo-scroll-track") as HTMLElement;
+
+    if (!track) {
+      console.warn("Horizontal logo scroll track not found");
+      return gsap.timeline();
+    }
+
+    // Get scroll speed from data attribute
+    const speed = parseFloat(track.dataset.scrollSpeed || "1");
+    scrollState.scrollSpeed = speed;
+
+    // Calculate the width of one set of logos for seamless looping
+    const logoItems = track.children;
+    const itemsPerSet = logoItems.length / 3; // We have 3 sets
+    let setWidth = 0;
+
+    for (let i = 0; i < itemsPerSet; i++) {
+      const item = logoItems[i] as HTMLElement;
+      setWidth += item.offsetWidth + 64; // 64px is gap-16 (4rem)
+    }
+
+    // Create timeline for infinite scroll
+    const timeline = gsap.timeline({ repeat: -1, ease: "none" });
+
+    // Animate the track to move left by one set width
+    const duration = 15 / speed; // Base duration adjusted by speed
+
+    timeline.to(track, {
+      x: -setWidth,
+      duration: duration,
+      ease: "none",
+    });
+
+    // Reset position for seamless loop
+    timeline.set(track, { x: 0 });
+
+    return timeline;
+  }
+
+  function initializeHorizontalScroll() {
+    // Check for reduced motion preference
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    if (prefersReducedMotion) {
+      console.log(
+        "Reduced motion detected, skipping horizontal scroll animation"
+      );
+      return;
+    }
+
+    // Clean up existing animation
+    if (scrollState.timeline) {
+      scrollState.timeline.kill();
+    }
+
+    // Wait for fonts and layout to be ready
+    setTimeout(() => {
+      // Create and start animation
+      scrollState.timeline = createHorizontalScrollAnimation();
+      scrollState.isAnimating = true;
+
+      // Add pause/resume on hover for better UX
+      const container = document.querySelector(
+        ".logo-scroll-container"
+      ) as HTMLElement;
+      if (container && scrollState.timeline) {
+        container.addEventListener("mouseenter", () => {
+          if (scrollState.timeline) {
+            scrollState.timeline.pause();
+          }
+        });
+
+        container.addEventListener("mouseleave", () => {
+          if (scrollState.timeline) {
+            scrollState.timeline.resume();
+          }
+        });
+      }
+    }, 100);
+  }
+
+  function handleResize() {
+    // Reinitialize on resize to recalculate positions
+    if (scrollState.isAnimating) {
+      initializeHorizontalScroll();
+    }
+  }
+
+  // Initialize when DOM is ready
+  document.addEventListener("DOMContentLoaded", initializeHorizontalScroll);
+
+  // Handle resize events with debouncing
+  let resizeTimeout: number;
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(handleResize, 250);
+  });
+
+  // Handle visibility change to pause/resume animation
+  document.addEventListener("visibilitychange", () => {
+    if (scrollState.timeline) {
+      if (document.hidden) {
+        scrollState.timeline.pause();
+      } else {
+        scrollState.timeline.resume();
+      }
+    }
+  });
+
+  // Cleanup on page unload
+  window.addEventListener("beforeunload", () => {
+    if (scrollState.timeline) {
+      scrollState.timeline.kill();
+    }
+  });
+</script>

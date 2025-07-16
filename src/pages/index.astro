@@ -1,67 +1,12 @@
 ---
+import ContactSection from "../components/ContactSection.astro";
+import BlogSection from "../components/home/BlogSection.astro";
 import ContentCampainSection from "../components/home/ContentCampainSection.astro";
 import HeroSection from "../components/home/HeroSection.astro";
 import JobPlatformSection from "../components/home/JobPlatformSection.astro";
 import KnowledgeEventSection from "../components/home/KnowledgeEventSection.astro";
+import HorizontalLogoScrollSection from "../components/HorizontalLogoScrollSection.astro";
 import App from "../layouts/App.astro";
-
-// Sample card data for the gallery - Job Platform Wireframes
-const sampleCards = [
-  {
-    id: "job-board-1",
-    wireframe: "/img/wireframes/job-board-wireframe.svg",
-    alt: "Job Board Platform - Indeed Style",
-    title: "JobFind Pro",
-    subtitle: "Job Search Platform",
-    websiteType: "job-board",
-    backgroundColor: "bg-blue-600",
-  },
-  {
-    id: "linkedin-platform",
-    wireframe: "/img/wireframes/linkedin-wireframe.svg",
-    alt: "Professional Network Platform",
-    title: "CareerConnect",
-    subtitle: "Professional Network",
-    websiteType: "professional-network",
-    backgroundColor: "bg-white",
-  },
-  {
-    id: "job-detail-1",
-    wireframe: "/img/wireframes/job-detail-wireframe.svg",
-    alt: "Job Detail Page",
-    title: "Position Details",
-    subtitle: "Job Application",
-    websiteType: "job-detail",
-    backgroundColor: "bg-purple-700",
-  },
-  {
-    id: "recruitment-dash",
-    wireframe: "/img/wireframes/recruitment-dashboard-wireframe.svg",
-    alt: "Recruitment Dashboard",
-    title: "Talent Hub",
-    subtitle: "HR Dashboard",
-    websiteType: "recruitment-dashboard",
-    backgroundColor: "bg-white",
-  },
-  {
-    id: "job-board-2",
-    wireframe: "/img/wireframes/job-board-wireframe.svg",
-    alt: "Alternative Job Board",
-    title: "TechJobs",
-    subtitle: "Tech Recruitment",
-    websiteType: "job-board",
-    backgroundColor: "bg-blue-900",
-  },
-  {
-    id: "linkedin-alt",
-    wireframe: "/img/wireframes/linkedin-wireframe.svg",
-    alt: "Professional Platform Alternative",
-    title: "NetworkPro",
-    subtitle: "Career Platform",
-    websiteType: "professional-network",
-    backgroundColor: "bg-white",
-  },
-];
 ---
 
 <html lang="en">
@@ -80,15 +25,21 @@ const sampleCards = [
   </head>
   <body>
     <App>
-        
       <!-- Scattered Card Gallery Demo -->
       <!-- <section class="min-h-screen">
         <ScatteredCardGallery className="px-32 mx-auto" cards={sampleCards} />
       </section> -->
       <HeroSection />
       <JobPlatformSection />
+      <HorizontalLogoScrollSection
+        scrollDirection="left"
+        scrollSpeed={0.6}
+        backgroundColor="bg-secondary-300"
+      />
       <ContentCampainSection />
       <KnowledgeEventSection />
+      <BlogSection />
+      <ContactSection />
     </App>
   </body>
 </html>
