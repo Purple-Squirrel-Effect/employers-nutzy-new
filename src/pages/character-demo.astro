@@ -1,0 +1,173 @@
+---
+import CharacterSelectionCard from "../components/CharacterSelectionCard.astro";
+import App from "../layouts/App.astro";
+
+// Sample character data
+const characters = [
+  {
+    id: "character-1",
+    name: "Alex Chen",
+    description: "A creative designer with a passion for visual storytelling and user experience. Specializes in modern, clean interfaces.",
+    avatarSrc: "/img/avatars/alex-chen.jpg",
+    avatarAlt: "Alex Chen - Creative Designer"
+  },
+  {
+    id: "character-2", 
+    name: "Maya Rodriguez",
+    description: "Full-stack developer who loves building scalable applications. Expert in React, Node.js, and cloud technologies.",
+    avatarSrc: "/img/avatars/maya-rodriguez.jpg",
+    avatarAlt: "Maya Rodriguez - Full-stack Developer"
+  },
+  {
+    id: "character-3",
+    name: "Jordan Kim",
+    description: "Product manager with a keen eye for market trends and user needs. Bridges the gap between business and technology.",
+    avatarSrc: "/img/avatars/jordan-kim.jpg", 
+    avatarAlt: "Jordan Kim - Product Manager"
+  },
+  {
+    id: "character-4",
+    name: "Sam Taylor",
+    description: "Data scientist passionate about machine learning and AI. Turns complex data into actionable insights.",
+    avatarSrc: "/img/avatars/sam-taylor.jpg",
+    avatarAlt: "Sam Taylor - Data Scientist"
+  },
+  {
+    id: "character-5",
+    name: "Riley Johnson",
+    description: "Marketing specialist focused on digital campaigns and brand strategy. Expert in social media and content creation.",
+    avatarSrc: "/img/avatars/riley-johnson.jpg",
+    avatarAlt: "Riley Johnson - Marketing Specialist"
+  },
+  {
+    id: "character-6",
+    name: "Casey Wong",
+    description: "DevOps engineer who ensures smooth deployments and system reliability. Passionate about automation and infrastructure.",
+    avatarSrc: "/img/avatars/casey-wong.jpg",
+    avatarAlt: "Casey Wong - DevOps Engineer"
+  }
+];
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Character Selection Demo - Nutzy</title>
+    <meta
+      name="description"
+      content="Demo page showcasing the character selection card component with responsive design and accessibility features."
+    />
+  </head>
+  <body>
+    <App>
+      <main class="min-h-screen bg-gray-50 py-12">
+        <!-- Header Section -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4 font-anton">
+              Choose Your Character
+            </h1>
+            <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto font-nunito">
+              Select a character to represent your professional profile. Each character brings unique skills and expertise to your team.
+            </p>
+          </div>
+
+          <!-- Character Grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+            {characters.map((character, index) => (
+              <CharacterSelectionCard
+                id={character.id}
+                name={character.name}
+                description={character.description}
+                avatarSrc={character.avatarSrc}
+                avatarAlt={character.avatarAlt}
+                isSelected={index === 0}
+                className="max-w-sm mx-auto"
+              />
+            ))}
+          </div>
+
+          <!-- Selection Info -->
+          <div class="mt-12 text-center">
+            <div 
+              id="selection-info" 
+              class="bg-white rounded-xl shadow-lg p-6 max-w-md mx-auto border-l-4 border-purple-600"
+            >
+              <h3 class="text-lg font-bold text-gray-900 mb-2 font-anton">
+                Selected Character
+              </h3>
+              <p id="selected-character-name" class="text-purple-600 font-semibold font-nunito">
+                Alex Chen
+              </p>
+              <p id="selected-character-description" class="text-gray-600 text-sm mt-2 font-nunito">
+                A creative designer with a passion for visual storytelling and user experience.
+              </p>
+            </div>
+          </div>
+        </div>
+      </main>
+    </App>
+
+    <script>
+      // Listen for character selection events
+      document.addEventListener('characterSelected', (event) => {
+        const { characterId } = event.detail;
+        
+        // Find the selected character data
+        const characters = [
+          {
+            id: "character-1",
+            name: "Alex Chen",
+            description: "A creative designer with a passion for visual storytelling and user experience. Specializes in modern, clean interfaces."
+          },
+          {
+            id: "character-2", 
+            name: "Maya Rodriguez",
+            description: "Full-stack developer who loves building scalable applications. Expert in React, Node.js, and cloud technologies."
+          },
+          {
+            id: "character-3",
+            name: "Jordan Kim",
+            description: "Product manager with a keen eye for market trends and user needs. Bridges the gap between business and technology."
+          },
+          {
+            id: "character-4",
+            name: "Sam Taylor",
+            description: "Data scientist passionate about machine learning and AI. Turns complex data into actionable insights."
+          },
+          {
+            id: "character-5",
+            name: "Riley Johnson",
+            description: "Marketing specialist focused on digital campaigns and brand strategy. Expert in social media and content creation."
+          },
+          {
+            id: "character-6",
+            name: "Casey Wong",
+            description: "DevOps engineer who ensures smooth deployments and system reliability. Passionate about automation and infrastructure."
+          }
+        ];
+        
+        const selectedCharacter = characters.find(char => char.id === characterId);
+        
+        if (selectedCharacter) {
+          // Update the selection info display
+          const nameElement = document.getElementById('selected-character-name');
+          const descriptionElement = document.getElementById('selected-character-description');
+          
+          if (nameElement) {
+            nameElement.textContent = selectedCharacter.name;
+          }
+          
+          if (descriptionElement) {
+            descriptionElement.textContent = selectedCharacter.description;
+          }
+          
+          console.log('Character selected:', selectedCharacter);
+        }
+      });
+    </script>
+  </body>
+</html>

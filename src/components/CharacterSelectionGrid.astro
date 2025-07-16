@@ -1,0 +1,129 @@
+---
+import CharacterSelectionCard from "./CharacterSelectionCard.astro";
+
+export interface Character {
+  id: string;
+  name: string;
+  description: string;
+  avatarSrc?: string;
+  avatarAlt?: string;
+}
+
+export interface Props {
+  characters: Character[];
+  selectedCharacterId?: string;
+  className?: string;
+  gridCols?: "1" | "2" | "3" | "4";
+  onCharacterSelect?: (characterId: string) => void;
+}
+
+const {
+  characters,
+  selectedCharacterId,
+  className = "",
+  gridCols = "3",
+} = Astro.props;
+
+// Grid column classes mapping
+const gridColsClasses = {
+  "1": "grid-cols-1",
+  "2": "grid-cols-1 sm:grid-cols-2",
+  "3": "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3",
+  "4": "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4",
+};
+---
+
+<div class={`character-selection-grid ${className}`}>
+  <!-- Grid Container -->
+  <div class={`grid ${gridColsClasses[gridCols]} gap-6 lg:gap-8`}>
+    {characters.map((character) => (
+      <CharacterSelectionCard
+        id={character.id}
+        name={character.name}
+        description={character.description}
+        avatarSrc={character.avatarSrc}
+        avatarAlt={character.avatarAlt}
+        isSelected={character.id === selectedCharacterId}
+        className="max-w-sm mx-auto"
+      />
+    ))}
+  </div>
+
+  <!-- Empty State -->
+  {characters.length === 0 && (
+    <div class="text-center py-12">
+      <div class="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-4">
+        <svg
+          class="w-8 h-8 text-gray-400"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"
+          />
+        </svg>
+      </div>
+      <h3 class="text-lg font-semibold text-gray-900 mb-2 font-anton">
+        No Characters Available
+      </h3>
+      <p class="text-gray-600 font-nunito">
+        Add some characters to get started with the selection interface.
+      </p>
+    </div>
+  )}
+</div>
+
+<style>
+  .character-selection-grid {
+    width: 100%;
+  }
+
+  /* Ensure consistent spacing */
+  @media (max-width: 640px) {
+    .character-selection-grid .grid {
+      gap: 1rem;
+    }
+  }
+</style>
+
+<script>
+  // Enhanced character selection handling for the grid
+  document.addEventListener('DOMContentLoaded', () => {
+    const grids = document.querySelectorAll('.character-selection-grid');
+    
+    grids.forEach(grid => {
+      // Listen for character selection events within this grid
+      grid.addEventListener('characterSelected', (event) => {
+        const { characterId } = event.detail;
+        
+        // Update selection state for all cards in this grid only
+        const cards = grid.querySelectorAll('.character-selection-card');
+        cards.forEach(card => {
+          const cardId = card.getAttribute('data-character-id');
+          const isSelected = cardId === characterId;
+          
+          // Update visual state
+          if (isSelected) {
+            card.classList.remove('border-transparent');
+            card.classList.add('border-purple-600', 'ring-4', 'ring-purple-200');
+          } else {
+            card.classList.remove('border-purple-600', 'ring-4', 'ring-purple-200');
+            card.classList.add('border-transparent');
+          }
+        });
+        
+        // Dispatch a grid-level event for parent components
+        const gridEvent = new CustomEvent('gridCharacterSelected', {
+          detail: { characterId, gridElement: grid },
+          bubbles: true
+        });
+        grid.dispatchEvent(gridEvent);
+      });
+    });
+  });
+</script>
