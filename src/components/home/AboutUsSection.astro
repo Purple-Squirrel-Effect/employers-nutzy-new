@@ -1,0 +1,394 @@
+---
+// About Us section data structure
+interface TeamMember {
+  id: string;
+  name: string;
+  role: string;
+  description: string;
+  image: string;
+  expertise: string[];
+}
+
+interface CompanyValue {
+  id: string;
+  title: string;
+  description: string;
+  icon: string;
+}
+
+// Team members data
+const teamMembers: TeamMember[] = [
+  {
+    id: "founder-ceo",
+    name: "Sarah van der Berg",
+    role: "Founder & CEO",
+    description: "Gen Z expert met 8+ jaar ervaring in recruitment en employer branding. Gepassioneerd over het verbinden van jong talent met innovatieve bedrijven.",
+    image: "/svg/Team-work-amico.svg",
+    expertise: ["Gen Z Recruitment", "Employer Branding", "Content Strategy"]
+  },
+  {
+    id: "creative-director",
+    name: "Mike Janssen",
+    role: "Creative Director",
+    description: "Visuele storyteller die complexe vacatures omzet naar aantrekkelijke, begrijpelijke content die Gen Z aanspreekt en inspireert.",
+    image: "/svg/Team-goals-amico.svg",
+    expertise: ["Visual Design", "Content Creation", "Brand Strategy"]
+  },
+  {
+    id: "tech-lead",
+    name: "Emma Rodriguez",
+    role: "Tech Lead",
+    description: "Full-stack developer die zorgt voor een naadloze gebruikerservaring op ons platform, met focus op performance en toegankelijkheid.",
+    image: "/svg/Team-page-amico.svg",
+    expertise: ["Platform Development", "UX/UI", "Data Analytics"]
+  }
+];
+
+// Company values data
+const companyValues: CompanyValue[] = [
+  {
+    id: "authenticity",
+    title: "Authenticiteit",
+    description: "We geloven in eerlijke, transparante communicatie die Gen Z waardeert en vertrouwt.",
+    icon: "/svg/objects-color-diamond-svgrepo-com.svg"
+  },
+  {
+    id: "innovation",
+    title: "Innovatie",
+    description: "We blijven vooroplopen met nieuwe technologieën en creatieve oplossingen voor recruitment.",
+    icon: "/svg/objects-color-diamond-svgrepo-com.svg"
+  },
+  {
+    id: "impact",
+    title: "Impact",
+    description: "Elke samenwerking moet waarde toevoegen voor zowel werkgevers als werkzoekenden.",
+    icon: "/svg/objects-color-diamond-svgrepo-com.svg"
+  },
+  {
+    id: "community",
+    title: "Community",
+    description: "We bouwen aan een gemeenschap waar jong talent en bedrijven elkaar vinden en groeien.",
+    icon: "/svg/objects-color-diamond-svgrepo-com.svg"
+  }
+];
+---
+
+  <!-- Background Pattern -->
+  <img
+    class="absolute h-[200svh] w-[200svh] opacity-40 z-10"
+    src="/svg/particle/thunder.svg"
+    alt="Team spirit illustration"
+    loading="lazy"
+  />
+<section
+  id="about-us-section"
+  class="bg-secondary-900 grid grid-cols-1 relative overflow-hidden py-16 md:py-24 lg:py-32 px-4"
+  data-about-section
+>
+
+
+  <!-- Content Container -->
+  <div class="relative z-10 w-full max-w-7xl mx-auto">
+    <!-- Section Header -->
+    <div class="text-center mb-12 lg:mb-16" data-about-header>
+      <h1
+        class="text-4xl md:text-6xl lg:text-8xl font-bold text-white relative z-50 mb-4 lg:mb-6 text-shadow shadow-black"
+      >
+        Over <span class="text-primary-200">Nutzy</span>
+      </h1>
+      <p
+        class="text-lg md:text-xl text-white leading-relaxed max-w-3xl mx-auto"
+      >
+        Wij zijn het team achter de revolutie in Gen Z recruitment. Met onze unieke 
+        aanpak van visuele content en authentieke verhalen helpen we bedrijven 
+        en jong talent elkaar te vinden.
+      </p>
+    </div>
+
+    <!-- Company Mission -->
+    <div class="mb-12 lg:mb-16" data-mission-section>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+        <!-- Mission Image -->
+        <div class="order-2 lg:order-1">
+          <div class="relative rounded-2xl overflow-hidden group">
+            <img
+              src="/svg/Coworking-amico.svg"
+              alt="Nutzy mission illustration"
+              class="w-full h-64 md:h-80 lg:h-96 object-contain transition-transform duration-500 group-hover:scale-105"
+              loading="lazy"
+            />
+          </div>
+        </div>
+
+        <!-- Mission Content -->
+        <div class="order-1 lg:order-2">
+          <div class="space-y-6">
+            <h2
+              class="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight"
+            >
+              Onze <span class="text-secondary-200">Missie</span>
+            </h2>
+
+            <p class="text-lg text-white/90 leading-relaxed">
+              Generatie Z denkt, communiceert en werkt anders. Traditionele recruitment 
+              methoden sluiten niet meer aan bij hun behoeften. Wij overbruggen deze 
+              kloof door vacatures visueel tot leven te brengen en authentieke verhalen 
+              te vertellen die resoneren met jong talent.
+            </p>
+
+            <p class="text-lg text-white/90 leading-relaxed">
+              Ons doel is simpel: elke Gen Z'er moet binnen 30 seconden begrijpen 
+              wat een baan inhoudt en zich kunnen voorstellen hoe hun toekomst 
+              eruitziet bij jouw bedrijf.
+            </p>
+
+            <div class="flex flex-wrap gap-3">
+              <span class="inline-block px-4 py-2 bg-primary-500 text-white text-sm font-semibold rounded-full">
+                30.000+ maandelijkse bezoekers
+              </span>
+              <span class="inline-block px-4 py-2 bg-secondary-500 text-white text-sm font-semibold rounded-full">
+                30% meer conversie
+              </span>
+              <span class="inline-block px-4 py-2 bg-primary-700 text-white text-sm font-semibold rounded-full">
+                3.5 min gemiddelde sessieduur
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Company Values -->
+    <div class="mb-12 lg:mb-16" data-values-section>
+      <div class="text-center mb-8 lg:mb-12">
+        <h2
+          class="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 text-shadow shadow-black"
+        >
+          Onze <span class="text-secondary-200">Waarden</span>
+        </h2>
+        <p class="text-lg text-white/90 leading-relaxed max-w-2xl mx-auto">
+          Deze kernwaarden sturen alles wat we doen en bepalen hoe we samenwerken 
+          met onze klanten en partners.
+        </p>
+      </div>
+
+      <!-- Values Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+        {companyValues.map((value, index) => (
+          <div
+            class="value-card bg-primary-800 rounded-2xl p-6 text-center hover:bg-primary-700 transition-all duration-300 hover:scale-105 hover:shadow-xl group"
+            data-value-card
+            data-index={index}
+          >
+            <!-- Value Icon -->
+            <div class="flex justify-center mb-4">
+              <div class="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center group-hover:bg-white/20 transition-colors duration-300">
+                <img
+                  src={value.icon}
+                  alt={value.title}
+                  class="w-8 h-8"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+
+            <!-- Value Title -->
+            <h3 class="text-xl font-bold text-white mb-3 group-hover:text-secondary-300 transition-colors duration-300">
+              {value.title}
+            </h3>
+
+            <!-- Value Description -->
+            <p class="text-white/80 text-sm leading-relaxed">
+              {value.description}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Team Section -->
+    <div class="mb-12 lg:mb-16" data-team-section>
+      <div class="text-center mb-8 lg:mb-12">
+        <h2
+          class="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 text-shadow shadow-black"
+        >
+          Ons <span class="text-primary-200">Team</span>
+        </h2>
+        <p class="text-lg text-white/90 leading-relaxed max-w-2xl mx-auto">
+          Ontmoet de experts die dagelijks werken aan de toekomst van recruitment 
+          en het verbinden van Gen Z talent met innovatieve bedrijven.
+        </p>
+      </div>
+
+      <!-- Team Members Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+        {teamMembers.map((member, index) => (
+          <article
+            class="team-card bg-primary-800 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 group"
+            data-team-card
+            data-index={index}
+          >
+            <!-- Member Image -->
+            <div class="relative h-48 overflow-hidden">
+              <img
+                src={member.image}
+                alt={member.name}
+                class="w-full h-full object-contain transition-transform duration-500 group-hover:scale-110"
+                loading="lazy"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-primary-800/60 via-transparent to-transparent"></div>
+            </div>
+
+            <!-- Member Content -->
+            <div class="p-6">
+              <!-- Member Name & Role -->
+              <div class="mb-3">
+                <h3 class="text-xl font-bold text-white mb-1 group-hover:text-secondary-300 transition-colors duration-300">
+                  {member.name}
+                </h3>
+                <p class="text-primary-300 font-semibold text-sm">
+                  {member.role}
+                </p>
+              </div>
+
+              <!-- Member Description -->
+              <p class="text-white/80 text-sm leading-relaxed mb-4">
+                {member.description}
+              </p>
+
+              <!-- Member Expertise -->
+              <div class="flex flex-wrap gap-2">
+                {member.expertise.map((skill) => (
+                  <span class="inline-block px-2 py-1 bg-primary-600 text-white text-xs font-medium rounded-full">
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+
+    <!-- Call to Action -->
+    <div class="text-center mt-12 lg:mt-16" data-about-cta>
+      <div class="bg-primary-800 rounded-2xl p-8 lg:p-12 border border-primary-700">
+        <h3 class="text-2xl md:text-3xl font-bold text-white mb-4">
+          Klaar om Gen Z talent te bereiken?
+        </h3>
+        <p class="text-white/90 mb-6 max-w-2xl mx-auto">
+          Ontdek hoe Nutzy jouw recruitment kan transformeren met visuele content
+          en authentieke verhalen die Gen Z aantrekken en inspireren.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <a
+            href="/#contact"
+            class="inline-flex items-center gap-2 px-8 py-4 bg-primary-500 hover:bg-primary-600 text-white font-semibold rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg group"
+          >
+            Start vandaag
+            <svg
+              class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 5l7 7-7 7"></path>
+            </svg>
+          </a>
+          <a
+            href="/platform"
+            class="inline-flex items-center gap-2 px-8 py-4 bg-transparent border-2 border-white text-white hover:bg-white hover:text-primary-800 font-semibold rounded-lg transition-all duration-300 hover:scale-105"
+          >
+            Bekijk Platform
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Enhanced focus states for accessibility */
+  .value-card:focus-within,
+  .team-card:focus-within {
+    outline: 2px solid #412683;
+    outline-offset: 2px;
+  }
+
+  /* Smooth transitions for all interactive elements */
+  .value-card a:focus,
+  .team-card a:focus {
+    outline: 2px solid #412683;
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* Ensure consistent card heights */
+  .value-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .team-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Responsive image handling */
+  @media (max-width: 768px) {
+    .team-card .relative {
+      height: 200px;
+    }
+  }
+
+  /* Animation for value cards */
+  .value-card {
+    animation: fadeInUp 0.6s ease-out forwards;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .value-card:nth-child(1) { animation-delay: 0.1s; }
+  .value-card:nth-child(2) { animation-delay: 0.2s; }
+  .value-card:nth-child(3) { animation-delay: 0.3s; }
+  .value-card:nth-child(4) { animation-delay: 0.4s; }
+
+  /* Animation for team cards */
+  .team-card {
+    animation: fadeInUp 0.6s ease-out forwards;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .team-card:nth-child(1) { animation-delay: 0.2s; }
+  .team-card:nth-child(2) { animation-delay: 0.4s; }
+  .team-card:nth-child(3) { animation-delay: 0.6s; }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Reduce motion for accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    .value-card,
+    .team-card {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+
+    .value-card:hover,
+    .team-card:hover {
+      transform: none;
+    }
+  }
+</style>

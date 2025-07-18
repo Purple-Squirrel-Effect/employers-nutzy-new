@@ -1,0 +1,96 @@
+<section
+  class="bg-secondary-900 overflow-hidden relative py-16 md:py-24 lg:py-32 px-8 md:px-16 lg:px-32 xl:px-64 gap-8 items-center justify-center grid grid-cols-1 lg:grid-cols-2"
+>
+  <!-- Creative Illustration -->
+  <div class="order-1 lg:order-1 relative z-50 flex justify-center items-center">
+    <img 
+      src="/svg/Content-creator-amico.svg" 
+      alt="Creatieve content illustratie"
+      class="w-full max-w-md lg:max-w-lg"
+    />
+  </div>
+  
+  <!-- Creative Content -->
+  <div class="order-2 lg:order-2">
+    <h2 class="text-4xl md:text-6xl lg:text-8xl font-bold text-white relative z-50 mb-6 text-shadow shadow-black">
+      <span class="text-primary-200">Creatieve</span> content
+    </h2>
+    <p class="text-lg md:text-xl text-white mb-8 leading-relaxed">
+      Authentieke content die Gen-Z aanspreekt. Onze creatieve experts begrijpen 
+      de taal, trends en platforms die deze generatie gebruikt en creëren content 
+      die opvalt en converteert.
+    </p>
+    
+    <!-- Creative Features -->
+    <div class="space-y-6">
+      <div class="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
+        <h3 class="text-xl font-bold text-white mb-3">Visuele Storytelling</h3>
+        <p class="text-gray-200">
+          Van TikTok-video's tot Instagram Stories - wij creëren visuele verhalen 
+          die jouw vacatures tot leven brengen.
+        </p>
+      </div>
+      
+      <div class="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
+        <h3 class="text-xl font-bold text-white mb-3">Authentieke Boodschappen</h3>
+        <p class="text-gray-200">
+          Content die aanvoelt als een gesprek met vrienden, niet als traditionele 
+          recruitment advertenties.
+        </p>
+      </div>
+      
+      <div class="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
+        <h3 class="text-xl font-bold text-white mb-3">Multi-Platform Aanpak</h3>
+        <p class="text-gray-200">
+          Geoptimaliseerde content voor elk platform - van LinkedIn tot TikTok, 
+          elk met zijn eigen tone of voice.
+        </p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Background decoration -->
+  <img
+    class="absolute opacity-20 -top-48 right-0"
+    src="/svg/Content-creator-amico.svg"
+    alt="Background decoration"
+  />
+</section>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  document.addEventListener("DOMContentLoaded", () => {
+    // Check for reduced motion preference
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    
+    if (!prefersReducedMotion) {
+      // Creative section animation
+      const creativeSection = document.querySelector(".bg-secondary-900");
+      const creativeTitle = creativeSection?.querySelector("h2");
+      const creativeText = creativeSection?.querySelector("p");
+      const creativeFeatures = creativeSection?.querySelectorAll(".space-y-6 > div");
+      const creativeImage = creativeSection?.querySelector("img");
+      
+      if (creativeSection && creativeTitle && creativeText && creativeFeatures && creativeImage) {
+        gsap.set([creativeTitle, creativeText, creativeFeatures, creativeImage], { opacity: 0, y: 50 });
+        
+        ScrollTrigger.create({
+          trigger: creativeSection,
+          start: "top 80%",
+          onEnter: () => {
+            const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+            
+            tl.to(creativeImage, { opacity: 1, y: 0, duration: 0.8 })
+              .to(creativeTitle, { opacity: 1, y: 0, duration: 0.8 }, "-=0.6")
+              .to(creativeText, { opacity: 1, y: 0, duration: 0.6 }, "-=0.4")
+              .to(creativeFeatures, { opacity: 1, y: 0, duration: 0.6, stagger: 0.2 }, "-=0.4");
+          }
+        });
+      }
+    }
+  });
+</script>

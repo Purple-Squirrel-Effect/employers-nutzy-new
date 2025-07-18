@@ -1,24 +1,445 @@
 <section
-  class="bg-primary-300 overflow-hidden relative py-32 px-64 gap-8 items-center justify-center grid grid-cols-2"
+  class="bg-primary-300 overflow-hidden relative py-32 px-8 md:px-16 lg:px-32 xl:px-64 gap-8 items-start justify-center grid grid-cols-1 lg:grid-cols-2"
 >
+  <!-- Original envelope illustration -->
   <img
-    class="absolute h-screen rotate-6 opacity-75"
+    class="absolute h-screen rotate-6 opacity-90 z-0"
     src="/svg/Envelope-cuate.svg"
+    alt="Contact illustration"
   />
-  <div class="flex flex-col">
+
+  <!-- Left Column - Original heading with improved styling -->
+  <div class="flex flex-col relative z-10">
     <h1
-      class="text-7xl font-bold text-black relative z-50 shadow-white text-shadow"
+      class="text-5xl md:text-6xl lg:text-7xl font-bold text-black relative z-50 shadow-white text-shadow mb-6"
     >
       Niet gevonden wat je zoekt?
     </h1>
-    <!-- <img src="svg/sad-face-52.svg" /> -->
+    <p class="text-lg md:text-xl text-gray-800 mb-8 leading-relaxed max-w-lg">
+      Geen probleem! Laat ons weten waar je naar op zoek bent en we helpen je
+      graag verder.
+    </p>
+
+    <!-- Contact Info -->
+    <div class="space-y-4">
+      <div class="flex items-center space-x-3">
+        <div
+          class="w-10 h-10 bg-white rounded-lg flex items-center justify-center shadow-lg"
+        >
+          <svg
+            class="w-5 h-5 text-primary-600"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+            ></path>
+          </svg>
+        </div>
+        <span class="text-gray-800 font-medium">hello@nutzy.nl</span>
+      </div>
+      <div class="flex items-center space-x-3">
+        <div
+          class="w-10 h-10 bg-white rounded-lg flex items-center justify-center shadow-lg"
+        >
+          <svg
+            class="w-5 h-5 text-primary-600"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+            ></path>
+          </svg>
+        </div>
+        <span class="text-gray-800 font-medium">+31 (0)20 123 4567</span>
+      </div>
+    </div>
   </div>
-  <div>
-    <form>
-      <input type="text" placeholder="Jouw naam" />
-      <input type="email" placeholder="Jouw e-mailadres" />
-      <textarea placeholder="Jouw bericht"></textarea>
-      <button type="submit">Verstuur</button>
-    </form>
+
+  <!-- Right Column - Enhanced Form -->
+  <div class="relative z-10">
+    <div
+      class="bg-white rounded-2xl shadow-xl p-6 lg:p-8 border border-white/20 backdrop-blur-sm"
+    >
+      <div class="mb-6">
+        <h2 class="text-2xl lg:text-3xl font-bold text-gray-900 mb-2">
+          Stuur ons een bericht
+        </h2>
+        <p class="text-gray-600">We reageren binnen 24 uur op je bericht</p>
+      </div>
+
+      <form class="space-y-6" id="contact-form">
+        <!-- Name Field -->
+        <div class="form-group">
+          <label
+            for="name"
+            class="block text-sm font-semibold text-gray-700 mb-2"
+          >
+            Jouw naam *
+          </label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            required
+            class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-200 bg-gray-50 focus:bg-white"
+            placeholder="Voer je volledige naam in"
+          />
+        </div>
+
+        <!-- Email Field -->
+        <div class="form-group">
+          <label
+            for="email"
+            class="block text-sm font-semibold text-gray-700 mb-2"
+          >
+            E-mailadres *
+          </label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-200 bg-gray-50 focus:bg-white"
+            placeholder="je@bedrijf.nl"
+          />
+        </div>
+
+        <!-- Company Field -->
+        <div class="form-group">
+          <label
+            for="company"
+            class="block text-sm font-semibold text-gray-700 mb-2"
+          >
+            Bedrijf
+          </label>
+          <input
+            type="text"
+            id="company"
+            name="company"
+            class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-200 bg-gray-50 focus:bg-white"
+            placeholder="Jouw bedrijfsnaam"
+          />
+        </div>
+
+        <!-- Subject Field -->
+        <div class="form-group">
+          <label
+            for="subject"
+            class="block text-sm font-semibold text-gray-700 mb-2"
+          >
+            Onderwerp *
+          </label>
+          <select
+            id="subject"
+            name="subject"
+            required
+            class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-200 bg-gray-50 focus:bg-white"
+          >
+            <option value="">Selecteer een onderwerp</option>
+            <option value="platform">Vragen over het platform</option>
+            <option value="pricing">Prijzen en abonnementen</option>
+            <option value="demo">Demo aanvragen</option>
+            <option value="partnership">Samenwerking</option>
+            <option value="support">Technische ondersteuning</option>
+            <option value="other">Anders</option>
+          </select>
+        </div>
+
+        <!-- Message Field -->
+        <div class="form-group">
+          <label
+            for="message"
+            class="block text-sm font-semibold text-gray-700 mb-2"
+          >
+            Jouw bericht *
+          </label>
+          <textarea
+            id="message"
+            name="message"
+            rows="5"
+            required
+            class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-200 bg-gray-50 focus:bg-white resize-none"
+            placeholder="Vertel ons waar we je mee kunnen helpen..."></textarea>
+        </div>
+
+        <!-- Privacy Checkbox -->
+        <div class="form-group">
+          <label class="flex items-start space-x-3">
+            <input
+              type="checkbox"
+              id="privacy"
+              name="privacy"
+              required
+              class="mt-1 w-4 h-4 text-primary-600 border-gray-300 rounded focus:ring-primary-500"
+            />
+            <span class="text-sm text-gray-600">
+              Ik ga akkoord met de <a
+                href="/privacy"
+                class="text-primary-600 hover:text-primary-700 underline"
+                >privacyverklaring</a
+              >
+              en geef toestemming voor het verwerken van mijn gegevens. *
+            </span>
+          </label>
+        </div>
+
+        <!-- Submit Button -->
+        <button
+          type="submit"
+          class="w-full bg-primary-600 hover:bg-primary-700 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-[1.02] hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+          id="submit-btn"
+        >
+          <span class="flex items-center justify-center space-x-2">
+            <span>Verstuur bericht</span>
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+            </svg>
+          </span>
+        </button>
+
+        <!-- Success Message -->
+        <div
+          id="success-message"
+          class="hidden p-4 bg-green-50 border border-green-200 rounded-xl"
+        >
+          <div class="flex items-center space-x-2">
+            <svg
+              class="w-5 h-5 text-green-600"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M5 13l4 4L19 7"></path>
+            </svg>
+            <span class="text-green-800 font-medium"
+              >Bedankt! Je bericht is succesvol verzonden.</span
+            >
+          </div>
+        </div>
+
+        <!-- Error Message -->
+        <div
+          id="error-message"
+          class="hidden p-4 bg-red-50 border border-red-200 rounded-xl"
+        >
+          <div class="flex items-center space-x-2">
+            <svg
+              class="w-5 h-5 text-red-600"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <span class="text-red-800 font-medium"
+              >Er is iets misgegaan. Probeer het opnieuw.</span
+            >
+          </div>
+        </div>
+      </form>
+    </div>
   </div>
 </section>
+
+<style>
+  /* Enhanced focus states for accessibility */
+  .form-group input:focus,
+  .form-group textarea:focus,
+  .form-group select:focus {
+    outline: 2px solid #412683;
+    outline-offset: 2px;
+  }
+
+  /* Smooth transitions for all form elements */
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Custom select arrow */
+  .form-group select {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 0.75rem center;
+    background-repeat: no-repeat;
+    background-size: 1.5em 1.5em;
+    padding-right: 2.5rem;
+    appearance: none;
+  }
+
+  /* Loading state for submit button */
+  .loading {
+    position: relative;
+    color: transparent;
+  }
+
+  .loading::after {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 50%;
+    left: 50%;
+    margin-left: -8px;
+    margin-top: -8px;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 1024px) {
+    .grid-cols-1.lg\\:grid-cols-2 {
+      gap: 2rem;
+    }
+  }
+
+  /* Accessibility improvements */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      transition: none !important;
+      transform: none !important;
+      animation: none !important;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("contact-form") as HTMLFormElement;
+    const submitBtn = document.getElementById(
+      "submit-btn"
+    ) as HTMLButtonElement;
+    const successMessage = document.getElementById(
+      "success-message"
+    ) as HTMLElement;
+    const errorMessage = document.getElementById(
+      "error-message"
+    ) as HTMLElement;
+
+    if (!form || !submitBtn) return;
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      // Hide previous messages
+      successMessage.classList.add("hidden");
+      errorMessage.classList.add("hidden");
+
+      // Show loading state
+      submitBtn.disabled = true;
+      submitBtn.classList.add("loading");
+
+      try {
+        // Simulate form submission (replace with actual endpoint)
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+
+        // Show success message
+        successMessage.classList.remove("hidden");
+        form.reset();
+
+        // Scroll to success message
+        successMessage.scrollIntoView({ behavior: "smooth", block: "center" });
+      } catch (error) {
+        // Show error message
+        errorMessage.classList.remove("hidden");
+        console.error("Form submission error:", error);
+      } finally {
+        // Reset button state
+        submitBtn.disabled = false;
+        submitBtn.classList.remove("loading");
+      }
+    });
+
+    // Real-time validation
+    const requiredFields = form.querySelectorAll("[required]");
+    requiredFields.forEach((field) => {
+      field.addEventListener("blur", validateField);
+      field.addEventListener("input", clearFieldError);
+    });
+
+    function validateField(e: Event) {
+      const field = e.target as
+        | HTMLInputElement
+        | HTMLTextAreaElement
+        | HTMLSelectElement;
+      const value = field.value.trim();
+
+      // Remove existing error styling
+      field.classList.remove("border-red-500", "ring-red-500");
+
+      if (!value) {
+        field.classList.add("border-red-500");
+        return false;
+      }
+
+      // Email validation
+      if (field.type === "email" && value) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(value)) {
+          field.classList.add("border-red-500");
+          return false;
+        }
+      }
+
+      return true;
+    }
+
+    function clearFieldError(e: Event) {
+      const field = e.target as
+        | HTMLInputElement
+        | HTMLTextAreaElement
+        | HTMLSelectElement;
+      field.classList.remove("border-red-500", "ring-red-500");
+    }
+
+    // Enhanced accessibility
+    const formGroups = document.querySelectorAll(".form-group");
+    formGroups.forEach((group) => {
+      const input = group.querySelector(
+        "input, textarea, select"
+      ) as HTMLElement;
+      const label = group.querySelector("label") as HTMLElement;
+
+      if (input && label && !input.getAttribute("aria-describedby")) {
+        const labelId = `label-${Math.random().toString(36).substring(2, 11)}`;
+        label.id = labelId;
+        input.setAttribute("aria-labelledby", labelId);
+      }
+    });
+  });
+</script>

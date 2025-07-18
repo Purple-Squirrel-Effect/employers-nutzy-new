@@ -1,0 +1,35 @@
+---
+import App from "../layouts/App.astro";
+import CampaignHeroSection from "../components/campaign/CampaignHeroSection.astro";
+import StrategySection from "../components/campaign/StrategySection.astro";
+import CreativeSection from "../components/campaign/CreativeSection.astro";
+import CampaignExecutionSection from "../components/campaign/CampaignExecutionSection.astro";
+import CampaignPricingSection from "../components/campaign/CampaignPricingSection.astro";
+import ContactSection from "../components/ContactSection.astro";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>
+      Campagne Strategie - Nutzy | Gen-Z Recruitment Campagnes
+    </title>
+    <meta
+      name="description"
+      content="Ontdek Nutzy's campagne strategie services. Van strategische planning tot creatieve uitvoering - bereik Gen-Z talent met doelgerichte recruitment campagnes."
+    />
+  </head>
+  <body>
+    <App>
+      <CampaignHeroSection />
+      <StrategySection />
+      <CreativeSection />
+      <CampaignExecutionSection />
+      <CampaignPricingSection />
+      <ContactSection />
+    </App>
+  </body>
+</html>

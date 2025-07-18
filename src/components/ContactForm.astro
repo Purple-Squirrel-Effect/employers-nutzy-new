@@ -1,0 +1,823 @@
+---
+// Contact form data structure
+interface FormField {
+  id: string;
+  name: string;
+  type: 'text' | 'email' | 'tel' | 'textarea' | 'select';
+  label: string;
+  placeholder: string;
+  required: boolean;
+  options?: { value: string; label: string; }[];
+  validation?: {
+    pattern?: string;
+    minLength?: number;
+    maxLength?: number;
+  };
+}
+
+// Form fields configuration
+const formFields: FormField[] = [
+  {
+    id: "name",
+    name: "name",
+    type: "text",
+    label: "Jouw naam",
+    placeholder: "Voer je volledige naam in",
+    required: true,
+    validation: {
+      minLength: 2,
+      maxLength: 100
+    }
+  },
+  {
+    id: "email",
+    name: "email", 
+    type: "email",
+    label: "E-mailadres",
+    placeholder: "je@bedrijf.nl",
+    required: true
+  },
+  {
+    id: "company",
+    name: "company",
+    type: "text",
+    label: "Bedrijf",
+    placeholder: "Jouw bedrijfsnaam",
+    required: false,
+    validation: {
+      maxLength: 100
+    }
+  },
+  {
+    id: "phone",
+    name: "phone",
+    type: "tel",
+    label: "Telefoonnummer",
+    placeholder: "+31 6 12345678",
+    required: false
+  },
+  {
+    id: "subject",
+    name: "subject",
+    type: "select",
+    label: "Onderwerp",
+    placeholder: "Selecteer een onderwerp",
+    required: true,
+    options: [
+      { value: "", label: "Selecteer een onderwerp" },
+      { value: "platform", label: "Vragen over het platform" },
+      { value: "demo", label: "Demo aanvragen" },
+      { value: "pricing", label: "Prijzen en abonnementen" },
+      { value: "partnership", label: "Samenwerking" },
+      { value: "support", label: "Technische ondersteuning" },
+      { value: "other", label: "Anders" }
+    ]
+  },
+  {
+    id: "message",
+    name: "message",
+    type: "textarea",
+    label: "Jouw bericht",
+    placeholder: "Vertel ons waar we je mee kunnen helpen...",
+    required: true,
+    validation: {
+      minLength: 10,
+      maxLength: 1000
+    }
+  }
+];
+---
+
+<div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 lg:p-8 border border-white/20">
+  <!-- Form Header -->
+  <div class="mb-8" data-form-header>
+    <h2 class="text-2xl lg:text-3xl font-bold text-white mb-2">
+      Stuur ons een bericht
+    </h2>
+    <p class="text-white/80">We reageren binnen 24 uur op je bericht</p>
+  </div>
+
+  <!-- Contact Form -->
+  <form class="space-y-6" id="contact-form" novalidate data-contact-form>
+    {formFields.map((field, index) => (
+      <div class="form-group" data-field-group data-index={index}>
+        <label
+          for={field.id}
+          class="block text-sm font-semibold text-white mb-2"
+        >
+          {field.label} {field.required && <span class="text-secondary-300">*</span>}
+        </label>
+        
+        {field.type === 'textarea' ? (
+          <textarea
+            id={field.id}
+            name={field.name}
+            rows="5"
+            required={field.required}
+            minlength={field.validation?.minLength}
+            maxlength={field.validation?.maxLength}
+            class="w-full px-4 py-3 border border-white/30 rounded-xl focus:ring-2 focus:ring-secondary-400 focus:border-secondary-400 transition-all duration-200 bg-white/10 focus:bg-white/20 text-white placeholder-white/60 resize-none"
+            placeholder={field.placeholder}
+            aria-describedby={`${field.id}-error`}
+          ></textarea>
+        ) : field.type === 'select' ? (
+          <select
+            id={field.id}
+            name={field.name}
+            required={field.required}
+            class="w-full px-4 py-3 border border-white/30 rounded-xl focus:ring-2 focus:ring-secondary-400 focus:border-secondary-400 transition-all duration-200 bg-white/10 focus:bg-white/20 text-white appearance-none"
+            aria-describedby={`${field.id}-error`}
+          >
+            {field.options?.map((option) => (
+              <option value={option.value} class="bg-primary-800 text-white">
+                {option.label}
+              </option>
+            ))}
+          </select>
+        ) : (
+          <input
+            type={field.type}
+            id={field.id}
+            name={field.name}
+            required={field.required}
+            minlength={field.validation?.minLength}
+            maxlength={field.validation?.maxLength}
+            pattern={field.validation?.pattern}
+            class="w-full px-4 py-3 border border-white/30 rounded-xl focus:ring-2 focus:ring-secondary-400 focus:border-secondary-400 transition-all duration-200 bg-white/10 focus:bg-white/20 text-white placeholder-white/60"
+            placeholder={field.placeholder}
+            aria-describedby={`${field.id}-error`}
+          />
+        )}
+        
+        <!-- Error message container -->
+        <div
+          id={`${field.id}-error`}
+          class="error-message hidden mt-2 text-sm text-red-300"
+          role="alert"
+          aria-live="polite"
+        ></div>
+      </div>
+    ))}
+
+    <!-- Privacy Notice -->
+    <div class="form-group" data-privacy-notice>
+      <div class="flex items-start space-x-3">
+        <input
+          type="checkbox"
+          id="privacy"
+          name="privacy"
+          required
+          class="mt-1 w-4 h-4 text-secondary-400 bg-white/10 border-white/30 rounded focus:ring-secondary-400 focus:ring-2"
+        />
+        <label for="privacy" class="text-sm text-white/90 leading-relaxed">
+          Ik ga akkoord met de 
+          <a href="/privacy" class="text-secondary-300 hover:text-secondary-200 underline" target="_blank">
+            privacyverklaring
+          </a> 
+          en geef toestemming voor het verwerken van mijn gegevens.
+          <span class="text-secondary-300">*</span>
+        </label>
+      </div>
+      <div
+        id="privacy-error"
+        class="error-message hidden mt-2 text-sm text-red-300"
+        role="alert"
+        aria-live="polite"
+      ></div>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="form-group">
+      <button
+        type="submit"
+        id="submit-btn"
+        class="w-full bg-secondary-500 hover:bg-secondary-600 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-secondary-400 focus:ring-offset-2 focus:ring-offset-primary-800 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+        data-submit-button
+      >
+        <span class="button-text">Verstuur bericht</span>
+        <span class="loading-spinner hidden">
+          <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+          Versturen...
+        </span>
+      </button>
+    </div>
+
+    <!-- Success Message -->
+    <div
+      id="success-message"
+      class="hidden p-4 bg-green-500/20 border border-green-400/30 rounded-xl"
+      role="alert"
+      aria-live="polite"
+    >
+      <div class="flex items-center space-x-2">
+        <svg
+          class="w-5 h-5 text-green-400"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+          ></path>
+        </svg>
+        <div>
+          <h3 class="text-green-400 font-semibold">Bericht verzonden!</h3>
+          <p class="text-green-300 text-sm">
+            Bedankt voor je bericht. We nemen binnen 24 uur contact met je op.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Error Message -->
+    <div
+      id="error-message"
+      class="hidden p-4 bg-red-500/20 border border-red-400/30 rounded-xl"
+      role="alert"
+      aria-live="polite"
+    >
+      <div class="flex items-center space-x-2">
+        <svg
+          class="w-5 h-5 text-red-400"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+          ></path>
+        </svg>
+        <div>
+          <h3 class="text-red-400 font-semibold">Er is iets misgegaan</h3>
+          <p class="text-red-300 text-sm">
+            Probeer het opnieuw of neem direct contact met ons op.
+          </p>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<style>
+  /* Form field animations */
+  .form-group {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.6s ease-out forwards;
+  }
+
+  .form-group:nth-child(1) { animation-delay: 0.1s; }
+  .form-group:nth-child(2) { animation-delay: 0.2s; }
+  .form-group:nth-child(3) { animation-delay: 0.3s; }
+  .form-group:nth-child(4) { animation-delay: 0.4s; }
+  .form-group:nth-child(5) { animation-delay: 0.5s; }
+  .form-group:nth-child(6) { animation-delay: 0.6s; }
+  .form-group:nth-child(7) { animation-delay: 0.7s; }
+  .form-group:nth-child(8) { animation-delay: 0.8s; }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Enhanced focus states for accessibility */
+  .form-group input:focus,
+  .form-group textarea:focus,
+  .form-group select:focus {
+    outline: 2px solid #412683;
+    outline-offset: 2px;
+  }
+
+  /* Custom select arrow for dark theme */
+  .form-group select {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 0.75rem center;
+    background-repeat: no-repeat;
+    background-size: 1.5em 1.5em;
+    padding-right: 2.5rem;
+  }
+
+  /* Error state styling */
+  .form-group.error input,
+  .form-group.error textarea,
+  .form-group.error select {
+    border-color: #ef4444;
+    background-color: rgba(239, 68, 68, 0.1);
+  }
+
+  /* Success state styling */
+  .form-group.success input,
+  .form-group.success textarea,
+  .form-group.success select {
+    border-color: #10b981;
+    background-color: rgba(16, 185, 129, 0.1);
+  }
+
+  /* Loading state for submit button */
+  .loading .button-text {
+    display: none;
+  }
+
+  .loading .loading-spinner {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  /* Mobile-specific improvements */
+  @media (max-width: 640px) {
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      font-size: 16px; /* Prevent zoom on iOS */
+    }
+
+    .form-group textarea {
+      min-height: 120px;
+    }
+  }
+
+  /* Tablet improvements */
+  @media (min-width: 641px) and (max-width: 1024px) {
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  /* Reduced motion fallback */
+  @media (prefers-reduced-motion: reduce) {
+    .form-group {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+
+    button:hover {
+      transform: none;
+    }
+  }
+</style>
+
+<script>
+  // Form validation and submission logic
+  interface ContactFormData {
+    name: string;
+    email: string;
+    company?: string;
+    phone?: string;
+    subject: string;
+    message: string;
+    privacy: boolean;
+  }
+
+  interface ValidationRule {
+    required?: boolean;
+    minLength?: number;
+    maxLength?: number;
+    pattern?: RegExp;
+    custom?: (value: string) => boolean;
+  }
+
+  interface ValidationRules {
+    [key: string]: ValidationRule;
+  }
+
+  // Validation rules
+  const validationRules: ValidationRules = {
+    name: {
+      required: true,
+      minLength: 2,
+      maxLength: 100
+    },
+    email: {
+      required: true,
+      pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    },
+    company: {
+      maxLength: 100
+    },
+    phone: {
+      pattern: /^[\+]?[0-9\s\-\(\)]{10,}$/
+    },
+    subject: {
+      required: true
+    },
+    message: {
+      required: true,
+      minLength: 10,
+      maxLength: 1000
+    },
+    privacy: {
+      required: true
+    }
+  };
+
+  // Error messages
+  const errorMessages = {
+    required: 'Dit veld is verplicht',
+    minLength: (min: number) => `Minimaal ${min} karakters vereist`,
+    maxLength: (max: number) => `Maximaal ${max} karakters toegestaan`,
+    email: 'Voer een geldig e-mailadres in',
+    phone: 'Voer een geldig telefoonnummer in',
+    privacy: 'Je moet akkoord gaan met de privacyverklaring'
+  };
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("contact-form") as HTMLFormElement;
+    const submitBtn = document.getElementById("submit-btn") as HTMLButtonElement;
+    const successMessage = document.getElementById("success-message") as HTMLElement;
+    const errorMessage = document.getElementById("error-message") as HTMLElement;
+
+    if (!form || !submitBtn) return;
+
+    // Form submission handler
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      // Validate form
+      const isValid = validateForm();
+      if (!isValid) return;
+
+      // Hide previous messages
+      hideMessages();
+
+      // Show loading state
+      setLoadingState(true);
+
+      try {
+        // Get form data
+        const formData = getFormData();
+
+        // Simulate form submission (replace with actual endpoint)
+        await submitForm(formData);
+
+        // Show success message
+        showSuccessMessage();
+        form.reset();
+        clearValidationStates();
+
+      } catch (error) {
+        // Show error message
+        showErrorMessage();
+        console.error("Form submission error:", error);
+      } finally {
+        // Reset button state
+        setLoadingState(false);
+      }
+    });
+
+    // Real-time validation
+    const formFields = form.querySelectorAll("input, textarea, select");
+    formFields.forEach((field) => {
+      field.addEventListener("blur", () => validateField(field as HTMLInputElement));
+      field.addEventListener("input", () => clearFieldError(field as HTMLInputElement));
+    });
+
+    // Form validation functions
+    function validateForm(): boolean {
+      let isValid = true;
+      const formFields = form.querySelectorAll("input, textarea, select");
+
+      formFields.forEach((field) => {
+        const fieldValid = validateField(field as HTMLInputElement);
+        if (!fieldValid) isValid = false;
+      });
+
+      return isValid;
+    }
+
+    function validateField(field: HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement): boolean {
+      const fieldName = field.name;
+      const value = field.type === 'checkbox' ? (field as HTMLInputElement).checked : field.value.trim();
+      const rules = validationRules[fieldName];
+
+      if (!rules) return true;
+
+      // Clear previous error
+      clearFieldError(field);
+
+      // Required validation
+      if (rules.required && (!value || (field.type === 'checkbox' && !value))) {
+        showFieldError(field, fieldName === 'privacy' ? errorMessages.privacy : errorMessages.required);
+        return false;
+      }
+
+      // Skip other validations if field is empty and not required
+      if (!value && !rules.required) return true;
+
+      // String value for other validations
+      const stringValue = String(value);
+
+      // Min length validation
+      if (rules.minLength && stringValue.length < rules.minLength) {
+        showFieldError(field, errorMessages.minLength(rules.minLength));
+        return false;
+      }
+
+      // Max length validation
+      if (rules.maxLength && stringValue.length > rules.maxLength) {
+        showFieldError(field, errorMessages.maxLength(rules.maxLength));
+        return false;
+      }
+
+      // Pattern validation
+      if (rules.pattern && !rules.pattern.test(stringValue)) {
+        const errorMsg = fieldName === 'email' ? errorMessages.email :
+                        fieldName === 'phone' ? errorMessages.phone :
+                        'Ongeldige invoer';
+        showFieldError(field, errorMsg);
+        return false;
+      }
+
+      // Custom validation
+      if (rules.custom && !rules.custom(stringValue)) {
+        showFieldError(field, 'Ongeldige invoer');
+        return false;
+      }
+
+      // Mark field as valid
+      markFieldAsValid(field);
+      return true;
+    }
+
+    function showFieldError(field: HTMLElement, message: string) {
+      const fieldGroup = field.closest('.form-group');
+      const errorElement = fieldGroup?.querySelector('.error-message');
+
+      if (fieldGroup && errorElement) {
+        fieldGroup.classList.add('error');
+        fieldGroup.classList.remove('success');
+        errorElement.textContent = message;
+        errorElement.classList.remove('hidden');
+      }
+    }
+
+    function clearFieldError(field: HTMLElement) {
+      const fieldGroup = field.closest('.form-group');
+      const errorElement = fieldGroup?.querySelector('.error-message');
+
+      if (fieldGroup && errorElement) {
+        fieldGroup.classList.remove('error');
+        errorElement.classList.add('hidden');
+        errorElement.textContent = '';
+      }
+    }
+
+    function markFieldAsValid(field: HTMLElement) {
+      const fieldGroup = field.closest('.form-group');
+      if (fieldGroup) {
+        fieldGroup.classList.add('success');
+        fieldGroup.classList.remove('error');
+      }
+    }
+
+    function clearValidationStates() {
+      const fieldGroups = form.querySelectorAll('.form-group');
+      fieldGroups.forEach((group) => {
+        group.classList.remove('error', 'success');
+        const errorElement = group.querySelector('.error-message');
+        if (errorElement) {
+          errorElement.classList.add('hidden');
+          errorElement.textContent = '';
+        }
+      });
+    }
+
+    function getFormData(): ContactFormData {
+      const formData = new FormData(form);
+      return {
+        name: formData.get('name') as string,
+        email: formData.get('email') as string,
+        company: formData.get('company') as string || undefined,
+        phone: formData.get('phone') as string || undefined,
+        subject: formData.get('subject') as string,
+        message: formData.get('message') as string,
+        privacy: formData.get('privacy') === 'on'
+      };
+    }
+
+    async function submitForm(data: ContactFormData): Promise<void> {
+      // Simulate API call - replace with actual endpoint
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          // Simulate random success/failure for demo
+          if (Math.random() > 0.1) {
+            resolve();
+          } else {
+            reject(new Error('Submission failed'));
+          }
+        }, 2000);
+      });
+    }
+
+    function setLoadingState(loading: boolean) {
+      const buttonText = submitBtn.querySelector('.button-text');
+      const loadingSpinner = submitBtn.querySelector('.loading-spinner');
+
+      if (loading) {
+        submitBtn.disabled = true;
+        submitBtn.classList.add('loading');
+        buttonText?.classList.add('hidden');
+        loadingSpinner?.classList.remove('hidden');
+      } else {
+        submitBtn.disabled = false;
+        submitBtn.classList.remove('loading');
+        buttonText?.classList.remove('hidden');
+        loadingSpinner?.classList.add('hidden');
+      }
+    }
+
+    function hideMessages() {
+      successMessage.classList.add('hidden');
+      errorMessage.classList.add('hidden');
+    }
+
+    function showSuccessMessage() {
+      successMessage.classList.remove('hidden');
+      successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+      // Trigger GSAP animation if available
+      if (typeof window.animateFormSuccess === 'function') {
+        setTimeout(() => window.animateFormSuccess(), 100);
+      }
+    }
+
+    function showErrorMessage() {
+      errorMessage.classList.remove('hidden');
+      errorMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+      // Trigger GSAP animation if available
+      if (typeof window.animateFormError === 'function') {
+        setTimeout(() => window.animateFormError(), 100);
+      }
+    }
+
+    // Enhanced accessibility
+    setupAccessibilityFeatures();
+
+    // Keyboard navigation enhancements
+    setupKeyboardNavigation();
+
+    // Screen reader only class for hidden but accessible content
+    const style = document.createElement('style');
+    style.textContent = `
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+    `;
+    document.head.appendChild(style);
+  });
+
+  function setupAccessibilityFeatures() {
+    const formGroups = document.querySelectorAll(".form-group");
+    formGroups.forEach((group) => {
+      const input = group.querySelector("input, textarea, select") as HTMLElement;
+      const label = group.querySelector("label") as HTMLElement;
+      const errorElement = group.querySelector(".error-message") as HTMLElement;
+
+      if (input && label && !input.getAttribute("aria-labelledby")) {
+        const labelId = `label-${Math.random().toString(36).substring(2, 11)}`;
+        label.id = labelId;
+        input.setAttribute("aria-labelledby", labelId);
+      }
+
+      // Associate error messages with inputs
+      if (input && errorElement) {
+        const errorId = errorElement.id || `error-${Math.random().toString(36).substring(2, 11)}`;
+        errorElement.id = errorId;
+        input.setAttribute("aria-describedby", errorId);
+      }
+
+      // Add aria-invalid attribute for validation states
+      if (input) {
+        input.setAttribute("aria-invalid", "false");
+
+        // Update aria-invalid on validation
+        const observer = new MutationObserver((mutations) => {
+          mutations.forEach((mutation) => {
+            if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+              const target = mutation.target as HTMLElement;
+              const hasError = target.classList.contains('error');
+              const inputElement = target.querySelector('input, textarea, select') as HTMLElement;
+              if (inputElement) {
+                inputElement.setAttribute("aria-invalid", hasError ? "true" : "false");
+              }
+            }
+          });
+        });
+
+        observer.observe(group, { attributes: true, attributeFilter: ['class'] });
+      }
+    });
+
+    // Add role and aria-live to form messages
+    const form = document.getElementById("contact-form");
+    if (form) {
+      form.setAttribute("novalidate", "true"); // Disable browser validation
+      form.setAttribute("aria-label", "Contact formulier");
+    }
+
+    // Enhance submit button accessibility
+    const submitBtn = document.getElementById("submit-btn");
+    if (submitBtn) {
+      submitBtn.setAttribute("aria-describedby", "submit-help");
+
+      // Add hidden help text
+      const helpText = document.createElement("div");
+      helpText.id = "submit-help";
+      helpText.className = "sr-only";
+      helpText.textContent = "Druk op Enter of klik om het formulier te versturen";
+      submitBtn.parentNode?.insertBefore(helpText, submitBtn.nextSibling);
+    }
+  }
+
+  function setupKeyboardNavigation() {
+    const form = document.getElementById("contact-form");
+    if (!form) return;
+
+    // Handle Enter key in form fields
+    const formFields = form.querySelectorAll("input, textarea, select");
+    formFields.forEach((field, index) => {
+      field.addEventListener("keydown", (e) => {
+        const event = e as KeyboardEvent;
+
+        // Handle Enter key (except in textarea)
+        if (event.key === "Enter" && field.tagName !== "TEXTAREA") {
+          event.preventDefault();
+
+          // Move to next field or submit if last field
+          const nextField = formFields[index + 1] as HTMLElement;
+          if (nextField) {
+            nextField.focus();
+          } else {
+            // Focus submit button
+            const submitBtn = document.getElementById("submit-btn");
+            if (submitBtn) {
+              submitBtn.focus();
+            }
+          }
+        }
+
+        // Handle Escape key to clear field
+        if (event.key === "Escape") {
+          (field as HTMLInputElement).value = "";
+          clearFieldError(field as HTMLElement);
+        }
+      });
+    });
+
+    // Handle form submission with keyboard
+    form.addEventListener("keydown", (e) => {
+      const event = e as KeyboardEvent;
+
+      // Submit form with Ctrl+Enter from any field
+      if (event.ctrlKey && event.key === "Enter") {
+        event.preventDefault();
+        form.dispatchEvent(new Event("submit"));
+      }
+    });
+
+    // Focus management for error states
+    const originalValidateField = window.validateField;
+    if (originalValidateField) {
+      window.validateField = function(field: HTMLElement) {
+        const result = originalValidateField(field);
+
+        // If validation fails, announce error to screen readers
+        if (!result) {
+          const errorElement = field.closest('.form-group')?.querySelector('.error-message');
+          if (errorElement && !errorElement.classList.contains('hidden')) {
+            // Brief delay to ensure error message is visible
+            setTimeout(() => {
+              errorElement.setAttribute('aria-live', 'assertive');
+              setTimeout(() => {
+                errorElement.setAttribute('aria-live', 'polite');
+              }, 1000);
+            }, 100);
+          }
+        }
+
+        return result;
+      };
+    }
+  }
+
+</script>

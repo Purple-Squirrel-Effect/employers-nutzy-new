@@ -1,0 +1,82 @@
+---
+import App from "../layouts/App.astro";
+import EventCalendar from "../components/EventCalendar.astro";
+import ContactSection from "../components/ContactSection.astro";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>
+      Nutzy - Gen-Z Recruitment Platform | Visuele Vacatures & Creator Network
+    </title>
+    <meta
+      name="description"
+      content="Bereik Gen-Z talent met Nutzy's visuele recruitment platform. Van visuele vacatures tot creator partnerships - transformeer jouw recruitment aanpak."
+    />
+  </head>
+  <body>
+    <App>
+      <section
+  class="min-h-screen bg-primary-500 gap-8 px-8 md:px-16 lg:px-32 items-center justify-center grid grid-cols-1 lg:grid-cols-2"
+>
+  <img
+    class="absolute top-0 opacity-50 z-0 h-[200svh] w-[200svh]"
+    src="/svg/particle/share.svg"
+  />
+
+  <div class="order-2 lg:order-1 relative z-10  rounded-full ">
+    <h1 class="text-5xl text-shadow shadow-black  text-8xl font-bold text-white relative z-50">
+      Kennis   delen
+    </h1>
+    <p class="text-xl text-white mt-6 max-w-2xl">
+      Bereik de juiste doelgroep met onze strategische campagnes speciaal ontworpen 
+      voor het werven van Gen-Z talent. Van concept tot uitvoering - wij zorgen voor resultaat.
+    </p>
+    <div class="mt-8 flex flex-wrap gap-4">
+      <a 
+        href="#strategy" 
+        class="px-8 py-4 bg-secondary-300 text-primary-900 font-bold rounded-lg hover:bg-secondary-400 transition-all duration-300"
+      >
+        Ontdek onze aanpak
+      </a>
+      <a 
+        href="#contact" 
+        class="px-8 py-4 bg-transparent border-2 border-white text-white font-bold rounded-lg hover:bg-white/10 transition-all duration-300"
+      >
+        Neem contact op
+      </a>
+    </div>
+  </div>
+   <div class="order-2">
+      <!-- <img class="h-screen w-screen relative z-20" src="/svg/a-group-of-people-sharing-ideas.svg" /> -->
+    </div>
+</section>
+       <section class="relative px-64 mx-auto my-16">
+        <!-- <div class="bg-secondary-900/50 left-0 top-0 z-20 absolute w-full h-full"> </div> -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 h-96">
+          <div class="bg-primary-900 rounded-lg">Blog card 1 </div>
+          <div class="bg-primary-900 rounded-lg">Blog card 1 </div>
+          <div class="bg-primary-900 rounded-lg">Blog card 1 </div>
+        </div>
+        
+      </section>
+       <section class="relative px-64 mx-auto my-16">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 h-96">
+          <div class="bg-secondary-900 rounded-lg">Download card 1 </div>
+          <div class="bg-secondary-900 rounded-lg">Download card 1 </div>
+          <div class="bg-secondary-900 rounded-lg">Download card 1 </div>
+        </div>
+              </section>
+
+        <section>
+ <div class="w-full z-20 relative my-16">
+      <EventCalendar />
+    </div>      </section>
+    <ContactSection />
+    </App>
+  </body>
+</html>
