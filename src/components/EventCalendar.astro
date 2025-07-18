@@ -59,19 +59,19 @@ function getEventsForDay(day: number) {
   return events.filter((event) => event.date === day);
 }
 
-// Get event type color using brand color #412683
+// Get event type color using approved palette
 function getEventTypeColor(type: string) {
   switch (type) {
     case "workshop":
-      return "bg-purple-600"; // Primary brand color
+      return "bg-primary-500"; // Primary brand color
     case "webinar":
-      return "bg-blue-500";
+      return "bg-primary-900";
     case "networking":
-      return "bg-green-500";
+      return "bg-secondary-900";
     case "qa":
-      return "bg-orange-500";
+      return "bg-secondary-200";
     default:
-      return "bg-gray-500";
+      return "bg-primary-200";
   }
 }
 

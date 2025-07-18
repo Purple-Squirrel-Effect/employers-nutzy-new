@@ -2,11 +2,10 @@
 import Header from "../components/Header.astro";
 import "../styles/global.css";
 ---
-    <canvas class="fixed h-screen w-screen" id="particleCanvas"></canvas>
 
 <Header />
 <slot />
-  <script>
+  <!-- <script>
         // Get the canvas element and its 2D rendering context
         const canvas = document.getElementById('particleCanvas');
         const ctx = canvas.getContext('2d');
@@ -124,4 +123,4 @@ import "../styles/global.css";
 
         // Resize canvas whenever the window is resized
         window.addEventListener('resize', resizeCanvas);
-    </script>
+    </script> -->

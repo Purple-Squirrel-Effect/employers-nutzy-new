@@ -2,18 +2,18 @@
   <!-- Job Board Website Wireframe (Indeed-style) -->
   <defs>
     <pattern id="jobDots" patternUnits="userSpaceOnUse" width="4" height="4">
-      <circle cx="2" cy="2" r="0.5" fill="#9ca3af"/>
+      <circle cx="2" cy="2" r="0.5" fill="#581c87"/>
     </pattern>
   </defs>
-  
+
   <!-- Background -->
   <rect width="340" height="210" fill="#ffffff"/>
-  
+
   <!-- Header -->
-  <rect x="0" y="0" width="340" height="40" fill="#ffffff" stroke="#e5e7eb" stroke-width="1"/>
-  
+  <rect x="0" y="0" width="340" height="40" fill="#ffffff" stroke="#e9d5ff" stroke-width="1"/>
+
   <!-- Logo -->
-  <rect x="15" y="12" width="60" height="16" fill="#2563eb" rx="2"/>
+  <rect x="15" y="12" width="60" height="16" fill="#a855f7" rx="2"/>
   <text x="45" y="23" fill="white" font-family="Arial, sans-serif" font-size="8" text-anchor="middle" font-weight="bold">JobFind</text>
   
   <!-- Search Bar -->

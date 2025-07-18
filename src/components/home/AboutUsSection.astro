@@ -174,15 +174,22 @@ const companyValues: CompanyValue[] = [
 
       <!-- Values Grid -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-        {companyValues.map((value, index) => (
+        {companyValues.map((value, index) => {
+          // Alternate between different approved colors for better contrast
+          const cardColors = ["bg-white", "bg-primary-900", "bg-primary-200", "bg-secondary-200"];
+          const textColors = ["text-primary-900", "text-white", "text-primary-900", "text-primary-900"];
+          const cardBg = cardColors[index % cardColors.length];
+          const textColor = textColors[index % textColors.length];
+
+          return (
           <div
-            class="value-card bg-primary-800 rounded-2xl p-6 text-center hover:bg-primary-700 transition-all duration-300 hover:scale-105 hover:shadow-xl group"
+            class={`value-card ${cardBg} rounded-2xl p-6 text-center hover:scale-105 hover:shadow-xl group transition-all duration-300`}
             data-value-card
             data-index={index}
           >
             <!-- Value Icon -->
             <div class="flex justify-center mb-4">
-              <div class="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center group-hover:bg-white/20 transition-colors duration-300">
+              <div class={`w-16 h-16 rounded-full flex items-center justify-center transition-colors duration-300 ${textColor === 'text-white' ? 'bg-white/10 group-hover:bg-white/20' : 'bg-primary-900/10 group-hover:bg-primary-900/20'}`}>
                 <img
                   src={value.icon}
                   alt={value.title}
@@ -193,16 +200,17 @@ const companyValues: CompanyValue[] = [
             </div>
 
             <!-- Value Title -->
-            <h3 class="text-xl font-bold text-white mb-3 group-hover:text-secondary-300 transition-colors duration-300">
+            <h3 class={`text-xl font-bold mb-3 group-hover:text-secondary-900 transition-colors duration-300 ${textColor}`}>
               {value.title}
             </h3>
 
             <!-- Value Description -->
-            <p class="text-white/80 text-sm leading-relaxed">
+            <p class={`text-sm leading-relaxed ${textColor === 'text-white' ? 'text-white/80' : 'text-primary-900/80'}`}>
               {value.description}
             </p>
           </div>
-        ))}
+          );
+        })}
       </div>
     </div>
 
@@ -222,9 +230,16 @@ const companyValues: CompanyValue[] = [
 
       <!-- Team Members Grid -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-        {teamMembers.map((member, index) => (
+        {teamMembers.map((member, index) => {
+          // Alternate between different approved colors for better contrast
+          const cardColors = ["bg-white", "bg-primary-900", "bg-primary-200"];
+          const textColors = ["text-primary-900", "text-white", "text-primary-900"];
+          const cardBg = cardColors[index % cardColors.length];
+          const textColor = textColors[index % textColors.length];
+
+          return (
           <article
-            class="team-card bg-primary-800 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 group"
+            class={`team-card ${cardBg} rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 group`}
             data-team-card
             data-index={index}
           >
@@ -236,37 +251,38 @@ const companyValues: CompanyValue[] = [
                 class="w-full h-full object-contain transition-transform duration-500 group-hover:scale-110"
                 loading="lazy"
               />
-              <div class="absolute inset-0 bg-gradient-to-t from-primary-800/60 via-transparent to-transparent"></div>
+              <div class={`absolute inset-0 bg-gradient-to-t via-transparent to-transparent ${textColor === 'text-white' ? 'from-primary-800/60' : 'from-white/60'}`}></div>
             </div>
 
             <!-- Member Content -->
             <div class="p-6">
               <!-- Member Name & Role -->
               <div class="mb-3">
-                <h3 class="text-xl font-bold text-white mb-1 group-hover:text-secondary-300 transition-colors duration-300">
+                <h3 class={`text-xl font-bold mb-1 group-hover:text-secondary-900 transition-colors duration-300 ${textColor}`}>
                   {member.name}
                 </h3>
-                <p class="text-primary-300 font-semibold text-sm">
+                <p class={`font-semibold text-sm ${textColor === 'text-white' ? 'text-primary-200' : 'text-primary-500'}`}>
                   {member.role}
                 </p>
               </div>
 
               <!-- Member Description -->
-              <p class="text-white/80 text-sm leading-relaxed mb-4">
+              <p class={`text-sm leading-relaxed mb-4 ${textColor === 'text-white' ? 'text-white/80' : 'text-primary-900/80'}`}>
                 {member.description}
               </p>
 
               <!-- Member Expertise -->
               <div class="flex flex-wrap gap-2">
                 {member.expertise.map((skill) => (
-                  <span class="inline-block px-2 py-1 bg-primary-600 text-white text-xs font-medium rounded-full">
+                  <span class={`inline-block px-2 py-1 text-xs font-medium rounded-full ${textColor === 'text-white' ? 'bg-primary-500 text-white' : 'bg-primary-900 text-white'}`}>
                     {skill}
                   </span>
                 ))}
               </div>
             </div>
           </article>
-        ))}
+          );
+        })}
       </div>
     </div>
 

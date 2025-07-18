@@ -1,12 +1,12 @@
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" style="display: block;" viewBox="0 0 2048 2048" width="512" height="512">
 <defs>
 	<linearGradient id="Gradient1" gradientUnits="userSpaceOnUse" x1="1169.19" y1="547.228" x2="1137.65" y2="576.861">
-		<stop class="stop0" offset="0" stop-opacity="1" stop-color="rgb(65,60,88)"/>
-		<stop class="stop1" offset="1" stop-opacity="1" stop-color="rgb(84,81,121)"/>
+		<stop class="stop0" offset="0" stop-opacity="1" stop-color="rgb(88,28,135)"/>
+		<stop class="stop1" offset="1" stop-opacity="1" stop-color="rgb(168,85,247)"/>
 	</linearGradient>
 	<linearGradient id="Gradient2" gradientUnits="userSpaceOnUse" x1="1078.5" y1="943.435" x2="709.841" y2="682.519">
-		<stop class="stop0" offset="0" stop-opacity="1" stop-color="rgb(207,214,231)"/>
-		<stop class="stop1" offset="1" stop-opacity="1" stop-color="rgb(251,255,244)"/>
+		<stop class="stop0" offset="0" stop-opacity="1" stop-color="rgb(153,246,228)"/>
+		<stop class="stop1" offset="1" stop-opacity="1" stop-color="rgb(37,180,179)"/>
 	</linearGradient>
 	<linearGradient id="Gradient3" gradientUnits="userSpaceOnUse" x1="869.475" y1="714.671" x2="922.641" y2="725.771">
 		<stop class="stop0" offset="0" stop-opacity="1" stop-color="rgb(49,62,144)"/>

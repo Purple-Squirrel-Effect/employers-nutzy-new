@@ -1,0 +1,16 @@
+{
+  "files.associations": {
+    "**/fonts/**/*": "plaintext",
+    "**/*.woff": "plaintext",
+    "**/*.woff2": "plaintext",
+    "**/*.ttf": "plaintext",
+    "**/*.otf": "plaintext",
+    "**/*.eot": "plaintext"
+  },
+  "files.exclude": {
+    "**/node_modules/**": true,
+    "**/dist/**": true,
+    "**/.git/**": true
+  },
+  "prettier.ignorePath": ".prettierignore"
+}

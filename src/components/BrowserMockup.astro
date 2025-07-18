@@ -19,21 +19,21 @@ const { wireframeSrc, websiteTitle = "Website", className = "" } = Astro.props;
     >
       <!-- Window Controls -->
       <div class="flex items-center gap-1">
-        <div class="w-2 h-2 bg-red-500 rounded-full"></div>
-        <div class="w-2 h-2 bg-yellow-500 rounded-full"></div>
-        <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+        <div class="w-2 h-2 bg-primary-500 rounded-full"></div>
+        <div class="w-2 h-2 bg-secondary-200 rounded-full"></div>
+        <div class="w-2 h-2 bg-secondary-900 rounded-full"></div>
       </div>
 
       <!-- Address Bar -->
       <div class="flex-1 bg-white rounded-full px-2 py-1 mx-2">
-        <div class="text-xs text-gray-500 truncate">
+        <div class="text-xs text-primary-900 truncate">
           {websiteTitle.toLowerCase().replace(/\s+/g, "")}.com
         </div>
       </div>
 
       <!-- Menu Dots -->
       <div class="w-4 h-4 flex items-center justify-center">
-        <div class="w-1 h-1 bg-gray-400 rounded-full"></div>
+        <div class="w-1 h-1 bg-primary-900 rounded-full"></div>
       </div>
     </div>
 
