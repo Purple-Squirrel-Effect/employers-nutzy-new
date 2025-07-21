@@ -155,6 +155,8 @@
   --color-secondary-200: #99f6e4;
   --color-secondary-900: #25b4b3;
 
+  --color-tertiary-900: #fee214ff;
+
   /* Font family utilities for Tailwind */
   --font-cabinet-grotesk: var(--font-family-cabinet-grotesk);
   --font-satoshi: var(--font-family-satoshi);
