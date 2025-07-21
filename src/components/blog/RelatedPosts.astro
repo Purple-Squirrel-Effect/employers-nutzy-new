@@ -1,0 +1,59 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BlogCard from './BlogCard.astro';
+
+interface Props {
+  posts: CollectionEntry<'blog'>[];
+  currentPostSlug?: string;
+  title?: string;
+  className?: string;
+  maxPosts?: number;
+}
+
+const { 
+  posts, 
+  currentPostSlug, 
+  title = 'Related Articles', 
+  className = '',
+  maxPosts = 3 
+} = Astro.props;
+
+// Filter out current post and limit results
+const relatedPosts = posts
+  .filter(post => post.slug !== currentPostSlug)
+  .slice(0, maxPosts);
+---
+
+{relatedPosts.length > 0 && (
+  <section class={`py-16 bg-gray-50 ${className}`} data-related-posts>
+    <div class="max-w-6xl mx-auto px-8 lg:px-16">
+      <h2 class="text-3xl font-bold text-primary-900 mb-8 text-center">
+        {title}
+      </h2>
+      
+      <div class={`grid gap-8 ${
+        relatedPosts.length === 1 ? 'grid-cols-1 max-w-md mx-auto' :
+        relatedPosts.length === 2 ? 'grid-cols-1 md:grid-cols-2 max-w-4xl mx-auto' :
+        'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
+      }`}>
+        {relatedPosts.map(post => (
+          <BlogCard post={post} />
+        ))}
+      </div>
+      
+      {posts.length > maxPosts && (
+        <div class="text-center mt-12">
+          <a 
+            href="/blog"
+            class="inline-flex items-center px-6 py-3 bg-primary-900 text-white font-medium rounded-lg hover:bg-primary-800 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+          >
+            View All Articles
+            <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+          </a>
+        </div>
+      )}
+    </div>
+  </section>
+)}

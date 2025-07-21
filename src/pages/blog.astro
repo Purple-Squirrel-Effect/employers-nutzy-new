@@ -1,7 +1,54 @@
 ---
+import { getCollection } from 'astro:content';
 import App from "../layouts/App.astro";
-import EventCalendar from "../components/EventCalendar.astro";
 import ContactSection from "../components/ContactSection.astro";
+import {
+  getPublishedPosts,
+  sortPostsByDate,
+  getUniqueTags,
+  filterPostsByTag,
+  filterPostsByCategory,
+  searchPosts,
+  paginate,
+  calculateReadingTime,
+  formatDate
+} from '../utils/blog';
+import BlogSearch from '../components/blog/BlogSearch.astro';
+
+// Get all blog posts
+const allBlogPosts = await getCollection('blog');
+const publishedPosts = getPublishedPosts(allBlogPosts);
+const sortedPosts = sortPostsByDate(publishedPosts);
+
+// Get URL parameters for filtering and pagination
+const url = new URL(Astro.request.url);
+const selectedTag = url.searchParams.get('tag');
+const selectedCategory = url.searchParams.get('category');
+const searchQuery = url.searchParams.get('search');
+const currentPage = parseInt(url.searchParams.get('page') || '1');
+const postsPerPage = 9;
+
+// Filter posts based on query parameters
+let filteredPosts = sortedPosts;
+if (searchQuery) {
+  filteredPosts = searchPosts(filteredPosts, searchQuery);
+}
+if (selectedTag) {
+  filteredPosts = filterPostsByTag(filteredPosts, selectedTag);
+}
+if (selectedCategory) {
+  filteredPosts = filterPostsByCategory(filteredPosts, selectedCategory);
+}
+
+// Paginate the filtered posts
+const paginationData = paginate(filteredPosts, currentPage, postsPerPage);
+
+// Get unique tags and categories for filters
+const allTags = getUniqueTags(publishedPosts);
+const allCategories = [...new Set(publishedPosts.map(post => post.data.category))].sort();
+
+// Featured posts (first 3 featured posts)
+const featuredPosts = publishedPosts.filter(post => post.data.featured).slice(0, 3);
 ---
 
 <html lang="en">
@@ -11,72 +58,495 @@ import ContactSection from "../components/ContactSection.astro";
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <title>
-      Nutzy - Gen-Z Recruitment Platform | Visuele Vacatures & Creator Network
+      {selectedTag ? `Posts tagged "${selectedTag}"` : selectedCategory ? `${selectedCategory} Posts` : 'Knowledge Hub'} | Nutzy Blog
     </title>
     <meta
       name="description"
-      content="Bereik Gen-Z talent met Nutzy's visuele recruitment platform. Van visuele vacatures tot creator partnerships - transformeer jouw recruitment aanpak."
+      content={selectedTag ? `Explore our latest insights and articles about ${selectedTag} in Gen-Z recruitment.` : selectedCategory ? `Discover ${selectedCategory} content from Nutzy's recruitment experts.` : "Ontdek de nieuwste inzichten over Gen-Z recruitment, platform strategieën en trends in de arbeidsmarkt. Kennis delen voor betere recruitment resultaten."}
     />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={selectedTag ? `Posts tagged "${selectedTag}"` : selectedCategory ? `${selectedCategory} Posts` : 'Knowledge Hub | Nutzy Blog'} />
+    <meta property="og:description" content={selectedTag ? `Explore our latest insights and articles about ${selectedTag} in Gen-Z recruitment.` : selectedCategory ? `Discover ${selectedCategory} content from Nutzy's recruitment experts.` : "Ontdek de nieuwste inzichten over Gen-Z recruitment, platform strategieën en trends in de arbeidsmarkt."} />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/img/og-blog.jpg" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={selectedTag ? `Posts tagged "${selectedTag}"` : selectedCategory ? `${selectedCategory} Posts` : 'Knowledge Hub | Nutzy Blog'} />
+    <meta name="twitter:description" content={selectedTag ? `Explore our latest insights and articles about ${selectedTag} in Gen-Z recruitment.` : selectedCategory ? `Discover ${selectedCategory} content from Nutzy's recruitment experts.` : "Ontdek de nieuwste inzichten over Gen-Z recruitment, platform strategieën en trends in de arbeidsmarkt."} />
   </head>
   <body>
     <App>
-      <section
-  class="min-h-screen bg-primary-500 gap-8 px-8 md:px-16 lg:px-32 items-center justify-center grid grid-cols-1 lg:grid-cols-2"
->
-  <img
-    class="absolute top-0 opacity-50 z-0 h-[200svh] w-[200svh]"
-    src="/svg/particle/share.svg"
-  />
+      <!-- Hero Section -->
+      <section class="min-h-screen bg-primary-500 gap-8 px-8 md:px-16 lg:px-32 items-center justify-center grid grid-cols-1 lg:grid-cols-2" data-blog-hero>
+        <img
+          class="absolute top-0 opacity-50 z-0 h-[200svh] w-[200svh]"
+          src="/svg/particle/share.svg"
+          alt="Knowledge sharing background"
+        />
 
-  <div class="order-2 lg:order-1 relative z-10  rounded-full ">
-    <h1 class="text-5xl text-shadow shadow-black  text-8xl font-bold text-white relative z-50">
-      Kennis   delen
-    </h1>
-    <p class="text-xl text-white mt-6 max-w-2xl">
-      Bereik de juiste doelgroep met onze strategische campagnes speciaal ontworpen 
-      voor het werven van Gen-Z talent. Van concept tot uitvoering - wij zorgen voor resultaat.
-    </p>
-    <div class="mt-8 flex flex-wrap gap-4">
-      <a 
-        href="#strategy" 
-        class="px-8 py-4 border-2 border-current text-secondary-500 font-bold rounded-lg hover:bg-secondary-400 transition-all duration-300"
-      >
-        Ontdek onze aanpak
-      </a>
-      <a 
-        href="#contact" 
-        class="px-8 py-4 bg-tertiary-900   text-black font-bold rounded-lg hover:brightness-105 transition-all duration-300"
-      >
-        Neem contact op
-      </a>
-    </div>
-  </div>
-   <div class="order-2">
-      <!-- <img class="h-screen w-screen relative z-20" src="/svg/a-group-of-people-sharing-ideas.svg" /> -->
-    </div>
-</section>
-       <section class="relative px-64 mx-auto my-16">
-        <!-- <div class="bg-secondary-900/50 left-0 top-0 z-20 absolute w-full h-full"> </div> -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 h-96">
-          <div class="bg-primary-900 rounded-lg">Blog card 1 </div>
-          <div class="bg-primary-900 rounded-lg">Blog card 1 </div>
-          <div class="bg-primary-900 rounded-lg">Blog card 1 </div>
+        <div class="order-2 lg:order-1 relative z-10 rounded-full">
+          <h1 class="text-5xl lg:text-8xl font-bold text-white relative z-50 mb-6">
+            {selectedTag ? `#${selectedTag}` : selectedCategory ? selectedCategory : 'Kennis delen'}
+          </h1>
+          <p class="text-xl text-white mt-6 max-w-2xl">
+            {selectedTag
+              ? `Ontdek alle artikelen over ${selectedTag} en vergroot je kennis over Gen-Z recruitment.`
+              : selectedCategory
+                ? `Verdiep je in ${selectedCategory} content van onze recruitment experts.`
+                : 'Bereik de juiste doelgroep met onze strategische inzichten speciaal ontworpen voor het werven van Gen-Z talent. Van concept tot uitvoering - wij delen onze kennis.'
+            }
+          </p>
+          <div class="mt-8 flex flex-wrap gap-4">
+            {(selectedTag || selectedCategory) ? (
+              <a
+                href="/blog"
+                class="px-8 py-4 border-2 border-current text-secondary-500 font-bold rounded-lg hover:bg-secondary-400 transition-all duration-300"
+              >
+                Alle artikelen
+              </a>
+            ) : (
+              <a
+                href="#blog-posts"
+                class="px-8 py-4 border-2 border-current text-secondary-500 font-bold rounded-lg hover:bg-secondary-400 transition-all duration-300"
+              >
+                Ontdek artikelen
+              </a>
+            )}
+            <a
+              href="#contact"
+              class="px-8 py-4 bg-tertiary-900 text-black font-bold rounded-lg hover:brightness-105 transition-all duration-300"
+            >
+              Neem contact op
+            </a>
+          </div>
         </div>
-        
+        <div class="order-1 lg:order-2 relative z-10">
+          <!-- Knowledge sharing illustration could go here -->
+        </div>
       </section>
-       <section class="relative px-64 mx-auto my-16">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 h-96">
-          <div class="bg-secondary-900 rounded-lg">Download card 1 </div>
-          <div class="bg-secondary-900 rounded-lg">Download card 1 </div>
-          <div class="bg-secondary-900 rounded-lg">Download card 1 </div>
-        </div>
-              </section>
+      <!-- Featured Posts Section -->
+      {featuredPosts.length > 0 && (
+        <section class="py-16 bg-white" data-featured-posts>
+          <div class="max-w-7xl mx-auto px-8 lg:px-16">
+            <h2 class="text-4xl lg:text-6xl font-bold text-primary-900 mb-12 text-center">
+              Uitgelichte Artikelen
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {featuredPosts.map(post => (
+                <article class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 group">
+                  {post.data.heroImage && (
+                    <div class="aspect-video overflow-hidden">
+                      <img
+                        src={post.data.heroImage.src}
+                        alt={post.data.heroImage.alt}
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                  )}
+                  <div class="p-6">
+                    <div class="flex items-center gap-3 mb-4">
+                      <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-primary-200 text-primary-900">
+                        {post.data.category}
+                      </span>
+                      <span class="text-sm text-gray-500">
+                        {calculateReadingTime(post.body)} min read
+                      </span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3 line-clamp-2 group-hover:text-primary-900 transition-colors">
+                      <a href={`/blog/${post.slug}`}>
+                        {post.data.title}
+                      </a>
+                    </h3>
+                    <p class="text-gray-600 mb-4 line-clamp-3">
+                      {post.data.description}
+                    </p>
+                    <div class="flex items-center justify-between">
+                      <div class="flex items-center gap-2">
+                        {post.data.author.avatar && (
+                          <img
+                            src={post.data.author.avatar}
+                            alt={post.data.author.name}
+                            class="w-6 h-6 rounded-full"
+                          />
+                        )}
+                        <span class="text-sm text-gray-700 font-medium">{post.data.author.name}</span>
+                      </div>
+                      <time class="text-sm text-gray-500" datetime={post.data.publishDate.toISOString()}>
+                        {formatDate(post.data.publishDate)}
+                      </time>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
-        <section>
- <div class="w-full z-20 relative my-16">
-      <EventCalendar />
-    </div>      </section>
+      <!-- Filters and Blog Posts Section -->
+      <section class="py-16 bg-gray-50" id="blog-posts" data-blog-posts>
+        <div class="max-w-7xl mx-auto px-8 lg:px-16">
+          <!-- Section Header -->
+          <div class="text-center mb-12">
+            <h2 class="text-4xl lg:text-6xl font-bold text-primary-900 mb-6">
+              {searchQuery ? `Zoekresultaten voor "${searchQuery}"` : selectedTag ? `Artikelen over ${selectedTag}` : selectedCategory ? `${selectedCategory} Artikelen` : 'Alle Artikelen'}
+            </h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+              {filteredPosts.length} artikel{filteredPosts.length !== 1 ? 'en' : ''} gevonden
+              {searchQuery && ` voor "${searchQuery}"`}
+              {selectedTag && ` voor tag "${selectedTag}"`}
+              {selectedCategory && ` in categorie "${selectedCategory}"`}
+            </p>
+          </div>
+
+          <!-- Search Bar -->
+          <div class="max-w-2xl mx-auto mb-12">
+            <BlogSearch currentQuery={searchQuery || ''} />
+          </div>
+
+          <!-- Filters -->
+          <div class="mb-12" data-blog-filters>
+            <div class="flex flex-wrap gap-4 justify-center">
+              <!-- Clear filters -->
+              {(selectedTag || selectedCategory || searchQuery) && (
+                <a
+                  href="/blog"
+                  class="inline-flex items-center px-4 py-2 rounded-lg bg-gray-200 text-gray-700 hover:bg-gray-300 transition-colors font-medium"
+                >
+                  ✕ Filters wissen
+                </a>
+              )}
+
+              <!-- Category filters -->
+              <div class="flex flex-wrap gap-2">
+                <span class="text-sm font-medium text-gray-700 px-2 py-2">Categorieën:</span>
+                {allCategories.map(category => (
+                  <a
+                    href={`/blog?category=${encodeURIComponent(category)}`}
+                    class={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium transition-colors ${
+                      selectedCategory === category
+                        ? 'bg-primary-900 text-white'
+                        : 'bg-white text-gray-700 hover:bg-primary-100 hover:text-primary-900'
+                    }`}
+                  >
+                    {category}
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            <!-- Tag filters -->
+            {allTags.length > 0 && (
+              <div class="mt-6 flex flex-wrap gap-2 justify-center">
+                <span class="text-sm font-medium text-gray-700 px-2 py-2">Tags:</span>
+                {allTags.slice(0, 15).map(tag => (
+                  <a
+                    href={`/blog?tag=${encodeURIComponent(tag)}`}
+                    class={`inline-flex items-center px-2 py-1 rounded text-xs font-medium transition-colors ${
+                      selectedTag === tag
+                        ? 'bg-primary-900 text-white'
+                        : 'bg-white text-gray-600 hover:bg-primary-100 hover:text-primary-900'
+                    }`}
+                  >
+                    #{tag}
+                  </a>
+                ))}
+              </div>
+            )}
+          </div>
+          <!-- Blog Posts Grid -->
+          {paginationData.items.length > 0 ? (
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12" data-blog-grid>
+              {paginationData.items.map(post => (
+                <article class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 group">
+                  {post.data.heroImage && (
+                    <div class="aspect-video overflow-hidden">
+                      <img
+                        src={post.data.heroImage.src}
+                        alt={post.data.heroImage.alt}
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                  )}
+                  <div class="p-6">
+                    <div class="flex items-center gap-3 mb-4">
+                      <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-primary-200 text-primary-900">
+                        {post.data.category}
+                      </span>
+                      <span class="text-sm text-gray-500">
+                        {calculateReadingTime(post.body)} min read
+                      </span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3 line-clamp-2 group-hover:text-primary-900 transition-colors">
+                      <a href={`/blog/${post.slug}`}>
+                        {post.data.title}
+                      </a>
+                    </h3>
+                    <p class="text-gray-600 mb-4 line-clamp-3">
+                      {post.data.description}
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                      {post.data.tags.slice(0, 3).map(tag => (
+                        <a
+                          href={`/blog?tag=${encodeURIComponent(tag)}`}
+                          class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-gray-100 text-gray-600 hover:bg-primary-100 hover:text-primary-900 transition-colors"
+                        >
+                          #{tag}
+                        </a>
+                      ))}
+                    </div>
+                    <div class="flex items-center justify-between">
+                      <div class="flex items-center gap-2">
+                        {post.data.author.avatar && (
+                          <img
+                            src={post.data.author.avatar}
+                            alt={post.data.author.name}
+                            class="w-6 h-6 rounded-full"
+                          />
+                        )}
+                        <span class="text-sm text-gray-700 font-medium">{post.data.author.name}</span>
+                      </div>
+                      <time class="text-sm text-gray-500" datetime={post.data.publishDate.toISOString()}>
+                        {formatDate(post.data.publishDate)}
+                      </time>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          ) : (
+            <div class="text-center py-16">
+              <div class="max-w-md mx-auto">
+                <div class="text-6xl mb-4">📝</div>
+                <h3 class="text-2xl font-bold text-gray-900 mb-4">Geen artikelen gevonden</h3>
+                <p class="text-gray-600 mb-6">
+                  {searchQuery
+                    ? `Er zijn geen artikelen gevonden voor "${searchQuery}".`
+                    : selectedTag
+                      ? `Er zijn geen artikelen gevonden met de tag "${selectedTag}".`
+                      : selectedCategory
+                        ? `Er zijn geen artikelen gevonden in de categorie "${selectedCategory}".`
+                        : 'Er zijn momenteel geen artikelen beschikbaar.'
+                  }
+                </p>
+                {(selectedTag || selectedCategory || searchQuery) && (
+                  <a
+                    href="/blog"
+                    class="inline-flex items-center px-6 py-3 bg-primary-900 text-white font-medium rounded-lg hover:bg-primary-800 transition-colors"
+                  >
+                    Bekijk alle artikelen
+                  </a>
+                )}
+              </div>
+            </div>
+          )}
+
+          <!-- Pagination -->
+          {paginationData.totalPages > 1 && (
+            <nav class="flex justify-center" aria-label="Pagination" data-pagination>
+              <div class="flex items-center gap-2">
+                <!-- Previous page -->
+                {paginationData.hasPrev ? (
+                  <a
+                    href={`/blog?page=${paginationData.prevPage}${searchQuery ? `&search=${encodeURIComponent(searchQuery)}` : ''}${selectedTag ? `&tag=${encodeURIComponent(selectedTag)}` : ''}${selectedCategory ? `&category=${encodeURIComponent(selectedCategory)}` : ''}`}
+                    class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+                    aria-label="Previous page"
+                  >
+                    ← Vorige
+                  </a>
+                ) : (
+                  <span class="px-4 py-2 text-sm font-medium text-gray-400 bg-gray-100 border border-gray-200 rounded-lg cursor-not-allowed">
+                    ← Vorige
+                  </span>
+                )}
+
+                <!-- Page numbers -->
+                {Array.from({ length: Math.min(5, paginationData.totalPages) }, (_, i) => {
+                  const pageNum = Math.max(1, Math.min(
+                    paginationData.currentPage - 2 + i,
+                    paginationData.totalPages - 4 + i
+                  ));
+                  if (pageNum > paginationData.totalPages) return null;
+
+                  return (
+                    <a
+                      href={`/blog?page=${pageNum}${searchQuery ? `&search=${encodeURIComponent(searchQuery)}` : ''}${selectedTag ? `&tag=${encodeURIComponent(selectedTag)}` : ''}${selectedCategory ? `&category=${encodeURIComponent(selectedCategory)}` : ''}`}
+                      class={`px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
+                        pageNum === paginationData.currentPage
+                          ? 'bg-primary-900 text-white'
+                          : 'text-gray-700 bg-white border border-gray-300 hover:bg-gray-50'
+                      }`}
+                      aria-label={`Page ${pageNum}`}
+                      aria-current={pageNum === paginationData.currentPage ? 'page' : undefined}
+                    >
+                      {pageNum}
+                    </a>
+                  );
+                })}
+
+                <!-- Next page -->
+                {paginationData.hasNext ? (
+                  <a
+                    href={`/blog?page=${paginationData.nextPage}${searchQuery ? `&search=${encodeURIComponent(searchQuery)}` : ''}${selectedTag ? `&tag=${encodeURIComponent(selectedTag)}` : ''}${selectedCategory ? `&category=${encodeURIComponent(selectedCategory)}` : ''}`}
+                    class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+                    aria-label="Next page"
+                  >
+                    Volgende →
+                  </a>
+                ) : (
+                  <span class="px-4 py-2 text-sm font-medium text-gray-400 bg-gray-100 border border-gray-200 rounded-lg cursor-not-allowed">
+                    Volgende →
+                  </span>
+                )}
+              </div>
+            </nav>
+          )}
+        </div>
+      </section>
+
     <ContactSection />
     </App>
+
+    <!-- GSAP Animations -->
+    <script>
+      import { gsap } from 'gsap';
+      import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+      // Register ScrollTrigger plugin
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Check for reduced motion preference
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (!prefersReducedMotion) {
+        // Hero section animations
+        const heroSection = document.querySelector('[data-blog-hero]');
+        if (heroSection) {
+          const heroTitle = heroSection.querySelector('h1');
+          const heroText = heroSection.querySelector('p');
+          const heroButtons = heroSection.querySelectorAll('a');
+
+          gsap.set([heroTitle, heroText, heroButtons], { opacity: 0, y: 50 });
+
+          const heroTimeline = gsap.timeline();
+          heroTimeline
+            .to(heroTitle, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" })
+            .to(heroText, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, "-=0.4")
+            .to(heroButtons, { opacity: 1, y: 0, duration: 0.5, stagger: 0.1, ease: "power3.out" }, "-=0.3");
+        }
+
+        // Featured posts animations
+        const featuredSection = document.querySelector('[data-featured-posts]');
+        if (featuredSection) {
+          const featuredTitle = featuredSection.querySelector('h2');
+          const featuredCards = featuredSection.querySelectorAll('article');
+
+          gsap.set([featuredTitle, featuredCards], { opacity: 0, y: 30 });
+
+          ScrollTrigger.create({
+            trigger: featuredSection,
+            start: "top 80%",
+            onEnter: () => {
+              const tl = gsap.timeline();
+              tl.to(featuredTitle, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" })
+                .to(featuredCards, { opacity: 1, y: 0, duration: 0.5, stagger: 0.1, ease: "power3.out" }, "-=0.3");
+            }
+          });
+        }
+
+        // Blog posts section animations
+        const blogSection = document.querySelector('[data-blog-posts]');
+        if (blogSection) {
+          const sectionTitle = blogSection.querySelector('h2');
+          const filters = blogSection.querySelector('[data-blog-filters]');
+          const blogGrid = blogSection.querySelector('[data-blog-grid]');
+          const pagination = blogSection.querySelector('[data-pagination]');
+
+          gsap.set([sectionTitle, filters], { opacity: 0, y: 30 });
+
+          ScrollTrigger.create({
+            trigger: blogSection,
+            start: "top 80%",
+            onEnter: () => {
+              const tl = gsap.timeline();
+              tl.to(sectionTitle, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" })
+                .to(filters, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, "-=0.3");
+            }
+          });
+
+          // Animate blog cards
+          if (blogGrid) {
+            const blogCards = blogGrid.querySelectorAll('article');
+            gsap.set(blogCards, { opacity: 0, y: 30 });
+
+            ScrollTrigger.create({
+              trigger: blogGrid,
+              start: "top 85%",
+              onEnter: () => {
+                gsap.to(blogCards, {
+                  opacity: 1,
+                  y: 0,
+                  duration: 0.5,
+                  stagger: 0.1,
+                  ease: "power3.out"
+                });
+              }
+            });
+          }
+
+          // Animate pagination
+          if (pagination) {
+            gsap.set(pagination, { opacity: 0, y: 20 });
+
+            ScrollTrigger.create({
+              trigger: pagination,
+              start: "top 90%",
+              onEnter: () => {
+                gsap.to(pagination, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" });
+              }
+            });
+          }
+        }
+
+        // Card hover animations
+        const cards = document.querySelectorAll('article');
+        cards.forEach(card => {
+          const image = card.querySelector('img');
+
+          card.addEventListener('mouseenter', () => {
+            gsap.to(card, { y: -5, duration: 0.3, ease: "power2.out" });
+            if (image) {
+              gsap.to(image, { scale: 1.05, duration: 0.3, ease: "power2.out" });
+            }
+          });
+
+          card.addEventListener('mouseleave', () => {
+            gsap.to(card, { y: 0, duration: 0.3, ease: "power2.out" });
+            if (image) {
+              gsap.to(image, { scale: 1, duration: 0.3, ease: "power2.out" });
+            }
+          });
+        });
+
+        // Filter button animations
+        const filterButtons = document.querySelectorAll('[data-blog-filters] a');
+        filterButtons.forEach(button => {
+          button.addEventListener('mouseenter', () => {
+            gsap.to(button, { scale: 1.05, duration: 0.2, ease: "power2.out" });
+          });
+
+          button.addEventListener('mouseleave', () => {
+            gsap.to(button, { scale: 1, duration: 0.2, ease: "power2.out" });
+          });
+        });
+      }
+
+      // Refresh ScrollTrigger on window resize
+      window.addEventListener('resize', () => {
+        ScrollTrigger.refresh();
+      });
+    </script>
   </body>
 </html>

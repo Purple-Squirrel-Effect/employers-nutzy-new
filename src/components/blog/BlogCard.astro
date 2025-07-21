@@ -1,0 +1,96 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { calculateReadingTime, formatDate } from '../../utils/blog';
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+  featured?: boolean;
+  className?: string;
+}
+
+const { post, featured = false, className = '' } = Astro.props;
+const readingTime = calculateReadingTime(post.body);
+---
+
+<article class={`bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 group ${className}`}>
+  {post.data.heroImage && (
+    <div class="aspect-video overflow-hidden">
+      <img 
+        src={post.data.heroImage.src} 
+        alt={post.data.heroImage.alt}
+        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+        loading="lazy"
+      />
+    </div>
+  )}
+  
+  <div class="p-6">
+    <!-- Category and Reading Time -->
+    <div class="flex items-center gap-3 mb-4">
+      <span class={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${
+        featured 
+          ? 'bg-primary-900 text-white' 
+          : 'bg-primary-200 text-primary-900'
+      }`}>
+        {post.data.category}
+      </span>
+      <span class="text-sm text-gray-500">
+        {readingTime} min read
+      </span>
+      {post.data.featured && (
+        <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-tertiary-900 text-black">
+          Featured
+        </span>
+      )}
+    </div>
+    
+    <!-- Title -->
+    <h3 class={`font-bold text-gray-900 mb-3 line-clamp-2 group-hover:text-primary-900 transition-colors ${
+      featured ? 'text-xl' : 'text-lg'
+    }`}>
+      <a href={`/blog/${post.slug}`} class="hover:underline">
+        {post.data.title}
+      </a>
+    </h3>
+    
+    <!-- Description -->
+    <p class="text-gray-600 mb-4 line-clamp-3">
+      {post.data.description}
+    </p>
+    
+    <!-- Tags -->
+    <div class="flex flex-wrap gap-2 mb-4">
+      {post.data.tags.slice(0, 3).map(tag => (
+        <a 
+          href={`/blog?tag=${encodeURIComponent(tag)}`}
+          class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-gray-100 text-gray-600 hover:bg-primary-100 hover:text-primary-900 transition-colors"
+        >
+          #{tag}
+        </a>
+      ))}
+      {post.data.tags.length > 3 && (
+        <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-gray-100 text-gray-500">
+          +{post.data.tags.length - 3} more
+        </span>
+      )}
+    </div>
+    
+    <!-- Author and Date -->
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        {post.data.author.avatar && (
+          <img 
+            src={post.data.author.avatar} 
+            alt={post.data.author.name}
+            class="w-6 h-6 rounded-full"
+            loading="lazy"
+          />
+        )}
+        <span class="text-sm text-gray-700 font-medium">{post.data.author.name}</span>
+      </div>
+      <time class="text-sm text-gray-500" datetime={post.data.publishDate.toISOString()}>
+        {formatDate(post.data.publishDate)}
+      </time>
+    </div>
+  </div>
+</article>

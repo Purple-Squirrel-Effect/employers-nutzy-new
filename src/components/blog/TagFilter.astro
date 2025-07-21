@@ -1,0 +1,43 @@
+---
+interface Props {
+  tags: string[];
+  selectedTag?: string;
+  className?: string;
+}
+
+const { tags, selectedTag, className = '' } = Astro.props;
+---
+
+<div class={`flex flex-wrap gap-2 ${className}`}>
+  <span class="text-sm font-medium text-gray-700 px-2 py-2">Tags:</span>
+  
+  <!-- Clear filter option -->
+  {selectedTag && (
+    <a 
+      href="/blog"
+      class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-200 text-gray-700 hover:bg-gray-300 transition-colors"
+    >
+      ✕ Clear filter
+    </a>
+  )}
+  
+  <!-- Tag options -->
+  {tags.slice(0, 15).map(tag => (
+    <a 
+      href={`/blog?tag=${encodeURIComponent(tag)}`}
+      class={`inline-flex items-center px-2 py-1 rounded text-xs font-medium transition-colors ${
+        selectedTag === tag 
+          ? 'bg-primary-900 text-white' 
+          : 'bg-white text-gray-600 hover:bg-primary-100 hover:text-primary-900'
+      }`}
+    >
+      #{tag}
+    </a>
+  ))}
+  
+  {tags.length > 15 && (
+    <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-gray-100 text-gray-500">
+      +{tags.length - 15} more tags
+    </span>
+  )}
+</div>

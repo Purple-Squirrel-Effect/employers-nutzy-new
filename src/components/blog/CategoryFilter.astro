@@ -1,0 +1,55 @@
+---
+import type { BlogCategory } from '../../content/config';
+
+interface Props {
+  categories: BlogCategory[];
+  selectedCategory?: string;
+  className?: string;
+}
+
+const { categories, selectedCategory, className = '' } = Astro.props;
+
+// Category display names and descriptions
+const categoryInfo: Record<BlogCategory, { name: string; description: string }> = {
+  'recruitment': { name: 'Recruitment', description: 'Hiring strategies and best practices' },
+  'gen-z': { name: 'Gen-Z', description: 'Understanding the newest workforce generation' },
+  'platform': { name: 'Platform', description: 'Technology and platform insights' },
+  'strategy': { name: 'Strategy', description: 'Business and recruitment strategies' },
+  'insights': { name: 'Insights', description: 'Industry trends and analysis' },
+  'technology': { name: 'Technology', description: 'Tech tools and innovations' },
+  'trends': { name: 'Trends', description: 'Latest market and workplace trends' },
+  'case-study': { name: 'Case Studies', description: 'Real-world success stories' }
+};
+---
+
+<div class={`flex flex-wrap gap-2 ${className}`}>
+  <span class="text-sm font-medium text-gray-700 px-2 py-2">Categories:</span>
+  
+  <!-- Clear filter option -->
+  {selectedCategory && (
+    <a 
+      href="/blog"
+      class="inline-flex items-center px-4 py-2 rounded-lg bg-gray-200 text-gray-700 hover:bg-gray-300 transition-colors font-medium"
+    >
+      ✕ All Categories
+    </a>
+  )}
+  
+  <!-- Category options -->
+  {categories.map(category => {
+    const info = categoryInfo[category];
+    return (
+      <a 
+        href={`/blog?category=${encodeURIComponent(category)}`}
+        class={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium transition-colors ${
+          selectedCategory === category 
+            ? 'bg-primary-900 text-white' 
+            : 'bg-white text-gray-700 hover:bg-primary-100 hover:text-primary-900'
+        }`}
+        title={info.description}
+      >
+        {info.name}
+      </a>
+    );
+  })}
+</div>
