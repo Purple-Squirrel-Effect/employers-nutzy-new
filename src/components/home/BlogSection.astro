@@ -152,7 +152,7 @@ function formatDate(dateString: string): string {
 
             <a
               href={blogPosts[0].slug}
-              class="inline-flex items-center gap-2 px-6 py-3 bg-primary-500 hover:bg-primary-600 text-white font-semibold rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg group"
+              class="inline-flex items-center gap-2 px-6 py-3 bg-primary-500 hover:brightness-110 text-white font-semibold rounded-lg transition-all duration-300 group"
             >
               Lees meer
               <svg
@@ -174,25 +174,11 @@ function formatDate(dateString: string): string {
     </div>
 
     <!-- Blog Posts Grid -->
-    <div class="grid  grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8" data-blog-grid>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8" data-blog-grid>
       {blogPosts.slice(1).map((post, index) => {
-        // Alternate between different approved colors for better contrast
-        const cardColors = [
-          "bg-white", // White background
-          "bg-primary-900", // Dark primary
-          "bg-primary-200", // Light primary
-        ];
-        const textColors = [
-          "text-primary-900", // Dark text for white background
-          "text-white", // White text for dark background
-          "text-primary-900", // Dark text for light background
-        ];
-        const cardBg = cardColors[index % cardColors.length];
-        const textColor = textColors[index % textColors.length];
-
         return (
         <article
-          class={`blog-card ${cardBg} rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 group`}
+          class="blog-card bg-white rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 group max-w-sm mx-auto"
           data-blog-card
           data-index={index}
         >
@@ -215,7 +201,7 @@ function formatDate(dateString: string): string {
           <!-- Post Content -->
           <div class="p-6">
             <!-- Meta Information -->
-            <div class={`flex items-center gap-3 text-xs mb-3 ${textColor === 'text-white' ? 'text-secondary-200' : 'text-primary-500'}`}>
+            <div class="flex items-center gap-3 text-xs mb-3 text-primary-500">
               <time datetime={post.date}>
                 {formatDate(post.date)}
               </time>
@@ -224,22 +210,22 @@ function formatDate(dateString: string): string {
             </div>
 
             <!-- Title -->
-            <h3 class={`text-xl font-bold mb-3 leading-tight group-hover:text-secondary-900 transition-colors duration-300 ${textColor}`}>
+            <h3 class="text-xl font-bold mb-3 leading-tight group-hover:text-secondary-900 transition-colors duration-300 text-primary-900">
               {post.title}
             </h3>
 
             <!-- Excerpt -->
-            <p class={`text-sm leading-relaxed mb-4 line-clamp-3 ${textColor === 'text-white' ? 'text-white/80' : 'text-primary-900/80'}`}>
+            <p class="text-sm leading-relaxed mb-4 line-clamp-3 text-primary-900/80">
               {post.excerpt}
             </p>
 
             <!-- Read More Link -->
             <a
               href={post.slug}
-              class={`inline-flex items-center gap-2 font-semibold text-sm transition-colors duration-300 group ${textColor === 'text-white' ? 'text-primary-200 hover:text-primary-500' : 'text-primary-500 hover:text-primary-900'}`}
+              class="inline-flex items-center gap-2 text-primary-500 hover:text-primary-600 font-semibold text-sm transition-colors duration-300"
             >
               Lees meer
-              <svg class="w-3 h-3 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
               </svg>
             </a>
@@ -251,25 +237,44 @@ function formatDate(dateString: string): string {
 
     <!-- Call to Action -->
     <div class="text-center mt-12 lg:mt-16" data-blog-cta>
-      <div class="bg-primary-800 rounded-2xl p-8 lg:p-12 border border-primary-700">
-        <h3 class="text-2xl md:text-3xl font-bold text-white mb-4">
-          Wil je meer weten over Gen Z recruitment?
-        </h3>
-        <p class="text-white/90 mb-6 max-w-2xl mx-auto">
-          Ontvang onze nieuwsbrief met de nieuwste inzichten, trends en praktische tips voor het aantrekken van Gen Z talent.
-        </p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center max-w-md mx-auto">
-          <input
-            type="email"
-            placeholder="Jouw e-mailadres"
-            class="flex-1 px-4 py-3 rounded-lg bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-500"
+      <div class="bg-gradient-to-br from-secondary-900 via-primary-900 to-secondary-900 rounded-3xl p-8 lg:p-12 relative overflow-hidden shadow-2xl">
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 opacity-20">
+          <img
+            src="/svg/Content-creator-amico.svg"
+            alt="Newsletter background illustration"
+            class="w-full h-full object-cover"
+            loading="lazy"
           />
-          <button
-            type="submit"
-            class="px-6 py-3 bg-primary-500 hover:bg-primary-600 text-white font-semibold rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg whitespace-nowrap"
-          >
-            Aanmelden
-          </button>
+        </div>
+
+        <!-- Content -->
+        <div class="relative z-10">
+          <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-4 text-shadow shadow-black">
+            Wil je meer weten over Gen Z recruitment?
+          </h3>
+          <p class="text-white/90 mb-8 max-w-2xl mx-auto text-lg leading-relaxed">
+            Ontvang onze nieuwsbrief met de nieuwste inzichten, trends en praktische tips voor het aantrekken van Gen Z talent.
+          </p>
+
+          <!-- Newsletter Form -->
+          <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 lg:p-8 border border-white/20 max-w-lg mx-auto">
+            <form class="flex flex-col sm:flex-row gap-4 justify-center items-center" id="newsletter-form">
+              <input
+                type="email"
+                name="email"
+                placeholder="Jouw e-mailadres"
+                required
+                class="flex-1 px-4 py-3 rounded-lg bg-white/90 backdrop-blur-sm text-gray-900 placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-primary-200 focus:ring-offset-2 focus:ring-offset-transparent border border-white/30"
+              />
+              <button
+                type="submit"
+                class="px-8 py-3 bg-primary-500 hover:bg-primary-600 text-white font-semibold rounded-lg transition-all duration-300 whitespace-nowrap shadow-lg hover:shadow-xl transform hover:scale-105"
+              >
+                Aanmelden
+              </button>
+            </form>
+          </div>
         </div>
       </div>
     </div>
@@ -296,6 +301,17 @@ function formatDate(dateString: string): string {
     outline: 2px solid #412683;
     outline-offset: 2px;
     border-radius: 4px;
+  }
+
+  /* Newsletter form focus states */
+  #newsletter-form input:focus {
+    outline: 2px solid #412683;
+    outline-offset: 2px;
+  }
+
+  #newsletter-form button:focus {
+    outline: 2px solid #412683;
+    outline-offset: 2px;
   }
 </style>
 

@@ -182,9 +182,13 @@ h2,
 h3,
 h4,
 h5,
-h6,
-button {
+h6 {
   font-family: var(--font-family-anton);
+}
+
+/* Buttons use Satoshi for better readability and modern appearance */
+button {
+  font-family: var(--font-family-satoshi);
 }
 
 /* Removed gradient-1 and rose-bg classes - use approved palette colors instead */
