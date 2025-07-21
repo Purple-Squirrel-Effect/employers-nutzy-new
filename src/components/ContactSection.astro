@@ -1,3 +1,8 @@
+---
+import ContactInfo from "./ContactInfo.astro";
+---
+
+
 <section
   class="bg-primary-200 overflow-hidden relative py-32 px-8 md:px-16 lg:px-32 xl:px-64 gap-8 items-start justify-center grid grid-cols-1 lg:grid-cols-2"
 >
@@ -20,11 +25,14 @@
       graag verder.
     </p>
 
+
+   <ContactInfo />
+  </div>
     <!-- Contact Info -->
-    <div class="space-y-4">
-      <div class="flex items-center space-x-3">
+    <!-- <div class="space-y-4">
+      <div class="flex items-center space-x-3 bg-white rounded-lg p-4">
         <div
-          class="w-10 h-10 bg-white rounded-lg flex items-center justify-center shadow-lg"
+          class="w-10 h-10 bg-primary-500 rounded-lg flex items-center justify-center shadow-lg"
         >
           <svg
             class="w-5 h-5 text-primary-600"
@@ -63,7 +71,7 @@
         <span class="text-primary-900 font-medium">+31 (0)20 123 4567</span>
       </div>
     </div>
-  </div>
+  </div> -->
 
   <!-- Right Column - Enhanced Form -->
   <div class="relative z-10">
@@ -71,10 +79,10 @@
       class="bg-white rounded-2xl shadow-xl p-6 lg:p-8 border border-white/20 backdrop-blur-sm"
     >
       <div class="mb-6">
-        <h2 class="text-2xl lg:text-3xl font-bold text-primary-900 mb-2">
+        <h2 class="text-2xl lg:text-3xl font-bold text-black mb-2">
           Stuur ons een bericht
         </h2>
-        <p class="text-primary-900">We reageren binnen 24 uur op je bericht</p>
+        <p class="text-black">We reageren binnen 24 uur op je bericht</p>
       </div>
 
       <form class="space-y-6" id="contact-form">
@@ -196,7 +204,7 @@
         <!-- Submit Button -->
         <button
           type="submit"
-          class="w-full  bg-tertiary-900 hover:brightness-110 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+          class="w-full  bg-tertiary-900 hover:brightness-110 text-black font-semibold py-4 px-6 rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
           id="submit-btn"
         >
           <span class="flex items-center justify-center space-x-2">
