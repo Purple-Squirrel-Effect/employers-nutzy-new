@@ -34,13 +34,10 @@ const containerClasses =
 const sectionClasses = position === "sidebar" ? "" : "py-16 bg-gray-50";
 ---
 
-<section class={`${sectionClasses} ${className}`}>
+<section class={`${sectionClasses} ${className} !relative z-50`}>
   <div class={`${containerClasses} overflow-hidden relative`}>
     <!-- Background gradient for better visibility -->
-    <div
-      class="absolute inset-0 bg-gradient-to-b from-transparent via-white/80 to-transparent pointer-events-none z-10"
-    >
-    </div>
+    -->
 
     <!-- Scrolling container -->
     <div

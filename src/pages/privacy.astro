@@ -1,0 +1,115 @@
+---
+import App from "../layouts/App.astro";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Privacybeleid - Nutzy | Gen-Z Recruitment Platform</title>
+    <meta
+      name="description"
+      content="Lees het privacybeleid van Nutzy en ontdek hoe wij omgaan met jouw persoonlijke gegevens op ons Gen-Z recruitment platform."
+    />
+  </head>
+  <body>
+    <App>
+      <div class="px-8 md:px-16 lg:px-32 py-24 max-w-4xl mx-auto">
+        <header class="mb-12">
+          <h1 class="text-4xl lg:text-6xl font-bold text-primary-900 mb-6">Privacybeleid</h1>
+          <p class="text-xl text-gray-700">
+            Laatst bijgewerkt: {new Date().toLocaleDateString('nl-NL')}
+          </p>
+        </header>
+
+        <div class="prose prose-lg max-w-none">
+          <section class="mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">1. Inleiding</h2>
+            <p class="text-gray-700 leading-relaxed mb-4">
+              Nutzy ("wij", "ons", "onze") respecteert jouw privacy en is toegewijd aan het beschermen van jouw persoonlijke gegevens. 
+              Dit privacybeleid legt uit hoe wij jouw persoonlijke informatie verzamelen, gebruiken en beschermen wanneer je onze 
+              Gen-Z recruitment platform gebruikt.
+            </p>
+          </section>
+
+          <section class="mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">2. Gegevens die wij verzamelen</h2>
+            <p class="text-gray-700 leading-relaxed mb-4">
+              Wij kunnen de volgende soorten persoonlijke gegevens verzamelen:
+            </p>
+            <ul class="list-disc list-inside text-gray-700 space-y-2 mb-4">
+              <li>Contactgegevens (naam, e-mailadres, telefoonnummer)</li>
+              <li>Professionele informatie (werkervaring, vaardigheden, CV)</li>
+              <li>Gebruiksgegevens (hoe je onze website gebruikt)</li>
+              <li>Technische gegevens (IP-adres, browsertype, apparaatinformatie)</li>
+            </ul>
+          </section>
+
+          <section class="mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">3. Hoe wij jouw gegevens gebruiken</h2>
+            <p class="text-gray-700 leading-relaxed mb-4">
+              Wij gebruiken jouw persoonlijke gegevens voor:
+            </p>
+            <ul class="list-disc list-inside text-gray-700 space-y-2 mb-4">
+              <li>Het leveren van onze recruitment services</li>
+              <li>Het matchen van kandidaten met werkgevers</li>
+              <li>Communicatie over vacatures en kansen</li>
+              <li>Verbetering van onze platform en services</li>
+              <li>Naleving van wettelijke verplichtingen</li>
+            </ul>
+          </section>
+
+          <section class="mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">4. Delen van gegevens</h2>
+            <p class="text-gray-700 leading-relaxed mb-4">
+              Wij delen jouw persoonlijke gegevens alleen:
+            </p>
+            <ul class="list-disc list-inside text-gray-700 space-y-2 mb-4">
+              <li>Met jouw expliciete toestemming</li>
+              <li>Met potentiële werkgevers (alleen relevante professionele informatie)</li>
+              <li>Met vertrouwde serviceproviders die ons helpen onze services te leveren</li>
+              <li>Wanneer wettelijk vereist</li>
+            </ul>
+          </section>
+
+          <section class="mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">5. Jouw rechten</h2>
+            <p class="text-gray-700 leading-relaxed mb-4">
+              Onder de AVG heb je de volgende rechten:
+            </p>
+            <ul class="list-disc list-inside text-gray-700 space-y-2 mb-4">
+              <li>Recht op inzage in jouw persoonlijke gegevens</li>
+              <li>Recht op rectificatie van onjuiste gegevens</li>
+              <li>Recht op verwijdering van jouw gegevens</li>
+              <li>Recht op beperking van verwerking</li>
+              <li>Recht op gegevensoverdraagbaarheid</li>
+              <li>Recht van bezwaar tegen verwerking</li>
+            </ul>
+          </section>
+
+          <section class="mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">6. Beveiliging</h2>
+            <p class="text-gray-700 leading-relaxed mb-4">
+              Wij implementeren passende technische en organisatorische maatregelen om jouw persoonlijke gegevens 
+              te beschermen tegen ongeautoriseerde toegang, wijziging, openbaarmaking of vernietiging.
+            </p>
+          </section>
+
+          <section class="mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">7. Contact</h2>
+            <p class="text-gray-700 leading-relaxed mb-4">
+              Voor vragen over dit privacybeleid of om jouw rechten uit te oefenen, neem contact met ons op:
+            </p>
+            <div class="bg-gray-50 p-6 rounded-lg">
+              <p class="text-gray-700 mb-2"><strong>E-mail:</strong> privacy@nutzy.nl</p>
+              <p class="text-gray-700 mb-2"><strong>Telefoon:</strong> +31 (0)20 123 4567</p>
+              <p class="text-gray-700"><strong>Adres:</strong> Amsterdam, Nederland</p>
+            </div>
+          </section>
+        </div>
+      </div>
+    </App>
+  </body>
+</html>
