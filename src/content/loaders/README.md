@@ -9,9 +9,10 @@ This directory contains custom content loaders for the Astro Content Loader API.
 A simple loader that loads blog posts from a mock database. This is currently being used in the project.
 
 **Usage:**
+
 ```typescript
 // src/content/config.ts
-import { blogLoader } from './loaders/blogLoader';
+import { blogLoader } from "./loaders/blogLoader";
 
 const blogCollection = defineCollection({
   loader: blogLoader(),
@@ -22,20 +23,71 @@ const blogCollection = defineCollection({
 ```
 
 **Features:**
+
 - Loads from mock database (easily replaceable with real data source)
 - Calculates reading time automatically
 - Supports all blog post fields (title, content, category, author, etc.)
 - Generates content digests for change detection
 - Provides rendered HTML content
 
-### 2. API Loader (`apiLoader.ts`)
+### 2. Events Loader (`eventsLoader.ts`)
+
+A loader that manages event data with proper date/time validation and event-specific features.
+
+**Usage:**
+
+```typescript
+// src/content/config.ts
+import { eventsLoader } from "./loaders/eventsLoader";
+
+const eventsCollection = defineCollection({
+  loader: eventsLoader(),
+  schema: z.object({
+    // your schema here
+  }),
+});
+```
+
+**Features:**
+
+- Loads from mock database (easily replaceable with real data source)
+- Validates event date/time constraints (endsAt must be after startsAt)
+- Calculates event duration automatically
+- Determines if events are upcoming
+- Supports all event fields (title, startsAt, endsAt, location, etc.)
+- Generates content digests for change detection
+- Provides rendered HTML content for descriptions
+
+**Required Fields:**
+
+- `title`: String field for the event name/title
+- `startsAt`: Date/datetime field for when the event begins
+- `endsAt`: Date/datetime field for when the event ends
+
+**Optional Fields:**
+
+- `description`: Event description
+- `location`: Event location
+- `category`: Event category (Workshop, Webinar, Conference, etc.)
+- `organizer`: Event organizer name
+- `maxAttendees`: Maximum number of attendees
+- `currentAttendees`: Current number of registered attendees
+- `price`: Event price
+- `currency`: Price currency (defaults to EUR)
+- `tags`: Array of event tags
+- `registrationUrl`: URL for event registration
+- `contactEmail`: Contact email for the event
+- And more...
+
+### 3. API Loader (`apiLoader.ts`)
 
 A flexible loader for fetching blog posts from external APIs, databases, or CMS systems.
 
 **Usage:**
+
 ```typescript
 // src/content/config.ts
-import { apiLoader } from './loaders/apiLoader';
+import { apiLoader } from "./loaders/apiLoader";
 
 const blogCollection = defineCollection({
   loader: apiLoader({
@@ -50,6 +102,7 @@ const blogCollection = defineCollection({
 ```
 
 **Features:**
+
 - Configurable API endpoint
 - Optional API key authentication
 - Refresh interval to prevent excessive API calls
@@ -57,13 +110,14 @@ const blogCollection = defineCollection({
 - Error handling that doesn't break builds
 - Support for different API response formats
 
-### 3. Specialized Loaders
+### 4. Specialized Loaders
 
 The `apiLoader.ts` file also includes specialized loaders for popular platforms:
 
 #### PocketBase Loader
+
 ```typescript
-import { pocketBaseLoader } from './loaders/apiLoader';
+import { pocketBaseLoader } from "./loaders/apiLoader";
 
 const blogCollection = defineCollection({
   loader: pocketBaseLoader({
@@ -75,8 +129,9 @@ const blogCollection = defineCollection({
 ```
 
 #### Strapi Loader
+
 ```typescript
-import { strapiLoader } from './loaders/apiLoader';
+import { strapiLoader } from "./loaders/apiLoader";
 
 const blogCollection = defineCollection({
   loader: strapiLoader({
@@ -87,8 +142,9 @@ const blogCollection = defineCollection({
 ```
 
 #### WordPress Loader
+
 ```typescript
-import { wordPressLoader } from './loaders/apiLoader';
+import { wordPressLoader } from "./loaders/apiLoader";
 
 const blogCollection = defineCollection({
   loader: wordPressLoader({
@@ -119,8 +175,9 @@ for (const [id, post] of Object.entries(posts)) {
 ### Option 2: Switch to API Loader
 
 1. Update `src/content/config.ts`:
+
 ```typescript
-import { apiLoader } from './loaders/apiLoader';
+import { apiLoader } from "./loaders/apiLoader";
 
 const blogCollection = defineCollection({
   loader: apiLoader({
@@ -141,7 +198,7 @@ Create a new loader file for your specific data source:
 
 ```typescript
 // src/content/loaders/customLoader.ts
-import type { Loader } from 'astro/loaders';
+import type { Loader } from "astro/loaders";
 
 export function customLoader(): Loader {
   return {
@@ -149,20 +206,20 @@ export function customLoader(): Loader {
     load: async ({ store, logger, parseData, generateDigest }) => {
       // Your custom loading logic here
       logger.info("Loading from custom source");
-      
+
       // Fetch your data
       const data = await fetchFromYourSource();
-      
+
       // Clear existing entries
       store.clear();
-      
+
       // Process each item
       for (const item of data) {
         const parsedData = await parseData({
           id: item.id,
           data: item,
         });
-        
+
         store.set({
           id: item.id,
           data: parsedData,

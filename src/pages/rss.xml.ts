@@ -1,28 +1,38 @@
-import rss from '@astrojs/rss';
-import { getCollection } from 'astro:content';
-import { getPublishedPosts, sortPostsByDate } from '../utils/blog';
-import type { APIContext } from 'astro';
+import rss from "@astrojs/rss";
+import type { APIContext } from "astro";
+import { getCollection } from "astro:content";
 
 export async function GET(context: APIContext) {
-  const allBlogPosts = await getCollection('blog');
-  const publishedPosts = getPublishedPosts(allBlogPosts);
-  const sortedPosts = sortPostsByDate(publishedPosts);
+  const allBlogPosts = await getCollection("blog");
+
+  // Filter out draft posts and sort by date (newest first)
+  const publishedPosts = allBlogPosts
+    .filter((post) => !post.data.draft)
+    .sort(
+      (a, b) =>
+        new Date(b.data.posted).getTime() - new Date(a.data.posted).getTime()
+    );
 
   return rss({
-    title: 'Nutzy Blog - Gen-Z Recruitment Insights',
-    description: 'Ontdek de nieuwste inzichten over Gen-Z recruitment, platform strategieën en trends in de arbeidsmarkt. Kennis delen voor betere recruitment resultaten.',
-    site: context.site || 'https://nutzy.nl',
-    items: sortedPosts.map((post) => ({
+    title: "Nutzy Blog - Gen-Z Recruitment Insights",
+    description:
+      "Ontdek de nieuwste inzichten over Gen-Z recruitment, platform strategieën en trends in de arbeidsmarkt. Kennis delen voor betere recruitment resultaten.",
+    site: context.site || "https://nutzy.nl",
+    items: publishedPosts.map((post) => ({
       title: post.data.title,
       description: post.data.description,
-      pubDate: post.data.publishDate,
-      link: `/blog/${post.slug}/`,
-      author: post.data.author.name,
+      pubDate: post.data.posted,
+      link: `/blog/${post.id}/`,
+      author: post.data.author,
       categories: [post.data.category, ...post.data.tags],
       customData: `
-        <content:encoded><![CDATA[${post.body}]]></content:encoded>
-        <dc:creator>${post.data.author.name}</dc:creator>
-        ${post.data.heroImage ? `<media:content url="${post.data.heroImage.src}" type="image/jpeg" />` : ''}
+        <content:encoded><![CDATA[${post.data.content}]]></content:encoded>
+        <dc:creator>${post.data.author}</dc:creator>
+        ${
+          post.data.heroImage
+            ? `<media:content url="${post.data.heroImage.src}" type="image/jpeg" />`
+            : ""
+        }
       `,
     })),
     customData: `
@@ -43,9 +53,9 @@ export async function GET(context: APIContext) {
       </image>
     `,
     xmlns: {
-      content: 'http://purl.org/rss/1.0/modules/content/',
-      dc: 'http://purl.org/dc/elements/1.1/',
-      media: 'http://search.yahoo.com/mrss/',
+      content: "http://purl.org/rss/1.0/modules/content/",
+      dc: "http://purl.org/dc/elements/1.1/",
+      media: "http://search.yahoo.com/mrss/",
     },
   });
 }

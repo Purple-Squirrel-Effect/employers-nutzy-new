@@ -1,60 +1,59 @@
-import type { APIContext } from 'astro';
-import { getCollection } from 'astro:content';
-import { getPublishedPosts } from '../utils/blog';
+import type { APIContext } from "astro";
+import { getCollection } from "astro:content";
 
 export async function GET(context: APIContext) {
-  const siteUrl = context.site || 'https://nutzy.nl';
-  
+  const siteUrl = context.site || "https://nutzy.nl";
+
   // Get all blog posts
-  const allBlogPosts = await getCollection('blog');
-  const publishedPosts = getPublishedPosts(allBlogPosts);
+  const allBlogPosts = await getCollection("blog");
+  const publishedPosts = allBlogPosts.filter((post) => !post.data.draft);
 
   // Static pages
   const staticPages = [
     {
-      url: '',
+      url: "",
       lastmod: new Date().toISOString(),
-      changefreq: 'weekly',
-      priority: '1.0'
+      changefreq: "weekly",
+      priority: "1.0",
     },
     {
-      url: 'blog',
+      url: "blog",
       lastmod: new Date().toISOString(),
-      changefreq: 'daily',
-      priority: '0.9'
+      changefreq: "daily",
+      priority: "0.9",
     },
     {
-      url: 'about',
+      url: "about",
       lastmod: new Date().toISOString(),
-      changefreq: 'monthly',
-      priority: '0.8'
+      changefreq: "monthly",
+      priority: "0.8",
     },
     {
-      url: 'contact',
+      url: "contact",
       lastmod: new Date().toISOString(),
-      changefreq: 'monthly',
-      priority: '0.7'
+      changefreq: "monthly",
+      priority: "0.7",
     },
     {
-      url: 'platform',
+      url: "platform",
       lastmod: new Date().toISOString(),
-      changefreq: 'weekly',
-      priority: '0.8'
+      changefreq: "weekly",
+      priority: "0.8",
     },
     {
-      url: 'campain-strategy',
+      url: "campain-strategy",
       lastmod: new Date().toISOString(),
-      changefreq: 'weekly',
-      priority: '0.7'
-    }
+      changefreq: "weekly",
+      priority: "0.7",
+    },
   ];
 
   // Blog post pages
   const blogPages = publishedPosts.map((post) => ({
-    url: `blog/${post.slug}`,
-    lastmod: (post.data.updatedDate || post.data.publishDate).toISOString(),
-    changefreq: 'monthly',
-    priority: post.data.featured ? '0.8' : '0.6'
+    url: `blog/${post.id}`,
+    lastmod: (post.data.updatedDate || post.data.posted).toISOString(),
+    changefreq: "monthly",
+    priority: post.data.featured ? "0.8" : "0.6",
   }));
 
   // Combine all pages
@@ -68,18 +67,22 @@ export async function GET(context: APIContext) {
         xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
         xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
-${allPages.map(page => `  <url>
+${allPages
+  .map(
+    (page) => `  <url>
     <loc>${siteUrl}/${page.url}</loc>
     <lastmod>${page.lastmod}</lastmod>
     <changefreq>${page.changefreq}</changefreq>
     <priority>${page.priority}</priority>
-  </url>`).join('\n')}
+  </url>`
+  )
+  .join("\n")}
 </urlset>`;
 
   return new Response(sitemap, {
     headers: {
-      'Content-Type': 'application/xml',
-      'Cache-Control': 'public, max-age=3600'
-    }
+      "Content-Type": "application/xml",
+      "Cache-Control": "public, max-age=3600",
+    },
   });
 }

@@ -1,0 +1,411 @@
+---
+import { getCollection } from "astro:content";
+import ContactSection from "../components/ContactSection.astro";
+import Footer from "../components/Footer.astro";
+import App from "../layouts/App.astro";
+import {
+  filterEventsByStatus,
+  formatEventDateRange,
+  formatEventPrice,
+  getEventStatus,
+  isUpcoming,
+  sortEventsByDate,
+  sortEventsLogically
+} from "../utils/events";
+
+// Get all events from the content collection
+const allEvents = await getCollection("events");
+
+// Filter and sort events
+const upcomingEvents = filterEventsByStatus(allEvents, "upcoming");
+const sortedUpcomingEvents = sortEventsByDate(upcomingEvents, "asc");
+
+// Get the nearest upcoming event (first in sorted list)
+const nearestUpcomingEvent = sortedUpcomingEvents[0];
+
+// Get remaining upcoming events (excluding the featured one)
+const remainingUpcomingEvents = sortedUpcomingEvents.slice(1);
+
+// Get all events sorted logically for the full list
+const sortedAllEvents = sortEventsLogically(allEvents);
+---
+
+<html lang="nl">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Events - Nutzy Recruitment</title>
+    <meta name="description" content="Ontdek onze aankomende recruitment events, workshops en webinars. Blijf op de hoogte van de nieuwste trends in talent acquisition." />
+  </head>
+
+  <body>
+    <App>
+
+
+      <main class="pb-16 relative z-20">
+        <img class="absolute z-20 h-[200svh] w-[200svw] opacity-20" src="/svg/particle/target.svg" />
+        <!-- Hero Section with Featured Latest Event -->
+        {nearestUpcomingEvent ? (
+          <section class="bg-gradient-to-br from-primary-500 to-secondary-900 relative overflow-hidden">
+
+
+            <div class="px-8 lg:px-16 xl:px-32 py-20 max-w-7xl mx-auto relative z-30">
+              <!-- Hero Layout: Title Left, Event Card Right -->
+              <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12 items-start">
+                <!-- Left Side: Title Section (3 columns) -->
+                <div class="lg:col-span-3 text-center lg:text-left lg:pr-8">
+                  <h1 class="text-5xl lg:text-7xl xl:text-8xl font-bold text-white mb-6 leading-tight">
+                    <span class="text-secondary-200">Volgende</span> Event
+                  </h1>
+                  <p class="text-xl lg:text-2xl text-primary-200 mb-8 leading-relaxed">
+                    Mis ons aankomende hoogtepunt niet
+                  </p>
+                  <div class="hidden lg:block">
+                    <p class="text-lg text-white/90 mb-6">
+                      Ontdek de nieuwste trends in recruitment en talent acquisition tijdens ons volgende event.
+                    </p>
+                    <div class="flex flex-wrap gap-4 text-sm text-white/80">
+                      <span class="flex items-center gap-2 bg-white/10 px-3 py-2 rounded-full backdrop-blur-sm">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        Interactieve workshops
+                      </span>
+                      <span class="flex items-center gap-2 bg-white/10 px-3 py-2 rounded-full backdrop-blur-sm">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                        </svg>
+                        Netwerkmogelijkheden
+                      </span>
+                      <span class="flex items-center gap-2 bg-white/10 px-3 py-2 rounded-full backdrop-blur-sm">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                        </svg>
+                        Expert insights
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Right Side: Featured Event Card (2 columns) -->
+                <div class="lg:col-span-2">
+                  <article class="bg-white/95 backdrop-blur-sm rounded-2xl p-6 lg:p-8 shadow-2xl h-full border border-white/20">
+                    <!-- Category Badge -->
+                    {nearestUpcomingEvent.data.category && (
+                      <div class="mb-4">
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-primary-500 text-white">
+                          {nearestUpcomingEvent.data.category}
+                        </span>
+                      </div>
+                    )}
+
+                    <!-- Title -->
+                    <h2 class="text-2xl lg:text-3xl font-bold text-primary-900 leading-tight mb-4">
+                      {nearestUpcomingEvent.data.title}
+                    </h2>
+
+                    <!-- Description -->
+                    {nearestUpcomingEvent.data.description && (
+                      <p class="text-gray-700 mb-6 leading-relaxed">
+                        {nearestUpcomingEvent.data.description}
+                      </p>
+                    )}
+
+                    <!-- Event Details -->
+                    <div class="space-y-3 mb-6">
+                      <!-- Date and Time -->
+                      <div class="flex items-center gap-3 text-gray-600">
+                        <svg class="w-4 h-4 flex-shrink-0 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        <span class="text-sm">{formatEventDateRange(nearestUpcomingEvent.data.startsAt, nearestUpcomingEvent.data.endsAt)}</span>
+                      </div>
+
+                      <!-- Location -->
+                      {nearestUpcomingEvent.data.location && (
+                        <div class="flex items-center gap-3 text-gray-600">
+                          <svg class="w-4 h-4 flex-shrink-0 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                          </svg>
+                          <span class="text-sm">{nearestUpcomingEvent.data.location}</span>
+                        </div>
+                      )}
+
+                      <!-- Organizer -->
+                      {nearestUpcomingEvent.data.organizer && (
+                        <div class="flex items-center gap-3 text-gray-600">
+                          <svg class="w-4 h-4 flex-shrink-0 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                          </svg>
+                          <span class="text-sm">{nearestUpcomingEvent.data.organizer}</span>
+                        </div>
+                      )}
+                    </div>
+
+                    <!-- Availability Info -->
+                    {nearestUpcomingEvent.data.maxAttendees && (
+                      <div class="mb-4 p-3 bg-primary-50 rounded-lg">
+                        <div class="flex items-center justify-between text-primary-900 mb-2">
+                          <span class="text-sm font-medium">Beschikbare plaatsen:</span>
+                          <span class="text-sm font-bold">
+                            {Math.max(0, nearestUpcomingEvent.data.maxAttendees - (nearestUpcomingEvent.data.currentAttendees || 0))} / {nearestUpcomingEvent.data.maxAttendees}
+                          </span>
+                        </div>
+                        <div class="w-full bg-primary-200 rounded-full h-2">
+                          <div
+                            class="bg-primary-500 h-2 rounded-full transition-all duration-300"
+                            style={`width: ${Math.min(100, ((nearestUpcomingEvent.data.currentAttendees || 0) / nearestUpcomingEvent.data.maxAttendees) * 100)}%`}
+                          ></div>
+                        </div>
+                      </div>
+                    )}
+
+                    <!-- Price and CTA -->
+                    <div class="space-y-4">
+                      <div class="text-2xl font-bold text-primary-900">
+                        {formatEventPrice(nearestUpcomingEvent.data.price || 0, nearestUpcomingEvent.data.currency)}
+                      </div>
+
+                      {nearestUpcomingEvent.data.registrationUrl && (
+                        <a
+                          href={nearestUpcomingEvent.data.registrationUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="inline-flex items-center justify-center w-full px-6 py-3 bg-primary-500 text-white font-bold rounded-xl hover:bg-primary-600 transition-all duration-300 shadow-lg"
+                        >
+                          Aanmelden Nu
+                          <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                          </svg>
+                        </a>
+                      )}
+                    </div>
+                  </article>
+                </div>
+              </div>
+            </div>
+          </section>
+        ) : (
+          <!-- Fallback when no upcoming events -->
+          <section class="bg-gradient-to-br from-primary-500 to-secondary-900 relative overflow-hidden">
+
+
+            <div class="px-8 lg:px-16 xl:px-32 py-20 max-w-7xl mx-auto relative z-30">
+              <header class="mb-16 text-center">
+                <h1 class="text-6xl lg:text-8xl font-bold text-white mb-6">
+                  <span class="text-secondary-200">Recruitment</span> Events
+                </h1>
+                <p class="text-xl text-primary-200 max-w-3xl mx-auto mb-8">
+                  Ontdek onze workshops, webinars en conferenties over moderne recruitment strategieën en Gen-Z talent acquisition.
+                </p>
+                <div class="mt-8 p-6 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20">
+                  <p class="text-white">Er zijn momenteel geen aankomende events gepland. Houd deze pagina in de gaten voor updates!</p>
+                </div>
+              </header>
+            </div>
+          </section>
+        )}
+
+        <!-- Other Upcoming Events Section -->
+        {remainingUpcomingEvents.length > 0 && (
+          <section class="bg-secondary-200 relative overflow-hidden">
+
+
+            <div class="px-8 lg:px-16 xl:px-32 py-20 max-w-7xl mx-auto relative z-30">
+              <div class="mb-12 text-center">
+                <h2 class="text-4xl lg:text-6xl font-bold text-primary-900 mb-4">
+                  <span class="text-secondary-900">Meer</span> Aankomende Events
+                </h2>
+                <p class="text-lg text-primary-900">Ontdek alle komende gelegenheden</p>
+              </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {remainingUpcomingEvents.map((event) => (
+                  <article class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 overflow-hidden group">
+                    <!-- Event Header -->
+                    <div class="p-6">
+                      <!-- Category Badge -->
+                      {event.data.category && (
+                        <div class="mb-4">
+                          <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-primary-200 text-primary-900">
+                            {event.data.category}
+                          </span>
+                        </div>
+                      )}
+
+                      <!-- Title -->
+                      <h3 class="text-xl font-bold text-gray-900 mb-3 line-clamp-2 group-hover:text-primary-900 transition-colors">
+                        {event.data.title}
+                      </h3>
+
+                      <!-- Description -->
+                      {event.data.description && (
+                        <p class="text-gray-600 mb-4 line-clamp-3">
+                          {event.data.description}
+                        </p>
+                      )}
+
+                      <!-- Event Details -->
+                      <div class="space-y-2 mb-4">
+                        <!-- Date and Time -->
+                        <div class="flex items-center gap-2 text-sm text-gray-600">
+                          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                          </svg>
+                          <span>{formatEventDateRange(event.data.startsAt, event.data.endsAt)}</span>
+                        </div>
+
+                        <!-- Location -->
+                        {event.data.location && (
+                          <div class="flex items-center gap-2 text-sm text-gray-600">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                            <span>{event.data.location}</span>
+                          </div>
+                        )}
+
+                        <!-- Organizer -->
+                        {event.data.organizer && (
+                          <div class="flex items-center gap-2 text-sm text-gray-600">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                            </svg>
+                            <span>{event.data.organizer}</span>
+                          </div>
+                        )}
+                      </div>
+
+                      <!-- Price and Registration -->
+                      <div class="flex items-center justify-between">
+                        <div class="text-lg font-bold text-primary-900">
+                          {formatEventPrice(event.data.price || 0, event.data.currency)}
+                        </div>
+                        
+                        {event.data.registrationUrl && (
+                          <a 
+                            href={event.data.registrationUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="inline-flex items-center px-4 py-2 bg-primary-600 text-white text-sm font-medium rounded-lg hover:bg-primary-700 transition-colors"
+                          >
+                            Aanmelden
+                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                            </svg>
+                          </a>
+                        )}
+                      </div>
+
+                      <!-- Availability Info -->
+                      {event.data.maxAttendees && (
+                        <div class="mt-4 pt-4 border-t border-gray-200">
+                          <div class="flex items-center justify-between text-sm text-gray-600">
+                            <span>Beschikbare plaatsen:</span>
+                            <span class="font-medium">
+                              {Math.max(0, event.data.maxAttendees - (event.data.currentAttendees || 0))} / {event.data.maxAttendees}
+                            </span>
+                          </div>
+                          <div class="mt-2 w-full bg-gray-200 rounded-full h-2">
+                            <div 
+                              class="bg-primary-600 h-2 rounded-full transition-all duration-300"
+                              style={`width: ${Math.min(100, ((event.data.currentAttendees || 0) / event.data.maxAttendees) * 100)}%`}
+                            ></div>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </article>
+                ))}
+            </div>
+          </section>
+        )}
+
+        <!-- All Events Section -->
+        <section class="bg-primary-900 relative overflow-hidden">
+
+
+          <div class="px-8 lg:px-16 xl:px-32 py-20 max-w-7xl mx-auto relative z-30">
+            <div class="mb-12 text-center">
+              <h2 class="text-4xl lg:text-6xl font-bold text-white mb-4">
+                <span class="text-secondary-200">Alle</span> Events
+              </h2>
+              <p class="text-lg text-primary-200">Volledig overzicht van onze events</p>
+            </div>
+            
+
+            <img class="absolute top-0 z-20 h-[200svh] w-[200svw] opacity-10" src="/svg/Events-amico.svg" />
+
+
+          <div class="space-y-6">
+            {sortedAllEvents.map((event) => (
+              <article class="bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 hover:bg-white/20 transition-all duration-300 p-6">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                  <div class="flex-1">
+                    <div class="flex items-center gap-3 mb-2">
+                      <h3 class="text-xl font-bold text-white">{event.data.title}</h3>
+                      <span class={`px-2 py-1 rounded-full text-xs font-medium ${
+                        isUpcoming(event.data.startsAt)
+                          ? 'bg-secondary-200 text-primary-900'
+                          : 'bg-white/20 text-white'
+                      }`}>
+                        {getEventStatus(event.data.startsAt, event.data.endsAt)}
+                      </span>
+                      {event.data.featured && (
+                        <span class="px-2 py-1 rounded-full text-xs font-medium bg-tertiary-900 text-primary-900">
+                          Featured
+                        </span>
+                      )}
+                    </div>
+
+                    {event.data.description && (
+                      <p class="text-primary-200 mb-3">{event.data.description}</p>
+                    )}
+
+                    <div class="flex flex-wrap gap-4 text-sm text-white/80">
+                      <span>{formatEventDateRange(event.data.startsAt, event.data.endsAt)}</span>
+                      {event.data.location && <span>• {event.data.location}</span>}
+                      {event.data.organizer && <span>• {event.data.organizer}</span>}
+                    </div>
+                  </div>
+
+                  <div class="flex items-center gap-4">
+                    <div class="text-right">
+                      <div class="text-lg font-bold text-secondary-200">
+                        {formatEventPrice(event.data.price || 0, event.data.currency)}
+                      </div>
+                      {event.data.maxAttendees && (
+                        <div class="text-sm text-white/80">
+                          {Math.max(0, event.data.maxAttendees - (event.data.currentAttendees || 0))} plaatsen vrij
+                        </div>
+                      )}
+                    </div>
+
+                    {event.data.registrationUrl && isUpcoming(event.data.startsAt) && (
+                      <a
+                        href={event.data.registrationUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="inline-flex items-center px-4 py-2 bg-secondary-200 text-primary-900 text-sm font-medium rounded-lg hover:bg-white transition-colors"
+                      >
+                        Aanmelden
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+          </div>
+        </section>
+      </main>
+
+      <ContactSection />
+      <Footer />
+    </App>
+  </body>
+</html>
