@@ -1,6 +1,18 @@
 ---
-// Blog post data structure
-interface BlogPost {
+import { getCollection } from "astro:content";
+import { calculateReadingTime, formatDate } from "../../utils/blog";
+
+// Get blog posts using Astro loader API
+const allBlogPosts = await getCollection("blog");
+
+// Sort posts by date (newest first) and get the latest 3
+const latestBlogPosts = allBlogPosts
+  .filter((post) => !post.data.draft) // Filter out draft posts
+  .sort((a, b) => new Date(b.data.posted).getTime() - new Date(a.data.posted).getTime())
+  .slice(0, 3); // Get exactly 3 most recent posts
+
+// Transform blog posts to match the expected interface for the template
+interface DisplayBlogPost {
   id: string;
   title: string;
   excerpt: string;
@@ -9,66 +21,20 @@ interface BlogPost {
   category: string;
   image: string;
   slug: string;
+  formattedDate: string;
 }
 
-// Sample blog posts data
-const blogPosts: BlogPost[] = [
-  {
-    id: "gen-z-recruitment-trends-2024",
-    title: "Gen Z Recruitment Trends die je niet mag missen in 2024",
-    excerpt:
-      "Ontdek de nieuwste trends in Gen Z recruitment en hoe visuele content de manier waarop we talent aantrekken fundamenteel verandert.",
-    date: "2024-07-15",
-    readTime: "5 min",
-    category: "Recruitment",
-    image: "/svg/Gen-Z-amico.svg",
-    slug: "/blog/gen-z-recruitment-trends-2024",
-  },
-  {
-    id: "visual-job-descriptions",
-    title: "Waarom visuele vacatureteksten 4x meer conversie opleveren",
-    excerpt:
-      "Leer hoe visuele vacatureteksten de aandacht van Gen Z vasthoudt en waarom traditionele tekstuele vacatures niet meer werken.",
-    date: "2024-07-10",
-    readTime: "7 min",
-    category: "Content Strategy",
-    image: "/svg/Web-devices-amico.svg",
-    slug: "/blog/visual-job-descriptions",
-  },
-  {
-    id: "creator-partnerships",
-    title: "Creator partnerships: De nieuwe manier van employer branding",
-    excerpt:
-      "Ontdek hoe partnerships met content creators je employer brand kunnen versterken en authentieke verbindingen creëren met Gen Z talent.",
-    date: "2024-07-05",
-    readTime: "6 min",
-    category: "Employer Branding",
-    image: "/svg/Content-creator-amico.svg",
-    slug: "/blog/creator-partnerships",
-  },
-  {
-    id: "nutzy-platform-success",
-    title: "30.000 maandelijkse bezoekers: Het verhaal achter Nutzy's succes",
-    excerpt:
-      "Een kijkje achter de schermen van hoe Nutzy in korte tijd uitgroeide tot het go-to platform voor Gen Z recruitment.",
-    date: "2024-06-28",
-    readTime: "8 min",
-    category: "Case Study",
-    image: "/svg/Cohort-analysis-amico.svg",
-    slug: "/blog/nutzy-platform-success",
-  },
-  
-];
-
-// Format date for display
-function formatDate(dateString: string): string {
-  const date = new Date(dateString);
-  return date.toLocaleDateString("nl-NL", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-}
+const blogPosts: DisplayBlogPost[] = latestBlogPosts.map((post) => ({
+  id: post.id,
+  title: post.data.title,
+  excerpt: post.data.description || "Lees meer over dit onderwerp...", // Use description as excerpt
+  date: post.data.posted.toISOString().split('T')[0], // Format as YYYY-MM-DD for datetime attribute
+  readTime: `${post.data.readingTime || calculateReadingTime(post.data.content)} min`,
+  category: post.data.category,
+  image: post.data.heroImage?.src || "/svg/Gen-Z-amico.svg", // Use heroImage or fallback
+  slug: `/blog/${post.id}`, // Generate slug from post ID
+  formattedDate: formatDate(post.data.posted), // Pre-format date for display
+}));
 ---
 
 <section
@@ -101,7 +67,7 @@ function formatDate(dateString: string): string {
 
     <!-- Blog Posts Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8" data-blog-grid>
-      {blogPosts.slice(1).map((post, index) => {
+      {blogPosts.map((post, index) => {
         return (
         <article
           class="blog-card bg-white rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 group max-w-sm mx-auto"
@@ -129,7 +95,7 @@ function formatDate(dateString: string): string {
             <!-- Meta Information -->
             <div class="flex items-center gap-3 text-xs mb-3 text-primary-500">
               <time datetime={post.date}>
-                {formatDate(post.date)}
+                {post.formattedDate}
               </time>
               <span>•</span>
               <span>{post.readTime} leestijd</span>
