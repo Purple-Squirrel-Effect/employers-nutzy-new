@@ -1,0 +1,32 @@
+---
+import App from "../layouts/App.astro";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Cookiebeleid - Nutzy | Gen-Z Recruitment Platform</title>
+    <meta
+      name="description"
+      content="Lees het cookiebeleid van Nutzy en ontdek hoe wij cookies gebruiken op ons Gen-Z recruitment platform."
+    />
+  </head>
+  <body>
+    <App>
+      <section>
+        <h1>Title of the page</h1>
+
+        <div class="w-screen h-[200vh]">
+          <div class="grid grid-cols-3">
+            <div class="col-span-2">Content of page</div>
+            <div class="sticky top-0 bg-blue-500">Sidebar</div>
+          </div>
+        </div>
+        <div class="h-screen bg-red-500 w-screen"></div>
+      </section>
+    </App>
+  </body>
+</html>

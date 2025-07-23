@@ -103,7 +103,9 @@ const sortedAllEvents = sortEventsLogically(allEvents);
 
                     <!-- Title -->
                     <h2 class="text-2xl lg:text-3xl font-bold text-primary-900 leading-tight mb-4">
-                      {nearestUpcomingEvent.data.title}
+                      <a href={`/events/${nearestUpcomingEvent.id}`} class="hover:text-primary-700 transition-colors">
+                        {nearestUpcomingEvent.data.title}
+                      </a>
                     </h2>
 
                     <!-- Description -->
@@ -238,7 +240,9 @@ const sortedAllEvents = sortEventsLogically(allEvents);
 
                       <!-- Title -->
                       <h3 class="text-xl font-bold text-gray-900 mb-3 line-clamp-2 group-hover:text-primary-900 transition-colors">
-                        {event.data.title}
+                        <a href={`/events/${event.id}`} class="hover:underline">
+                          {event.data.title}
+                        </a>
                       </h3>
 
                       <!-- Description -->
@@ -347,7 +351,11 @@ const sortedAllEvents = sortEventsLogically(allEvents);
                 <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                   <div class="flex-1">
                     <div class="flex items-center gap-3 mb-2">
-                      <h3 class="text-xl font-bold text-white">{event.data.title}</h3>
+                      <h3 class="text-xl font-bold text-white">
+                        <a href={`/events/${event.id}`} class="hover:text-secondary-200 transition-colors">
+                          {event.data.title}
+                        </a>
+                      </h3>
                       <span class={`px-2 py-1 rounded-full text-xs font-medium ${
                         isUpcoming(event.data.startsAt)
                           ? 'bg-secondary-200 text-primary-900'

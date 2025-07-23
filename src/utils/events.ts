@@ -130,6 +130,33 @@ export function formatEventPrice(
 }
 
 /**
+ * Format event date only (without time)
+ * @param date - The date to format
+ * @param locale - The locale to use for formatting (default: 'nl-NL')
+ * @returns Formatted date string
+ */
+export function formatEventDate(date: Date, locale: string = "nl-NL"): string {
+  return date.toLocaleDateString(locale, {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+}
+
+/**
+ * Format event time only (without date)
+ * @param date - The date to format
+ * @param locale - The locale to use for formatting (default: 'nl-NL')
+ * @returns Formatted time string
+ */
+export function formatEventTime(date: Date, locale: string = "nl-NL"): string {
+  return date.toLocaleTimeString(locale, {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+}
+
+/**
  * Get event status based on dates
  * @param startsAt - Event start date
  * @param endsAt - Event end date

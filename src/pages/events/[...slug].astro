@@ -1,0 +1,488 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { getCollection } from "astro:content";
+import ContactSection from "../../components/ContactSection.astro";
+import Footer from "../../components/Footer.astro";
+import App from "../../layouts/App.astro";
+import {
+  formatEventDate,
+  formatEventDateRange,
+  formatEventPrice,
+  formatEventTime,
+  getEventStatus,
+  isUpcoming,
+} from "../../utils/events";
+
+export async function getStaticPaths() {
+  const allEvents = await getCollection("events");
+  return allEvents.map((event) => ({
+    params: { slug: event.id },
+    props: { event },
+  }));
+}
+
+interface Props {
+  event: CollectionEntry<"events">;
+}
+
+const { event } = Astro.props;
+
+const eventStatus = getEventStatus(event.data.startsAt, event.data.endsAt);
+const isEventUpcoming = isUpcoming(event.data.startsAt);
+const availableSpots = event.data.maxAttendees
+  ? Math.max(0, event.data.maxAttendees - (event.data.currentAttendees || 0))
+  : null;
+const isSoldOut = availableSpots !== null && availableSpots === 0;
+const hasRegistrationUrl = Boolean(event.data.registrationUrl);
+
+const seoTitle =
+  event.data.seo?.metaTitle || `${event.data.title} - Nutzy Recruitment`;
+const seoDescription =
+  event.data.seo?.metaDescription ||
+  event.data.description ||
+  `Meld je aan voor ${event.data.title}. ${formatEventDateRange(event.data.startsAt, event.data.endsAt)} in ${event.data.location || "online"}.`;
+const ogImage =
+  event.data.seo?.ogImage ||
+  event.data.heroImage?.src ||
+  "/svg/Events-amico.svg";
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "Event",
+  name: event.data.title,
+  description: event.data.description,
+  startDate: event.data.startsAt.toISOString(),
+  endDate: event.data.endsAt.toISOString(),
+  eventStatus: isEventUpcoming
+    ? "https://schema.org/EventScheduled"
+    : "https://schema.org/EventCancelled",
+  eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+  location: event.data.location
+    ? {
+        "@type": "Place",
+        name: event.data.location,
+        address: event.data.location,
+      }
+    : undefined,
+  organizer: event.data.organizer
+    ? {
+        "@type": "Organization",
+        name: event.data.organizer,
+      }
+    : undefined,
+  offers: event.data.price
+    ? {
+        "@type": "Offer",
+        price: event.data.price,
+        priceCurrency: event.data.currency || "EUR",
+        availability:
+          availableSpots && availableSpots > 0
+            ? "https://schema.org/InStock"
+            : "https://schema.org/SoldOut",
+        url: event.data.registrationUrl,
+      }
+    : undefined,
+  image: ogImage,
+  url: `${Astro.site}events/${event.id}`,
+};
+---
+
+<html lang="nl">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{seoTitle}</title>
+    <meta name="description" content={seoDescription} />
+
+    <meta property="og:title" content={seoTitle} />
+    <meta property="og:description" content={seoDescription} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:type" content={event.data.seo?.ogType || "event"} />
+    <meta property="og:url" content={`${Astro.site}events/${event.id}`} />
+
+    <meta
+      name="twitter:card"
+      content={event.data.seo?.twitterCard || "summary_large_image"}
+    />
+    <meta name="twitter:title" content={seoTitle} />
+    <meta name="twitter:description" content={seoDescription} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <script
+      type="application/ld+json"
+      is:inline
+      set:html={JSON.stringify(structuredData)}
+    />
+
+    <style>
+      /* Ensure sticky positioning works properly */
+      .sticky-registration-card {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 6rem;
+        z-index: 50;
+        align-self: flex-start;
+      }
+
+      /* Ensure parent containers don't interfere with sticky */
+      .sticky-container {
+        overflow: visible;
+        height: auto;
+      }
+    </style>
+  </head>
+
+  <body>
+    <App>
+      <article class="pt-24 pb-6">
+        <div class="max-w-7xl mx-auto">
+          <nav class="mb-8">
+            <a
+              href="/events"
+              class="inline-flex items-center gap-2 text-primary-600 hover:text-primary-700 transition-colors font-medium"
+            >
+              <svg
+                class="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M15 19l-7-7 7-7"></path>
+              </svg>
+              Terug naar Events
+            </a>
+          </nav>
+
+          <!-- Event Content Container with Sticky Registration Card -->
+          <div
+            class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16 sticky-container"
+            style="align-items: start;"
+          >
+            <!-- Left Column: Event Information -->
+            <div class="lg:col-span-2">
+              <!-- Event Header -->
+              <header class="mb-12 lg:mb-16">
+                <div class="flex flex-wrap items-center gap-3 mb-6">
+                  {
+                    event.data.category && (
+                      <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-primary-200 text-primary-900">
+                        {event.data.category}
+                      </span>
+                    )
+                  }
+                  <span
+                    class={`inline-flex items-center px-4 py-2 rounded-full text-sm font-medium ${
+                      isEventUpcoming
+                        ? "bg-green-100 text-green-800"
+                        : "bg-gray-100 text-gray-800"
+                    }`}
+                  >
+                    {eventStatus}
+                  </span>
+                  {
+                    event.data.featured && (
+                      <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-yellow-100 text-yellow-800">
+                        Featured Event
+                      </span>
+                    )
+                  }
+                </div>
+
+                <h1
+                  class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight"
+                >
+                  {event.data.title}
+                </h1>
+
+                {
+                  event.data.description && (
+                    <p class="text-xl text-gray-600 mb-8 leading-relaxed">
+                      {event.data.description}
+                    </p>
+                  )
+                }
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div
+                    class="bg-white rounded-xl p-6 shadow-lg border border-gray-100"
+                  >
+                    <div class="flex items-center gap-3 mb-2">
+                      <svg
+                        class="w-5 h-5 text-primary-500"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                        ></path>
+                      </svg>
+                      <h3 class="font-semibold text-gray-900">Datum & Tijd</h3>
+                    </div>
+                    <p class="text-gray-600">
+                      {formatEventDate(event.data.startsAt)}
+                    </p>
+                    <p class="text-sm text-gray-500">
+                      {formatEventTime(event.data.startsAt)} - {
+                        formatEventTime(event.data.endsAt)
+                      }
+                    </p>
+                  </div>
+
+                  {
+                    event.data.location && (
+                      <div class="bg-white rounded-xl p-6 shadow-lg border border-gray-100">
+                        <div class="flex items-center gap-3 mb-2">
+                          <svg
+                            class="w-5 h-5 text-primary-500"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                            />
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                            />
+                          </svg>
+                          <h3 class="font-semibold text-gray-900">Locatie</h3>
+                        </div>
+                        <p class="text-gray-600">{event.data.location}</p>
+                      </div>
+                    )
+                  }
+                </div>
+
+                <!-- Event Details Section -->
+                <section class="mb-12">
+                  <h2 class="text-3xl font-bold text-gray-900 mb-6">
+                    Event Details
+                  </h2>
+
+                  <!-- Organizer Info -->
+                  {
+                    event.data.organizer && (
+                      <div class="bg-primary-50 rounded-xl p-6 mb-6">
+                        <h3 class="text-lg font-semibold text-primary-900 mb-2">
+                          Georganiseerd door
+                        </h3>
+                        <p class="text-primary-800">{event.data.organizer}</p>
+                        {event.data.contactEmail && (
+                          <p class="text-sm text-primary-600 mt-2">
+                            Contact:{" "}
+                            <a
+                              href={`mailto:${event.data.contactEmail}`}
+                              class="underline hover:text-primary-700"
+                            >
+                              {event.data.contactEmail}
+                            </a>
+                          </p>
+                        )}
+                      </div>
+                    )
+                  }
+
+                  <!-- Event Tags -->
+                  {
+                    event.data.tags && event.data.tags.length > 0 && (
+                      <div class="mb-6">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-3">
+                          Onderwerpen
+                        </h3>
+                        <div class="flex flex-wrap gap-2">
+                          {event.data.tags.map((tag) => (
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-100 text-gray-800">
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )
+                  }
+
+                  <!-- Event Duration -->
+                  {
+                    event.data.duration && (
+                      <div class="bg-gray-50 rounded-xl p-6 mb-6">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">
+                          Duur
+                        </h3>
+                        <p class="text-gray-700">{event.data.duration} uur</p>
+                      </div>
+                    )
+                  }
+                </section>
+
+                <!-- Hero Image -->
+                {
+                  event.data.heroImage && (
+                    <section class="mb-12">
+                      <div class="rounded-2xl overflow-hidden shadow-lg">
+                        <img
+                          src={event.data.heroImage.src}
+                          alt={event.data.heroImage.alt}
+                          class="w-full h-64 md:h-80 object-cover"
+                        />
+                        {event.data.heroImage.caption && (
+                          <div class="bg-gray-100 px-6 py-3">
+                            <p class="text-sm text-gray-600">
+                              {event.data.heroImage.caption}
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                    </section>
+                  )
+                }
+              </header>
+            </div>
+
+            <!-- <div class="sticky top-16 bg-red-500 z-50 w-96 h-96 rounded-lg">
+            </div> -->
+            <!-- Right Column: Registration Card -->
+            <div class="sticky top-0">
+              <div
+                class="bg-white rounded-2xl shadow-xl border border-gray-200 p-6 hover:shadow-2xl transition-shadow duration-300 sticky-registration-card"
+              >
+                <h3 class="text-xl font-bold text-gray-900 mb-4 text-center">
+                  Aanmelding
+                </h3>
+
+                <div class="text-center mb-6 p-4 bg-gray-50 rounded-xl">
+                  <div class="text-3xl font-bold text-primary-600 mb-1">
+                    {
+                      formatEventPrice(
+                        event.data.price || 0,
+                        event.data.currency || "EUR"
+                      )
+                    }
+                  </div>
+                  <p class="text-sm text-gray-600">
+                    {
+                      (event.data.price || 0) === 0
+                        ? "Gratis deelname"
+                        : "per persoon"
+                    }
+                  </p>
+                </div>
+
+                {
+                  event.data.maxAttendees && (
+                    <div class="mb-6">
+                      <div class="flex items-center justify-between text-sm text-gray-600 mb-2">
+                        <span>Beschikbare plaatsen:</span>
+                        <span class="font-medium">
+                          {availableSpots} / {event.data.maxAttendees}
+                        </span>
+                      </div>
+                      <div class="w-full bg-gray-200 rounded-full h-3">
+                        <div
+                          class="bg-primary-500 h-3 rounded-full transition-all duration-300"
+                          style={`width: ${Math.min(100, ((event.data.currentAttendees || 0) / event.data.maxAttendees) * 100)}%`}
+                        />
+                      </div>
+                      {availableSpots !== null &&
+                        availableSpots <= 5 &&
+                        availableSpots > 0 && (
+                          <p class="text-sm text-orange-600 mt-2 font-medium">
+                            Nog maar {availableSpots} plaatsen beschikbaar!
+                          </p>
+                        )}
+                      {isSoldOut && (
+                        <p class="text-sm text-red-600 mt-2 font-medium">
+                          Dit event is uitverkocht
+                        </p>
+                      )}
+                    </div>
+                  )
+                }
+
+                {
+                  hasRegistrationUrl && isEventUpcoming ? (
+                    <a
+                      href={event.data.registrationUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class={`inline-flex items-center justify-center w-full px-6 py-4 text-lg font-bold rounded-xl transition-all duration-300 shadow-lg ${
+                        isSoldOut
+                          ? "bg-gray-400 text-white cursor-not-allowed"
+                          : "bg-primary-500 text-white hover:bg-primary-600 hover:shadow-xl transform hover:scale-105"
+                      }`}
+                      aria-disabled={isSoldOut}
+                    >
+                      {isSoldOut ? "Uitverkocht" : "Meld je nu aan"}
+                      {!isSoldOut && (
+                        <svg
+                          class="w-5 h-5 ml-2"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                          />
+                        </svg>
+                      )}
+                    </a>
+                  ) : !isEventUpcoming ? (
+                    <div class="text-center p-4 bg-gray-100 rounded-xl">
+                      <p class="text-gray-600 font-medium">
+                        Dit event is afgelopen
+                      </p>
+                    </div>
+                  ) : !hasRegistrationUrl ? (
+                    <div class="text-center p-4 bg-yellow-50 border border-yellow-200 rounded-xl">
+                      <p class="text-yellow-800 font-medium">
+                        Aanmelding binnenkort beschikbaar
+                      </p>
+                      {event.data.contactEmail && (
+                        <p class="text-sm text-yellow-600 mt-2">
+                          Voor vragen:{" "}
+                          <a
+                            href={`mailto:${event.data.contactEmail}`}
+                            class="underline"
+                          >
+                            {event.data.contactEmail}
+                          </a>
+                        </p>
+                      )}
+                    </div>
+                  ) : (
+                    <div class="text-center p-4 bg-gray-100 rounded-xl">
+                      <p class="text-gray-600 font-medium">
+                        Aanmelding niet beschikbaar
+                      </p>
+                    </div>
+                  )
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <ContactSection />
+      <Footer />
+    </App>
+  </body>
+</html>
