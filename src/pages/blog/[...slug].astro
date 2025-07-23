@@ -1,54 +1,26 @@
 ---
+import type { CollectionEntry } from "astro:content";
+import { getCollection } from "astro:content";
 import ContactSection from "../../components/ContactSection.astro";
 import Footer from "../../components/Footer.astro";
 import App from "../../layouts/App.astro";
 
-// Simple blog post interface matching the 5 required fields
-interface BlogPost {
-  title: string;
-  content: string;
-  category: string;
-  author: string;
-  posted: Date;
-}
-
-// Content Loader API - Simple implementation
-async function loadBlogPost(slug: string): Promise<BlogPost | null> {
-  // Mock data loader - replace with your preferred data source
-  const mockPosts: Record<string, BlogPost> = {
-    "gen-z-recruitment-trends-2024": {
-      title: "De Toekomst van Gen-Z Recruitment: Visuele Vacatures die Werken",
-      content:
-        "<p>Content section woohoo</p><p>all the content coming from tinyCME</p>",
-      category: "Recruitment Insights",
-      author: "Rowan Nutzy",
-      posted: new Date("2025-07-23"),
-    },
-  };
-
-  return mockPosts[slug] || null;
-}
-
 export async function getStaticPaths() {
-  // Define available blog post slugs
-  const slugs = ["gen-z-recruitment-trends-2024"];
+  // Get all blog posts from the content collection
+  const allPosts = await getCollection("blog");
 
-  return slugs.map((slug) => ({
-    params: { slug },
-    props: { slug },
+  // Generate paths for each post
+  return allPosts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
   }));
 }
 
 interface Props {
-  slug: string;
+  post: CollectionEntry<"blog">;
 }
 
-const { slug } = Astro.props;
-const post = await loadBlogPost(slug);
-
-if (!post) {
-  return Astro.redirect("/404");
-}
+const { post } = Astro.props;
 
 // Calculate reading time (simple word count estimation)
 function calculateReadingTime(content: string): number {
@@ -56,7 +28,8 @@ function calculateReadingTime(content: string): number {
   return Math.ceil(words / 200); // 200 words per minute
 }
 
-const readingTime = calculateReadingTime(post.content);
+const readingTime =
+  post.data.readingTime || calculateReadingTime(post.data.content);
 
 // Format date for display
 function formatDate(date: Date): string {
@@ -76,10 +49,11 @@ function formatDate(date: Date): string {
     <meta name="generator" content={Astro.generator} />
 
     <!-- SEO Meta Tags -->
-    <title>{post.title} | Nutzy Blog</title>
+    <title>{post.data.title} | Nutzy Blog</title>
     <meta
       name="description"
-      content={`Ontdek waarom traditionele vacatures Gen-Z niet meer bereiken en hoe visuele recruitment de toekomst is. Praktische tips en inzichten voor moderne werkgevers.`}
+      content={post.data.description ||
+        `Ontdek waarom traditionele vacatures Gen-Z niet meer bereiken en hoe visuele recruitment de toekomst is. Praktische tips en inzichten voor moderne werkgevers.`}
     />
     <meta
       name="keywords"
@@ -87,13 +61,14 @@ function formatDate(date: Date): string {
     />
 
     <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content={post.title} />
+    <meta property="og:title" content={post.data.title} />
     <meta
       property="og:description"
-      content="Neem contact op met Nutzy voor vragen over ons Gen-Z recruitment platform. We helpen je graag met visuele vacatures en creator partnerships."
+      content={post.data.description ||
+        "Neem contact op met Nutzy voor vragen over ons Gen-Z recruitment platform. We helpen je graag met visuele vacatures en creator partnerships."}
     />
     <meta property="og:type" content="article" />
-    <meta property="og:url" content={`https://nutzy.nl/blog/${slug}`} />
+    <meta property="og:url" content={`https://nutzy.nl/blog/${post.id}`} />
     <meta property="og:image" content="/img/nutzy-og-contact.jpg" />
   </head>
 
@@ -107,7 +82,7 @@ function formatDate(date: Date): string {
             <span
               class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-primary-200 text-primary-900"
             >
-              {post.category}
+              {post.data.category}
             </span>
           </div>
 
@@ -115,7 +90,7 @@ function formatDate(date: Date): string {
           <h1
             class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight"
           >
-            {post.title}
+            {post.data.title}
           </h1>
 
           <!-- Meta Information -->
@@ -130,7 +105,7 @@ function formatDate(date: Date): string {
                 <span class="text-white font-semibold text-sm">RN</span>
               </div>
               <div>
-                <p class="font-medium text-gray-900">{post.author}</p>
+                <p class="font-medium text-gray-900">{post.data.author}</p>
                 <p class="text-sm text-gray-500">Founder & CEO</p>
               </div>
             </div>
@@ -169,38 +144,31 @@ function formatDate(date: Date): string {
                     d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
                   ></path>
                 </svg>
-                <span>{formatDate(post.posted)}</span>
+                <span>{formatDate(post.data.posted)}</span>
               </div>
             </div>
           </div>
         </header>
 
-        <div set:html={post.content} />
+        <div set:html={post.data.content} />
 
         <!-- Article Footer -->
         <footer class="mt-16 pt-8 border-t border-gray-200">
           <!-- Tags -->
-          <div class="mb-8">
-            <h4 class="text-sm font-semibold text-gray-900 mb-3">Tags:</h4>
-            <div class="flex flex-wrap gap-2">
-              <span
-                class="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full"
-                >Gen-Z Recruitment</span
-              >
-              <span
-                class="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full"
-                >Visuele Vacatures</span
-              >
-              <span
-                class="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full"
-                >Recruitment Trends</span
-              >
-              <span
-                class="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full"
-                >Employer Branding</span
-              >
-            </div>
-          </div>
+          {
+            post.data.tags && post.data.tags.length > 0 && (
+              <div class="mb-8">
+                <h4 class="text-sm font-semibold text-gray-900 mb-3">Tags:</h4>
+                <div class="flex flex-wrap gap-2">
+                  {post.data.tags.map((tag) => (
+                    <span class="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )
+          }
 
           <!-- Share Buttons -->
           <div class="flex items-center justify-between">

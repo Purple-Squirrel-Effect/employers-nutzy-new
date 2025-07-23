@@ -1,7 +1,38 @@
 ---
+import { getCollection } from "astro:content";
 import ContactSection from "../components/ContactSection.astro";
 import EventCalendar from "../components/EventCalendar.astro";
 import App from "../layouts/App.astro";
+
+// Get all blog posts from the content collection
+const allPosts = await getCollection("blog");
+
+// Sort posts by date (newest first)
+const sortedPosts = allPosts
+  .sort((a, b) => new Date(b.data.posted).getTime() - new Date(a.data.posted).getTime());
+
+// Format date for display
+function formatDate(date: Date): string {
+  return date.toLocaleDateString("nl-NL", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+}
+
+// Calculate reading time (simple word count estimation)
+function calculateReadingTime(content: string): number {
+  const words = content.replace(/<[^>]*>/g, "").split(/\s+/).length;
+  return Math.ceil(words / 200); // 200 words per minute
+}
+
+// Get excerpt from content
+function getExcerpt(content: string, maxLength: number = 150): string {
+  const cleanContent = content.replace(/<[^>]*>/g, "").trim();
+  return cleanContent.length > maxLength
+    ? cleanContent.substring(0, maxLength) + "..."
+    : cleanContent;
+}
 ---
 
 <html lang="en">
@@ -58,22 +89,80 @@ import App from "../layouts/App.astro";
           <!-- <img class="h-screen w-screen relative z-20" src="/svg/a-group-of-people-sharing-ideas.svg" /> -->
         </div>
       </section>
-      <section class="relative px-64 mx-auto my-16">
-        <div
-          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 grid-rows-auto"
-        >
-          <div class="bg-primary-900 rounded-lg h-96">Blog card 1</div>
-          <div class="bg-primary-900 rounded-lg h-96">Blog card 1</div>
-          <div class="flex flex-col gap-4 h-96">
-            <div class="bg-secondary-900 rounded-lg h-32">Download card 1</div>
-            <div class="bg-secondary-900 rounded-lg h-32">Download card 1</div>
-            <div class="bg-secondary-900 rounded-lg h-32">Download card 1</div>
+      <section class="relative px-8 md:px-16 lg:px-32 mx-auto my-16">
+        <div class="max-w-7xl mx-auto">
+          <!-- Section Header -->
+          <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Laatste Blog Posts
+            </h2>
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+              Ontdek de nieuwste inzichten, trends en strategieën voor moderne recruitment
+            </p>
           </div>
-          <div class="bg-primary-900 rounded-lg h-96">Blog card 1</div>
-          <div class="bg-primary-900 rounded-lg h-96">Blog card 1</div>
-          <div class="bg-primary-900 rounded-lg h-96">Blog card 1</div>
-          <div>
-            <button> View more </button>
+
+          <!-- Blog Posts Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {sortedPosts.map((post) => (
+              <article class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 overflow-hidden group">
+                <!-- Post Header -->
+                <div class="p-6 pb-4">
+                  <!-- Category Badge -->
+                  <div class="mb-4">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-primary-200 text-primary-900">
+                      {post.data.category}
+                    </span>
+                  </div>
+
+                  <!-- Title -->
+                  <h3 class="text-xl font-bold text-gray-900 mb-3 line-clamp-2 group-hover:text-primary-900 transition-colors">
+                    <a href={`/blog/${post.id}`} class="hover:underline">
+                      {post.data.title}
+                    </a>
+                  </h3>
+
+                  <!-- Excerpt -->
+                  <p class="text-gray-600 mb-4 line-clamp-3">
+                    {getExcerpt(post.data.content)}
+                  </p>
+                </div>
+
+                <!-- Post Footer -->
+                <div class="px-6 pb-6">
+                  <div class="flex items-center justify-between text-sm text-gray-500">
+                    <!-- Author -->
+                    <div class="flex items-center gap-2">
+                      <div class="h-8 w-8 bg-primary-500 rounded-full flex items-center justify-center">
+                        <span class="text-white font-semibold text-xs">
+                          {post.data.author.split(' ').map(name => name[0]).join('')}
+                        </span>
+                      </div>
+                      <span class="font-medium">{post.data.author}</span>
+                    </div>
+
+                    <!-- Reading Time & Date -->
+                    <div class="flex items-center gap-3">
+                      <span>{calculateReadingTime(post.data.content)} min</span>
+                      <span>•</span>
+                      <span>{formatDate(post.data.posted)}</span>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          <!-- View All Button -->
+          <div class="text-center mt-12">
+            <a
+              href="/blog"
+              class="inline-flex items-center gap-2 px-8 py-4 bg-primary-500 text-white font-bold rounded-lg hover:bg-primary-600 transition-all duration-300"
+            >
+              Bekijk alle artikelen
+              <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+              </svg>
+            </a>
           </div>
         </div>
       </section>
