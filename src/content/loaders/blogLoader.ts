@@ -1,4 +1,8 @@
 import type { Loader } from "astro/loaders";
+import PocketBase from "pocketbase";
+
+// PocketBase configuration
+const POCKETBASE_URL = process.env.POCKETBASE_URL || "http://127.0.0.1:8090";
 
 // Blog post interface matching your current structure
 interface BlogPost {
@@ -27,70 +31,126 @@ interface BlogPost {
   relatedPosts?: string[];
 }
 
-// Blog post database - this would be replaced with API/database calls in production
-const blogDatabase: Record<string, BlogPost> = {
-  "gen-z-recruitment-trends-2024": {
-    title: "De Toekomst van Gen-Z Recruitment: Visuele Vacatures die Werken",
-    content:
-      "<p>Content section woohoo</p><p>all the content coming from tinyCME</p>",
-    category: "Recruitment Insights",
-    author: "Rowan Nutzy",
-    posted: new Date("2025-07-23"),
-    description:
-      "Ontdek hoe visuele vacatures de manier waarop we Gen-Z talent aantrekken fundamenteel veranderen.",
-    tags: [
-      "Gen-Z Recruitment",
-      "Visuele Vacatures",
-      "Recruitment Trends",
-      "Employer Branding",
-    ],
-    featured: true,
-  },
-  "employer-branding-visual-content": {
-    title: "Employer Branding met Visuele Content: Een Complete Gids",
-    content:
-      "<p>Employer branding is essentieel geworden in de moderne recruitment wereld. Visuele content speelt hierbij een cruciale rol.</p><p>In dit artikel bespreken we hoe je effectief gebruik kunt maken van visuele elementen in je employer branding strategie.</p>",
-    category: "Strategy",
-    author: "Rowan Nutzy",
-    posted: new Date("2025-06-15"),
-    description:
-      "Leer hoe je visuele content effectief inzet voor een sterke employer brand.",
-    tags: ["Employer Branding", "Visuele Content", "Strategy", "Marketing"],
-  },
-  "platform-features-deep-dive": {
-    title: "Nutzy Platform Features: Een Diepgaande Analyse",
-    content:
-      "<p>Ontdek alle mogelijkheden van het Nutzy platform en hoe deze je recruitment proces kunnen verbeteren.</p><p>Van visuele vacatures tot creator partnerships - we bespreken alle features in detail.</p>",
-    category: "Platform",
-    author: "Rowan Nutzy",
-    posted: new Date("2025-05-20"),
-    description:
-      "Een complete overview van alle Nutzy platform features en hun voordelen.",
-    tags: ["Platform", "Features", "Technology", "Recruitment"],
-  },
-  "gen-z-insights-2024": {
-    title: "Gen-Z Insights: Wat Werkgevers Moeten Weten in 2024",
-    content:
-      "<p>Gen-Z heeft unieke verwachtingen als het gaat om werk en carrière. Als werkgever is het essentieel om deze te begrijpen.</p><p>In dit artikel delen we de belangrijkste insights over Gen-Z en hoe je hierop kunt inspelen.</p>",
-    category: "Insights",
-    author: "Rowan Nutzy",
-    posted: new Date("2025-05-01"),
-    description:
-      "Belangrijke insights over Gen-Z verwachtingen en hoe werkgevers hierop kunnen inspelen.",
-    tags: ["Gen-Z", "Insights", "Workplace", "Trends"],
-  },
-  "video-recruitment-best-practices": {
-    title: "Video Recruitment: Best Practices voor 2025",
-    content:
-      "<p>Video is uitgegroeid tot een essentieel onderdeel van moderne wervingsstrategieën. In dit artikel delen we de beste praktijken voor het gebruik van video in je recruitment proces.</p><p>Van vacature video's tot virtuele kantoortoers - leer hoe je video effectief kunt inzetten.</p>",
-    category: "Trends",
-    author: "Rowan Nutzy",
-    posted: new Date("2025-04-10"),
-    description:
-      "Best practices voor het effectief inzetten van video in recruitment.",
-    tags: ["Video", "Recruitment", "Best Practices", "Technology"],
-  },
-};
+// PocketBase record interface matching the API response
+interface PocketBaseBlogPost {
+  id: string;
+  collectionId: string;
+  collectionName: string;
+  title: string;
+  content: string;
+  category: string;
+  author: string;
+  description?: string;
+  tags?: string;
+  featured?: boolean;
+  draft?: boolean;
+  heroImage?: string;
+  heroImageAlt?: string;
+  heroImageCaption?: string;
+  metaTitle?: string;
+  metaDescription?: string;
+  ogImage?: string;
+  ogType?: string;
+  twitterCard?: string;
+  readingTime?: number;
+  relatedPosts?: string;
+  created: string;
+  updated: string;
+}
+
+/**
+ * Transform PocketBase record to BlogPost format
+ */
+function transformPocketBaseRecord(record: PocketBaseBlogPost): BlogPost {
+  // Parse tags from string to array
+  const tags = record.tags
+    ? record.tags
+        .split(",")
+        .map((tag) => tag.trim())
+        .filter(Boolean)
+    : [];
+
+  // Parse related posts from string to array
+  const relatedPosts = record.relatedPosts
+    ? record.relatedPosts
+        .split(",")
+        .map((id) => id.trim())
+        .filter(Boolean)
+    : [];
+
+  // Create hero image object if data exists
+  const heroImage = record.heroImage
+    ? {
+        src: record.heroImage,
+        alt: record.heroImageAlt || "",
+        caption: record.heroImageCaption,
+      }
+    : undefined;
+
+  // Create SEO object if data exists
+  const seo =
+    record.metaTitle ||
+    record.metaDescription ||
+    record.ogImage ||
+    record.ogType ||
+    record.twitterCard
+      ? {
+          metaTitle: record.metaTitle,
+          metaDescription: record.metaDescription,
+          ogImage: record.ogImage,
+          ogType: record.ogType,
+          twitterCard: record.twitterCard,
+        }
+      : undefined;
+
+  return {
+    title: record.title,
+    content: record.content,
+    category: record.category,
+    author: record.author,
+    posted: new Date(record.created),
+    description: record.description,
+    tags,
+    featured: record.featured || false,
+    draft: record.draft || false,
+    heroImage,
+    seo,
+    readingTime: record.readingTime,
+    relatedPosts,
+  };
+}
+
+/**
+ * Fetch blog posts from PocketBase
+ */
+async function fetchBlogPostsFromPocketBase(): Promise<
+  Record<string, BlogPost>
+> {
+  try {
+    const pb = new PocketBase(POCKETBASE_URL);
+
+    // Fetch all blog posts, sorted by creation date (newest first)
+    const records = await pb
+      .collection("posts")
+      .getFullList<PocketBaseBlogPost>({
+        sort: "-created",
+      });
+
+    const blogPosts: Record<string, BlogPost> = {};
+
+    for (const record of records) {
+      // Use the record ID as the slug, or generate one from the title
+      const slug = record.id;
+      blogPosts[slug] = transformPocketBaseRecord(record);
+    }
+
+    return blogPosts;
+  } catch (error) {
+    console.error("Failed to fetch blog posts from PocketBase:", error);
+    // Return empty object if PocketBase is not available
+    return {};
+  }
+}
 
 /**
  * Calculate reading time for blog content
@@ -107,13 +167,21 @@ export function blogLoader(): Loader {
   return {
     name: "blog-loader",
     load: async ({ store, logger, parseData, generateDigest }) => {
-      logger.info("Loading blog posts");
+      logger.info("Loading blog posts from PocketBase");
 
       // Clear existing entries
       store.clear();
 
-      // Load each blog post from the database
-      for (const [slug, post] of Object.entries(blogDatabase)) {
+      // Fetch blog posts from PocketBase
+      const blogPosts = await fetchBlogPostsFromPocketBase();
+
+      if (Object.keys(blogPosts).length === 0) {
+        logger.warn("No blog posts found in PocketBase or connection failed");
+        return;
+      }
+
+      // Load each blog post from PocketBase
+      for (const [slug, post] of Object.entries(blogPosts)) {
         try {
           // Calculate reading time if not provided
           const readingTime =
@@ -160,12 +228,14 @@ export function blogLoader(): Loader {
 
           logger.info(`Loaded blog post: ${slug}`);
         } catch (error) {
-          logger.error(`Failed to load blog post ${slug}:`, error);
+          logger.error(`Failed to load blog post ${slug}: ${error}`);
         }
       }
 
       logger.info(
-        `Successfully loaded ${Object.keys(blogDatabase).length} blog posts`
+        `Successfully loaded ${
+          Object.keys(blogPosts).length
+        } blog posts from PocketBase`
       );
     },
   };
