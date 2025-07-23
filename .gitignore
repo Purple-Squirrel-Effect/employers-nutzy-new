@@ -3,6 +3,9 @@ dist/
 # generated types
 .astro/
 
+# TinyMCE files (copied from node_modules)
+public/tinymce/
+
 # dependencies
 node_modules/
 

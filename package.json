@@ -3,18 +3,24 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
+    "dev": "npm run copy-tinymce && astro dev",
+    "build": "npm run copy-tinymce && astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "copy-tinymce": "node -e \"const fs = require('fs'); const path = require('path'); const src = path.join('node_modules', 'tinymce'); const dest = path.join('public', 'tinymce'); if (fs.existsSync(dest)) { fs.rmSync(dest, { recursive: true }); } fs.cpSync(src, dest, { recursive: true }); console.log('TinyMCE files copied to public/tinymce');\""
   },
   "dependencies": {
     "@astrojs/cloudflare": "^12.6.0",
     "@astrojs/rss": "^4.0.12",
+    "@astrojs/svelte": "^7.1.0",
     "@tailwindcss/vite": "^4.1.11",
+    "@tinymce/tinymce-svelte": "^3.1.0",
     "astro": "^5.11.0",
     "gsap": "^3.13.0",
     "gsap-trial": "^3.12.7",
-    "tailwindcss": "^4.1.11"
+    "svelte": "^5.36.12",
+    "tailwindcss": "^4.1.11",
+    "tinymce": "^7.9.1",
+    "typescript": "^5.8.3"
   }
 }

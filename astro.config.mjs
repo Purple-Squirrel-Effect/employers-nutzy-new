@@ -5,12 +5,17 @@ import tailwindcss from "@tailwindcss/vite";
 
 import cloudflare from "@astrojs/cloudflare";
 
+import svelte from "@astrojs/svelte";
+
 // https://astro.build/config
 export default defineConfig({
-  site: "https://nutzy.nl", // Add your actual domain here
+  // Add your actual domain here
+  site: "https://nutzy.nl",
+
   vite: {
     plugins: [tailwindcss()],
   },
 
   adapter: cloudflare(),
+  integrations: [svelte()],
 });

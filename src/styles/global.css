@@ -447,3 +447,56 @@ button {
 @utility text-shadow {
   text-shadow: 0 0.1em 0 var(--tw-shadow-color);
 }
+
+.tinymce-wrapper {
+  @apply w-full;
+}
+
+.tinymce-textarea {
+  @apply w-full border border-gray-300 rounded-lg p-4 text-sm;
+  @apply focus:ring-2 focus:ring-primary-500 focus:border-primary-500;
+  @apply disabled:bg-gray-100 disabled:cursor-not-allowed;
+  @apply transition-colors duration-200;
+}
+
+/* TinyMCE specific styling */
+:global(.tox-tinymce) {
+  @apply border border-gray-300 rounded-lg overflow-hidden;
+}
+
+:global(.tox-toolbar-overlord) {
+  @apply bg-gray-50;
+}
+
+:global(.tox-editor-header) {
+  @apply border-b border-gray-200;
+}
+
+:global(.tox-statusbar) {
+  @apply bg-gray-50 border-t border-gray-200;
+}
+
+:global(.tox-edit-area__iframe) {
+  @apply bg-white;
+}
+
+/* Focus state for the editor */
+:global(.tox-tinymce.tox-tinymce--focus) {
+  @apply ring-2 ring-primary-500 border-primary-500;
+}
+
+/* Dark mode support (if needed) */
+@media (prefers-color-scheme: dark) {
+  :global(.tox-tinymce) {
+    @apply border-gray-600;
+  }
+
+  :global(.tox-toolbar-overlord),
+  :global(.tox-statusbar) {
+    @apply bg-gray-800;
+  }
+
+  :global(.tox-editor-header) {
+    @apply border-gray-600;
+  }
+}
