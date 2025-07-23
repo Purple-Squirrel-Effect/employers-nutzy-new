@@ -1,20 +1,23 @@
 ---
 import { getCollection } from "astro:content";
-import ContactSection from "../components/ContactSection.astro";
-import EventCalendar from "../components/EventCalendar.astro";
-import App from "../layouts/App.astro";
+import ContactSection from "../../components/ContactSection.astro";
+import EventCalendar from "../../components/EventCalendar.astro";
+import App from "../../layouts/App.astro";
 
-// Get all blog posts from the content collection
-const allPosts = await getCollection("blog");
+export async function getStaticPaths({ paginate }) {
+  // Get all blog posts from the content collection
+  const allPosts = await getCollection("blog");
+  
+  // Sort posts by date (newest first)
+  const sortedPosts = allPosts
+    .sort((a, b) => new Date(b.data.posted).getTime() - new Date(a.data.posted).getTime());
 
-// Sort posts by date (newest first)
-const sortedPosts = allPosts
-  .sort((a, b) => new Date(b.data.posted).getTime() - new Date(a.data.posted).getTime());
+  // Return paginated paths
+  return paginate(sortedPosts, { pageSize: 6 });
+}
 
-// Show first 6 posts on main blog page
-const POSTS_PER_PAGE = 6;
-const paginatedPosts = sortedPosts.slice(0, POSTS_PER_PAGE);
-const hasMorePosts = sortedPosts.length > POSTS_PER_PAGE;
+// The page prop contains all the paginated data
+const { page } = Astro.props;
 
 // Format date for display
 function formatDate(date: Date): string {
@@ -99,7 +102,7 @@ function getExcerpt(content: string, maxLength: number = 150): string {
           <!-- Section Header -->
           <div class="text-center mb-12">
             <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Laatste Blog Posts
+              Blog Posts {page.currentPage > 1 && `- Pagina ${page.currentPage}`}
             </h2>
             <p class="text-lg text-gray-600 max-w-2xl mx-auto">
               Ontdek de nieuwste inzichten, trends en strategieën voor moderne recruitment
@@ -108,7 +111,7 @@ function getExcerpt(content: string, maxLength: number = 150): string {
 
           <!-- Blog Posts Grid -->
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {paginatedPosts.map((post) => (
+            {page.data.map((post) => (
               <article class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 overflow-hidden group">
                 <!-- Post Header -->
                 <div class="p-6 pb-4">
@@ -157,20 +160,50 @@ function getExcerpt(content: string, maxLength: number = 150): string {
             ))}
           </div>
 
-          <!-- View More Button -->
-          {hasMorePosts && (
-            <div class="text-center mt-12">
+          <!-- Pagination Controls -->
+          <div class="flex justify-center items-center gap-2 mt-12">
+            <!-- Previous Page Button -->
+            {page.url.prev && (
               <a
-                href="/blog/2#blog-content"
-                class="inline-flex items-center gap-2 px-8 py-4 bg-primary-500 text-white font-bold rounded-lg hover:bg-primary-600 transition-all duration-300"
+                href={`${page.url.prev}#blog-content`}
+                class="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 font-medium rounded-lg hover:bg-gray-200 transition-all duration-300"
               >
-                Bekijk meer artikelen
-                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+                Vorige
+              </a>
+            )}
+
+            <!-- Page Numbers -->
+            <div class="flex gap-1">
+              {Array.from({ length: page.lastPage }, (_, i) => i + 1).map((pageNum) => (
+                <a
+                  href={pageNum === 1 ? "/blog#blog-content" : `/blog/${pageNum}#blog-content`}
+                  class={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
+                    pageNum === page.currentPage
+                      ? "bg-primary-500 text-white"
+                      : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                  }`}
+                >
+                  {pageNum}
+                </a>
+              ))}
+            </div>
+
+            <!-- Next Page Button -->
+            {page.url.next && (
+              <a
+                href={`${page.url.next}#blog-content`}
+                class="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 font-medium rounded-lg hover:bg-gray-200 transition-all duration-300"
+              >
+                Volgende
+                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                 </svg>
               </a>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </section>
 
