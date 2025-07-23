@@ -1,7 +1,7 @@
 ---
-import App from "../layouts/App.astro";
-import EventCalendar from "../components/EventCalendar.astro";
 import ContactSection from "../components/ContactSection.astro";
+import EventCalendar from "../components/EventCalendar.astro";
+import App from "../layouts/App.astro";
 ---
 
 <html lang="en">
@@ -21,62 +21,69 @@ import ContactSection from "../components/ContactSection.astro";
   <body>
     <App>
       <section
-  class="min-h-screen bg-primary-500 gap-8 px-8 md:px-16 lg:px-32 items-center justify-center grid grid-cols-1 lg:grid-cols-2"
->
-  <img
-    class="absolute top-0 opacity-50 z-0 h-[200svh] w-[200svh]"
-    src="/svg/particle/share.svg"
-  />
+        class="min-h-screen bg-primary-500 gap-8 px-8 md:px-16 lg:px-32 items-center justify-center grid grid-cols-1 lg:grid-cols-2"
+      >
+        <img
+          class="absolute top-0 opacity-50 z-0 h-[200svh] w-[200svh]"
+          src="/svg/particle/share.svg"
+        />
 
-  <div class="order-2 lg:order-1 relative z-10  rounded-full ">
-    <h1 class="text-5xl text-shadow shadow-black  text-8xl font-bold text-white relative z-50">
-      Kennis   delen
-    </h1>
-    <p class="text-xl text-white mt-6 max-w-2xl">
-      Bereik de juiste doelgroep met onze strategische campagnes speciaal ontworpen 
-      voor het werven van Gen-Z talent. Van concept tot uitvoering - wij zorgen voor resultaat.
-    </p>
-    <div class="mt-8 flex flex-wrap gap-4">
-      <a 
-        href="#strategy" 
-        class="px-8 py-4 border-2 border-current  font-bold rounded-lg hover:bg-secondary-400 transition-all duration-300"
-      >
-        Ontdek onze aanpak
-      </a>
-      <a 
-        href="#contact" 
-        class="px-8 py-4 bg-tertiary-900   text-black font-bold rounded-lg hover:brightness-105 transition-all duration-300"
-      >
-        Neem contact op
-      </a>
-    </div>
-  </div>
-   <div class="order-2">
-      <!-- <img class="h-screen w-screen relative z-20" src="/svg/a-group-of-people-sharing-ideas.svg" /> -->
-    </div>
-</section>
-       <section class="relative px-64 mx-auto my-16">
-        <!-- <div class="bg-secondary-900/50 left-0 top-0 z-20 absolute w-full h-full"> </div> -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 h-96">
-          <div class="bg-primary-900 rounded-lg">Blog card 1 </div>
-          <div class="bg-primary-900 rounded-lg">Blog card 1 </div>
-          <div class="bg-primary-900 rounded-lg">Blog card 1 </div>
+        <div class="order-2 lg:order-1 relative z-10 rounded-full">
+          <h1
+            class="text-5xl text-shadow shadow-black text-8xl font-bold text-white relative z-50"
+          >
+            Kennis delen
+          </h1>
+          <p class="text-xl text-white mt-6 max-w-2xl">
+            Bereik de juiste doelgroep met onze strategische campagnes speciaal
+            ontworpen voor het werven van Gen-Z talent. Van concept tot
+            uitvoering - wij zorgen voor resultaat.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-4">
+            <a
+              href="#strategy"
+              class="px-8 py-4 border-2 border-current font-bold rounded-lg hover:bg-secondary-400 transition-all duration-300"
+            >
+              Ontdek onze aanpak
+            </a>
+            <a
+              href="#contact"
+              class="px-8 py-4 bg-tertiary-900 text-black font-bold rounded-lg hover:brightness-105 transition-all duration-300"
+            >
+              Neem contact op
+            </a>
+          </div>
         </div>
-        
+        <div class="order-2">
+          <!-- <img class="h-screen w-screen relative z-20" src="/svg/a-group-of-people-sharing-ideas.svg" /> -->
+        </div>
       </section>
-       <section class="relative px-64 mx-auto my-16">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 h-96">
-          <div class="bg-secondary-900 rounded-lg">Download card 1 </div>
-          <div class="bg-secondary-900 rounded-lg">Download card 1 </div>
-          <div class="bg-secondary-900 rounded-lg">Download card 1 </div>
+      <section class="relative px-64 mx-auto my-16">
+        <div
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 grid-rows-auto"
+        >
+          <div class="bg-primary-900 rounded-lg h-96">Blog card 1</div>
+          <div class="bg-primary-900 rounded-lg h-96">Blog card 1</div>
+          <div class="flex flex-col gap-4 h-96">
+            <div class="bg-secondary-900 rounded-lg h-32">Download card 1</div>
+            <div class="bg-secondary-900 rounded-lg h-32">Download card 1</div>
+            <div class="bg-secondary-900 rounded-lg h-32">Download card 1</div>
+          </div>
+          <div class="bg-primary-900 rounded-lg h-96">Blog card 1</div>
+          <div class="bg-primary-900 rounded-lg h-96">Blog card 1</div>
+          <div class="bg-primary-900 rounded-lg h-96">Blog card 1</div>
+          <div>
+            <button> View more </button>
+          </div>
         </div>
-              </section>
+      </section>
 
-        <section>
- <div class="w-full z-20 relative my-16">
-      <EventCalendar />
-    </div>      </section>
-    <ContactSection />
+      <section>
+        <div class="w-full z-20 relative my-16">
+          <EventCalendar />
+        </div>
+      </section>
+      <ContactSection />
     </App>
   </body>
 </html>
