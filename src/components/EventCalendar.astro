@@ -1,5 +1,13 @@
 ---
-// Sample event data for the calendar
+import { getCollection } from "astro:content";
+
+// Get real events data from the eventsLoader
+const allEvents = await getCollection("events");
+
+// Filter to only published events
+const publishedEvents = allEvents.filter((event) => !event.data.draft);
+
+// Calendar setup
 const currentDate = new Date();
 const currentMonth = currentDate.getMonth();
 const currentYear = currentDate.getFullYear();
@@ -29,19 +37,30 @@ const monthNames = [
 // Day names
 const dayNames = ["Zo", "Ma", "Di", "Wo", "Do", "Vr", "Za"];
 
-// Sample events data
-const events = [
-  { date: 5, title: "Gen Z Workshop", type: "workshop", time: "14:00" },
-  { date: 12, title: "Recruitment Trends", type: "webinar", time: "10:00" },
-  {
-    date: 18,
-    title: "Creator Network Event",
-    type: "networking",
-    time: "16:30",
-  },
-  { date: 25, title: "Digital Marketing", type: "workshop", time: "13:00" },
-  { date: 28, title: "Q&A Session", type: "qa", time: "15:00" },
-];
+// Filter events for the current month
+const currentMonthEvents = publishedEvents.filter((event) => {
+  const eventDate = new Date(event.data.startsAt);
+  return (
+    eventDate.getMonth() === currentMonth &&
+    eventDate.getFullYear() === currentYear
+  );
+});
+
+// Transform events data for calendar display
+const events = currentMonthEvents.map((event) => {
+  const eventDate = new Date(event.data.startsAt);
+  return {
+    id: event.id,
+    date: eventDate.getDate(),
+    title: event.data.title,
+    type: event.data.category || "general",
+    time: eventDate.toLocaleTimeString("nl-NL", {
+      hour: "2-digit",
+      minute: "2-digit",
+    }),
+    slug: event.id,
+  };
+});
 
 // Create calendar grid
 const calendarDays = [];
@@ -61,17 +80,52 @@ function getEventsForDay(day: number) {
 
 // Get event type color using approved palette
 function getEventTypeColor(type: string) {
-  switch (type) {
+  switch (type?.toLowerCase()) {
     case "workshop":
+    case "training":
       return "bg-primary-500"; // Primary brand color
     case "webinar":
+    case "online":
       return "bg-primary-900";
     case "networking":
+    case "meetup":
       return "bg-secondary-900";
-    case "qa":
+    case "conference":
+    case "seminar":
+      return "bg-tertiary-900";
+    case "recruitment":
+    case "hiring":
       return "bg-secondary-200";
     default:
       return "bg-primary-200";
+  }
+}
+
+// Get event type label for display
+function getEventTypeLabel(type: string) {
+  switch (type?.toLowerCase()) {
+    case "workshop":
+      return "Workshop";
+    case "training":
+      return "Training";
+    case "webinar":
+      return "Webinar";
+    case "online":
+      return "Online";
+    case "networking":
+      return "Networking";
+    case "meetup":
+      return "Meetup";
+    case "conference":
+      return "Conference";
+    case "seminar":
+      return "Seminar";
+    case "recruitment":
+      return "Recruitment";
+    case "hiring":
+      return "Hiring";
+    default:
+      return type || "Event";
   }
 }
 
@@ -92,12 +146,16 @@ const upcomingEvents = events
     <div class="p-4 md:p-6 border-b lg:border-b-0 lg:border-r border-gray-200">
       <!-- Calendar Header -->
       <div class="flex items-center justify-between mb-4 md:mb-6">
-        <h2 class="text-xl md:text-2xl font-bold text-gray-900 font-anton">
+        <h2
+          class="text-xl md:text-2xl font-bold text-gray-900 font-anton"
+          id="calendar-month-year"
+        >
           {monthNames[currentMonth]}
           {currentYear}
         </h2>
         <div class="flex gap-1 md:gap-2">
           <button
+            id="prev-month"
             class="p-1.5 md:p-2 hover:bg-gray-100 rounded-lg transition-colors vsk-focus-ring"
             aria-label="Vorige maand"
           >
@@ -115,6 +173,7 @@ const upcomingEvents = events
             </svg>
           </button>
           <button
+            id="next-month"
             class="p-1.5 md:p-2 hover:bg-gray-100 rounded-lg transition-colors vsk-focus-ring"
             aria-label="Volgende maand"
           >
@@ -146,7 +205,7 @@ const upcomingEvents = events
       </div>
 
       <!-- Calendar Grid -->
-      <div class="grid grid-cols-7 gap-1">
+      <div class="grid grid-cols-7 gap-1" id="calendar-grid">
         {
           calendarDays.map((day) => {
             if (day === null) {
@@ -204,10 +263,13 @@ const upcomingEvents = events
       </h3>
 
       <!-- Events List -->
-      <div class="space-y-4">
+      <div class="space-y-4" id="events-list">
         {
           upcomingEvents.map((event) => (
-            <div class="bg-white p-4 rounded-xl shadow-sm hover:shadow-md transition-shadow border border-gray-100">
+            <a
+              href={`/events/${event.slug}`}
+              class="block bg-white p-4 rounded-xl shadow-sm hover:shadow-md hover:border-primary-200 transition-all duration-200 border border-gray-100 group"
+            >
               <div class="flex items-start gap-4">
                 <div class="flex-shrink-0">
                   <div
@@ -215,7 +277,7 @@ const upcomingEvents = events
                   />
                 </div>
                 <div class="flex-1 min-w-0">
-                  <h4 class="font-semibold text-gray-900 mb-1">
+                  <h4 class="font-semibold text-gray-900 mb-1 group-hover:text-primary-600 transition-colors">
                     {event.title}
                   </h4>
                   <div class="flex items-center gap-4 text-sm text-gray-600">
@@ -256,17 +318,18 @@ const upcomingEvents = events
                   </div>
                 </div>
               </div>
-            </div>
+            </a>
           ))
         }
       </div>
 
       <!-- View All Events Button -->
-      <button
-        class="w-full bg-tertiary-900 mt-6 px-4 py-3 text-black font-semibold rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 vsk-focus-ring hover:opacity-90 hover:transform "
+      <a
+        href="/events"
+        class="block w-full bg-tertiary-900 mt-6 px-4 py-3 text-black font-semibold rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 vsk-focus-ring hover:opacity-90 hover:transform text-center"
       >
         Bekijk alle events
-      </button>
+      </a>
     </div>
   </div>
 </div>
@@ -299,3 +362,306 @@ const upcomingEvents = events
     }
   }
 </style>
+
+<script
+  define:vars={{
+    eventsData: publishedEvents.map((event) => ({
+      id: event.id,
+      title: event.data.title,
+      startsAt: event.data.startsAt.toISOString(),
+      endsAt: event.data.endsAt.toISOString(),
+      category: event.data.category || "general",
+      slug: event.id,
+    })),
+  }}
+>
+  // Pass events data to global scope
+  window.calendarEvents = eventsData;
+</script>
+
+<script>
+  // Calendar navigation functionality
+  class EventCalendar {
+    constructor() {
+      this.currentDate = new Date();
+      this.currentMonth = this.currentDate.getMonth();
+      this.currentYear = this.currentDate.getFullYear();
+      this.allEvents = []; // Will be populated with events data
+
+      this.monthNames = [
+        "Januari",
+        "Februari",
+        "Maart",
+        "April",
+        "Mei",
+        "Juni",
+        "Juli",
+        "Augustus",
+        "September",
+        "Oktober",
+        "November",
+        "December",
+      ];
+
+      this.dayNames = ["Zo", "Ma", "Di", "Wo", "Do", "Vr", "Za"];
+
+      this.init();
+    }
+
+    init() {
+      // Load initial events data from the page
+      this.loadEventsData();
+
+      // Add event listeners
+      const prevButton = document.getElementById("prev-month");
+      const nextButton = document.getElementById("next-month");
+
+      if (prevButton) {
+        prevButton.addEventListener("click", () => this.previousMonth());
+      }
+
+      if (nextButton) {
+        nextButton.addEventListener("click", () => this.nextMonth());
+      }
+    }
+
+    loadEventsData() {
+      // Extract events data from the current page
+      // This is a simplified approach - in a real app you'd fetch from API
+      try {
+        const eventsData = window.calendarEvents || [];
+        this.allEvents = eventsData;
+      } catch (error) {
+        console.warn("Could not load events data:", error);
+        this.allEvents = [];
+      }
+    }
+
+    previousMonth() {
+      this.currentMonth--;
+      if (this.currentMonth < 0) {
+        this.currentMonth = 11;
+        this.currentYear--;
+      }
+      this.updateCalendar();
+    }
+
+    nextMonth() {
+      this.currentMonth++;
+      if (this.currentMonth > 11) {
+        this.currentMonth = 0;
+        this.currentYear++;
+      }
+      this.updateCalendar();
+    }
+
+    updateCalendar() {
+      this.updateHeader();
+      this.updateCalendarGrid();
+      this.updateEventsList();
+    }
+
+    updateHeader() {
+      const headerElement = document.getElementById("calendar-month-year");
+      if (headerElement) {
+        headerElement.textContent = `${this.monthNames[this.currentMonth]} ${this.currentYear}`;
+      }
+    }
+
+    updateCalendarGrid() {
+      const gridElement = document.getElementById("calendar-grid");
+      if (!gridElement) return;
+
+      // Calculate calendar data
+      const firstDayOfMonth = new Date(this.currentYear, this.currentMonth, 1);
+      const lastDayOfMonth = new Date(
+        this.currentYear,
+        this.currentMonth + 1,
+        0
+      );
+      const daysInMonth = lastDayOfMonth.getDate();
+      const startingDayOfWeek = firstDayOfMonth.getDay();
+
+      // Create calendar days array
+      const calendarDays = [];
+
+      // Add empty cells for days before the first day of the month
+      for (let i = 0; i < startingDayOfWeek; i++) {
+        calendarDays.push(null);
+      }
+
+      // Add days of the month
+      for (let day = 1; day <= daysInMonth; day++) {
+        calendarDays.push(day);
+      }
+
+      // Generate calendar HTML
+      gridElement.innerHTML = calendarDays
+        .map((day) => {
+          if (day === null) {
+            return '<div class="h-8 md:h-10"></div>';
+          }
+
+          const dayEvents = this.getEventsForDay(day);
+          const isToday = this.isToday(day);
+
+          return `
+          <div class="relative h-8 md:h-10 flex items-center justify-center text-sm md:text-base rounded-lg transition-colors ${
+            isToday
+              ? "bg-primary-500 text-white font-semibold"
+              : "hover:bg-gray-100 text-gray-700"
+          }">
+            <span>${day}</span>
+            ${
+              dayEvents.length > 0
+                ? `
+              <div class="absolute bottom-0.5 left-1/2 transform -translate-x-1/2 flex gap-0.5">
+                ${dayEvents
+                  .slice(0, 3)
+                  .map(
+                    () =>
+                      '<div class="w-1 h-1 bg-primary-500 rounded-full"></div>'
+                  )
+                  .join("")}
+              </div>
+            `
+                : ""
+            }
+          </div>
+        `;
+        })
+        .join("");
+    }
+
+    updateEventsList() {
+      const eventsListElement = document.getElementById("events-list");
+      if (!eventsListElement) return;
+
+      const currentMonthEvents = this.getCurrentMonthEvents();
+      const upcomingEvents = this.getUpcomingEvents(currentMonthEvents);
+
+      if (upcomingEvents.length === 0) {
+        eventsListElement.innerHTML = `
+          <div class="text-center py-8 text-gray-500">
+            <p>Geen events gepland voor ${this.monthNames[this.currentMonth]}</p>
+          </div>
+        `;
+        return;
+      }
+
+      eventsListElement.innerHTML = upcomingEvents
+        .map(
+          (event) => `
+        <a
+          href="/events/${event.slug}"
+          class="block bg-white p-4 rounded-xl shadow-sm hover:shadow-md hover:border-primary-200 transition-all duration-200 border border-gray-100 group"
+        >
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0">
+              <div class="w-4 h-4 rounded-full ${this.getEventTypeColor(event.type)}"></div>
+            </div>
+            <div class="flex-1 min-w-0">
+              <h4 class="font-semibold text-gray-900 mb-1 group-hover:text-primary-600 transition-colors">
+                ${event.title}
+              </h4>
+              <div class="flex items-center gap-4 text-sm text-gray-600">
+                <div class="flex items-center gap-1">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                  </svg>
+                  <span>${event.date} ${this.monthNames[this.currentMonth]}</span>
+                </div>
+                <div class="flex items-center gap-1">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                  </svg>
+                  <span>${event.time}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
+      `
+        )
+        .join("");
+    }
+
+    getCurrentMonthEvents() {
+      return this.allEvents.filter((event) => {
+        const eventDate = new Date(event.startsAt);
+        return (
+          eventDate.getMonth() === this.currentMonth &&
+          eventDate.getFullYear() === this.currentYear
+        );
+      });
+    }
+
+    getUpcomingEvents(monthEvents) {
+      const today = new Date().getDate();
+      const currentMonth = new Date().getMonth();
+      const currentYear = new Date().getFullYear();
+
+      // If viewing current month, filter from today onwards
+      if (
+        this.currentMonth === currentMonth &&
+        this.currentYear === currentYear
+      ) {
+        return monthEvents
+          .filter((event) => {
+            const eventDate = new Date(event.startsAt);
+            return eventDate.getDate() >= today;
+          })
+          .sort((a, b) => new Date(a.startsAt) - new Date(b.startsAt))
+          .slice(0, 3);
+      }
+
+      // For other months, show first 3 events
+      return monthEvents
+        .sort((a, b) => new Date(a.startsAt) - new Date(b.startsAt))
+        .slice(0, 3);
+    }
+
+    getEventsForDay(day) {
+      return this.getCurrentMonthEvents().filter((event) => {
+        const eventDate = new Date(event.startsAt);
+        return eventDate.getDate() === day;
+      });
+    }
+
+    isToday(day) {
+      const today = new Date();
+      return (
+        day === today.getDate() &&
+        this.currentMonth === today.getMonth() &&
+        this.currentYear === today.getFullYear()
+      );
+    }
+
+    getEventTypeColor(type) {
+      switch (type?.toLowerCase()) {
+        case "workshop":
+        case "training":
+          return "bg-primary-500";
+        case "webinar":
+        case "online":
+          return "bg-primary-900";
+        case "networking":
+        case "meetup":
+          return "bg-secondary-900";
+        case "conference":
+        case "seminar":
+          return "bg-tertiary-900";
+        case "recruitment":
+        case "hiring":
+          return "bg-secondary-200";
+        default:
+          return "bg-primary-200";
+      }
+    }
+  }
+
+  // Initialize calendar when DOM is loaded
+  document.addEventListener("DOMContentLoaded", () => {
+    new EventCalendar();
+  });
+</script>
