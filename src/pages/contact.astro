@@ -1,7 +1,8 @@
 ---
-import App from "../layouts/App.astro";
 import ContactForm from "../components/ContactForm.astro";
 import ContactInfo from "../components/ContactInfo.astro";
+import Footer from "../components/Footer.astro";
+import App from "../layouts/App.astro";
 ---
 
 <html lang="en">
@@ -10,7 +11,7 @@ import ContactInfo from "../components/ContactInfo.astro";
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    
+
     <!-- SEO Meta Tags -->
     <title>Contact Nutzy - Neem Contact Op | Gen-Z Recruitment Platform</title>
     <meta
@@ -21,9 +22,12 @@ import ContactInfo from "../components/ContactInfo.astro";
       name="keywords"
       content="contact nutzy, recruitment contact, gen-z recruitment, visuele vacatures contact, creator partnerships"
     />
-    
+
     <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="Contact Nutzy - Neem Contact Op | Gen-Z Recruitment Platform" />
+    <meta
+      property="og:title"
+      content="Contact Nutzy - Neem Contact Op | Gen-Z Recruitment Platform"
+    />
     <meta
       property="og:description"
       content="Neem contact op met Nutzy voor vragen over ons Gen-Z recruitment platform. We helpen je graag met visuele vacatures en creator partnerships."
@@ -31,7 +35,7 @@ import ContactInfo from "../components/ContactInfo.astro";
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://nutzy.nl/contact" />
     <meta property="og:image" content="/img/nutzy-og-contact.jpg" />
-    
+
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Contact Nutzy - Neem Contact Op" />
@@ -40,7 +44,7 @@ import ContactInfo from "../components/ContactInfo.astro";
       content="Neem contact op met Nutzy voor vragen over ons Gen-Z recruitment platform."
     />
     <meta name="twitter:image" content="/img/nutzy-twitter-contact.jpg" />
-    
+
     <!-- Structured Data for Contact Page -->
     <script type="application/ld+json">
       {
@@ -89,22 +93,30 @@ import ContactInfo from "../components/ContactInfo.astro";
         </div>
 
         <!-- Content Container -->
-        <div class="relative z-10 min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 xl:px-12">
+        <div
+          class="relative z-10 min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 xl:px-12"
+        >
           <div class="max-w-7xl mx-auto w-full">
             <!-- Hero Content -->
             <div class="text-center mb-12 md:mb-16" data-hero-content>
-              <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 mb-4 md:mb-6 vsk-text-balance">
+              <h1
+                class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 mb-4 md:mb-6 vsk-text-balance"
+              >
                 Laten we <span class="text-secondary-900">samen</span><br />
                 iets <span class="text-primary-900">moois</span> bouwen
               </h1>
-              <p class="text-lg sm:text-xl md:text-2xl text-gray-700 max-w-3xl mx-auto leading-relaxed mb-6 md:mb-8 px-4">
-                Heb je vragen over ons platform, wil je een demo, of ben je geïnteresseerd in een samenwerking?
-                We horen graag van je!
+              <p
+                class="text-lg sm:text-xl md:text-2xl text-gray-700 max-w-3xl mx-auto leading-relaxed mb-6 md:mb-8 px-4"
+              >
+                Heb je vragen over ons platform, wil je een demo, of ben je
+                geïnteresseerd in een samenwerking? We horen graag van je!
               </p>
             </div>
 
             <!-- Contact Content Grid -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-start">
+            <div
+              class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-start"
+            >
               <!-- Contact Information -->
               <div data-contact-info class="order-2 lg:order-1">
                 <ContactInfo />
@@ -118,6 +130,7 @@ import ContactInfo from "../components/ContactInfo.astro";
           </div>
         </div>
       </section>
+      <Footer />
     </App>
   </body>
 </html>

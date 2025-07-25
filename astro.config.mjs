@@ -7,6 +7,8 @@ import cloudflare from "@astrojs/cloudflare";
 
 import svelte from "@astrojs/svelte";
 
+import sitemap from "@astrojs/sitemap";
+
 // https://astro.build/config
 export default defineConfig({
   // Add your actual domain here
@@ -17,5 +19,5 @@ export default defineConfig({
   },
 
   adapter: cloudflare(),
-  integrations: [svelte()],
+  integrations: [svelte(), sitemap()],
 });

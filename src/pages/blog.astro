@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 import ContactSection from "../components/ContactSection.astro";
 import EventCalendar from "../components/EventCalendar.astro";
 import App from "../layouts/App.astro";
+import Footer from "../components/Footer.astro";
 
 // Get all blog posts from the content collection
 const allPosts = await getCollection("blog");
@@ -180,6 +181,7 @@ function getExcerpt(content: string, maxLength: number = 150): string {
         </div>
       </section>
       <ContactSection />
+      <Footer />
     </App>
   </body>
 </html>
