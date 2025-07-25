@@ -4,7 +4,7 @@ import PocketBase from "pocketbase";
 // PocketBase configuration
 const POCKETBASE_URL = process.env.POCKETBASE_URL || "http://127.0.0.1:8090";
 
-// Blog post interface matching your current structure
+// Simplified blog post interface with only used fields
 interface BlogPost {
   title: string;
   content: string;
@@ -13,49 +13,22 @@ interface BlogPost {
   posted: Date;
   description?: string;
   tags?: string[];
-  featured?: boolean;
   draft?: boolean;
-  heroImage?: {
-    src: string;
-    alt: string;
-    caption?: string;
-  };
-  seo?: {
-    metaTitle?: string;
-    metaDescription?: string;
-    ogImage?: string;
-    ogType?: string;
-    twitterCard?: string;
-  };
   readingTime?: number;
-  relatedPosts?: string[];
 }
 
-// PocketBase record interface matching the API response
+// Simplified PocketBase record interface
 interface PocketBaseBlogPost {
   id: string;
-  collectionId: string;
-  collectionName: string;
   title: string;
   content: string;
   category: string;
   author: string;
   description?: string;
   tags?: string;
-  featured?: boolean;
   draft?: boolean;
-  heroImage?: string;
-  heroImageAlt?: string;
-  heroImageCaption?: string;
-  metaTitle?: string;
-  metaDescription?: string;
-  ogImage?: string;
-  ogType?: string;
-  twitterCard?: string;
   readingTime?: number;
-  relatedPosts?: string;
   created: string;
-  updated: string;
 }
 
 /**
@@ -70,39 +43,6 @@ function transformPocketBaseRecord(record: PocketBaseBlogPost): BlogPost {
         .filter(Boolean)
     : [];
 
-  // Parse related posts from string to array
-  const relatedPosts = record.relatedPosts
-    ? record.relatedPosts
-        .split(",")
-        .map((id) => id.trim())
-        .filter(Boolean)
-    : [];
-
-  // Create hero image object if data exists
-  const heroImage = record.heroImage
-    ? {
-        src: record.heroImage,
-        alt: record.heroImageAlt || "",
-        caption: record.heroImageCaption,
-      }
-    : undefined;
-
-  // Create SEO object if data exists
-  const seo =
-    record.metaTitle ||
-    record.metaDescription ||
-    record.ogImage ||
-    record.ogType ||
-    record.twitterCard
-      ? {
-          metaTitle: record.metaTitle,
-          metaDescription: record.metaDescription,
-          ogImage: record.ogImage,
-          ogType: record.ogType,
-          twitterCard: record.twitterCard,
-        }
-      : undefined;
-
   return {
     title: record.title,
     content: record.content,
@@ -111,12 +51,8 @@ function transformPocketBaseRecord(record: PocketBaseBlogPost): BlogPost {
     posted: new Date(record.created),
     description: record.description,
     tags,
-    featured: record.featured || false,
     draft: record.draft || false,
-    heroImage,
-    seo,
     readingTime: record.readingTime,
-    relatedPosts,
   };
 }
 
@@ -194,7 +130,6 @@ export function blogLoader(): Loader {
             // Ensure arrays have defaults
             tags: post.tags || [],
             // Ensure booleans have defaults
-            featured: post.featured || false,
             draft: post.draft || false,
           };
 

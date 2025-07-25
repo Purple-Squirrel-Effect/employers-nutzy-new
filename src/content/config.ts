@@ -2,7 +2,7 @@ import { defineCollection, z } from "astro:content";
 import { blogLoader } from "./loaders/blogLoader";
 import { eventsLoader } from "./loaders/eventsLoader";
 
-// Define the blog collection schema
+// Define the blog collection schema - simplified to only include used fields
 const blogCollection = defineCollection({
   loader: blogLoader(),
   schema: z.object({
@@ -12,28 +12,9 @@ const blogCollection = defineCollection({
     author: z.string(),
     posted: z.coerce.date(),
     description: z.string().optional(),
-    updatedDate: z.coerce.date().optional(),
     tags: z.array(z.string()).default([]),
-    featured: z.boolean().default(false),
     draft: z.boolean().default(false),
-    heroImage: z
-      .object({
-        src: z.string(),
-        alt: z.string(),
-        caption: z.string().optional(),
-      })
-      .optional(),
-    seo: z
-      .object({
-        metaTitle: z.string().optional(),
-        metaDescription: z.string().optional(),
-        ogImage: z.string().optional(),
-        ogType: z.string().default("article"),
-        twitterCard: z.string().default("summary_large_image"),
-      })
-      .optional(),
     readingTime: z.number().optional(), // Will be calculated automatically
-    relatedPosts: z.array(z.string()).optional(), // Array of slugs
   }),
 });
 

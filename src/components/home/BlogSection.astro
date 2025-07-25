@@ -31,7 +31,7 @@ const blogPosts: DisplayBlogPost[] = latestBlogPosts.map((post) => ({
   date: post.data.posted.toISOString().split('T')[0], // Format as YYYY-MM-DD for datetime attribute
   readTime: `${post.data.readingTime || calculateReadingTime(post.data.content)} min`,
   category: post.data.category,
-  image: post.data.heroImage?.src || "/svg/Gen-Z-amico.svg", // Use heroImage or fallback
+  image: "/svg/Gen-Z-amico.svg", // Use fallback image since heroImage is removed
   slug: `/blog/${post.id}`, // Generate slug from post ID
   formattedDate: formatDate(post.data.posted), // Pre-format date for display
 }));
