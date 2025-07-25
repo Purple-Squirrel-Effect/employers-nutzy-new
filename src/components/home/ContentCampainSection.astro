@@ -3,41 +3,45 @@ import CharacterCard from "../CharacterCard.astro";
 ---
 
 <section
-  class="bg-secondary-900  relative py-32 px-64 gap-8 items-center justify-center grid grid-cols-2"
+  class="bg-secondary-900 relative py-16 md:py-24 lg:py-32 px-4 md:px-8 lg:px-16 xl:px-32 gap-8 items-center justify-center grid grid-cols-1 lg:grid-cols-2"
 >
-  <div>
+  <div class="text-center lg:text-left">
     <h1
-      class="text-8xl font-bold text-white relative z-50 text-shadow shadow-black"
+      class="text-3xl md:text-5xl lg:text-6xl xl:text-8xl font-bold text-white relative z-50 text-shadow shadow-black"
     >
       <span class="text-primary-200">Content creatie</span> & campagnes
     </h1>
-    <p class="text-xl pt-4 text-white">
+    <p
+      class="text-base md:text-lg lg:text-xl pt-4 text-white max-w-2xl mx-auto lg:mx-0"
+    >
       Het bereiken van Generatie Z als digital natives doe je natuurlijk online.
       Met ons team van jonge content creators helpen we je bij het maken van
       passende Gen Z content. En we regelen ook jouw campagne. Meer weten?
     </p>
   </div>
-  <div class="w-full h-80 relative z-50 flex gap-16">
+  <div
+    class="w-full h-64 md:h-80 relative z-50 flex justify-center items-center pl-12"
+  >
     <CharacterCard
-      className="!w-64 scale-75 -rotate-6"
+      className="-rotate-6 translate-x-24 min-w-64"
       name="Content Creator"
       description="Een content creator die je content maakt en publiceert op de juiste platformen."
       avatarSrc="/img/avatars/maya-rodriguez.jpg"
       avatarAlt="Maya Rodriguez - Content Creator"
     />
     <CharacterCard
-      className="!w-64 !scale-100 !left-1/4 z-50 !absolute"
+      className="relative z-50 min-w-64"
       name="Content Creator"
       description="Een content creator die je content maakt en publiceert op de juiste platformen."
       avatarSrc="/img/avatars/maya-rodriguez.jpg"
       avatarAlt="Lotte - Content Creator"
     />
     <CharacterCard
-      className="!w-64 scale-75   rotate-6"
+      className="rotate-6 -translate-x-24 min-w-64"
       name="Content Creator"
       description="Een content creator die je content maakt en publiceert op de juiste platformen."
       avatarSrc="/img/avatars/maya-rodriguez.jpg"
-      avatarAlt="Lotte - Content Creator"
+      avatarAlt="Emma - Content Creator"
     />
   </div>
   <!-- <img
@@ -45,6 +49,4 @@ import CharacterCard from "../CharacterCard.astro";
     src="/svg/Content-creator-amico.svg"
   /> -->
 </section>
-<script>
-    import { SplitText } from "gsap/SplitText";
-  </script>
+<script></script>
