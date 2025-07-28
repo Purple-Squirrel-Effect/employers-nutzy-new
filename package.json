@@ -10,6 +10,7 @@
     "copy-tinymce": "node -e \"const fs = require('fs'); const path = require('path'); const src = path.join('node_modules', 'tinymce'); const dest = path.join('public', 'tinymce'); if (fs.existsSync(dest)) { fs.rmSync(dest, { recursive: true }); } fs.cpSync(src, dest, { recursive: true }); console.log('TinyMCE files copied to public/tinymce');\""
   },
   "dependencies": {
+    "@astrojs/check": "^0.9.4",
     "@astrojs/cloudflare": "^12.6.0",
     "@astrojs/rss": "^4.0.12",
     "@astrojs/sitemap": "^3.4.1",

@@ -29,17 +29,18 @@ const navItems = [
 ---
 
 <header
-  class="fixed px-32 z-[60] backdrop-blur-md bg-primary-500/40 w-full text-white"
+  class="fixed px-4 md:px-8 lg:px-32 z-[60] backdrop-blur-md bg-primary-500/40 w-full text-white"
 >
   <nav>
     <div class="container mx-auto flex justify-between items-center py-4">
+      <!-- Logo -->
       <a
         href="/"
-        class="flex items-center gap-3 group mr-4"
+        class="flex items-center gap-3 group mr-4 z-50 relative"
         aria-label="Nutzy Home"
       >
         <svg
-          class="h-12"
+          class="h-10 md:h-12"
           viewBox="0 0 1123 467"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -79,7 +80,9 @@ const navItems = [
             fill="#581c87"></path>
         </svg>
       </a>
-      <ul class="flex space-x-4">
+
+      <!-- Desktop Navigation -->
+      <ul class="hidden md:flex space-x-4">
         {
           navItems.map((item) => (
             <li>
@@ -105,6 +108,211 @@ const navItems = [
           ))
         }
       </ul>
+
+      <!-- Hamburger Menu Button -->
+      <button
+        id="hamburger-button"
+        class="md:hidden z-50 relative w-8 h-8 flex flex-col justify-center items-center space-y-1.5 focus:outline-none focus:ring-2 focus:ring-secondary-200 focus:ring-opacity-50 rounded-md"
+        aria-label="Toggle navigation menu"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+      >
+        <span
+          class="hamburger-line block w-6 h-0.5 bg-white transition-all duration-300 ease-in-out"
+        ></span>
+        <span
+          class="hamburger-line block w-6 h-0.5 bg-white transition-all duration-300 ease-in-out"
+        ></span>
+        <span
+          class="hamburger-line block w-6 h-0.5 bg-white transition-all duration-300 ease-in-out"
+        ></span>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div
+      id="mobile-menu"
+      class="md:hidden fixed inset-0 bg-primary-500/95 backdrop-blur-md transform translate-x-full transition-transform duration-300 ease-in-out z-40"
+      aria-hidden="true"
+    >
+      <div class="flex flex-col justify-center items-center h-full space-y-8 px-8">
+        {
+          navItems.map((item) => (
+            <a
+              href={item.href}
+              class={`mobile-nav-link text-2xl font-medium transition-all duration-300 ease-in-out hover:text-secondary-200 ${
+                isActive(item.href)
+                  ? "text-secondary-200 font-semibold"
+                  : "text-white"
+              }`}
+            >
+              {item.label}
+            </a>
+          ))
+        }
+      </div>
     </div>
   </nav>
 </header>
+
+<style>
+  /* Hamburger menu animations */
+  .hamburger-active .hamburger-line:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+
+  .hamburger-active .hamburger-line:nth-child(2) {
+    opacity: 0;
+  }
+
+  .hamburger-active .hamburger-line:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+  }
+
+  /* Mobile menu animations */
+  .mobile-menu-open {
+    transform: translateX(0);
+  }
+
+  /* Accessibility: Respect reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    .hamburger-line,
+    #mobile-menu,
+    .mobile-nav-link {
+      transition: none !important;
+    }
+  }
+
+  /* Ensure mobile menu is above other content */
+  #mobile-menu {
+    z-index: 40;
+  }
+
+  /* Hamburger button should be above mobile menu */
+  #hamburger-button {
+    z-index: 50;
+  }
+</style>
+
+<script>
+  interface MobileMenuState {
+    isOpen: boolean;
+    hamburgerButton: HTMLButtonElement | null;
+    mobileMenu: HTMLElement | null;
+    hamburgerLines: NodeListOf<HTMLElement>;
+    mobileNavLinks: NodeListOf<HTMLElement>;
+    prefersReducedMotion: boolean;
+  }
+
+  const mobileMenuState: MobileMenuState = {
+    isOpen: false,
+    hamburgerButton: null,
+    mobileMenu: null,
+    hamburgerLines: document.querySelectorAll('.hamburger-line'),
+    mobileNavLinks: document.querySelectorAll('.mobile-nav-link'),
+    prefersReducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  };
+
+  function initializeMobileMenu(): void {
+    // Get DOM elements
+    mobileMenuState.hamburgerButton = document.getElementById('hamburger-button') as HTMLButtonElement;
+    mobileMenuState.mobileMenu = document.getElementById('mobile-menu') as HTMLElement;
+    mobileMenuState.hamburgerLines = document.querySelectorAll('.hamburger-line');
+    mobileMenuState.mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+    if (!mobileMenuState.hamburgerButton || !mobileMenuState.mobileMenu) {
+      console.warn('Mobile menu elements not found');
+      return;
+    }
+
+    // Add click event listener to hamburger button
+    mobileMenuState.hamburgerButton.addEventListener('click', toggleMobileMenu);
+
+    // Add click event listeners to mobile nav links to close menu
+    mobileMenuState.mobileNavLinks.forEach(link => {
+      link.addEventListener('click', closeMobileMenu);
+    });
+
+    // Close menu when clicking outside
+    mobileMenuState.mobileMenu.addEventListener('click', (e) => {
+      if (e.target === mobileMenuState.mobileMenu) {
+        closeMobileMenu();
+      }
+    });
+
+    // Handle escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && mobileMenuState.isOpen) {
+        closeMobileMenu();
+        mobileMenuState.hamburgerButton?.focus();
+      }
+    });
+
+    // Handle window resize - close menu if switching to desktop
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 768 && mobileMenuState.isOpen) {
+        closeMobileMenu();
+      }
+    });
+  }
+
+  function toggleMobileMenu(): void {
+    if (mobileMenuState.isOpen) {
+      closeMobileMenu();
+    } else {
+      openMobileMenu();
+    }
+  }
+
+  function openMobileMenu(): void {
+    if (!mobileMenuState.hamburgerButton || !mobileMenuState.mobileMenu) return;
+
+    mobileMenuState.isOpen = true;
+
+    // Update ARIA attributes
+    mobileMenuState.hamburgerButton.setAttribute('aria-expanded', 'true');
+    mobileMenuState.mobileMenu.setAttribute('aria-hidden', 'false');
+
+    // Add classes for animations
+    mobileMenuState.hamburgerButton.classList.add('hamburger-active');
+    mobileMenuState.mobileMenu.classList.add('mobile-menu-open');
+
+    // Prevent body scroll
+    document.body.style.overflow = 'hidden';
+
+    // Focus management - focus first nav link
+    const firstNavLink = mobileMenuState.mobileNavLinks[0] as HTMLElement;
+    if (firstNavLink) {
+      setTimeout(() => firstNavLink.focus(), 300);
+    }
+  }
+
+  function closeMobileMenu(): void {
+    if (!mobileMenuState.hamburgerButton || !mobileMenuState.mobileMenu) return;
+
+    mobileMenuState.isOpen = false;
+
+    // Update ARIA attributes
+    mobileMenuState.hamburgerButton.setAttribute('aria-expanded', 'false');
+    mobileMenuState.mobileMenu.setAttribute('aria-hidden', 'true');
+
+    // Remove classes for animations
+    mobileMenuState.hamburgerButton.classList.remove('hamburger-active');
+    mobileMenuState.mobileMenu.classList.remove('mobile-menu-open');
+
+    // Restore body scroll
+    document.body.style.overflow = '';
+  }
+
+  // Initialize when DOM is loaded
+  document.addEventListener('DOMContentLoaded', initializeMobileMenu);
+
+  // Re-initialize on Astro page navigation
+  document.addEventListener('astro:page-load', initializeMobileMenu);
+
+  // Clean up on page unload
+  document.addEventListener('astro:before-preparation', () => {
+    // Restore body scroll in case menu was open
+    document.body.style.overflow = '';
+  });
+</script>
