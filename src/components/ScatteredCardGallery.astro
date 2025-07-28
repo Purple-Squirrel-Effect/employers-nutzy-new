@@ -82,7 +82,7 @@ const {
   <div id="smooth-content">
     <!-- Main Container with Side-by-Side Layout -->
     <div
-      class={`scattered-gallery-container w-full bg-white overflow-hidden relative ${className}`}
+      class={`scattered-gallery-container overflow-hidden w-full bg-white relative ${className}`}
       style="min-height: 100vh;"
     >
       <img src="/svg/particle/rocket.svg" alt="Rocket illustration" class="absolute h-screen w-screen top-0 left opacity-40 z-0" loading="lazy" />
@@ -395,7 +395,6 @@ const {
     position: relative;
     width: 100%;
     height: 100vh;
-    overflow: hidden;
   }
 
   /* Content container for flexible positioning */
@@ -495,7 +494,6 @@ const {
     #split-container {
       display: block !important;
       height: 100vh !important;
-      overflow: hidden !important;
     }
 
     #content-container {
@@ -982,18 +980,22 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
       ease: "power2.inOut",
     }, 0);
 
-    // Phase 5: Text transition (0.3-0.9s)
-    timeline.to(mainTitle, {
-      opacity: 0,
-      duration: 0.4,
-      ease: "power2.inOut",
-    }, 0.3);
+    // Phase 5: Text transition (0.3-0.9s) - using fromTo for better reversibility
+    timeline.fromTo(mainTitle,
+      { opacity: 1 },
+      {
+        opacity: 0,
+        duration: 0.4,
+        ease: "power2.inOut",
+      }, 0.3);
 
-    timeline.to(secondTitle, {
-      opacity: 1,
-      duration: 0.4,
-      ease: "power2.inOut",
-    }, 0.5);
+    timeline.fromTo(secondTitle,
+      { opacity: 0 },
+      {
+        opacity: 1,
+        duration: 0.4,
+        ease: "power2.inOut",
+      }, 0.5);
 
     console.log("Mobile timeline created successfully");
     return timeline;
