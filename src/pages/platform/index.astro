@@ -1,5 +1,11 @@
 ---
-import ScatteredCardGallery from "../../components/ScatteredCardGallery.astro";
+import AboutSection1 from "../../components/AboutSection1.astro";
+import ContactSection from "../../components/ContactSection.astro";
+import FanpageSection from "../../components/FanpageSection.astro";
+import Footer from "../../components/Footer.astro";
+import LogoScrollSection from "../../components/LogoScrollSection.astro";
+import NutzyStatsSection from "../../components/NutzyStatsSection.astro";
+import PlatformHeroSection from "../../components/PlatformHeroSection.astro";
 import App from "../../layouts/App.astro";
 
 // Sample card data for the gallery - Job Platform Wireframes
@@ -77,9 +83,13 @@ const sampleCards = [
   </head>
   <body>
     <App>
-      <section class="min-h-screen">
-        <ScatteredCardGallery className="px-32 mx-auto" cards={sampleCards} />
-      </section>
+      <PlatformHeroSection />
+      <FanpageSection />
+      <AboutSection1 />
+      <LogoScrollSection />
+      <NutzyStatsSection />
+      <ContactSection />
+      <Footer />
     </App>
   </body>
 </html>

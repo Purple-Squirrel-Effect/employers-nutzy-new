@@ -1,23 +1,17 @@
 ---
 import AboutSection1 from "./AboutSection1.astro";
-import BrowserMockup from "./BrowserMockup.astro";
 import LogoScrollSection from "./LogoScrollSection.astro";
 import NutzyStatsSection from "./NutzyStatsSection.astro";
 import ContactSection from "./ContactSection.astro";
 import Footer from "./Footer.astro";
 import Section from "./Section.astro";
+import IPhoneMockup from "./IPhoneMockup.astro";
+import ScatteredCards from "./ScatteredCards.astro";
+import FanpageSection from "./FanpageSection.astro";
+import type { Card } from "./ScatteredCards.astro";
 
 export interface Props {
-  cards?: Array<{
-    id: string;
-    image?: string;
-    wireframe?: string;
-    alt: string;
-    title?: string;
-    subtitle?: string;
-    websiteType?: string;
-    backgroundColor?: string;
-  }>;
+  cards?: Card[];
   className?: string;
 }
 
@@ -85,7 +79,12 @@ const {
       class={`scattered-gallery-container overflow-hidden w-full bg-white relative ${className}`}
       style="min-height: 100vh;"
     >
-      <img src="/svg/particle/rocket.svg" alt="Rocket illustration" class="absolute h-screen w-screen top-0 left opacity-40 z-0" loading="lazy" />
+      <img
+        src="/svg/particle/rocket.svg"
+        alt="Rocket illustration"
+        class="absolute h-screen w-screen top-0 left opacity-40 z-0"
+        loading="lazy"
+      />
       <!-- Background pattern - initially hidden -->
       <div class="absolute inset-0 opacity-0">
         <div class="absolute top-10 left-10 w-4 h-4 bg-white rounded-full">
@@ -154,66 +153,13 @@ const {
             class="absolute top-32 inset-0 pointer-events-none"
             id="cards-container"
           >
-            {
-              cards.map((card, index) => (
-                <div
-                  class={`gallery-card absolute rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-3xl hover:z-50 pointer-events-auto`}
-                  data-card-id={card.id}
-                  data-index={index}
-                  data-card
-                >
-                  <!-- MacBook Mockup Container -->
-                  <div class="macbook-mockup relative w-full h-full">
-                    <!-- MacBook Device Frame -->
-                    <div class="relative z-10 w-full h-full">
-                      <img
-                        src="/img/macbook-mockup.svg"
-                        alt="Browser tab"
-                        class="w-full h-full object-contain"
-                        loading="lazy"
-                      />
-
-                      <!-- Screen Content Overlay -->
-                      <div class="absolute inset-0">
-                        <!-- Screen area positioned to fill the entire tab -->
-                        <div class="screen-content w-full h-full rounded-lg overflow-hidden">
-                          {card.wireframe ? (
-                            <BrowserMockup
-                              wireframeSrc={card.wireframe}
-                              websiteTitle={card.title || "Website"}
-                              className="w-full h-full"
-                            />
-                          ) : card.image ? (
-                            <img
-                              src={card.image}
-                              alt={card.alt}
-                              class="w-full h-full object-cover"
-                              loading="lazy"
-                            />
-                          ) : (
-                            <div class="w-full h-full bg-primary-200 flex items-center justify-center">
-                              <span class="text-primary-900 text-sm">No content</span>
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- Card Title Overlay (positioned outside MacBook) -->
-                  {(card.title || card.subtitle) && (
-                    <div class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-white rounded-lg shadow-lg px-3 py-2 text-center min-w-max">
-                      {card.title && (
-                        <h3 class="text-sm font-bold text-gray-800 mb-0.5">{card.title}</h3>
-                      )}
-                      {card.subtitle && (
-                        <p class="text-xs text-gray-600">{card.subtitle}</p>
-                      )}
-                    </div>
-                  )}
-                </div>
-              ))
-            }
+            <ScatteredCards
+              cards={cards}
+              staticPositions={true}
+              containerHeight="100%"
+              containerWidth="100%"
+              className="pointer-events-auto"
+            />
           </div>
 
           <!-- iPhone Mockup for target position -->
@@ -228,112 +174,19 @@ const {
                 <div
                   class="single-card-placeholder relative"
                   data-single-card-index="0"
-                  style="width: min(330px, 70vw); height: min(600px, 85vh); opacity: 0;"
+                  style="opacity: 0;"
                 >
-                  <!-- iPhone Device Frame -->
-                  <div class="relative z-10 w-full h-full" data-iphone-device>
-                    <img
-                      src="/img/iphone-mockup.svg"
-                      alt="iPhone mockup showing Nutzy product video"
-                      class="w-full h-full drop-shadow-2xl"
-                      width="300"
-                      height="600"
-                      loading="lazy"
-                    />
-
-                    <!-- Screen Content Overlay with Video -->
-                    <div class="absolute inset-0 z-20" data-screen-content>
-                      <!-- Video Content Area - Precisely positioned to match iPhone screen -->
-                      <div
-                        class="absolute overflow-hidden bg-black iphone-screen-container"
-                        data-video-container
-                        style="
-                          top: 13.33%;
-                          left: 8.33%;
-                          width: 83.33%;
-                          height: 73.33%;
-                          border-radius: 35px;
-                          clip-path: inset(0 round 35px);
-                        "
-                      >
-                        <!-- Video Element with Accessibility Controls -->
-                        <video
-                          class="w-full h-full object-cover"
-                          data-product-video
-                          muted
-                          loop
-                          playsinline
-                          preload="metadata"
-                          poster="/videos/product.mp4"
-                          aria-label="Nutzy platform product demonstration video"
-                          style="border-radius: 35px;"
-                        >
-                          <source
-                            src="/videos/product.mp4"
-                            type="video/mp4"
-                          />
-                          <source
-                            src="/videos/product.mp4"
-                            type="video/webm"
-                          />
-                          <!-- Fallback content for browsers that don't support video -->
-                          <div
-                            class="w-full h-full bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center"
-                          >
-                            <div class="text-center text-white p-6">
-                              <div
-                                class="w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4"
-                              >
-                                <svg
-                                  class="w-8 h-8"
-                                  fill="currentColor"
-                                  viewBox="0 0 24 24"
-                                >
-                                  <path d="M8 5v14l11-7z"></path>
-                                </svg>
-                              </div>
-                              <h4 class="text-lg font-semibold mb-2">
-                                Product Demo
-                              </h4>
-                              <p class="text-sm opacity-90">
-                                Ontdek Nutzy's platform
-                              </p>
-                            </div>
-                          </div>
-                        </video>
-
-                        <!-- Video Controls Overlay (for accessibility) -->
-                        <div
-                          class="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-20 transition-all duration-300 cursor-pointer flex items-center justify-center opacity-0 hover:opacity-100"
-                          data-video-overlay
-                          role="button"
-                          tabindex="0"
-                          aria-label="Play/pause product video"
-                        >
-                          <div
-                            class="w-12 h-12 bg-white bg-opacity-80 rounded-full flex items-center justify-center"
-                          >
-                            <svg
-                              class="w-6 h-6 text-gray-800"
-                              fill="currentColor"
-                              viewBox="0 0 24 24"
-                              data-play-icon
-                            >
-                              <path d="M8 5v14l11-7z"></path>
-                            </svg>
-                            <svg
-                              class="w-6 h-6 text-gray-800 hidden"
-                              fill="currentColor"
-                              viewBox="0 0 24 24"
-                              data-pause-icon
-                            >
-                              <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"></path>
-                            </svg>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  <IPhoneMockup
+                    videoSrc="/videos/product.mp4"
+                    videoPoster="/videos/product.mp4"
+                    videoAlt="iPhone mockup showing Nutzy product video"
+                    width="min(330px, 70vw)"
+                    height="min(600px, 85vh)"
+                    muted={true}
+                    loop={true}
+                    fallbackTitle="Product Demo"
+                    fallbackDescription="Ontdek Nutzy's platform"
+                  />
                 </div>
               </div>
             </div>
@@ -342,39 +195,10 @@ const {
       </div>
       <!-- End Split Layout Container -->
     </div>
-    
+
     <!-- End Main Container -->
     <AboutSection1 />
-    <Section
-      sectionClassName="bg-secondary-900 relative z-10 shadow-2xl"
-
-      className="z-10  relative flex py-16 gap-16 justify-center items-center "
-    >
-
-  
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 relative w-full ">
-       
-        <div class="w-full order-2">
-          <video class="h-full w-full rounded-lg" loop  autoplay muted src="/videos/Screen Recording 2025-07-16 104626.mp4" class="bg-cover h-full w-full" src="/img/fanpage.png" alt="Fanpage" />
-        </div>
-         <div class="relative order-1 w-full" >  
-            <img
-              class="absolute opacity-10 z-10 "
-              src="svg/Web-devices-cuate.svg"
-              alt="Life-amico"
-            />
-            <h2 class="text-6xl font-bold text-white mb-6 text-shadow shadow-black">
-              Fanpage
-            </h2>
-            <p class="text-white">
-              Vacatureteksten, visueel. We brengen vacatureteksten visueel tot
-              leven, zodat Gen Z in één oogopslag ziet hoe hun toekomstige job
-              eruitziet. Wij richten ons op stages, traineeships en junior (2 jaar
-              werkervaring) vacatureprofielen.
-            </p>
-        </div>
-      </div>
-    </Section>
+    <FanpageSection />
     <LogoScrollSection />
     <NutzyStatsSection />
     <ContactSection />
@@ -418,20 +242,6 @@ const {
     will-change: color;
   }
 
-  /* Gallery cards */
-  .gallery-card {
-    cursor: pointer;
-    backface-visibility: hidden;
-    transform-style: preserve-3d;
-    will-change: transform, left, top, width, height, box-shadow, filter;
-    transition:
-      box-shadow 0.3s ease-out,
-      filter 0.3s ease-out;
-    /* Default sizes that will be overridden by JS */
-    width: 280px;
-    height: 200px;
-  }
-
   /* Single card container positioning */
   #single-card-container {
     pointer-events: none;
@@ -439,11 +249,6 @@ const {
 
   /* Mobile responsive adjustments for vertical layout */
   @media (max-width: 768px) {
-    .gallery-card {
-      width: 180px;
-      height: 135px;
-    }
-
     .text-content {
       padding: 1rem;
       /* Allow for mobile positioning via GSAP */
@@ -531,11 +336,6 @@ const {
 
   /* Small mobile adjustments */
   @media (max-width: 480px) {
-    .gallery-card {
-      width: 160px;
-      height: 120px;
-    }
-
     .scattered-gallery-container {
       padding: 1rem;
     }
@@ -551,15 +351,6 @@ const {
 
   /* Accessibility: Respect reduced motion preferences */
   @media (prefers-reduced-motion: reduce) {
-    .gallery-card {
-      transition: none !important;
-      transform: none !important;
-    }
-
-    .gallery-card:hover {
-      transform: none !important;
-    }
-
     .text-content {
       transition: none !important;
     }
@@ -572,19 +363,7 @@ const {
     }
   }
 
-  /* Enhanced shadow for hover state */
-  .gallery-card:hover {
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
-  }
-
-  /* Focus styles for accessibility */
-  .gallery-card:focus {
-    outline: 2px solid rgba(255, 255, 255, 0.8);
-    outline-offset: 4px;
-  }
-
   /* Smooth performance optimizations */
-  .gallery-card,
   .text-content {
     transform: translateZ(0); /* Force hardware acceleration */
   }
@@ -633,47 +412,13 @@ const {
   .logo-container a:hover .text-primary-900 {
     color: #a855f7;
   }
-
-  /* iPhone Screen Container - Precise video containment */
-  .iphone-screen-container {
-    /* Ensure video is perfectly contained within iPhone screen boundaries */
-    position: absolute;
-    overflow: hidden;
-    /* Use CSS mask for perfect screen shape matching */
-    -webkit-mask: radial-gradient(
-      ellipse at center,
-      black 99%,
-      transparent 100%
-    );
-    mask: radial-gradient(ellipse at center, black 99%, transparent 100%);
-    /* Additional containment for video overflow */
-    contain: layout style paint;
-  }
-
-  .iphone-screen-container video {
-    /* Ensure video respects container boundaries */
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: cover;
-    object-position: center;
-    /* Prevent any potential overflow */
-    transform: scale(0.999); /* Slight scale down to ensure no edge overflow */
-  }
-
-  /* Ensure proper stacking and containment */
-  [data-screen-content] {
-    /* Create a new stacking context */
-    isolation: isolate;
-    /* Ensure content doesn't overflow iPhone frame */
-    overflow: hidden;
-  }
 </style>
 
 <script>
   import { gsap } from "gsap";
-import { Flip } from "gsap/Flip";
-import { ScrollSmoother } from "gsap/ScrollSmoother";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+  import { Flip } from "gsap/Flip";
+  import { ScrollSmoother } from "gsap/ScrollSmoother";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
 
   // Register GSAP plugins
   gsap.registerPlugin(Flip, ScrollTrigger, ScrollSmoother);
@@ -730,15 +475,23 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
           // Mobile: scatter cards across full width, in middle section (avoiding text areas)
           const mobileTopOffset = containerHeight * 0.3; // Start cards below initial text area
           const mobileBottomOffset = containerHeight * 0.2; // Leave space for final text area
-          const availableHeight = containerHeight - mobileTopOffset - mobileBottomOffset;
-          x = padding + seededRandom(seedX) * (containerWidth - padding * 2 - 180);
+          const availableHeight =
+            containerHeight - mobileTopOffset - mobileBottomOffset;
+          x =
+            padding +
+            seededRandom(seedX) * (containerWidth - padding * 2 - 180);
           y = mobileTopOffset + seededRandom(seedY) * availableHeight;
         } else {
           // Desktop: constrain to right half of container (initial state)
           const rightHalfStart = containerWidth / 2;
           const rightHalfWidth = containerWidth / 2;
-          x = rightHalfStart + padding + seededRandom(seedX) * (rightHalfWidth - padding * 2 - 300);
-          y = padding + seededRandom(seedY) * (containerHeight - padding * 2 - 250);
+          x =
+            rightHalfStart +
+            padding +
+            seededRandom(seedX) * (rightHalfWidth - padding * 2 - 300);
+          y =
+            padding +
+            seededRandom(seedY) * (containerHeight - padding * 2 - 250);
         }
 
         // Random rotation between -20 and 20 degrees
@@ -790,7 +543,9 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
     scrollEnd: 0,
   };
 
-  function calculateScatteredPositions(isMobile: boolean = false): CardPosition[] {
+  function calculateScatteredPositions(
+    isMobile: boolean = false
+  ): CardPosition[] {
     const container = document.getElementById("cards-container");
     const cards = document.querySelectorAll(
       "[data-card]"
@@ -803,10 +558,17 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
     const containerHeight = Math.max(containerRect.height, window.innerHeight);
 
     // Generate positions with mobile flag
-    return generateCardPositions(cards.length, containerWidth, containerHeight, isMobile);
+    return generateCardPositions(
+      cards.length,
+      containerWidth,
+      containerHeight,
+      isMobile
+    );
   }
 
-  function calculateSingleCardPositions(isMobile: boolean = false): CardPosition[] {
+  function calculateSingleCardPositions(
+    isMobile: boolean = false
+  ): CardPosition[] {
     const cards = document.querySelectorAll(
       "[data-card]"
     ) as NodeListOf<HTMLElement>;
@@ -880,16 +642,26 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
   // Create mobile GSAP timeline for vertical scroll-controlled animation
   function createMobileScrollTimeline(): gsap.core.Timeline {
     const timeline = gsap.timeline({ paused: true });
-    const cards = document.querySelectorAll("[data-card]") as NodeListOf<HTMLElement>;
+    const cards = document.querySelectorAll(
+      "[data-card]"
+    ) as NodeListOf<HTMLElement>;
     const textContent = document.getElementById("text-content");
     const mainTitle = document.getElementById("main-title");
     const secondTitle = document.getElementById("second-title");
-    const container = document.querySelector(".scattered-gallery-container") as HTMLElement;
+    const container = document.querySelector(
+      ".scattered-gallery-container"
+    ) as HTMLElement;
 
     console.log("Creating mobile vertical timeline");
     console.log(`Found ${cards.length} cards`);
 
-    if (cards.length === 0 || !textContent || !mainTitle || !secondTitle || !container) {
+    if (
+      cards.length === 0 ||
+      !textContent ||
+      !mainTitle ||
+      !secondTitle ||
+      !container
+    ) {
       console.warn("Missing required elements for mobile timeline");
       return timeline;
     }
@@ -919,7 +691,9 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
     });
 
     // Set initial state for iPhone mockup (hidden)
-    const mockupContainer = document.querySelector(".single-card-placeholder") as HTMLElement;
+    const mockupContainer = document.querySelector(
+      ".single-card-placeholder"
+    ) as HTMLElement;
     if (mockupContainer) {
       gsap.set(mockupContainer, {
         opacity: 0,
@@ -935,7 +709,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
       top: "20%", // Start at top 20% of screen
       position: "absolute",
       width: "100%",
-      textAlign: "center"
+      textAlign: "center",
     });
     gsap.set(mainTitle, { opacity: 1 });
     gsap.set(secondTitle, { opacity: 0 });
@@ -948,54 +722,76 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
     // Phase 1: Fade out scattered cards (0-0.6s)
     cards.forEach((card, index) => {
-      timeline.to(card, {
-        opacity: 0,
-        scale: 0.8,
-        duration: 0.6,
-        ease: "power2.inOut",
-      }, 0);
+      timeline.to(
+        card,
+        {
+          opacity: 0,
+          scale: 0.8,
+          duration: 0.6,
+          ease: "power2.inOut",
+        },
+        0
+      );
     });
 
     // Phase 2: Move text from top to bottom (0.2-1.0s)
-    timeline.to(textContent, {
-      top: "85%", // Move to 85% of screen (5% less than 90%)
-      duration: 0.8,
-      ease: "power2.inOut",
-    }, 0.2);
+    timeline.to(
+      textContent,
+      {
+        top: "85%", // Move to 85% of screen (5% less than 90%)
+        duration: 0.8,
+        ease: "power2.inOut",
+      },
+      0.2
+    );
 
     // Phase 3: Show iPhone mockup at top (0.4-1.2s)
     if (mockupContainer) {
-      timeline.to(mockupContainer, {
-        opacity: 1,
-        scale: 1,
-        duration: 0.8,
-        ease: "power2.out",
-      }, 0.4);
+      timeline.to(
+        mockupContainer,
+        {
+          opacity: 1,
+          scale: 1,
+          duration: 0.8,
+          ease: "power2.out",
+        },
+        0.4
+      );
     }
 
     // Phase 4: Background transition (0-1.0s)
-    timeline.to(container, {
-      backgroundColor: "#25B4B3",
-      duration: 1,
-      ease: "power2.inOut",
-    }, 0);
+    timeline.to(
+      container,
+      {
+        backgroundColor: "#25B4B3",
+        duration: 1,
+        ease: "power2.inOut",
+      },
+      0
+    );
 
     // Phase 5: Text transition (0.3-0.9s) - using fromTo for better reversibility
-    timeline.fromTo(mainTitle,
+    timeline.fromTo(
+      mainTitle,
       { opacity: 1 },
       {
         opacity: 0,
         duration: 0.4,
         ease: "power2.inOut",
-      }, 0.3);
+      },
+      0.3
+    );
 
-    timeline.fromTo(secondTitle,
+    timeline.fromTo(
+      secondTitle,
       { opacity: 0 },
       {
         opacity: 1,
         duration: 0.4,
         ease: "power2.inOut",
-      }, 0.5);
+      },
+      0.5
+    );
 
     console.log("Mobile timeline created successfully");
     return timeline;
@@ -1201,8 +997,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
     return timeline;
   }
 
-
-
   // Global timeline variable
   let scrollTimeline: gsap.core.Timeline | null = null;
 
@@ -1231,8 +1025,12 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
     // Detect mobile vs desktop
     const isMobile = window.innerWidth <= 768;
-    console.log(`Setting up ${isMobile ? 'mobile' : 'desktop'} scroll animation`);
-    console.log(`Window dimensions: ${window.innerWidth}x${window.innerHeight}`);
+    console.log(
+      `Setting up ${isMobile ? "mobile" : "desktop"} scroll animation`
+    );
+    console.log(
+      `Window dimensions: ${window.innerWidth}x${window.innerHeight}`
+    );
 
     // Create appropriate timeline based on device
     if (isMobile) {
@@ -1251,8 +1049,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
     // Create ScrollTrigger for the timeline
     ScrollTrigger.create({
       trigger: splitContainer,
-      start: "top top",
-      end: "bottom top",
+      start: "top top", // when the top of the trigger hits the top of the viewport
+      end: "+=500", // end after scrolling 500px beyond the start
       pin: true,
       pinSpacing: true,
       scrub: 1,
@@ -1265,12 +1063,15 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
         // Recalculate positions on refresh
         if (isMobile) {
           animationState.scatteredPositions = calculateScatteredPositions(true);
-          animationState.singleCardPositions = calculateSingleCardPositions(true);
+          animationState.singleCardPositions =
+            calculateSingleCardPositions(true);
         } else {
-          animationState.scatteredPositions = calculateScatteredPositions(false);
-          animationState.singleCardPositions = calculateSingleCardPositions(false);
+          animationState.scatteredPositions =
+            calculateScatteredPositions(false);
+          animationState.singleCardPositions =
+            calculateSingleCardPositions(false);
         }
-      }
+      },
     });
 
     // Initial text animation on page load
@@ -1286,96 +1087,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
       { opacity: 0, y: 30 },
       { opacity: 1, y: 0, duration: 1, delay: 0.3, ease: "power2.out" }
     );
-  }
-
-  function setupVideoControls() {
-    const video = document.querySelector(
-      "[data-product-video]"
-    ) as HTMLVideoElement;
-    const videoOverlay = document.querySelector(
-      "[data-video-overlay]"
-    ) as HTMLElement;
-    const playIcon = document.querySelector("[data-play-icon]") as HTMLElement;
-    const pauseIcon = document.querySelector(
-      "[data-pause-icon]"
-    ) as HTMLElement;
-
-    if (!video || !videoOverlay || !playIcon || !pauseIcon) return;
-
-    // Check for reduced motion preference
-    const prefersReducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
-
-    // If user prefers reduced motion, pause the video and show controls
-    if (prefersReducedMotion) {
-      video.pause();
-      video.removeAttribute("autoplay");
-    } else {
-      // Auto-play video when it becomes visible (respecting user preferences)
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
-              video.play().catch(() => {
-                // Auto-play failed, show controls
-                videoOverlay.style.opacity = "1";
-              });
-            } else {
-              video.pause();
-            }
-          });
-        },
-        { threshold: 0.5 }
-      );
-
-      observer.observe(video);
-    }
-
-    // Video control functionality
-    function toggleVideo() {
-      if (video.paused) {
-        video.play();
-        playIcon.classList.add("hidden");
-        pauseIcon.classList.remove("hidden");
-      } else {
-        video.pause();
-        playIcon.classList.remove("hidden");
-        pauseIcon.classList.add("hidden");
-      }
-    }
-
-    // Add click handler for video overlay
-    videoOverlay.addEventListener("click", toggleVideo);
-
-    // Add keyboard support for video overlay
-    videoOverlay.addEventListener("keydown", (e: KeyboardEvent) => {
-      if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        toggleVideo();
-      }
-    });
-
-    // Update icon state when video state changes
-    video.addEventListener("play", () => {
-      playIcon.classList.add("hidden");
-      pauseIcon.classList.remove("hidden");
-    });
-
-    video.addEventListener("pause", () => {
-      playIcon.classList.remove("hidden");
-      pauseIcon.classList.add("hidden");
-    });
-
-    // Handle video loading errors gracefully
-    video.addEventListener("error", () => {
-      console.warn("Video failed to load, showing fallback content");
-      const fallbackContent = video.nextElementSibling as HTMLElement;
-      if (fallbackContent) {
-        video.style.display = "none";
-        fallbackContent.style.display = "flex";
-      }
-    });
   }
 
   function initializeGallery() {
@@ -1394,54 +1105,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
     // Setup scroll-controlled animations with ScrollTrigger
     setupScrollAnimation();
-
-    // Setup video functionality
-    setupVideoControls();
-
-    // Setup card interactions
-    const cards = document.querySelectorAll(
-      "[data-card]"
-    ) as NodeListOf<HTMLElement>;
-
-    cards.forEach((card, index) => {
-      // Add keyboard navigation
-      card.setAttribute("tabindex", "0");
-      card.setAttribute("role", "button");
-      card.setAttribute("aria-label", `Brand card ${index + 1}`);
-
-      // Add click handler for potential interactions
-      card.addEventListener("click", () => {
-        console.log(`Card ${index + 1} clicked`);
-        // Add your click logic here
-      });
-
-      // Add keyboard support
-      card.addEventListener("keydown", (e: KeyboardEvent) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          (card as HTMLElement).click();
-        }
-      });
-
-      // Enhanced hover effects (respecting reduced motion)
-      const prefersReducedMotion = window.matchMedia(
-        "(prefers-reduced-motion: reduce)"
-      ).matches;
-
-      if (!prefersReducedMotion) {
-        let originalTransform = "";
-
-        card.addEventListener("mouseenter", () => {
-          originalTransform = card.style.transform;
-          card.style.transform =
-            originalTransform + " translateY(-10px) scale(1.05)";
-        });
-
-        card.addEventListener("mouseleave", () => {
-          card.style.transform = originalTransform;
-        });
-      }
-    });
   }
 
   // Initialize when DOM is ready

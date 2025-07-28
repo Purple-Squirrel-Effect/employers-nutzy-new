@@ -1,0 +1,284 @@
+---
+export interface Props {
+  videoSrc?: string;
+  videoPoster?: string;
+  videoAlt?: string;
+  className?: string;
+  width?: string;
+  height?: string;
+  autoplay?: boolean;
+  muted?: boolean;
+  loop?: boolean;
+  controls?: boolean;
+  fallbackTitle?: string;
+  fallbackDescription?: string;
+}
+
+const {
+  videoSrc = "/videos/product.mp4",
+  videoPoster = "/videos/product.mp4",
+  videoAlt = "Nutzy platform product demonstration video",
+  className = "",
+  width = "min(330px, 70vw)",
+  height = "min(600px, 85vh)",
+  autoplay = false,
+  muted = true,
+  loop = true,
+  controls = false,
+  fallbackTitle = "Product Demo",
+  fallbackDescription = "Ontdek Nutzy's platform",
+} = Astro.props;
+---
+
+<!-- iPhone Mockup Container -->
+<div
+  class={`iphone-mockup-container relative ${className}`}
+  style={`width: ${width}; height: ${height};`}
+>
+  <!-- iPhone Device Frame -->
+  <div class="relative z-10 w-full h-full" data-iphone-device>
+    <img
+      src="/img/iphone-mockup.svg"
+      alt="iPhone mockup"
+      class="w-full h-full drop-shadow-2xl"
+      width="300"
+      height="600"
+      loading="lazy"
+    />
+
+    <!-- Screen Content Overlay with Video -->
+    <div class="absolute inset-0 z-20" data-screen-content>
+      <!-- Video Content Area - Precisely positioned to match iPhone screen -->
+      <div
+        class="absolute overflow-hidden bg-black iphone-screen-container"
+        data-video-container
+        style="
+          top: 13.33%;
+          left: 8.33%;
+          width: 83.33%;
+          height: 73.33%;
+          border-radius: 35px;
+          clip-path: inset(0 round 35px);
+        "
+      >
+        <!-- Video Element with Accessibility Controls -->
+        <video
+          class="w-full h-full object-cover"
+          data-product-video
+          muted={muted}
+          loop={loop}
+          playsinline
+          preload="metadata"
+          poster={videoPoster}
+          aria-label={videoAlt}
+          style="border-radius: 35px;"
+          autoplay={autoplay}
+          controls={controls}
+        >
+          <source src={videoSrc} type="video/mp4" />
+          <source src={videoSrc} type="video/webm" />
+          <!-- Fallback content for browsers that don't support video -->
+          <div
+            class="w-full h-full bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center"
+          >
+            <div class="text-center text-white p-6">
+              <div
+                class="w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4"
+              >
+                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z"></path>
+                </svg>
+              </div>
+              <h4 class="text-lg font-semibold mb-2">
+                {fallbackTitle}
+              </h4>
+              <p class="text-sm opacity-90">
+                {fallbackDescription}
+              </p>
+            </div>
+          </div>
+        </video>
+
+        <!-- Video Controls Overlay (for accessibility) -->
+        <div
+          class="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-20 transition-all duration-300 cursor-pointer flex items-center justify-center opacity-0 hover:opacity-100"
+          data-video-overlay
+          role="button"
+          tabindex="0"
+          aria-label="Play/pause product video"
+        >
+          <div
+            class="w-12 h-12 bg-white bg-opacity-80 rounded-full flex items-center justify-center"
+          >
+            <svg
+              class="w-6 h-6 text-gray-800"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              data-play-icon
+            >
+              <path d="M8 5v14l11-7z"></path>
+            </svg>
+            <svg
+              class="w-6 h-6 text-gray-800 hidden"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              data-pause-icon
+            >
+              <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"></path>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* iPhone Screen Container - Precise video containment */
+  .iphone-screen-container {
+    /* Ensure video is perfectly contained within iPhone screen boundaries */
+    position: absolute;
+    overflow: hidden;
+    /* Use CSS mask for perfect screen shape matching */
+    -webkit-mask: radial-gradient(
+      ellipse at center,
+      black 99%,
+      transparent 100%
+    );
+    mask: radial-gradient(ellipse at center, black 99%, transparent 100%);
+    /* Additional containment for video overflow */
+    contain: layout style paint;
+  }
+
+  .iphone-screen-container video {
+    /* Ensure video respects container boundaries */
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+    object-position: center;
+    /* Prevent any potential overflow */
+    transform: scale(0.999); /* Slight scale down to ensure no edge overflow */
+  }
+
+  /* Ensure proper stacking and containment */
+  [data-screen-content] {
+    /* Create a new stacking context */
+    isolation: isolate;
+    /* Ensure content doesn't overflow iPhone frame */
+    overflow: hidden;
+  }
+
+  /* Accessibility: Respect reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    .iphone-screen-container video {
+      animation: none !important;
+    }
+    
+    [data-video-overlay] {
+      transition: none !important;
+    }
+  }
+</style>
+
+<script>
+  function setupIPhoneVideoControls() {
+    const videos = document.querySelectorAll(
+      "[data-product-video]"
+    ) as NodeListOf<HTMLVideoElement>;
+    
+    videos.forEach((video) => {
+      const videoOverlay = video
+        .closest("[data-video-container]")
+        ?.querySelector("[data-video-overlay]") as HTMLElement;
+      const playIcon = videoOverlay?.querySelector("[data-play-icon]") as HTMLElement;
+      const pauseIcon = videoOverlay?.querySelector("[data-pause-icon]") as HTMLElement;
+
+      if (!videoOverlay || !playIcon || !pauseIcon) return;
+
+      // Check for reduced motion preference
+      const prefersReducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+      ).matches;
+
+      // If user prefers reduced motion, pause the video and show controls
+      if (prefersReducedMotion) {
+        video.pause();
+        video.removeAttribute("autoplay");
+      } else {
+        // Auto-play video when it becomes visible (respecting user preferences)
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+                video.play().catch(() => {
+                  // Auto-play failed, show controls
+                  videoOverlay.style.opacity = "1";
+                });
+              } else {
+                video.pause();
+              }
+            });
+          },
+          { threshold: 0.5 }
+        );
+
+        observer.observe(video);
+      }
+
+      // Video control functionality
+      function toggleVideo() {
+        if (video.paused) {
+          video.play();
+          playIcon.classList.add("hidden");
+          pauseIcon.classList.remove("hidden");
+        } else {
+          video.pause();
+          playIcon.classList.remove("hidden");
+          pauseIcon.classList.add("hidden");
+        }
+      }
+
+      // Add click handler for video overlay
+      videoOverlay.addEventListener("click", toggleVideo);
+
+      // Add keyboard support for video overlay
+      videoOverlay.addEventListener("keydown", (e: KeyboardEvent) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          toggleVideo();
+        }
+      });
+
+      // Update icon state when video state changes
+      video.addEventListener("play", () => {
+        playIcon.classList.add("hidden");
+        pauseIcon.classList.remove("hidden");
+      });
+
+      video.addEventListener("pause", () => {
+        playIcon.classList.remove("hidden");
+        pauseIcon.classList.add("hidden");
+      });
+
+      // Handle video loading errors gracefully
+      video.addEventListener("error", () => {
+        console.warn("Video failed to load, showing fallback content");
+        const fallbackContent = video.nextElementSibling as HTMLElement;
+        if (fallbackContent) {
+          video.style.display = "none";
+          fallbackContent.style.display = "flex";
+        }
+      });
+    });
+  }
+
+  // Initialize when DOM is ready
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", setupIPhoneVideoControls);
+  } else {
+    setupIPhoneVideoControls();
+  }
+
+  // Re-initialize on navigation (for SPA-like behavior)
+  document.addEventListener("astro:page-load", setupIPhoneVideoControls);
+</script>
