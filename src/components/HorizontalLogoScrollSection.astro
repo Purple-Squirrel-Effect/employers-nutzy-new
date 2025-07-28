@@ -1,4 +1,6 @@
 ---
+import Section from "./Section.astro";
+
 export interface Props {
   className?: string;
   scrollDirection?: "left" | "right";
@@ -28,8 +30,10 @@ const logos = [
 ];
 ---
 
-<section
-  class={`w-full overflow-hidden relative z-30 py-4 md:py-6 lg:py-8 ${backgroundColor} ${className}`}
+<Section
+  sectionClassName={backgroundColor}
+  className={`w-full overflow-hidden relative z-30 py-4 md:py-6 lg:py-8 ${className}`}
+  maxWidth="max-w-none"
 >
   <div
     class="horizontal-logo-scroll-container h-16 md:h-20 lg:h-24 flex items-center"
@@ -79,7 +83,7 @@ const logos = [
       }
     </div>
   </div>
-</section>
+</Section>
 
 <style>
   /* Ensure smooth performance */

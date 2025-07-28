@@ -16,9 +16,7 @@ const {
 } = Astro.props;
 ---
 
-<div
-  class={`character-card bg-white rounded-2xl shadow-lg overflow-hidden ${className}`}
->
+<div class={` bg-white rounded-2xl shadow-lg overflow-hidden ${className}`}>
   <!-- Avatar Section -->
   <div class="flex justify-center pt-6 pb-4">
     <div
@@ -48,17 +46,3 @@ const {
     </p>
   </div>
 </div>
-
-<style>
-  .character-card {
-    position: relative;
-    max-width: 320px;
-  }
-
-  /* Responsive adjustments */
-  @media (max-width: 768px) {
-    .character-card {
-      max-width: 280px;
-    }
-  }
-</style>

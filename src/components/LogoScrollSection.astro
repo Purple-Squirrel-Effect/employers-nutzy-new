@@ -1,4 +1,6 @@
 ---
+import Section from "./Section.astro";
+
 export interface Props {
   className?: string;
   scrollSpeed?: number;
@@ -17,8 +19,10 @@ const logos = [
 ];
 ---
 
-<section
-  class={`h-32 bg-secondary-300 w-full overflow-hidden relative ${className}`}
+<Section
+  sectionClassName="bg-secondary-300"
+  className={`h-32 w-full overflow-hidden relative ${className}`}
+  maxWidth="max-w-none"
 >
   <div class="logo-scroll-container flex items-center h-full">
     <div
@@ -59,7 +63,7 @@ const logos = [
       }
     </div>
   </div>
-</section>
+</Section>
 
 <style>
   /* Ensure smooth performance */

@@ -1,9 +1,12 @@
 ---
 import CharacterCard from "../CharacterCard.astro";
+import Section from "../Section.astro";
 ---
 
-<section
-  class="bg-secondary-900 relative py-16 md:py-24 lg:py-32 px-4 md:px-8 lg:px-16 xl:px-32 gap-8 items-center justify-center grid grid-cols-1 lg:grid-cols-2"
+<Section
+  sectionClassName="bg-secondary-900"
+  className="pb-32 relative py-16 gap-8 items-center justify-center grid grid-cols-1 lg:grid-cols-2"
+  maxWidth="max-w-7xl mx-auto"
 >
   <div class="text-center lg:text-left">
     <h1
@@ -20,33 +23,30 @@ import CharacterCard from "../CharacterCard.astro";
     </p>
   </div>
   <div
-    class="w-full h-64 md:h-80 relative z-50 flex justify-center items-center pl-12"
+    class="w-full h-64 px-8 pt-48 relative z-50 flex justify-center items-center lg:pl-12"
   >
     <CharacterCard
-      className="-rotate-6 translate-x-24 min-w-64"
+      className="  lg:rotate-6 lg:translate-x-32 lg:absolute border z-20 -translate-2 h-96 -rotate-3 h- w-64  absolute "
       name="Content Creator"
       description="Een content creator die je content maakt en publiceert op de juiste platformen."
       avatarSrc="/img/avatars/maya-rodriguez.jpg"
       avatarAlt="Maya Rodriguez - Content Creator"
     />
     <CharacterCard
-      className="relative z-50 min-w-64"
-      name="Content Creator"
-      description="Een content creator die je content maakt en publiceert op de juiste platformen."
-      avatarSrc="/img/avatars/maya-rodriguez.jpg"
-      avatarAlt="Lotte - Content Creator"
-    />
-    <CharacterCard
-      className="rotate-6 -translate-x-24 min-w-64"
+      className="   lg:-rotate-6 lg:-translate-x-32 lg:absolute border z-10 -translate-4 -rotate-6 h-96 w-64  absolute "
       name="Content Creator"
       description="Een content creator die je content maakt en publiceert op de juiste platformen."
       avatarSrc="/img/avatars/maya-rodriguez.jpg"
       avatarAlt="Emma - Content Creator"
     />
+    <CharacterCard
+      className="relative  border lg:min-w-50 h-96 w-64  z-40 "
+      name="Content Creator"
+      description="Een content creator die je content maakt en publiceert op de juiste platformen."
+      avatarSrc="/img/avatars/maya-rodriguez.jpg"
+      avatarAlt="Lotte - Content Creator"
+    />
   </div>
-  <!-- <img
-    class="absolute opacity-20 -top-0"
-    src="/svg/Content-creator-amico.svg"
-  /> -->
-</section>
+</Section>
+
 <script></script>

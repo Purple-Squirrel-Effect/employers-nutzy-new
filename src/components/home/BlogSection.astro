@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import { calculateReadingTime, formatDate } from "../../utils/blog";
+import Section from "../Section.astro";
 
 // Get blog posts using Astro loader API
 const allBlogPosts = await getCollection("blog");
@@ -37,10 +38,10 @@ const blogPosts: DisplayBlogPost[] = latestBlogPosts.map((post) => ({
 }));
 ---
 
-<section
-  id="blog-section"
-  class="bg-secondary-900 grid grid-cols-1 relative overflow-hidden py-16 md:py-24 lg:py-32 px-4 "
-  data-blog-section
+<Section
+  sectionClassName="bg-secondary-900"
+  className="grid grid-cols-1 relative overflow-hidden py-16 md:py-24 lg:py-32 px-4"
+  maxWidth="max-w-7xl mx-auto"
 >
 
 
@@ -61,9 +62,9 @@ const blogPosts: DisplayBlogPost[] = latestBlogPosts.map((post) => ({
         inzichten die je direct kunt toepassen.
       </p>
     </div>
-   
 
- 
+
+
 
     <!-- Blog Posts Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8" data-blog-grid>
@@ -171,7 +172,7 @@ const blogPosts: DisplayBlogPost[] = latestBlogPosts.map((post) => ({
       </div>
     </div>
   </div>
-</section>
+</Section>
 
 <style>
   /* Line clamp utility for text truncation */

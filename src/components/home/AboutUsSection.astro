@@ -1,4 +1,5 @@
 ---
+
 // About Us section data structure
 interface TeamMember {
   id: string;
@@ -71,6 +72,8 @@ const companyValues: CompanyValue[] = [
     icon: "/svg/objects-color-diamond-svgrepo-com.svg"
   }
 ];
+
+import Section from "../Section.astro";
 ---
 
   <!-- Background Pattern -->
@@ -80,10 +83,10 @@ const companyValues: CompanyValue[] = [
     alt="Team spirit illustration"
     loading="lazy"
   />
-<section
-  id="about-us-section"
-  class="bg-secondary-900 grid grid-cols-1 relative overflow-hidden py-16 md:py-24 lg:py-32 px-4"
-  data-about-section
+<Section
+  sectionClassName="bg-secondary-900"
+  className="grid grid-cols-1 relative overflow-hidden py-16 md:py-24 lg:py-32 px-4"
+  maxWidth="max-w-7xl mx-auto"
 >
 
 
@@ -99,8 +102,8 @@ const companyValues: CompanyValue[] = [
       <p
         class="text-lg md:text-xl text-white leading-relaxed max-w-3xl mx-auto"
       >
-        Wij zijn het team achter de revolutie in Gen Z recruitment. Met onze unieke 
-        aanpak van visuele content en authentieke verhalen helpen we bedrijven 
+        Wij zijn het team achter de revolutie in Gen Z recruitment. Met onze unieke
+        aanpak van visuele content en authentieke verhalen helpen we bedrijven
         en jong talent elkaar te vinden.
       </p>
     </div>
@@ -130,15 +133,15 @@ const companyValues: CompanyValue[] = [
             </h2>
 
             <p class="text-lg text-white/90 leading-relaxed">
-              Generatie Z denkt, communiceert en werkt anders. Traditionele recruitment 
-              methoden sluiten niet meer aan bij hun behoeften. Wij overbruggen deze 
-              kloof door vacatures visueel tot leven te brengen en authentieke verhalen 
+              Generatie Z denkt, communiceert en werkt anders. Traditionele recruitment
+              methoden sluiten niet meer aan bij hun behoeften. Wij overbruggen deze
+              kloof door vacatures visueel tot leven te brengen en authentieke verhalen
               te vertellen die resoneren met jong talent.
             </p>
 
             <p class="text-lg text-white/90 leading-relaxed">
-              Ons doel is simpel: elke Gen Z'er moet binnen 30 seconden begrijpen 
-              wat een baan inhoudt en zich kunnen voorstellen hoe hun toekomst 
+              Ons doel is simpel: elke Gen Z'er moet binnen 30 seconden begrijpen
+              wat een baan inhoudt en zich kunnen voorstellen hoe hun toekomst
               eruitziet bij jouw bedrijf.
             </p>
 
@@ -167,7 +170,7 @@ const companyValues: CompanyValue[] = [
           Onze <span class="text-secondary-200">Waarden</span>
         </h2>
         <p class="text-lg text-white/90 leading-relaxed max-w-2xl mx-auto">
-          Deze kernwaarden sturen alles wat we doen en bepalen hoe we samenwerken 
+          Deze kernwaarden sturen alles wat we doen en bepalen hoe we samenwerken
           met onze klanten en partners.
         </p>
       </div>
@@ -223,7 +226,7 @@ const companyValues: CompanyValue[] = [
           Ons <span class="text-primary-200">Team</span>
         </h2>
         <p class="text-lg text-white/90 leading-relaxed max-w-2xl mx-auto">
-          Ontmoet de experts die dagelijks werken aan de toekomst van recruitment 
+          Ontmoet de experts die dagelijks werken aan de toekomst van recruitment
           en het verbinden van Gen Z talent met innovatieve bedrijven.
         </p>
       </div>
@@ -325,7 +328,7 @@ const companyValues: CompanyValue[] = [
       </div>
     </div>
   </div>
-</section>
+</Section>
 
 <style>
   /* Enhanced focus states for accessibility */

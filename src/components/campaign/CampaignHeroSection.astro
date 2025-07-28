@@ -1,38 +1,40 @@
-<section
-  class="min-h-screen bg-primary-500 gap-8 px-8 md:px-16 lg:px-32 items-center justify-center grid grid-cols-1 lg:grid-cols-2"
+---
+import Section from "../Section.astro";
+---
+
+<Section
+  sectionClassName="bg-primary-500"
+  className="min-h-screen gap-8 w-full items-center justify-center grid grid-cols-1 lg:grid-cols-2"
 >
- <!-- <img
-    class="absolute top-0 opacity-20"
-    src="/svg/Content-creator-amico.svg"
-  /> -->
-   <img
-    class="absolute top-0 z-30 opacity-40 h-[200svh] w-[200svh] scale-100 "
+  <img
+    class="absolute top-0 z-30 opacity-40 h-[200svh] w-[200svh] scale-100"
     src="/svg/particle/particle-2.svg"
   />
-  <div class="order-2 lg:order-1 relative z-10 p-16 rounded-full relative z-50 ">
-    <h1 class="text-5xl text-shadow shadow-black  text-8xl font-bold text-white relative z-50">
+  <div class="order-2 lg:order-1 relative z-10 rounded-full relative z-50">
+    <h1
+      class="text-6xl text-shadow shadow-black lg:text-8xl font-bold text-white relative z-50"
+    >
       Effectieve <span class="text-secondary-200">campagnes</span> voor<br />
       <span class="text-primary-200">Gen-Z talent</span>
     </h1>
     <p class="text-xl text-white mt-6 max-w-2xl">
-      Bereik de juiste doelgroep met onze strategische campagnes speciaal ontworpen 
-      voor het werven van Gen-Z talent. Van concept tot uitvoering - wij zorgen voor resultaat.
+      Bereik de juiste doelgroep met onze strategische campagnes speciaal
+      ontworpen voor het werven van Gen-Z talent. Van concept tot uitvoering -
+      wij zorgen voor resultaat.
     </p>
     <div class="mt-8 flex flex-wrap gap-4">
-      <a 
-        href="#strategy" 
+      <a
+        href="#strategy"
         class="px-8 py-4 border-current border-2 text-secondary-500 font-bold rounded-lg hover:bg-secondary-400 transition-all duration-300"
       >
         Ontdek onze aanpak
       </a>
-      <a 
-        href="#contact" 
+      <a
+        href="#contact"
         class="px-8 py-4 bg-tertiary-900 text-black font-bold rounded-lg hover:brightness-105 transition-all duration-300"
       >
         Neem contact op
       </a>
     </div>
   </div>
-</section>
-
-
+</Section>

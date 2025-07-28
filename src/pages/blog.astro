@@ -2,8 +2,9 @@
 import { getCollection } from "astro:content";
 import ContactSection from "../components/ContactSection.astro";
 import EventCalendar from "../components/EventCalendar.astro";
-import App from "../layouts/App.astro";
 import Footer from "../components/Footer.astro";
+import Section from "../components/Section.astro";
+import App from "../layouts/App.astro";
 
 // Get all blog posts from the content collection
 const allPosts = await getCollection("blog");
@@ -39,6 +40,7 @@ function getExcerpt(content: string, maxLength: number = 150): string {
     ? cleanContent.substring(0, maxLength) + "..."
     : cleanContent;
 }
+
 ---
 
 <html lang="en">
@@ -57,8 +59,10 @@ function getExcerpt(content: string, maxLength: number = 150): string {
   </head>
   <body>
     <App>
-      <section
-        class="min-h-screen bg-primary-500 gap-8 px-8 md:px-16 lg:px-32 items-center justify-center grid grid-cols-1 lg:grid-cols-2"
+      <Section
+        sectionClassName="bg-primary-500"
+        className="min-h-screen gap-8 px-8 md:px-16 lg:px-32 items-center justify-center grid grid-cols-1 lg:grid-cols-2"
+        maxWidth="max-w-7xl mx-auto"
       >
         <img
           class="absolute top-0 opacity-50 z-0 h-[200svh] w-[200svh]"
@@ -94,8 +98,11 @@ function getExcerpt(content: string, maxLength: number = 150): string {
         <div class="order-2">
           <!-- <img class="h-screen w-screen relative z-20" src="/svg/a-group-of-people-sharing-ideas.svg" /> -->
         </div>
-      </section>
-      <section id="blog-content" class="relative px-8 md:px-16 lg:px-32 mx-auto my-16" style="scroll-margin-top: 2rem;">
+      </Section>
+      <Section
+        className="relative px-8 md:px-16 lg:px-32 mx-auto my-16"
+        maxWidth="max-w-7xl mx-auto"
+      >
         <div class="max-w-7xl mx-auto">
           <!-- Section Header -->
           <div class="text-center mb-12">
@@ -173,13 +180,13 @@ function getExcerpt(content: string, maxLength: number = 150): string {
             </div>
           )}
         </div>
-      </section>
+      </Section>
 
-      <section>
+      <Section>
         <div class="w-full z-20 relative my-16">
           <EventCalendar />
         </div>
-      </section>
+      </Section>
       <ContactSection />
       <Footer />
     </App>
