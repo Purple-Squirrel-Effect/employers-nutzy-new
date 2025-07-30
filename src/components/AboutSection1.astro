@@ -6,7 +6,10 @@ import Section from "./Section.astro";
   sectionClassName="bg-primary-900"
   className="min-h-screen flex items-center justify-center py-20"
 >
-  <div class="max-w-7xl mx-auto w-full relative">
+  <div
+    id="smooth-wrapper-about-section"
+    class="max-w-7xl mx-auto w-full relative"
+  >
     <img
       class="absolute opacity-40"
       src="svg/Life-amico.svg"
@@ -38,6 +41,7 @@ import Section from "./Section.astro";
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <!-- Card 1 -->
           <div
+            id="about-card-1"
             class="group bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 hover:bg-white/15 transition-all duration-300 hover:scale-105 hover:shadow-xl"
           >
             <div class="flex flex-col items-center text-center space-y-4">
@@ -62,6 +66,7 @@ import Section from "./Section.astro";
 
           <!-- Card 2 -->
           <div
+            id="about-card-2"
             class="group bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 hover:bg-white/15 transition-all duration-300 hover:scale-105 hover:shadow-xl"
           >
             <div class="flex flex-col items-center text-center space-y-4">
@@ -87,6 +92,7 @@ import Section from "./Section.astro";
 
           <!-- Card 3 -->
           <div
+            id="about-card-3"
             class="group bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 hover:bg-white/15 transition-all duration-300 hover:scale-105 hover:shadow-xl"
           >
             <div class="flex flex-col items-center text-center space-y-4">
@@ -112,6 +118,7 @@ import Section from "./Section.astro";
 
           <!-- Card 4 -->
           <div
+            id="about-card-4"
             class="group bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 hover:bg-white/15 transition-all duration-300 hover:scale-105 hover:shadow-xl"
           >
             <div class="flex flex-col items-center text-center space-y-4">
@@ -138,3 +145,42 @@ import Section from "./Section.astro";
     </div>
   </div>
 </Section>
+
+<script>
+  // // Register GSAP plugins
+  // gsap.registerPlugin(Flip, ScrollTrigger, ScrollSmoother);
+
+  // const smoothWrapper = document.getElementById("smooth-wrapper-about-section");
+  // const aboutCard1 = document.getElementById("about-card-1");
+  // const aboutCard2 = document.getElementById("about-card-2");
+  // const aboutCard3 = document.getElementById("about-card-3");
+  // const aboutCard4 = document.getElementById("about-card-4");
+
+  // const timeline = gsap.timeline({ paused: true });
+
+  // timeline.fromTo(
+  //   aboutCard1,
+  //   {
+  //     scale: 0,
+  //     duration: 0,
+  //     ease: "power2.inOut",
+  //   },
+  //   {
+  //     scale: 1,
+  //     duration: 1,
+  //     ease: "power2.inOut",
+  //   },
+  //   0
+  // );
+
+  // ScrollTrigger.create({
+  //   trigger: smoothWrapper,
+  //   start: "top 50%",
+  //   end: "0% 0%",
+  //   pinType: "fixed",
+  //   pin: true,
+  //   pinSpacing: true,
+  //   scrub: 1,
+  //   animation: timeline,
+  // });
+</script>

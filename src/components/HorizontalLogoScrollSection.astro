@@ -17,26 +17,81 @@ const {
 
 // Company logos data
 const logos = [
-  { name: "TechCorp", color: "text-primary-900" },
-  { name: "InnovateLab", color: "text-secondary-900" },
-  { name: "StartupX", color: "text-primary-900" },
-  { name: "FutureWorks", color: "text-secondary-900" },
-  { name: "NextGen", color: "text-primary-900" },
-  { name: "DigitalFirst", color: "text-secondary-900" },
-  { name: "CloudTech", color: "text-primary-900" },
-  { name: "DataFlow", color: "text-secondary-900" },
-  { name: "WebFlow", color: "text-primary-900" },
-  { name: "DevOps Pro", color: "text-secondary-900" },
+  {
+    name: "Albron",
+    src: "/companies/logos/632888c978b1027abb964305_albron-logo.png",
+    alt: "Albron logo",
+  },
+  {
+    name: "Albert Heijn",
+    src: "/companies/logos/Albert_Heijn_Logo.svg",
+    alt: "Albert Heijn logo",
+  },
+  {
+    name: "BDO",
+    src: "/companies/logos/BDO_Deutsche_Warentreuhand_Logo.svg.png",
+    alt: "BDO Deutsche Warentreuhand logo",
+  },
+  {
+    name: "Flynth",
+    src: "/companies/logos/Flynth_logo_f.svg",
+    alt: "Flynth logo",
+  },
+  {
+    name: "Huijbregts",
+    src: "/companies/logos/Huijbregts_logo-e1634108589203-1024x1008.jpg",
+    alt: "Huijbregts logo",
+  },
+  {
+    name: "Embora",
+    src: "/companies/logos/Logo-Embora.png",
+    alt: "Embora logo",
+  },
+  {
+    name: "Croonwolters",
+    src: "/companies/logos/croonwolter-dros.png",
+    alt: "Croonwolters logo",
+  },
+  {
+    name: "Rabobank",
+    src: "/companies/logos/Rabobank_text_logo.svg",
+    alt: "Rabobank logo",
+  },
+  {
+    name: "SoLow",
+    src: "/companies/logos/SoLow-logo.png",
+    alt: "SoLow logo",
+  },
+  {
+    name: "VHG",
+    src: "/companies/logos/VHG_cl83MTB4MzAwX2RfMV9qcGdfL19hc3NldC9fcHJpdmF0ZS9mYWNlcy8zNjMx_e8b1ecb8.jpg",
+    alt: "VHG logo",
+  },
+  {
+    name: "Zeeman",
+    src: "/companies/logos/Zeeman_logo.svg.png",
+    alt: "Zeeman logo",
+  },
+  {
+    name: "AAE BV",
+    src: "/companies/logos/aae-bv.svg",
+    alt: "AAE BV logo",
+  },
+  {
+    name: "Aethon",
+    src: "/companies/logos/aethon.png",
+    alt: "Aethon logo",
+  },
 ];
 ---
 
 <Section
   sectionClassName={backgroundColor}
-  className={`w-full overflow-hidden relative !px-0 z-30 py-4 md:py-6 lg:py-8 ${className}`}
+  className={`w-full overflow-hidden relative !px-0 z-30  ${className}`}
   maxWidth="max-w-none "
 >
   <div
-    class="horizontal-logo-scroll-container h-16 md:h-20 lg:h-24 flex items-center"
+    class="horizontal-logo-scroll-container h-16 md:h-20 lg:h-32 flex items-center"
   >
     <div
       class="horizontal-logo-track flex items-center gap-6 md:gap-8 lg:gap-12 h-full whitespace-nowrap"
@@ -46,12 +101,13 @@ const logos = [
       <!-- First set of logos -->
       {
         logos.map((logo) => (
-          <div class="logo-item flex items-center justify-center h-12 md:h-14 lg:h-16 w-32 md:w-36 lg:w-44 bg-white rounded-lg md:rounded-xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl flex-shrink-0">
-            <span
-              class={`${logo.color} font-bold text-sm md:text-base lg:text-lg font-anton`}
-            >
-              {logo.name}
-            </span>
+          <div class="logo-item flex items-center justify-center h-12 md:h-14 lg:h-24  bg-white rounded-lg md:rounded-xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl flex-shrink-0 p-2 md:p-3">
+            <img
+              src={logo.src}
+              alt={logo.alt}
+              class="max-h-full max-w-full object-cover"
+              loading="lazy"
+            />
           </div>
         ))
       }
@@ -59,12 +115,13 @@ const logos = [
       <!-- Duplicate set for seamless loop -->
       {
         logos.map((logo) => (
-          <div class="logo-item flex items-center justify-center h-12 md:h-14 lg:h-16 w-32 md:w-36 lg:w-44 bg-white rounded-lg md:rounded-xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl flex-shrink-0">
-            <span
-              class={`${logo.color} font-bold text-sm md:text-base lg:text-lg font-anton`}
-            >
-              {logo.name}
-            </span>
+          <div class="logo-item flex items-center justify-center h-12 md:h-14 lg:h-24  bg-white rounded-lg md:rounded-xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl flex-shrink-0 p-2 md:p-3">
+            <img
+              src={logo.src}
+              alt={logo.alt}
+              class="max-h-full max-w-full object-cover"
+              loading="lazy"
+            />
           </div>
         ))
       }
@@ -72,12 +129,13 @@ const logos = [
       <!-- Third set for extra smoothness -->
       {
         logos.map((logo) => (
-          <div class="logo-item flex items-center justify-center h-12 md:h-14 lg:h-16 w-32 md:w-36 lg:w-44 bg-white rounded-lg md:rounded-xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl flex-shrink-0">
-            <span
-              class={`${logo.color} font-bold text-sm md:text-base lg:text-lg font-anton`}
-            >
-              {logo.name}
-            </span>
+          <div class="logo-item flex items-center justify-center h-12 md:h-14 lg:h-24 bg-white rounded-lg md:rounded-xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl flex-shrink-0 p-2 md:p-3">
+            <img
+              src={logo.src}
+              alt={logo.alt}
+              class="max-h-full max-w-full object-cover"
+              loading="lazy"
+            />
           </div>
         ))
       }
