@@ -8,6 +8,7 @@ interface TeamMember {
   description: string;
   image: string;
   expertise: string[];
+  linkedinUrl?: string;
 }
 
 interface CompanyValue {
@@ -19,30 +20,105 @@ interface CompanyValue {
 
 // Team members data
 const teamMembers: TeamMember[] = [
+
   {
-    id: "founder-ceo",
-    name: "Sarah van der Berg",
-    role: "Founder & CEO",
-    description: "Gen Z expert met 8+ jaar ervaring in recruitment en employer branding. Gepassioneerd over het verbinden van jong talent met innovatieve bedrijven.",
-    image: "/svg/Team-work-amico.svg",
-    expertise: ["Gen Z Recruitment", "Employer Branding", "Content Strategy"]
+    expertise: ["Content Strategy", "Social Media", "Video Production"],
+    "name": "Caro van Dijk",
+    "role": "Content Creator",
+    "linkedinUrl": "https://www.linkedin.com/in/caro-van-dijk/",
+    "image": "https://imagedelivery.net/E7Eayshix4aN786AJOti1g/cdabfc63-8f28-4226-8537-a0da93309800/public",
+    "imageAlt": "Caro van Dijk"
   },
   {
-    id: "creative-director",
-    name: "Mike Janssen",
-    role: "Creative Director",
-    description: "Visuele storyteller die complexe vacatures omzet naar aantrekkelijke, begrijpelijke content die Gen Z aanspreekt en inspireert.",
-    image: "/svg/Team-goals-amico.svg",
-    expertise: ["Visual Design", "Content Creation", "Brand Strategy"]
+    expertise: ["Content Strategy", "Social Media", "Video Production"],
+    "name": "Mike Overeem",
+    "role": "Customer Succes Held",
+    "linkedinUrl": "https://www.linkedin.com/in/mike-overeem-2405a5256/",
+    "image": "https://imagedelivery.net/E7Eayshix4aN786AJOti1g/a2513c87-46b9-4734-08ff-d96420bfc100/public",
+    "imageAlt": "Mike Overeem"
   },
   {
-    id: "tech-lead",
-    name: "Emma Rodriguez",
-    role: "Tech Lead",
-    description: "Full-stack developer die zorgt voor een naadloze gebruikerservaring op ons platform, met focus op performance en toegankelijkheid.",
-    image: "/svg/Team-page-amico.svg",
-    expertise: ["Platform Development", "UX/UI", "Data Analytics"]
+    expertise: ["Content Strategy", "Social Media", "Video Production"],
+    "name": "Kevin van Houten",
+    "role": "Sales & Partners",
+    "linkedinUrl": "https://www.linkedin.com/in/kevinvanhouten/",
+    "image": "https://imagedelivery.net/E7Eayshix4aN786AJOti1g/63298920-a263-4eb3-b675-653dde38fa00/public",
+    "imageAlt": "Kevin van Houten"
+  },
+  {
+        expertise: ["Content Strategy", "Social Media", "Video Production"],
+
+    "name": "Rowan van Winden",
+    "role": "Frontend Developer",
+    "linkedinUrl": "https://www.linkedin.com/in/rowan-van-winden-a9b127290/",
+    "image": "https://imagedelivery.net/E7Eayshix4aN786AJOti1g/f8d576fc-9bbc-42cb-0d76-6e901f53d900/public",
+    "imageAlt": "Rowan van Winden"
+  },
+  {
+        expertise: ["Content Strategy", "Social Media", "Video Production"],
+
+    "name": "Pieter den Toom",
+    "role": "Backend Developer",
+    "linkedinUrl": "https://www.linkedin.com/in/pieter-den-toom/",
+    "image": "https://imagedelivery.net/E7Eayshix4aN786AJOti1g/80a63a73-4008-4e1f-148b-a0fb61728f00/public",
+    "imageAlt": "Pieter den Toom"
+  },
+  {
+        expertise: ["Content Strategy", "Social Media", "Video Production"],
+
+    "name": "Mitch Gielen",
+    "role": "Creative Director",
+    "linkedinUrl": "https://www.linkedin.com/in/mitch-gielen-82326514",
+    "image": "https://imagedelivery.net/E7Eayshix4aN786AJOti1g/846fb2ad-1d42-4ffb-ad7c-5aa698ac1800/public",
+    "imageAlt": "Mitch Gielen"
+  },
+  {
+        expertise: ["Content Strategy", "Social Media", "Video Production"],
+
+    "name": "Floor van Bergen",
+    "role": "Creator",
+    "linkedinUrl": "https://www.linkedin.com/in/floor-van-bergen-27199b147",
+    "image": "https://imagedelivery.net/E7Eayshix4aN786AJOti1g/6903d35b-dee2-4221-8705-95d363102e00/public",
+    "imageAlt": "Floor van Bergen"
+  },
+  {
+        expertise: ["Content Strategy", "Social Media", "Video Production"],
+
+    "name": "Koen van Ham",
+    "role": "Sales Support",
+    "linkedinUrl": "https://www.linkedin.com/in/koen-van-ham/",
+    "image": "https://imagedelivery.net/E7Eayshix4aN786AJOti1g/aaef0f95-38a3-42a1-d129-3d2d2eeaba00/public",
+    "imageAlt": "Koen van Ham"
+  },
+  {
+        expertise: ["Content Strategy", "Social Media", "Video Production"],
+
+    "name": "Jisca Mannessen",
+    "role": "Accountmanager",
+    "linkedinUrl": "https://www.linkedin.com/in/jisca-mannessen-406763a7",
+    "image": "https://imagedelivery.net/E7Eayshix4aN786AJOti1g/18657cf3-1d1b-435d-3c0d-5e045f727a00/public",
+    "imageAlt": "Jisca Mannessen"
+  },
+  {
+        expertise: ["Content Strategy", "Social Media", "Video Production"],
+
+    "name": "Lotte Moerkens",
+    "role": "Creator",
+    "linkedinUrl": "https://www.linkedin.com/in/lotte-moerkens-585725338",
+    "image": "https://imagedelivery.net/E7Eayshix4aN786AJOti1g/bc61e144-253c-4393-c18e-8828377d2100/public",
+    "imageAlt": "Lotte Moerkens"
+  },
+  {
+
+        expertise: ["Content Strategy", "Social Media", "Video Production"],
+
+    "name": "Chris de Romph",
+    "role": "Recruitment Marketeer",
+    "linkedinUrl": "https://www.linkedin.com/in/chrisderomph",
+    "image": "https://imagedelivery.net/E7Eayshix4aN786AJOti1g/73055737-557a-4713-f198-9937940c1900/public",
+    "imageAlt": "Chris de Romph"
   }
+
 ];
 
 // Company values data
@@ -78,7 +154,7 @@ import Section from "../Section.astro";
 
   <!-- Background Pattern -->
   <img
-    class="absolute h-[200svh] w-[200svh] opacity-40 z-10"
+    class="absolute h-[200svh] w-[200svh] opacity-15 z-10"
     src="/svg/particle/thunder.svg"
     alt="Team spirit illustration"
     loading="lazy"
@@ -232,32 +308,32 @@ import Section from "../Section.astro";
       </div>
 
       <!-- Team Members Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
         {teamMembers.map((member, index) => (
           <article
-            class="team-card bg-primary-900 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 group"
-            data-team-card
+            class=" bg-primary-900 rounded-2xl text-center shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 group p-4 px-4"
+            data-team-card t
             data-index={index}
           >
             <!-- Member Image -->
-            <div class="relative h-48 overflow-hidden">
+            <div class="relative h-24 w-24 mx-auto bg-white rounded-full overflow-hidden">
               <img
                 src={member.image}
                 alt={member.name}
-                class="w-full h-full object-contain transition-transform duration-500 group-hover:scale-110"
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 loading="lazy"
               />
               <div class="absolute inset-0 bg-gradient-to-t from-primary-800/60 via-transparent to-transparent"></div>
             </div>
 
             <!-- Member Content -->
-            <div class="p-6">
+            <div >
               <!-- Member Name & Role -->
-              <div class="mb-3">
+              <div >
                 <h3 class="text-xl font-bold text-white mb-1 group-hover:text-secondary-300 transition-colors duration-300">
                   {member.name}
                 </h3>
-                <p class="text-primary-300 font-semibold text-sm">
+                <p class="text-secondary-900 font-bold text-sm">
                   {member.role}
                 </p>
               </div>
@@ -267,14 +343,7 @@ import Section from "../Section.astro";
                 {member.description}
               </p>
 
-              <!-- Member Expertise -->
-              <div class="flex flex-wrap gap-2">
-                {member.expertise.map((skill) => (
-                  <span class="inline-block px-2 py-1 bg-primary-600 text-white text-xs font-medium rounded-full">
-                    {skill}
-                  </span>
-                ))}
-              </div>
+             
             </div>
           </article>
         ))}
@@ -330,84 +399,3 @@ import Section from "../Section.astro";
   </div>
 </Section>
 
-<style>
-  /* Enhanced focus states for accessibility */
-  .value-card:focus-within,
-  .team-card:focus-within {
-    outline: 2px solid #412683;
-    outline-offset: 2px;
-  }
-
-  /* Smooth transitions for all interactive elements */
-  .value-card a:focus,
-  .team-card a:focus {
-    outline: 2px solid #412683;
-    outline-offset: 2px;
-    border-radius: 4px;
-  }
-
-  /* Ensure consistent card heights */
-  .value-card {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .team-card {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-  }
-
-  /* Responsive image handling */
-  @media (max-width: 768px) {
-    .team-card .relative {
-      height: 200px;
-    }
-  }
-
-  /* Animation for value cards */
-  .value-card {
-    animation: fadeInUp 0.6s ease-out forwards;
-    opacity: 0;
-    transform: translateY(20px);
-  }
-
-  .value-card:nth-child(1) { animation-delay: 0.1s; }
-  .value-card:nth-child(2) { animation-delay: 0.2s; }
-  .value-card:nth-child(3) { animation-delay: 0.3s; }
-  .value-card:nth-child(4) { animation-delay: 0.4s; }
-
-  /* Animation for team cards */
-  .team-card {
-    animation: fadeInUp 0.6s ease-out forwards;
-    opacity: 0;
-    transform: translateY(20px);
-  }
-
-  .team-card:nth-child(1) { animation-delay: 0.2s; }
-  .team-card:nth-child(2) { animation-delay: 0.4s; }
-  .team-card:nth-child(3) { animation-delay: 0.6s; }
-
-  @keyframes fadeInUp {
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  /* Reduce motion for accessibility */
-  @media (prefers-reduced-motion: reduce) {
-    .value-card,
-    .team-card {
-      animation: none;
-      opacity: 1;
-      transform: none;
-    }
-
-    .value-card:hover,
-    .team-card:hover {
-      transform: none;
-    }
-  }
-</style>
