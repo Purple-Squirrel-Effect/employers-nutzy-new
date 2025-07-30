@@ -67,16 +67,16 @@ const currentPath = Astro.url.pathname;
     </div>
 
     <!-- Navigation Links -->
-    <div class="ml-auto flex items-center space-x-6">
+    <div class="ml-auto flex items-center space-x-2">
       {
         mainNavigationLinks.map((link) => {
           const isActive = isActiveLink(link.href, currentPath);
           return (
             <a
               href={link.href}
-              class={`text-sm font-medium transition-colors duration-200 hover:text-secondary-200 ${
+              class={`text-sm font-medium transition-colors px-2 duration-200 hover:text-secondary-900 ${
                 isActive
-                  ? "text-secondary-200 border-b-2 border-secondary-200 pb-1"
+                  ? "text-primary-900 rounded-md  bg-secondary-200  "
                   : "text-gray-700"
               }`}
               target={link.external ? "_blank" : undefined}
