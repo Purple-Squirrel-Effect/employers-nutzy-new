@@ -83,7 +83,7 @@ const {
           >
             <div class="text-center text-white p-6">
               <div
-                class="w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4"
+                class="w-16 h-16 bg-white bg-opacity-5 rounded-full flex items-center justify-center mx-auto mb-4"
               >
                 <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M8 5v14l11-7z"></path>
@@ -173,7 +173,7 @@ const {
     .iphone-screen-container video {
       animation: none !important;
     }
-    
+
     [data-video-overlay] {
       transition: none !important;
     }
@@ -185,13 +185,17 @@ const {
     const videos = document.querySelectorAll(
       "[data-product-video]"
     ) as NodeListOf<HTMLVideoElement>;
-    
+
     videos.forEach((video) => {
       const videoOverlay = video
         .closest("[data-video-container]")
         ?.querySelector("[data-video-overlay]") as HTMLElement;
-      const playIcon = videoOverlay?.querySelector("[data-play-icon]") as HTMLElement;
-      const pauseIcon = videoOverlay?.querySelector("[data-pause-icon]") as HTMLElement;
+      const playIcon = videoOverlay?.querySelector(
+        "[data-play-icon]"
+      ) as HTMLElement;
+      const pauseIcon = videoOverlay?.querySelector(
+        "[data-pause-icon]"
+      ) as HTMLElement;
 
       if (!videoOverlay || !playIcon || !pauseIcon) return;
 

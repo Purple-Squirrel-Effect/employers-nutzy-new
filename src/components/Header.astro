@@ -8,10 +8,12 @@ import { mainNavigationLinks, isActiveLink } from "../config/navigation";
 const currentPath = Astro.url.pathname;
 ---
 
-<header class="fixed top-0 bg-white/50 z-[80] w-screen bg-blur">
+<header
+  class="fixed px-4 md:px-8 lg:px-32 z-[60] backdrop-blur-md bg-primary-500/40 w-full text-white"
+>
   <!-- Desktop Navigation -->
   <nav
-    class="lg:flex mr-4 p-4 hidden items-center"
+    class="lg:flex mr-4 p-2 hidden items-center"
     aria-label="Main navigation"
   >
     <!-- Logo -->

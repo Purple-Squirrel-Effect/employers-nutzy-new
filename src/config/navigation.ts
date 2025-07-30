@@ -22,40 +22,40 @@ export interface SocialLink {
 
 // Main navigation links for header
 export const mainNavigationLinks: NavigationLink[] = [
-  { 
-    label: "Home", 
+  {
+    label: "Home",
     href: "/",
-    description: "Terug naar de homepage"
+    description: "Terug naar de homepage",
   },
-  { 
-    label: "Platform", 
+  {
+    label: "Platform",
     href: "/platform",
-    description: "Ontdek ons Gen-Z recruitment platform"
+    description: "Ontdek ons Gen-Z recruitment platform",
   },
-  { 
-    label: "Content & Campagnes", 
+  {
+    label: "Content & Campagnes",
     href: "/campain-strategy",
-    description: "Strategische content en campagne services"
+    description: "Strategische content en campagne services",
   },
-  { 
-    label: "Blog", 
+  {
+    label: "Blog",
     href: "/blog",
-    description: "Kennis en inzichten over Gen-Z recruitment"
+    description: "Kennis en inzichten over Gen-Z recruitment",
   },
-  { 
-    label: "Events", 
-    href: "/events",
-    description: "Aankomende events en workshops"
-  },
-  { 
-    label: "Over ons", 
+  // {
+  //   label: "Events",
+  //   href: "/events",
+  //   description: "Aankomende events en workshops"
+  // },
+  {
+    label: "Over ons",
     href: "/about",
-    description: "Meer over het Nutzy team"
+    description: "Meer over het Nutzy team",
   },
-  { 
-    label: "Contact", 
+  {
+    label: "Contact",
     href: "/contact",
-    description: "Neem contact met ons op"
+    description: "Neem contact met ons op",
   },
 ];
 
@@ -134,12 +134,10 @@ export function isActiveLink(href: string, currentPath: string): boolean {
 
 // Utility function to get breadcrumb navigation
 export function getBreadcrumbs(currentPath: string): NavigationLink[] {
-  const breadcrumbs: NavigationLink[] = [
-    { label: "Home", href: "/" }
-  ];
+  const breadcrumbs: NavigationLink[] = [{ label: "Home", href: "/" }];
 
   // Find matching navigation link
-  const currentLink = mainNavigationLinks.find(link => 
+  const currentLink = mainNavigationLinks.find((link) =>
     isActiveLink(link.href, currentPath)
   );
 
@@ -153,7 +151,8 @@ export function getBreadcrumbs(currentPath: string): NavigationLink[] {
 // Company information
 export const companyInfo = {
   name: "Nutzy",
-  description: "Gen-Z Recruitment Platform voor visuele vacatures en creator partnerships",
+  description:
+    "Gen-Z Recruitment Platform voor visuele vacatures en creator partnerships",
   email: "hello@nutzy.nl",
   phone: "+31 (0)20 123 4567",
   address: "Amsterdam, Nederland",

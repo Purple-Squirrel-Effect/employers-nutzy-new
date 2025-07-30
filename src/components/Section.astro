@@ -3,17 +3,21 @@ export interface Props {
   className?: string;
   maxWidth?: string;
   sectionClassName?: string;
+  id?: string;
+  wrapperId?: string;
 }
 
 const {
+  id,
+  wrapperId,
   className = "",
   maxWidth = "max-w-7xl mx-auto  ",
   sectionClassName = "bg-primary-500",
 } = Astro.props;
 ---
 
-<section class={`${sectionClassName}   px-6 relative !overflow-hidden`}>
-  <div class={`${maxWidth} ${className}`}>
+<section {id} class={`${sectionClassName}   px-6 relative `}>
+  <div id={wrapperId} class={`${maxWidth} ${className}`}>
     <slot />
   </div>
 </section>

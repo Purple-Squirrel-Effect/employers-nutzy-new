@@ -2,6 +2,7 @@
 export interface Props {
   name: string;
   description: string;
+  id?: string;
   avatarSrc?: string;
   avatarAlt?: string;
   className?: string;
@@ -10,13 +11,17 @@ export interface Props {
 const {
   name,
   description,
+  id,
   avatarSrc = "/img/placeholder-avatar.svg",
   avatarAlt = "Character avatar",
   className = "",
 } = Astro.props;
 ---
 
-<div class={` bg-white rounded-2xl shadow-lg overflow-hidden ${className}`}>
+<div
+  {id}
+  class={` bg-white rounded-2xl shadow-lg overflow-hidden ${className}`}
+>
   <!-- Avatar Section -->
   <div class="flex justify-center pt-6 pb-4">
     <div

@@ -4,8 +4,9 @@ import Section from "../Section.astro";
 ---
 
 <Section
-  sectionClassName="bg-secondary-900"
-  className="pb-32 relative py-16 gap-8 items-center justify-center grid grid-cols-1 lg:grid-cols-2"
+  wrapperId="content-campaign-section"
+  sectionClassName="bg-secondary-900 overflow-hidden "
+  className="relative min-h-screen  gap-8 items-center justify-center grid grid-cols-1 lg:grid-cols-2 z-50"
   maxWidth="max-w-7xl mx-auto"
 >
   <div class="text-center lg:text-left">
@@ -23,30 +24,78 @@ import Section from "../Section.astro";
     </p>
   </div>
   <div
-    class="w-full h-64 px-8 pt-48 relative z-50 flex justify-center items-center lg:pl-12"
+    id="character-cards"
+    class="w-full h-64 px-8 p relative z-50 flex justify-center items-center lg:pl-12"
   >
     <CharacterCard
-      className="  lg:rotate-6 lg:translate-x-32 lg:absolute border z-20 -translate-2 h-96 -rotate-3 h- w-64  absolute "
-      name="Content Creator"
+      id="floor-van-bergen"
+      className=" lg:absolute -translate-2 h-80 w-64 absolute"
+      name="Floor van Bergen"
       description="Een content creator die je content maakt en publiceert op de juiste platformen."
-      avatarSrc="/img/avatars/maya-rodriguez.jpg"
+      avatarSrc="https://imagedelivery.net/E7Eayshix4aN786AJOti1g/6903d35b-dee2-4221-8705-95d363102e00/public"
       avatarAlt="Maya Rodriguez - Content Creator"
     />
     <CharacterCard
-      className="   lg:-rotate-6 lg:-translate-x-32 lg:absolute border z-10 -translate-4 -rotate-6 h-96 w-64  absolute "
-      name="Content Creator"
+      id="lotte-moerkens"
+      className=" -translate-4 h-80 w-64 absolute"
+      name="Lotte Moerkens"
       description="Een content creator die je content maakt en publiceert op de juiste platformen."
-      avatarSrc="/img/avatars/maya-rodriguez.jpg"
+      avatarSrc="https://imagedelivery.net/E7Eayshix4aN786AJOti1g/bc61e144-253c-4393-c18e-8828377d2100/public"
       avatarAlt="Emma - Content Creator"
-    />
-    <CharacterCard
-      className="relative  border lg:min-w-50 h-96 w-64  z-40 "
-      name="Content Creator"
-      description="Een content creator die je content maakt en publiceert op de juiste platformen."
-      avatarSrc="/img/avatars/maya-rodriguez.jpg"
-      avatarAlt="Lotte - Content Creator"
     />
   </div>
 </Section>
 
-<script></script>
+<script>
+  import { gsap } from "gsap";
+  import { Flip } from "gsap/Flip";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(Flip);
+
+  const floorVanBergen = document.getElementById("floor-van-bergen");
+  const lotteMoerkens = document.getElementById("lotte-moerkens");
+  const characterCards = document.getElementById("content-campaign-section");
+
+  const isMobile = window.innerWidth < 768;
+
+  const timeline = gsap.timeline({ paused: true });
+
+  timeline.fromTo(
+    lotteMoerkens,
+    { x: "0%", duration: 1, scale: 1, rotate: 0, zIndex: 2 },
+    { x: "-100%", duration: 1, scale: 0.8, zIndex: 2 },
+    0
+  );
+
+  timeline.fromTo(
+    floorVanBergen,
+    { x: "0%", duration: 1, scale: 0.8, zIndex: 1 },
+    { x: "0", duration: 1, scale: 1, zIndex: 1 },
+    0
+  );
+
+  timeline.fromTo(
+    lotteMoerkens,
+    { x: "-100%", duration: 1, scale: 0.8, zIndex: 1 },
+    { x: "-0%", duration: 1, scale: 0.8, zIndex: 1 },
+    1
+  );
+
+  timeline.fromTo(
+    floorVanBergen,
+    { x: "0", duration: 1, scale: 1, zIndex: 2 },
+    { x: "0", duration: 1, scale: 1, zIndex: 2 },
+    1
+  );
+
+  ScrollTrigger.create({
+    trigger: characterCards,
+    start: "top 5%",
+    end: "bottom +=10px",
+    pinType: "fixed",
+    pin: true,
+    scrub: 1,
+    animation: timeline,
+  });
+</script>
