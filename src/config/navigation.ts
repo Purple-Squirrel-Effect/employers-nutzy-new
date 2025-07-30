@@ -95,27 +95,21 @@ export const footerNavigationSections: NavigationSection[] = [
 export const socialLinks: SocialLink[] = [
   {
     name: "LinkedIn",
-    href: "https://linkedin.com/company/nutzy",
+    href: "https://www.linkedin.com/company/purple-squirrel-effect/posts/?feedView=all",
     icon: "linkedin",
     ariaLabel: "Volg Nutzy op LinkedIn",
   },
   {
     name: "Instagram",
-    href: "https://instagram.com/nutzy_nl",
+    href: "https://www.instagram.com/go.nutzy/",
     icon: "instagram",
     ariaLabel: "Volg Nutzy op Instagram",
   },
   {
     name: "TikTok",
-    href: "https://tiktok.com/@nutzy_nl",
+    href: "https://www.tiktok.com/@gonutzy",
     icon: "tiktok",
     ariaLabel: "Volg Nutzy op TikTok",
-  },
-  {
-    name: "Twitter",
-    href: "https://twitter.com/nutzy_nl",
-    icon: "twitter",
-    ariaLabel: "Volg Nutzy op Twitter",
   },
 ];
 
@@ -153,9 +147,9 @@ export const companyInfo = {
   name: "Nutzy",
   description:
     "Gen-Z Recruitment Platform voor visuele vacatures en creator partnerships",
-  email: "hello@nutzy.nl",
-  phone: "+31 (0)20 123 4567",
-  address: "Amsterdam, Nederland",
+  email: "mitch@nutzy.nl",
+  phone: "+31 (0) 85 782 1400",
+  address: "Gasfabriek 10, 5613 CP Eindhoven",
   kvk: "12345678",
   btw: "NL123456789B01",
 };
