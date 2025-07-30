@@ -2,95 +2,11 @@
 // Footer component with comprehensive sitemap and company information
 // Follows the existing design system patterns and responsive design principles
 
-interface NavigationLink {
-  label: string;
-  href: string;
-  external?: boolean;
-}
-
-interface NavigationSection {
-  title: string;
-  links: NavigationLink[];
-}
-
-interface SocialLink {
-  name: string;
-  href: string;
-  icon: string;
-  ariaLabel: string;
-}
-
-// Navigation sections organized logically - only actual existing sections
-const navigationSections: NavigationSection[] = [
-  {
-    title: "Platform",
-    links: [
-      { label: "Home", href: "/" },
-      { label: "Platform", href: "/platform" },
-    ],
-  },
-  {
-    title: "Services",
-    links: [
-      { label: "Content Creatie & Campagnes", href: "/campain-strategy" },
-      { label: "Strategische Planning", href: "/campain-strategy#strategy" },
-    ],
-  },
-  {
-    title: "Kennis & Support",
-    links: [
-      { label: "Kennis delen", href: "/blog" },
-      { label: "Events", href: "/events" },
-    ],
-  },
-  {
-    title: "Bedrijf",
-    links: [
-      { label: "Over ons", href: "/about" },
-      { label: "Contact", href: "/contact" },
-    ],
-  },
-];
-
-// Social media links
-const socialLinks: SocialLink[] = [
-  {
-    name: "LinkedIn",
-    href: "https://linkedin.com/company/nutzy",
-    icon: "linkedin",
-    ariaLabel: "Volg Nutzy op LinkedIn",
-  },
-  {
-    name: "Instagram",
-    href: "https://instagram.com/nutzy_nl",
-    icon: "instagram",
-    ariaLabel: "Volg Nutzy op Instagram",
-  },
-  {
-    name: "TikTok",
-    href: "https://tiktok.com/@nutzy_nl",
-    icon: "tiktok",
-    ariaLabel: "Volg Nutzy op TikTok",
-  },
-  {
-    name: "Twitter",
-    href: "https://twitter.com/nutzy_nl",
-    icon: "twitter",
-    ariaLabel: "Volg Nutzy op Twitter",
-  },
-];
-
-// Company information
-const companyInfo = {
-  name: "Nutzy",
-  description:
-    "Gen-Z Recruitment Platform voor visuele vacatures en creator partnerships",
-  email: "hello@nutzy.nl",
-  phone: "+31 (0)20 123 4567",
-  address: "Amsterdam, Nederland",
-  kvk: "12345678",
-  btw: "NL123456789B01",
-};
+import {
+  companyInfo,
+  footerNavigationSections,
+  socialLinks,
+} from "../config/navigation";
 
 // Get current year for copyright
 const currentYear = new Date().getFullYear();
@@ -271,7 +187,7 @@ const currentYear = new Date().getFullYear();
 
       <!-- Navigation Sections -->
       {
-        navigationSections.map((section) => (
+        footerNavigationSections.map((section) => (
           <nav
             class="space-y-4"
             aria-labelledby={`footer-${section.title.toLowerCase().replace(/\s+/g, "-")}-heading`}

@@ -6,9 +6,13 @@ import Section from "./Section.astro";
   sectionClassName="bg-secondary-900 relative z-10 shadow-2xl"
   className="z-10 relative flex py-16 gap-16 justify-center items-center"
 >
-  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 relative w-full">
+  <div
+    id="smooth-wrapper-2"
+    class="grid grid-cols-1 lg:grid-cols-2 gap-8 relative w-full"
+  >
     <div class="w-full order-2">
       <video
+        id="fanpage-video"
         class="h-full w-full rounded-lg"
         loop
         autoplay
@@ -24,8 +28,9 @@ import Section from "./Section.astro";
         />
       </video>
     </div>
-    <div class="relative order-1 w-full">
+    <div id="fanpage-text" class="relative order-1 w-full">
       <img
+        id="fanpage-illustration"
         class="absolute opacity-10 z-0"
         src="svg/Web-devices-cuate.svg"
         alt="Web devices illustration"
@@ -44,3 +49,94 @@ import Section from "./Section.astro";
     </div>
   </div>
 </Section>
+
+<script>
+  import { gsap } from "gsap";
+  import { Flip } from "gsap/Flip";
+  import { ScrollSmoother } from "gsap/ScrollSmoother";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  // Register GSAP plugins
+  gsap.registerPlugin(Flip, ScrollTrigger, ScrollSmoother);
+
+  const smoothWrapper = document.getElementById("smooth-wrapper-2");
+  console.log("smoothWrapper", smoothWrapper);
+
+  const timeline = gsap.timeline({ paused: true });
+  const fanpageVideo = document.getElementById("fanpage-video");
+  const fanpageText = document.getElementById("fanpage-text");
+
+  timeline.fromTo(
+    fanpageVideo,
+    {
+      x: "100%",
+      duration: 1,
+      opacity: 0,
+      ease: "power2.inOut",
+    },
+    {
+      x: "0%",
+      duration: 1,
+      opacity: 1,
+      ease: "power2.inOut",
+    },
+    0
+  );
+
+  timeline.fromTo(
+    fanpageText,
+    {
+      x: "-100%",
+      duration: 1,
+      opacity: 0,
+      ease: "power2.inOut",
+    },
+    {
+      x: "0%",
+      duration: 1,
+      opacity: 1,
+      ease: "power2.inOut",
+    },
+    0
+  );
+
+  ScrollTrigger.create({
+    trigger: smoothWrapper,
+    start: "bottom bottom",
+    end: "bottom bottom",
+    pinType: "fixed",
+    pin: true,
+    pinSpacing: true,
+    scrub: 1,
+    animation: timeline,
+  });
+
+  const timeline2 = gsap.timeline({ paused: true });
+  const fanpageIllustration = document.getElementById("fanpage-illustration");
+
+  ScrollTrigger.create({
+    trigger: smoothWrapper,
+    start: "200px bottom",
+    end: "bottom bottom",
+    pinType: "fixed",
+    pin: true,
+    pinSpacing: true,
+    scrub: 3,
+    animation: timeline2,
+  });
+
+  timeline2.fromTo(
+    fanpageIllustration,
+    {
+      scale: 1,
+      duration: 3,
+      ease: "power2.inOut",
+    },
+    {
+      scale: 2,
+      duration: 3,
+      ease: "power2.inOut",
+    },
+    1
+  );
+</script>
