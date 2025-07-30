@@ -1,5 +1,6 @@
 ---
 // NutzyStatsSection component - Key statistics about Nutzy platform
+import Section from "./Section.astro";
 export interface Props {
   className?: string;
 }
@@ -7,19 +8,15 @@ export interface Props {
 const { className = "" } = Astro.props;
 ---
 
-<section
-  id="nutzy-stats"
-  class={`bg-primary-900 ${className}`}
-  data-nutzy-stats-section
->
-  <div class="min-h-screen bg-gradient-to-br py-20 px-4 sm:px-6 lg:px-64">
+<Section {className} sectionClassName={`bg-primary-900`}>
+  <div class="min-h-screen bg-gradient-to-br py-20">
     <img
       class="absolute opacity-20 z-0"
       src="svg/Cohort-analysis-amico.svg"
       alt="Cohort-analysis-amico"
     />
     <!-- Section Header -->
-    <div class="text-center mb-4" data-stats-header>
+    <div class="text-center mb-4 relative" data-stats-header>
       <h2 class="text-7xl font-bold text-white mb-6">
         Nutzy in een paar <br />
         <span class="text-secondary-200"> kerngetallen </span>
@@ -130,4 +127,4 @@ const { className = "" } = Astro.props;
       </div>
     </div>
   </div>
-</section>
+</Section>

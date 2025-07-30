@@ -12,7 +12,7 @@ const {
   className = "",
   scrollDirection = "left",
   scrollSpeed = 1,
-  backgroundColor = "bg-secondary-300",
+  backgroundColor = "!px-0 bg-secondary-300",
 } = Astro.props;
 
 // Company logos data
@@ -32,8 +32,8 @@ const logos = [
 
 <Section
   sectionClassName={backgroundColor}
-  className={`w-full overflow-hidden relative z-30 py-4 md:py-6 lg:py-8 ${className}`}
-  maxWidth="max-w-none"
+  className={`w-full overflow-hidden relative !px-0 z-30 py-4 md:py-6 lg:py-8 ${className}`}
+  maxWidth="max-w-none "
 >
   <div
     class="horizontal-logo-scroll-container h-16 md:h-20 lg:h-24 flex items-center"

@@ -7,12 +7,12 @@ export interface Props {
 
 const {
   className = "",
-  maxWidth = "max-w-7xl mx-auto overflow-hidden",
+  maxWidth = "max-w-7xl mx-auto  ",
   sectionClassName = "bg-primary-500",
 } = Astro.props;
 ---
 
-<section class={sectionClassName}>
+<section class={`${sectionClassName}  pt-12 px-6 relative !overflow-hidden`}>
   <div class={`${maxWidth} ${className}`}>
     <slot />
   </div>
