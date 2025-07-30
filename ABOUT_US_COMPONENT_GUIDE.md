@@ -13,24 +13,28 @@ src/components/home/AboutUsSection.astro
 ## Features
 
 ### 1. **Consistent Design System**
+
 - Uses the same color palette (`primary-*`, `secondary-*` colors)
 - Follows identical typography hierarchy and spacing patterns
 - Maintains responsive design across all screen sizes
 - Uses the same Tailwind CSS classes and utility patterns
 
 ### 2. **Content Sections**
+
 - **Company Mission**: Explains Nutzy's purpose and goals
 - **Company Values**: Four core values with icons and descriptions
 - **Team Section**: Three team member profiles with expertise areas
 - **Call to Action**: Encourages visitors to get started or view the platform
 
 ### 3. **Visual Elements**
+
 - **SVG Illustrations**: Uses Storyset.com illustrations in "amico" style
 - **Background Pattern**: Subtle team spirit illustration
 - **Interactive Cards**: Hover effects and smooth transitions
 - **Statistics Badges**: Key metrics displayed as badges
 
 ### 4. **Accessibility Features**
+
 - Proper focus states for keyboard navigation
 - Reduced motion preferences respected
 - Semantic HTML structure
@@ -43,6 +47,7 @@ src/components/home/AboutUsSection.astro
 To integrate the AboutUsSection into your existing `index.astro` page:
 
 1. **Import the component:**
+
 ```astro
 ---
 import AboutUsSection from "../components/home/AboutUsSection.astro";
@@ -51,6 +56,7 @@ import AboutUsSection from "../components/home/AboutUsSection.astro";
 ```
 
 2. **Add to the page body:**
+
 ```astro
 <App>
   <HeroSection />
@@ -71,7 +77,7 @@ A demo page has been created at `src/pages/about-demo.astro` to showcase the com
 The following SVG illustrations have been downloaded from Storyset.com and are available in the `public/svg/` directory:
 
 - `Team-work-amico.svg` - Used for team member profiles
-- `Team-goals-amico.svg` - Used for team member profiles  
+- `Team-goals-amico.svg` - Used for team member profiles
 - `Team-page-amico.svg` - Used for team member profiles
 - `Team-spirit-amico.svg` - Used as background pattern
 - `Coworking-amico.svg` - Used for mission section
@@ -103,7 +109,8 @@ interface CompanyValue {
 ### Styling Customization
 
 The component uses the same styling patterns as other sections:
-- Background: `bg-secondary-900`
+
+- Background: `bg-secondary-500`
 - Text colors: `text-white`, `text-white/90`, `text-primary-200`, `text-secondary-200`
 - Cards: `bg-primary-800` with hover effects
 - Spacing: Consistent with other sections (`py-16 md:py-24 lg:py-32`)
@@ -111,6 +118,7 @@ The component uses the same styling patterns as other sections:
 ## Responsive Design
 
 The component is fully responsive with:
+
 - **Mobile**: Single column layout, smaller text sizes
 - **Tablet**: Two-column grids for values and team
 - **Desktop**: Multi-column layouts with larger typography
@@ -138,6 +146,7 @@ To test the component:
 ## Maintenance
 
 The component follows the same maintenance patterns as other sections:
+
 - Content updates can be made by modifying the data arrays
 - Styling updates should maintain consistency with the design system
 - New team members or values can be added by extending the respective arrays

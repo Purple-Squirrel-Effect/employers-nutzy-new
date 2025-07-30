@@ -7,8 +7,8 @@
 /* Cabinet Grotesk - Modern Sans-Serif */
 @font-face {
   font-family: "Cabinet Grotesk";
-  src: url("/fonts/cabinet-grotesk/CabinetGrotesk-Variable.woff2")
-      format("woff2"),
+  src:
+    url("/fonts/cabinet-grotesk/CabinetGrotesk-Variable.woff2") format("woff2"),
     url("/fonts/cabinet-grotesk/CabinetGrotesk-Variable.woff") format("woff");
   font-weight: 100 900;
   font-display: swap;
@@ -18,7 +18,8 @@
 /* Satoshi - Geometric Sans-Serif */
 @font-face {
   font-family: "Satoshi";
-  src: url("/fonts/satoshi/Satoshi-Variable.woff2") format("woff2"),
+  src:
+    url("/fonts/satoshi/Satoshi-Variable.woff2") format("woff2"),
     url("/fonts/satoshi/Satoshi-Variable.woff") format("woff");
   font-weight: 300 900;
   font-display: swap;
@@ -27,7 +28,8 @@
 
 @font-face {
   font-family: "Satoshi";
-  src: url("/fonts/satoshi/Satoshi-VariableItalic.woff2") format("woff2"),
+  src:
+    url("/fonts/satoshi/Satoshi-VariableItalic.woff2") format("woff2"),
     url("/fonts/satoshi/Satoshi-VariableItalic.woff") format("woff");
   font-weight: 300 900;
   font-display: swap;
@@ -37,7 +39,8 @@
 /* Plein - Serif Font */
 @font-face {
   font-family: "Plein";
-  src: url("/fonts/plein/Plein-Variable.woff2") format("woff2"),
+  src:
+    url("/fonts/plein/Plein-Variable.woff2") format("woff2"),
     url("/fonts/plein/Plein-Variable.woff") format("woff");
   font-weight: 300 900;
   font-display: swap;
@@ -46,7 +49,8 @@
 
 @font-face {
   font-family: "Plein";
-  src: url("/fonts/plein/Plein-VariableItalic.woff2") format("woff2"),
+  src:
+    url("/fonts/plein/Plein-VariableItalic.woff2") format("woff2"),
     url("/fonts/plein/Plein-VariableItalic.woff") format("woff");
   font-weight: 300 900;
   font-display: swap;
@@ -56,8 +60,8 @@
 /* Bespoke Stencil - Display Font */
 @font-face {
   font-family: "Bespoke Stencil";
-  src: url("/fonts/bespoke-stencil/BespokeStencil-Variable.woff2")
-      format("woff2"),
+  src:
+    url("/fonts/bespoke-stencil/BespokeStencil-Variable.woff2") format("woff2"),
     url("/fonts/bespoke-stencil/BespokeStencil-Variable.woff") format("woff");
   font-weight: 300 900;
   font-display: swap;
@@ -66,7 +70,8 @@
 
 @font-face {
   font-family: "Bespoke Stencil";
-  src: url("/fonts/bespoke-stencil/BespokeStencil-VariableItalic.woff2")
+  src:
+    url("/fonts/bespoke-stencil/BespokeStencil-VariableItalic.woff2")
       format("woff2"),
     url("/fonts/bespoke-stencil/BespokeStencil-VariableItalic.woff")
       format("woff");
@@ -78,7 +83,8 @@
 /* Anton - Bold Display Font */
 @font-face {
   font-family: "Anton";
-  src: url("/fonts/anton/Anton-Regular.woff2") format("woff2"),
+  src:
+    url("/fonts/anton/Anton-Regular.woff2") format("woff2"),
     url("/fonts/anton/Anton-Regular.woff") format("woff");
   font-weight: 400;
   font-display: swap;
@@ -88,7 +94,8 @@
 /* Nunito - Rounded Sans-Serif */
 @font-face {
   font-family: "Nunito";
-  src: url("/fonts/nunito/Nunito-Variable.woff2") format("woff2"),
+  src:
+    url("/fonts/nunito/Nunito-Variable.woff2") format("woff2"),
     url("/fonts/nunito/Nunito-Variable.woff") format("woff");
   font-weight: 200 900;
   font-display: swap;
@@ -97,7 +104,8 @@
 
 @font-face {
   font-family: "Nunito";
-  src: url("/fonts/nunito/Nunito-VariableItalic.woff2") format("woff2"),
+  src:
+    url("/fonts/nunito/Nunito-VariableItalic.woff2") format("woff2"),
     url("/fonts/nunito/Nunito-VariableItalic.woff") format("woff");
   font-weight: 200 900;
   font-display: swap;
@@ -107,7 +115,8 @@
 /* Switzer - Modern Sans-Serif */
 @font-face {
   font-family: "Switzer";
-  src: url("/fonts/switzer/Switzer-Variable.woff2") format("woff2"),
+  src:
+    url("/fonts/switzer/Switzer-Variable.woff2") format("woff2"),
     url("/fonts/switzer/Switzer-Variable.woff") format("woff");
   font-weight: 100 900;
   font-display: swap;
@@ -116,7 +125,8 @@
 
 @font-face {
   font-family: "Switzer";
-  src: url("/fonts/switzer/Switzer-VariableItalic.woff2") format("woff2"),
+  src:
+    url("/fonts/switzer/Switzer-VariableItalic.woff2") format("woff2"),
     url("/fonts/switzer/Switzer-VariableItalic.woff") format("woff");
   font-weight: 100 900;
   font-display: swap;
@@ -126,7 +136,8 @@
 /* Tanker - Heavy Display Font */
 @font-face {
   font-family: "Tanker";
-  src: url("/fonts/tanker/Tanker-Regular.woff2") format("woff2"),
+  src:
+    url("/fonts/tanker/Tanker-Regular.woff2") format("woff2"),
     url("/fonts/tanker/Tanker-Regular.woff") format("woff");
   font-weight: 400;
   font-display: swap;
@@ -146,16 +157,44 @@
 
   /* Approved Color Palette - Only these colors should be used */
 
-  /* Primary color palette (Purple-based) - Approved colors only */
+  /* Primary color palette (Purple-based) - Complete Tailwind scale */
+  --color-primary-50: #faf5ff;
+  --color-primary-100: #f3e8ff;
   --color-primary-200: #e9d5ff;
+  --color-primary-300: #d8b4fe;
+  --color-primary-400: #c084fc;
   --color-primary-500: #a855f7;
+  --color-primary-600: #9333ea;
+  --color-primary-700: #7c3aed;
+  --color-primary-800: #6b21a8;
   --color-primary-900: #581c87;
+  --color-primary-950: #3b0764;
 
-  /* Secondary color palette (Teal-based) - Approved colors only */
+  /* Secondary color palette (Teal-based) - Complete Tailwind scale */
+  --color-secondary-50: #f0fdfa;
+  --color-secondary-100: #ccfbf1;
   --color-secondary-200: #99f6e4;
-  --color-secondary-900: #25b4b3;
+  --color-secondary-300: #5eead4;
+  --color-secondary-400: #2dd4bf;
+  --color-secondary-500: #14b8a6;
+  --color-secondary-600: #0d9488;
+  --color-secondary-700: #0f766e;
+  --color-secondary-800: #115e59;
+  --color-secondary-900: #134e4a;
+  --color-secondary-950: #042f2e;
 
-  --color-tertiary-900: #fee214ff;
+  /* Tertiary color palette (Yellow-based) - Complete Tailwind scale */
+  --color-tertiary-50: #fefce8;
+  --color-tertiary-100: #fef9c3;
+  --color-tertiary-200: #fef08a;
+  --color-tertiary-300: #fde047;
+  --color-tertiary-400: #facc15;
+  --color-tertiary-500: #eab308;
+  --color-tertiary-600: #ca8a04;
+  --color-tertiary-700: #a16207;
+  --color-tertiary-800: #854d0e;
+  --color-tertiary-900: #713f12;
+  --color-tertiary-950: #422006;
 
   /* Font family utilities for Tailwind */
   --font-cabinet-grotesk: var(--font-family-cabinet-grotesk);
@@ -224,8 +263,8 @@ button {
 }
 
 .prose-primary {
-  --tw-prose-headings: #581c87;
-  --tw-prose-links: #a855f7;
+  --tw-prose-headings: var(--color-primary-900);
+  --tw-prose-links: var(--color-primary-500);
   --tw-prose-bold: #111827;
   --tw-prose-counters: #6b7280;
   --tw-prose-bullets: #d1d5db;
@@ -283,7 +322,7 @@ button {
 }
 
 .prose a:hover {
-  color: #581c87;
+  color: var(--color-primary-900);
 }
 
 .prose strong {
@@ -309,7 +348,7 @@ button {
   color: var(--tw-prose-quotes);
   border-left-width: 0.25rem;
   border-left-color: var(--tw-prose-quote-borders);
-  quotes: "\201C""\201D""\2018""\2019";
+  quotes: "\201C" "\201D" "\2018" "\2019";
   margin-top: 1.6em;
   margin-bottom: 1.6em;
   padding-left: 1em;
@@ -440,8 +479,9 @@ button {
 @utility shadow-custom {
   --tw-shadow: 0 0.25em 0 var(--tw-shadow-color);
   --tw-shadow-colored: 0 0.25em 0 var(--tw-shadow-color);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
-    var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  box-shadow:
+    var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000),
+    var(--tw-shadow);
 }
 
 @utility text-shadow {
