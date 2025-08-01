@@ -49,7 +49,7 @@ function transformPocketBaseRecord(
         .filter(Boolean)
     : [];
 
-  // Handle author - use expanded author name if available, otherwise use the ID
+  // Handle author - use expanded author name if available, otherwise use a fallback
   let authorName = record.author;
   if (record.expand?.author) {
     // Assuming the author record has a 'name' field
@@ -57,10 +57,13 @@ function transformPocketBaseRecord(
       record.expand.author.name ||
       record.expand.author.username ||
       record.author;
+  } else {
+    // Fallback for when expand doesn't work - use a generic name
+    authorName = "Nutzy Team";
   }
 
   return {
-    title: record.title,
+    title: record.title.trim(), // Remove extra whitespace/carriage returns
     content: record.content,
     category: record.category,
     author: authorName,
