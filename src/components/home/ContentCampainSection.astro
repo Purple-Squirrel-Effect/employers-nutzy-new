@@ -6,8 +6,7 @@ import Section from "../Section.astro";
 <Section
   wrapperId="content-campaign-section"
   sectionClassName="bg-secondary-500 overflow-hidden "
-  className="relative min-h-screen  gap-8 items-center justify-center grid grid-cols-1 lg:grid-cols-2 z-50"
-  maxWidth="max-w-7xl mx-auto"
+  className="relative min-h-screen  mx-auto gap-8 items-center justify-center grid grid-cols-1 lg:grid-cols-2 z-50"
 >
   <div class="text-center lg:text-left">
     <h1
@@ -48,8 +47,8 @@ import Section from "../Section.astro";
 
 <script>
   import { gsap } from "gsap";
-  import { Flip } from "gsap/Flip";
-  import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Flip } from "gsap/Flip";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
   gsap.registerPlugin(Flip);
 
