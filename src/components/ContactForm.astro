@@ -38,8 +38,8 @@ const formFields: FormField[] = [
     required: true
   },
   {
-    id: "company",
-    name: "company",
+    id: "business",
+    name: "business",
     type: "text",
     label: "Bedrijf",
     placeholder: "Jouw bedrijfsnaam",
@@ -47,14 +47,6 @@ const formFields: FormField[] = [
     validation: {
       maxLength: 100
     }
-  },
-  {
-    id: "phone",
-    name: "phone",
-    type: "tel",
-    label: "Telefoonnummer",
-    placeholder: "+31 6 12345678",
-    required: false
   },
   {
     id: "subject",
@@ -280,4 +272,135 @@ const formFields: FormField[] = [
     </div>
   </form>
 </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('contact-form') as HTMLFormElement;
+    const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
+    const successMessage = document.getElementById('success-message') as HTMLElement;
+    const errorMessage = document.getElementById('error-message') as HTMLElement;
+
+    if (!form || !submitBtn) return;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // Hide previous messages
+      successMessage.classList.add('hidden');
+      errorMessage.classList.add('hidden');
+
+      // Show loading state
+      submitBtn.disabled = true;
+      const submitText = submitBtn.querySelector('span:first-child') as HTMLElement;
+      const loadingSpinner = submitBtn.querySelector('.loading-spinner') as HTMLElement;
+
+      if (submitText) submitText.classList.add('hidden');
+      if (loadingSpinner) loadingSpinner.classList.remove('hidden');
+
+      try {
+        // Get form data
+        const formData = new FormData(form);
+
+        // Submit to Astro action endpoint
+        const response = await fetch('/_actions/submitContactForm', {
+          method: 'POST',
+          body: formData,
+        });
+
+        const result = await response.json();
+
+        if (result.success || response.ok) {
+          // Show success message
+          successMessage.classList.remove('hidden');
+          form.reset();
+
+          // Scroll to success message
+          successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else {
+          throw new Error(result.error || 'Er is een fout opgetreden');
+        }
+      } catch (error) {
+        // Show error message
+        errorMessage.classList.remove('hidden');
+
+        // Update error message with specific error if available
+        const errorText = errorMessage.querySelector('p');
+        if (errorText && error instanceof Error) {
+          errorText.textContent = error.message;
+        }
+
+        console.error('Form submission error:', error);
+      } finally {
+        // Reset button state
+        submitBtn.disabled = false;
+        if (submitText) submitText.classList.remove('hidden');
+        if (loadingSpinner) loadingSpinner.classList.add('hidden');
+      }
+    });
+
+    // Real-time validation
+    const requiredFields = form.querySelectorAll('[required]');
+    requiredFields.forEach((field) => {
+      field.addEventListener('blur', validateField);
+      field.addEventListener('input', clearFieldError);
+    });
+
+    function validateField(e: Event) {
+      const field = e.target as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
+      const errorElement = document.getElementById(`${field.id}-error`);
+
+      if (!errorElement) return;
+
+      let errorMessage = '';
+
+      // Check if field is required and empty
+      if (field.hasAttribute('required') && !field.value.trim()) {
+        errorMessage = 'Dit veld is verplicht';
+      }
+      // Check email format
+      else if (field.type === 'email' && field.value && !isValidEmail(field.value)) {
+        errorMessage = 'Voer een geldig e-mailadres in';
+      }
+      // Check minimum length
+      else if (field.hasAttribute('minlength')) {
+        const minLength = parseInt(field.getAttribute('minlength') || '0');
+        if (field.value.length > 0 && field.value.length < minLength) {
+          errorMessage = `Minimaal ${minLength} karakters vereist`;
+        }
+      }
+      // Check maximum length
+      else if (field.hasAttribute('maxlength')) {
+        const maxLength = parseInt(field.getAttribute('maxlength') || '0');
+        if (field.value.length > maxLength) {
+          errorMessage = `Maximaal ${maxLength} karakters toegestaan`;
+        }
+      }
+
+      if (errorMessage) {
+        errorElement.textContent = errorMessage;
+        errorElement.classList.remove('hidden');
+        field.classList.add('border-red-500', 'focus:border-red-500', 'focus:ring-red-500');
+        field.classList.remove('border-gray-300', 'focus:border-secondary-200', 'focus:ring-secondary-200');
+      } else {
+        clearFieldError(e);
+      }
+    }
+
+    function clearFieldError(e: Event) {
+      const field = e.target as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
+      const errorElement = document.getElementById(`${field.id}-error`);
+
+      if (errorElement) {
+        errorElement.classList.add('hidden');
+        field.classList.remove('border-red-500', 'focus:border-red-500', 'focus:ring-red-500');
+        field.classList.add('border-gray-300', 'focus:border-secondary-200', 'focus:ring-secondary-200');
+      }
+    }
+
+    function isValidEmail(email: string): boolean {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+    }
+  });
+</script>
 
