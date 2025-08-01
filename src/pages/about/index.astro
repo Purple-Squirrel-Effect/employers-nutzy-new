@@ -11,11 +11,64 @@ import App from "../../layouts/App.astro";
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <title>About Us Demo - Nutzy | Gen-Z Recruitment Platform</title>
+
+    <!-- SEO Meta Tags -->
+    <title>Over Nutzy - Ons Team & Missie | Gen-Z Recruitment Platform</title>
     <meta
       name="description"
-      content="Demo page showcasing the About Us section component for Nutzy's Gen-Z recruitment platform."
+      content="Ontmoet het team achter Nutzy's revolutionaire Gen-Z recruitment platform. Leer meer over onze missie, waarden en hoe we bedrijven helpen jong talent te bereiken."
     />
+    <meta
+      name="keywords"
+      content="over nutzy, team nutzy, gen-z recruitment team, visuele vacatures, creator partnerships, recruitment innovatie"
+    />
+
+    <!-- Open Graph Meta Tags -->
+    <meta
+      property="og:title"
+      content="Over Nutzy - Ons Team & Missie | Gen-Z Recruitment Platform"
+    />
+    <meta
+      property="og:description"
+      content="Ontmoet het team achter Nutzy's revolutionaire Gen-Z recruitment platform. Leer meer over onze missie en waarden."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://nutzy.nl/about" />
+    <meta property="og:image" content="/img/nutzy-og-about.jpg" />
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Over Nutzy - Ons Team & Missie" />
+    <meta
+      name="twitter:description"
+      content="Ontmoet het team achter Nutzy's revolutionaire Gen-Z recruitment platform."
+    />
+    <meta name="twitter:image" content="/img/nutzy-twitter-about.jpg" />
+
+    <!-- Structured Data for About Page -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "AboutPage",
+        "name": "Over Nutzy",
+        "description": "Over pagina van Nutzy Gen-Z recruitment platform",
+        "url": "https://nutzy.nl/about",
+        "mainEntity": {
+          "@type": "Organization",
+          "name": "Nutzy",
+          "description": "Gen-Z Recruitment Platform voor visuele vacatures en creator partnerships",
+          "url": "https://nutzy.nl",
+          "foundingDate": "2023",
+          "numberOfEmployees": "11",
+          "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "NL",
+            "addressLocality": "Amsterdam"
+          },
+          "sameAs": ["https://www.linkedin.com/company/nutzy-nl"]
+        }
+      }
+    </script>
   </head>
   <body>
     <App>

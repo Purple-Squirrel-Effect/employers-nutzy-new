@@ -152,6 +152,10 @@ const companyValues: CompanyValue[] = [
 import Section from "../Section.astro";
 ---
 
+<Section
+  sectionClassName="bg-primary-500"
+  className="grid grid-cols-1 mx-auto relative overflow-hidden py-16 md:py-24 lg:py-32"
+>
   <!-- Background Pattern -->
   <img
     class="absolute h-[200svh] w-[200svh] opacity-15 z-10"
@@ -159,11 +163,6 @@ import Section from "../Section.astro";
     alt="Team spirit illustration"
     loading="lazy"
   />
-<Section
-  sectionClassName="bg-secondary-500"
-  className="grid grid-cols-1 mx-auto relative py-24 "
->
-
 
   <!-- Content Container -->
   <div class="relative z-10 w-full mx-auto">
@@ -310,8 +309,8 @@ import Section from "../Section.astro";
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
         {teamMembers.map((member, index) => (
           <article
-            class=" bg-primary-900 rounded-2xl text-center shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 group p-4 px-4"
-            data-team-card t
+            class="bg-primary-900 rounded-2xl text-center shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 group p-4"
+            data-team-card
             data-index={index}
           >
             <!-- Member Image -->
@@ -350,48 +349,53 @@ import Section from "../Section.astro";
     </div>
 
     <!-- Call to Action -->
-      <div class="bg-gradient-to-br from-secondary-900 via-primary-900 to-secondary-900 rounded-3xl  relative overflow-hidden shadow-2xl">
-        <div class="absolute inset-0 opacity-5 z-0">
+    <div class="text-center mt-12 lg:mt-16" data-about-cta>
+      <div class="bg-gradient-to-br from-secondary-900 via-primary-900 to-secondary-900 rounded-3xl p-8 lg:p-12 relative overflow-hidden shadow-2xl">
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 opacity-5">
           <img
             src="/svg/Content-creator-amico.svg"
-            alt="Newsletter background illustration"
+            alt="CTA background illustration"
             class="w-full h-full object-cover"
             loading="lazy"
           />
         </div>
-      <div class="bg-primary-800 rounded-2xl p-8 lg:p-12  relative ">
-        <h3 class="text-2xl md:text-3xl font-bold text-white mb-4">
-          Klaar om Gen Z talent te bereiken?
-        </h3>
-        <p class="text-white/90 mb-6 max-w-2xl mx-auto">
-          Ontdek hoe Nutzy jouw recruitment kan transformeren met visuele content
-          en authentieke verhalen die Gen Z aantrekken en inspireren.
-        </p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <a
-            href="/#contact"
-            class="inline-flex items-center gap-2 px-8 py-4 bg-tertiary-500 text-black hover:brightness-105 font-semibold rounded-lg transition-all duration-300hover:shadow-lg group"
-          >
-            Start vandaag
-            <svg
-              class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+
+        <!-- Content -->
+        <div class="relative z-10">
+          <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-4 text-shadow shadow-black">
+            Klaar om Gen Z talent te bereiken?
+          </h3>
+          <p class="text-white/90 mb-8 max-w-2xl mx-auto text-lg leading-relaxed">
+            Ontdek hoe Nutzy jouw recruitment kan transformeren met visuele content
+            en authentieke verhalen die Gen Z aantrekken en inspireren.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <a
+              href="/#contact"
+              class="inline-flex items-center gap-2 px-8 py-4 bg-tertiary-500 text-black hover:brightness-105 font-semibold rounded-lg transition-all duration-300 hover:shadow-lg group"
             >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M9 5l7 7-7 7"></path>
-            </svg>
-          </a>
-          <a
-            href="/platform"
-            class="inline-flex items-center gap-2 px-8 py-4 border-2 hover:bg-secondary-200/10 border-secondary-200 text-secondary-200  hover:brightness-105 font-semibold rounded-lg transition-all duration-300 "
-          >
-            Bekijk Platform
-          </a>
+              Start vandaag
+              <svg
+                class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 5l7 7-7 7"></path>
+              </svg>
+            </a>
+            <a
+              href="/platform"
+              class="inline-flex items-center gap-2 px-8 py-4 border-2 hover:bg-secondary-200/10 border-secondary-200 text-secondary-200 hover:brightness-105 font-semibold rounded-lg transition-all duration-300"
+            >
+              Bekijk Platform
+            </a>
+          </div>
         </div>
       </div>
     </div>
