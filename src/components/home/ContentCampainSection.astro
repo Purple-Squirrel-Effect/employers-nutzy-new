@@ -8,7 +8,7 @@ import Section from "../Section.astro";
   sectionClassName="bg-secondary-500 overflow-hidden "
   className="relative min-h-screen  mx-auto gap-8 items-center justify-center grid grid-cols-1 lg:grid-cols-2 z-50"
 >
-  <div class="text-center lg:text-left">
+  <div class="text-center flex flex-col gap-4 lg:text-left">
     <h1
       class="text-3xl md:text-5xl lg:text-6xl xl:text-8xl font-bold text-white relative z-50 text-shadow shadow-black"
     >
@@ -21,6 +21,12 @@ import Section from "../Section.astro";
       Met ons team van jonge content creators helpen we je bij het maken van
       passende Gen Z content. En we regelen ook jouw campagne. Meer weten?
     </p>
+    <a
+      href="/campain-strategy"
+      class="px-8 py-4 w-fit bg-tertiary-500 text-black font-bold rounded-lg hover:brightness-105 transition-all duration-300"
+    >
+      Ontdek onze aanpak
+    </a>
   </div>
   <div
     id="character-cards"
@@ -47,8 +53,8 @@ import Section from "../Section.astro";
 
 <script>
   import { gsap } from "gsap";
-import { Flip } from "gsap/Flip";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+  import { Flip } from "gsap/Flip";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
 
   gsap.registerPlugin(Flip);
 

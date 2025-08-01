@@ -20,7 +20,9 @@ import Section from "../Section.astro";
   </div>
   <!-- <img class="absolute top-0 right-0 h-96 z-30 rotate-270" src="/svg/particle/rocket.svg" /> -->
 
-  <div class="relative z-30 text-center lg:text-left order-1 lg:order-2">
+  <div
+    class="relative flex flex-col gap-4 z-30 text-center lg:text-left order-1 lg:order-2"
+  >
     <h1
       class="text-3xl md:text-5xl lg:text-6xl xl:text-8xl font-bold text-white relative z-50 text-shadow shadow-black"
     >
@@ -34,5 +36,11 @@ import Section from "../Section.astro";
       ons Nutzy jobplatform echt aanslaat bij de jongere generaties. Lees meer
       over ons platform op onze Nutzy pagina.
     </p>
+    <a
+      href="/platform"
+      class="px-8 py-4 w-fit bg-tertiary-500 text-black font-bold rounded-lg hover:brightness-105 transition-all duration-300"
+    >
+      Meer info
+    </a>
   </div>
 </Section>
