@@ -9,6 +9,8 @@ import App from "../layouts/App.astro";
 // Get all blog posts from the content collection
 const allPosts = await getCollection("blog");
 
+console.log("allPosts", allPosts);
+
 // Sort posts by date (newest first)
 const sortedPosts = allPosts.sort(
   (a, b) =>

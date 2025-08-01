@@ -2,7 +2,8 @@ import type { Loader } from "astro/loaders";
 import PocketBase from "pocketbase";
 
 // PocketBase configuration
-const POCKETBASE_URL = process.env.POCKETBASE_URL || "http://127.0.0.1:8090";
+const POCKETBASE_URL =
+  process.env.POCKETBASE_URL || "https://employers-backend.nutzy.nl";
 
 // Simplified blog post interface with only used fields
 interface BlogPost {
@@ -17,24 +18,29 @@ interface BlogPost {
   readingTime?: number;
 }
 
-// Simplified PocketBase record interface
+// PocketBase record interface matching the API response
 interface PocketBaseBlogPost {
   id: string;
+  collectionId: string;
+  collectionName: string;
   title: string;
   content: string;
   category: string;
-  author: string;
+  author: string; // This is a RELATION_RECORD_ID according to API docs
   description?: string;
   tags?: string;
   draft?: boolean;
   readingTime?: number;
   created: string;
+  updated: string;
 }
 
 /**
  * Transform PocketBase record to BlogPost format
  */
-function transformPocketBaseRecord(record: PocketBaseBlogPost): BlogPost {
+function transformPocketBaseRecord(
+  record: PocketBaseBlogPost & { expand?: any }
+): BlogPost {
   // Parse tags from string to array
   const tags = record.tags
     ? record.tags
@@ -43,11 +49,21 @@ function transformPocketBaseRecord(record: PocketBaseBlogPost): BlogPost {
         .filter(Boolean)
     : [];
 
+  // Handle author - use expanded author name if available, otherwise use the ID
+  let authorName = record.author;
+  if (record.expand?.author) {
+    // Assuming the author record has a 'name' field
+    authorName =
+      record.expand.author.name ||
+      record.expand.author.username ||
+      record.author;
+  }
+
   return {
     title: record.title,
     content: record.content,
     category: record.category,
-    author: record.author,
+    author: authorName,
     posted: new Date(record.created),
     description: record.description,
     tags,
@@ -66,23 +82,52 @@ async function fetchBlogPostsFromPocketBase(): Promise<
     const pb = new PocketBase(POCKETBASE_URL);
 
     // Fetch all blog posts, sorted by creation date (newest first)
+    // Filter out draft posts in production
     const records = await pb
       .collection("posts")
       .getFullList<PocketBaseBlogPost>({
         sort: "-created",
+        // Filter out draft posts (uncomment for production)
+        // filter: 'draft != true',
+        // Expand author relation to get author details
+        expand: "author",
       });
+
+    console.log(`Fetched ${records.length} blog posts from PocketBase`);
+
+    if (records.length > 0) {
+      console.log(
+        "Sample record with expand:",
+        JSON.stringify(records[0], null, 2)
+      );
+    }
 
     const blogPosts: Record<string, BlogPost> = {};
 
     for (const record of records) {
-      // Use the record ID as the slug, or generate one from the title
-      const slug = record.id;
-      blogPosts[slug] = transformPocketBaseRecord(record);
+      try {
+        // Use the record ID as the slug
+        const slug = record.id;
+        blogPosts[slug] = transformPocketBaseRecord(record);
+      } catch (transformError) {
+        console.error(
+          `Failed to transform record ${record.id}:`,
+          transformError
+        );
+        // Continue with other records
+      }
     }
 
     return blogPosts;
   } catch (error) {
     console.error("Failed to fetch blog posts from PocketBase:", error);
+    console.error("PocketBase URL:", POCKETBASE_URL);
+
+    // Check if it's a network error or API error
+    if (error instanceof Error) {
+      console.error("Error message:", error.message);
+    }
+
     // Return empty object if PocketBase is not available
     return {};
   }
