@@ -2,6 +2,9 @@
 
 @import "tailwindcss";
 
+/* Video.js CSS */
+@import "video.js/dist/video-js.css";
+
 /* ===== CUSTOM FONTS ===== */
 
 /* Cabinet Grotesk - Modern Sans-Serif */

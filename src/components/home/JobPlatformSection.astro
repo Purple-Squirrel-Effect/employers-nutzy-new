@@ -86,14 +86,15 @@ import Section from "../Section.astro";
             style="width: 100%; height: 100%; border-radius: 35px; overflow: hidden;"
           >
             <video
+              controls
+              loop
+              muted
               id="iphone-video-player"
               class="video-js vjs-default-skin"
-              data-setup='{"fluid": true, "responsive": true}'
-              preload="auto"
               style="width: 100%; height: 100%; object-fit: cover;"
-              data-src="/videos/video.mp4"
+              data-setup="{}"
             >
-              <source src="/videos/video.mp4" type="video/mp4" />
+              <source src="https://ebnd.nl/CREATOR.mp4" type="video/mp4" />
               <p class="vjs-no-js">
                 To view this video please enable JavaScript, and consider
                 upgrading to a web browser that
@@ -175,125 +176,154 @@ import Section from "../Section.astro";
   </div>
 </Section>
 
-<!-- Video.js CSS and JavaScript -->
-<link href="https://vjs.zencdn.net/8.6.1/video-js.css" rel="stylesheet" />
-<script src="https://vjs.zencdn.net/8.6.1/video.min.js"></script>
-
 <script>
+  import videojs from "video.js";
+
   document.addEventListener("DOMContentLoaded", function () {
-    // Initialize Video.js player
-    const player = videojs("iphone-video-player", {
-      controls: true, // Show controls
-      autoplay: "muted",
-      loop: true,
-      muted: true,
-      fluid: false, // Disable fluid for better fullscreen control
-      responsive: true,
-      playsinline: true,
-      preload: "auto",
-      sources: [
-        {
-          src: "/videos/video.mp4",
-          type: "video/mp4",
-        },
-      ],
-    });
-
-    // Ensure video plays automatically
-    player.ready(() => {
-      player.play().catch((e) => {
-        console.log("Autoplay prevented:", e);
-      });
-    });
-
-    // Store playback state globally to track across all events
-    let wasPlayingBeforeFullscreen = false;
-
-    // Click on video to go fullscreen (preserve playback)
-    player.on("click", function (event) {
-      // Only go fullscreen if not clicking on controls
-      if (!player.isFullscreen() && !event.target.closest(".vjs-control-bar")) {
-        // Prevent the click from pausing the video
-        event.preventDefault();
-        event.stopPropagation();
-
-        // Capture playing state immediately before fullscreen
-        wasPlayingBeforeFullscreen = !player.paused();
-
-        // Force video to continue playing if it was playing
-        if (wasPlayingBeforeFullscreen) {
-          player.play();
-        }
-
-        // Request fullscreen
-        player.requestFullscreen();
-      } else if (
-        player.isFullscreen() &&
-        !event.target.closest(".vjs-control-bar")
-      ) {
-        // If in fullscreen and clicking video (not controls), exit fullscreen
-        event.preventDefault();
-        event.stopPropagation();
-
-        wasPlayingBeforeFullscreen = !player.paused();
-
-        // Force video to continue playing if it was playing
-        if (wasPlayingBeforeFullscreen) {
-          player.play();
-        }
-
-        player.exitFullscreen();
+    // Wait a bit to ensure DOM is fully ready
+    setTimeout(() => {
+      const videoElement = document.getElementById("iphone-video-player");
+      if (!videoElement) {
+        console.error("Video element not found");
+        return;
       }
-    });
 
-    // Handle fullscreen events with better playback preservation
-    player.on("fullscreenchange", function () {
-      if (player.isFullscreen()) {
-        // Entering fullscreen - unmute
-        player.muted(false);
-        player.volume(0.8);
-        player
-          .play()
-          .catch((e) => console.log("Play in fullscreen failed:", e));
-      } else {
-        // Exiting fullscreen - mute
-        player.muted(true);
+      // Initialize Video.js player
+      const player = videojs("iphone-video-player", {
+        controls: true, // Show controls
+        autoplay: true, // Changed to true
+        loop: true,
+        muted: true,
+        fluid: false, // Disable fluid for better fullscreen control
+        responsive: true,
+        playsinline: true,
+        preload: "auto",
+        sources: [
+          {
+            src: "https://ebnd.nl/CREATOR.mp4",
+            type: "video/mp4",
+          },
+        ],
+      });
 
-        // Ensure video continues playing if it was playing before
-        if (wasPlayingBeforeFullscreen) {
+      // Ensure video plays automatically with multiple attempts
+      player.ready(() => {
+        console.log("Video.js player ready");
+
+        // First attempt - immediate play
+        player.play().catch((e) => {
+          console.log("First autoplay attempt failed:", e);
+
+          // Second attempt - after a short delay
+          setTimeout(() => {
+            player.play().catch((e2) => {
+              console.log("Second autoplay attempt failed:", e2);
+
+              // Third attempt - ensure muted and try again
+              player.muted(true);
+              player.play().catch((e3) => {
+                console.log("All autoplay attempts failed:", e3);
+              });
+            });
+          }, 500);
+        });
+      });
+
+      // Store playback state globally to track across all events
+      let wasPlayingBeforeFullscreen = false;
+
+      // Click on video to go fullscreen (preserve playback)
+      player.on("click", function (event) {
+        // Only go fullscreen if not clicking on controls
+        if (
+          !player.isFullscreen() &&
+          !event.target.closest(".vjs-control-bar")
+        ) {
+          // Prevent the click from pausing the video
+          event.preventDefault();
+          event.stopPropagation();
+
+          // Capture playing state immediately before fullscreen
+          wasPlayingBeforeFullscreen = !player.paused();
+
+          // Force video to continue playing if it was playing
+          if (wasPlayingBeforeFullscreen) {
+            player.play();
+          }
+
+          // Request fullscreen
+          player.requestFullscreen();
+        } else if (
+          player.isFullscreen() &&
+          !event.target.closest(".vjs-control-bar")
+        ) {
+          // If in fullscreen and clicking video (not controls), exit fullscreen
+          event.preventDefault();
+          event.stopPropagation();
+
+          wasPlayingBeforeFullscreen = !player.paused();
+
+          // Force video to continue playing if it was playing
+          if (wasPlayingBeforeFullscreen) {
+            player.play();
+          }
+
+          player.exitFullscreen();
+        }
+      });
+
+      // Handle fullscreen events with better playback preservation
+      player.on("fullscreenchange", function () {
+        if (player.isFullscreen()) {
+          // Entering fullscreen - unmute
+          player.muted(false);
+          player.controls(true);
+          player.volume(0.8);
+          player
+            .play()
+            .catch((e) => console.log("Play in fullscreen failed:", e));
+        } else {
+          player.controls(false);
+
+          // Exiting fullscreen - mute
+          player.muted(true);
+
+          // Ensure video continues playing if it was playing before
+          if (wasPlayingBeforeFullscreen) {
+            setTimeout(() => {
+              player
+                .play()
+                .catch((e) =>
+                  console.log("Play after exit fullscreen failed:", e)
+                );
+            }, 200);
+          }
+        }
+      });
+
+      // Additional safety: prevent pause on click events
+      player.on("pause", function (event) {
+        // If video was paused due to fullscreen transition, resume it
+        if (
+          wasPlayingBeforeFullscreen &&
+          (player.isFullscreen() || document.fullscreenElement)
+        ) {
           setTimeout(() => {
             player
               .play()
-              .catch((e) =>
-                console.log("Play after exit fullscreen failed:", e)
-              );
-          }, 200);
+              .catch((e) => console.log("Resume after pause failed:", e));
+          }, 100);
         }
-      }
-    });
+      });
 
-    // Additional safety: prevent pause on click events
-    player.on("pause", function (event) {
-      // If video was paused due to fullscreen transition, resume it
-      if (
-        wasPlayingBeforeFullscreen &&
-        (player.isFullscreen() || document.fullscreenElement)
-      ) {
-        setTimeout(() => {
-          player
-            .play()
-            .catch((e) => console.log("Resume after pause failed:", e));
-        }, 100);
-      }
-    });
-
-    // Handle cleanup
-    window.addEventListener("beforeunload", () => {
-      if (player) {
-        player.dispose();
-      }
-    });
-  });
+      // Handle cleanup
+      window.addEventListener("beforeunload", () => {
+        if (player) {
+          player.dispose();
+        }
+      });
+    }, 100); // Close setTimeout
+  }); // Close DOMContentLoaded
 </script>
 
 <style>
@@ -302,11 +332,45 @@ import Section from "../Section.astro";
     border-radius: 35px !important;
   }
 
-  /* Show Video.js controls */
+  /* Style the big play button to be smaller and more subtle */
+  #iphone-video-player .vjs-big-play-button {
+    width: 60px !important;
+    height: 60px !important;
+    border-radius: 50% !important;
+    background-color: rgba(0, 0, 0, 0.6) !important;
+    border: 2px solid rgba(255, 255, 255, 0.8) !important;
+    font-size: 20px !important;
+    line-height: 56px !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+  }
+
+  /* Style the control bar to fit the iPhone mockup */
   #iphone-video-player .vjs-control-bar {
-    display: flex !important;
-    background: rgba(0, 0, 0, 0.7) !important;
+    background: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.8),
+      transparent
+    ) !important;
     border-radius: 0 0 35px 35px !important;
+    height: 50px !important;
+    padding: 0 15px !important;
+  }
+
+  /* Style control buttons */
+  #iphone-video-player .vjs-control-bar .vjs-button {
+    color: white !important;
+  }
+
+  /* Style progress bar */
+  #iphone-video-player .vjs-progress-control {
+    height: 6px !important;
+  }
+
+  #iphone-video-player .vjs-progress-holder {
+    height: 6px !important;
+    border-radius: 3px !important;
   }
 
   /* Ensure video fills the container */
