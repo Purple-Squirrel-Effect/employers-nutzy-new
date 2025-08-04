@@ -14,6 +14,11 @@ export default defineConfig({
   // Add your actual domain here
   site: "https://nutzy.nl",
 
+  server: {
+    host: true, // This allows external connections
+    port: 4321,
+  },
+
   vite: {
     plugins: [tailwindcss()],
   },

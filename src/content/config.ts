@@ -8,6 +8,7 @@ const blogCollection = defineCollection({
   schema: z.object({
     title: z.string(),
     content: z.string(), // HTML content from TinyMCE
+    featured_image: z.string().optional(), // Featured image URL from database
     category: z.string(),
     author: z.string(),
     posted: z.coerce.date(),

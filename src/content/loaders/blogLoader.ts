@@ -9,6 +9,7 @@ const POCKETBASE_URL =
 interface BlogPost {
   title: string;
   content: string;
+  featured_image: string;
   category: string;
   author: string;
   posted: Date;
@@ -24,6 +25,7 @@ interface PocketBaseBlogPost {
   collectionId: string;
   collectionName: string;
   title: string;
+  featured_image: string;
   content: string;
   category: string;
   author: string; // This is a RELATION_RECORD_ID according to API docs
@@ -66,6 +68,7 @@ function transformPocketBaseRecord(
     title: record.title.trim(), // Remove extra whitespace/carriage returns
     content: record.content,
     category: record.category,
+    featured_image: record.featured_image,
     author: authorName,
     posted: new Date(record.created),
     description: record.description,

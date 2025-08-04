@@ -3,7 +3,7 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "npm run copy-tinymce && astro dev",
+    "dev": "npm run copy-tinymce && astro dev --host",
     "build": "npm run copy-tinymce && astro build",
     "preview": "astro preview",
     "astro": "astro",
