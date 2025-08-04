@@ -17,6 +17,7 @@
     "@astrojs/svelte": "^7.1.0",
     "@tailwindcss/vite": "^4.1.11",
     "@tinymce/tinymce-svelte": "^3.1.0",
+    "@types/video.js": "^7.3.58",
     "astro": "^5.11.0",
     "gsap": "^3.13.0",
     "gsap-trial": "^3.12.7",
@@ -24,6 +25,7 @@
     "svelte": "^5.36.12",
     "tailwindcss": "^4.1.11",
     "tinymce": "^7.9.1",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "video.js": "^8.23.3"
   }
 }
