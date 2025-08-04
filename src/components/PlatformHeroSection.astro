@@ -64,8 +64,8 @@ const {
 } = Astro.props;
 ---
 
-<Section>
-  <div class="relative pt-16" id="smooth-content">
+<Section wrapperId="smooth-content-platform-hero-section">
+  <div class="relative">
     <div class="grid p-8 grid-cols-2 h-[100svh]">
       <div id="container-a" class="w-full h-full">
         <h1
@@ -111,7 +111,9 @@ const {
   const containerB = document.getElementById("container-b");
   const containerC = document.getElementById("container-c");
   const containerD = document.getElementById("container-d");
-  const smoothWrapper = document.getElementById("smooth-wrapper");
+  const smoothWrapper = document.getElementById(
+    "smooth-content-platform-hero-section"
+  );
 
   const timeline = gsap.timeline({ paused: true });
 
