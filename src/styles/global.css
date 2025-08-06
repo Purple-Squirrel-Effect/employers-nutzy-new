@@ -528,6 +528,107 @@ button {
   @apply ring-2 ring-primary-500 border-primary-500;
 }
 
+/* Responsive Wave Styling */
+.wave-responsive {
+  width: 100%;
+  height: auto;
+  min-height: 60px;
+}
+
+/* Mobile-first responsive wave heights */
+.wave-responsive.wave-sm {
+  height: 60px;
+}
+
+.wave-responsive.wave-md {
+  height: 80px;
+}
+
+.wave-responsive.wave-lg {
+  height: 120px;
+}
+
+.wave-responsive.wave-xl {
+  height: 160px;
+}
+
+/* Tablet breakpoint */
+@media (min-width: 768px) {
+  .wave-responsive.wave-sm {
+    height: 80px;
+  }
+
+  .wave-responsive.wave-md {
+    height: 120px;
+  }
+
+  .wave-responsive.wave-lg {
+    height: 180px;
+  }
+
+  .wave-responsive.wave-xl {
+    height: 240px;
+  }
+}
+
+/* Desktop breakpoint */
+@media (min-width: 1024px) {
+  .wave-responsive.wave-sm {
+    height: 128px; /* h-32 equivalent */
+  }
+
+  .wave-responsive.wave-md {
+    height: 160px;
+  }
+
+  .wave-responsive.wave-lg {
+    height: 256px; /* h-64 equivalent */
+  }
+
+  .wave-responsive.wave-xl {
+    height: 288px; /* h-72 equivalent */
+  }
+}
+
+/* Large desktop breakpoint */
+@media (min-width: 1440px) {
+  .wave-responsive.wave-sm {
+    height: 128px;
+  }
+
+  .wave-responsive.wave-md {
+    height: 180px;
+  }
+
+  .wave-responsive.wave-lg {
+    height: 280px;
+  }
+
+  .wave-responsive.wave-xl {
+    height: 320px;
+  }
+}
+
+/* Responsive margin adjustments for waves */
+.wave-margin-responsive {
+  margin-top: -3%;
+  margin-bottom: -3%;
+}
+
+@media (min-width: 768px) {
+  .wave-margin-responsive {
+    margin-top: -4%;
+    margin-bottom: -4%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .wave-margin-responsive {
+    margin-top: -6%;
+    margin-bottom: -6%;
+  }
+}
+
 /* Dark mode support (if needed) */
 @media (prefers-color-scheme: dark) {
   :global(.tox-tinymce) {

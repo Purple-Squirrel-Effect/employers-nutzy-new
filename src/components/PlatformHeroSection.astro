@@ -68,20 +68,20 @@ const {
   className="overflow-hidden lg:overflow-visible relative"
   wrapperId="smooth-content-platform-hero-section"
 >
-  <div class="relative">
-    <div class="grid p-8 grid-cols-2 gap-32 h-[100svh]">
+  <div class="relative lg:pt-0 pt-32 min-h-[100svh]">
+    <div class="flex flex-col lg:grid p-8 lg:grid-cols-2 gap-32 lg:h-[100svh]">
       <div
         id="container-a"
-        class="w-full h-full flex items-center justify-center"
+        class="w-full lg:h-full flex items-center justify-center"
       >
         <h1
-          class="text-4xl md:text-5xl lg:text-9xl font-bold shadow-white text-shadow text-black mb-6 drop-shadow-2xl inset-0"
+          class="text-4xl md:text-8xl lg:text-9xl font-bold shadow-white text-shadow text-black mb-6 drop-shadow-2xl inset-0"
           id="main-title"
         >
           Jouw vacature
         </h1>
       </div>
-      <div id="container-b" class="w-full h-full">
+      <div id="container-b" class="w-full lg:h-full">
         <ScatteredCards {cards} />
       </div>
     </div>
@@ -92,19 +92,23 @@ const {
     </div>
     <div id="container-d" class="w-full h-full opacity-0 -translate-x-full">
       <h1
-        class="text-4xl md:text-5xl lg:text-9xl font-bold shadow-white text-shadow text-black mb-6 drop-shadow-2xl i"
+        class="text-4xl md:text-7xl lg:text-7xl xl:text-9xl font-bold shadow-white text-shadow text-black mb-6 drop-shadow-2xl i"
         id="second-title"
       >
         <span class="text-primary-200 text-shadow shadow-black">
           Hun vertrouwen</span
         >
       </h1>
-      <p class="text-white text-2xl">
+      <p class="text-white lg:text-2xl text-md hidden lg:block">
         Op Nutzy springt jouw vacature eruit. Niet met lange lappen tekst, maar
         met beeld, beleving en een duidelijke boodschap: jij kan dit.
       </p>
     </div>
   </div>
+  <p class="text-white text-2xl text-md my-16 block lg:hidden max-w-lg mx-auto">
+    Op Nutzy springt jouw vacature eruit. Niet met lange lappen tekst, maar met
+    beeld, beleving en een duidelijke boodschap: jij kan dit.
+  </p>
 </Section>
 
 <script>
@@ -128,7 +132,6 @@ const {
 
   timeline.fromTo(
     containerA,
-
     {
       x: "0%",
       duration: 1,

@@ -3,8 +3,8 @@ import Section from "./Section.astro";
 ---
 
 <Section
-  sectionClassName="bg-primary-300 relative z-10 overflow-hidden"
-  className="z-10 relative flex py-16 gap-16 justify-center items-center"
+  sectionClassName="bg-primary-300 relative z-10 overflow-hidden py-16"
+  className="z-10 relative flex justify-center items-center "
 >
   <div
     id="smooth-wrapper-2"
@@ -112,9 +112,6 @@ import Section from "./Section.astro";
     trigger: smoothWrapper,
     start: "bottom bottom",
     end: "bottom bottom",
-    pinType: "fixed",
-    pin: true,
-    pinSpacing: true,
     scrub: 1,
     animation: timeline,
   });
@@ -126,9 +123,6 @@ import Section from "./Section.astro";
     trigger: smoothWrapper,
     start: "200px bottom",
     end: "bottom bottom",
-    pinType: "fixed",
-    pin: true,
-    pinSpacing: true,
     scrub: 3,
     animation: timeline2,
   });
