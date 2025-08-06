@@ -11,29 +11,16 @@ import Section from "../Section.astro";
     src="/svg/Web-devices-amico.svg"
   />
   <div class="flex justify-center lg:justify-start order-2 lg:order-1">
-    <div class="relative z-30">
-      <!-- iPhone mockup with embedded video -->
+    <div class="relative z-30 iphone-mockup-container">
+      <!-- iPhone Frame (Pure SVG without foreignObject) -->
       <svg
         width="300"
         height="600"
         viewBox="0 0 300 600"
-        class="drop-shadow-2xl w-48 md:w-64 lg:w-80 h-auto"
+        class="drop-shadow-2xl w-48 md:w-64 lg:w-80 h-auto relative z-20"
         xmlns="http://www.w3.org/2000/svg"
       >
         <defs>
-          <!-- Screen area mask for video -->
-          <mask id="screenMask">
-            <rect width="300" height="600" fill="black"></rect>
-            <rect
-              x="25"
-              y="80"
-              width="250"
-              height="440"
-              rx="35"
-              ry="35"
-              fill="white"></rect>
-          </mask>
-
           <!-- Gradient for device -->
           <linearGradient
             id="deviceGradient"
@@ -44,19 +31,6 @@ import Section from "../Section.astro";
           >
             <stop offset="0%" style="stop-color:#1a1a1a;stop-opacity:1"></stop>
             <stop offset="100%" style="stop-color:#2d2d2d;stop-opacity:1"
-            ></stop>
-          </linearGradient>
-
-          <!-- Screen gradient -->
-          <linearGradient
-            id="screenGradient"
-            x1="0%"
-            y1="0%"
-            x2="100%"
-            y2="100%"
-          >
-            <stop offset="0%" style="stop-color:#000000;stop-opacity:1"></stop>
-            <stop offset="100%" style="stop-color:#1a1a1a;stop-opacity:1"
             ></stop>
           </linearGradient>
         </defs>
@@ -72,40 +46,6 @@ import Section from "../Section.astro";
           fill="url(#deviceGradient)"
           stroke="#333"
           stroke-width="2"></rect>
-
-        <!-- Video.js player embedded in screen area -->
-        <foreignObject
-          x="25"
-          y="80"
-          width="250"
-          height="440"
-          mask="url(#screenMask)"
-        >
-          <div
-            xmlns="http://www.w3.org/1999/xhtml"
-            style="width: 100%; height: 100%; border-radius: 35px; overflow: hidden;"
-          >
-            <video
-              controls
-              loop
-              muted
-              id="iphone-video-player"
-              class="video-js vjs-default-skin"
-              style="width: 100%; height: 100%; object-fit: cover;"
-              data-setup="{}"
-            >
-              <source src="https://ebnd.nl/CREATOR.mp4" type="video/mp4" />
-              <p class="vjs-no-js">
-                To view this video please enable JavaScript, and consider
-                upgrading to a web browser that
-                <a
-                  href="https://videojs.com/html5-video-support/"
-                  target="_blank">supports HTML5 video</a
-                >.
-              </p>
-            </video>
-          </div>
-        </foreignObject>
 
         <!-- Screen border overlay -->
         <rect
@@ -147,6 +87,45 @@ import Section from "../Section.astro";
         <rect x="125" y="545" width="50" height="4" rx="2" ry="2" fill="#666"
         ></rect>
       </svg>
+
+      <!-- Video positioned absolutely over the screen area (Safari compatible) -->
+      <div class="absolute inset-0 z-50" data-screen-content>
+        <div
+          class="absolute overflow-hidden bg-black iphone-screen-container"
+          data-video-container
+          id="video-container-dimensions"
+          style="
+            top: 13.33%;
+            left: 8.33%;
+            width: 83.33%;
+            height: 73.33%;
+            border-radius: 35px;
+            clip-path: inset(0 round 35px);
+            -webkit-clip-path: inset(0 round 35px);
+          "
+        >
+          <video
+            controls
+            loop
+            muted
+            id="iphone-video-player"
+            class="video-js vjs-default-skin w-full h-full object-cover bg-red-500"
+            style="border-radius: 35px; pointer-events: auto; cursor: pointer;"
+            data-setup="{}"
+            playsinline
+            preload="metadata"
+          >
+            <source src="https://ebnd.nl/CREATOR.mp4" type="video/mp4" />
+            <p class="vjs-no-js">
+              To view this video please enable JavaScript, and consider
+              upgrading to a web browser that
+              <a href="https://videojs.com/html5-video-support/" target="_blank"
+                >supports HTML5 video</a
+              >.
+            </p>
+          </video>
+        </div>
+      </div>
     </div>
   </div>
   <!-- <img class="absolute top-0 right-0 h-96 z-30 rotate-270" src="/svg/particle/rocket.svg" /> -->
@@ -167,7 +146,7 @@ import Section from "../Section.astro";
     </p>
     <a
       href="/platform"
-      class="lg:px-8 lg:py-4 mr-auto px-4 py-2 w-fit bg-tertiary-500 text-black font-bold rounded-lg hover:brightness-105 transition-all duration-300"
+      class="lg:px-8 lg:py-4 mx-auto lg:mx-0 px-4 py-2 w-fit bg-tertiary-500 text-black font-bold rounded-lg hover:brightness-105 transition-all duration-300"
     >
       Meer info
     </a>
@@ -181,21 +160,38 @@ import Section from "../Section.astro";
     // Wait a bit to ensure DOM is fully ready
     setTimeout(() => {
       const videoElement = document.getElementById("iphone-video-player");
-      if (!videoElement) {
-        console.error("Video element not found");
+      const containerElement = document.getElementById(
+        "video-container-dimensions"
+      );
+
+      if (!videoElement || !containerElement) {
+        console.error("Video element or container not found");
         return;
       }
 
-      // Initialize Video.js player
+      // Get the actual pixel dimensions of the container for logging
+      const containerRect = containerElement.getBoundingClientRect();
+      const containerWidth = Math.floor(containerRect.width);
+      const containerHeight = Math.floor(containerRect.height);
+
+      console.log(
+        "Container dimensions:",
+        containerWidth,
+        "x",
+        containerHeight
+      );
+
+      // Initialize Video.js player without explicit dimensions to avoid auto-generated CSS classes
       const player = videojs("iphone-video-player", {
         controls: true, // Show controls
         autoplay: true, // Changed to true
         loop: true,
         muted: true,
-        fluid: false, // Disable fluid for better fullscreen control
-        responsive: true,
+        fluid: false, // Disable fluid
+        responsive: false, // Disable responsive
         playsinline: true,
         preload: "auto",
+        // Don't set width/height here to avoid Video.js generating dimension classes
         sources: [
           {
             src: "https://ebnd.nl/CREATOR.mp4",
@@ -207,6 +203,9 @@ import Section from "../Section.astro";
       // Ensure video plays automatically with multiple attempts
       player.ready(() => {
         console.log("Video.js player ready");
+
+        // Hide controls initially for iPhone mockup
+        player.controls(false);
 
         // First attempt - immediate play
         player.play().catch((e) => {
@@ -230,14 +229,22 @@ import Section from "../Section.astro";
       // Store playback state globally to track across all events
       let wasPlayingBeforeFullscreen = false;
 
-      // Click on video to go fullscreen (preserve playback)
-      player.on("click", function (event) {
+      // Function to handle fullscreen toggle
+      function handleFullscreenToggle(event) {
+        console.log("Fullscreen toggle triggered!", event.type, event.target);
+        console.log("Is fullscreen:", player.isFullscreen());
+        console.log(
+          "Clicked on control bar:",
+          !!event.target.closest(".vjs-control-bar")
+        );
+
         // Only go fullscreen if not clicking on controls
         if (
           !player.isFullscreen() &&
           !event.target.closest(".vjs-control-bar")
         ) {
-          // Prevent the click from pausing the video
+          console.log("Attempting to enter fullscreen...");
+          // Prevent the event from pausing the video
           event.preventDefault();
           event.stopPropagation();
 
@@ -250,11 +257,19 @@ import Section from "../Section.astro";
           }
 
           // Request fullscreen
-          player.requestFullscreen();
+          player
+            .requestFullscreen()
+            .then(() => {
+              console.log("Fullscreen request successful");
+            })
+            .catch((e) => {
+              console.error("Fullscreen request failed:", e);
+            });
         } else if (
           player.isFullscreen() &&
           !event.target.closest(".vjs-control-bar")
         ) {
+          console.log("Attempting to exit fullscreen...");
           // If in fullscreen and clicking video (not controls), exit fullscreen
           event.preventDefault();
           event.stopPropagation();
@@ -268,7 +283,58 @@ import Section from "../Section.astro";
 
           player.exitFullscreen();
         }
-      });
+      }
+
+      // Desktop click events
+      player.on("click", handleFullscreenToggle);
+
+      // Mobile touch events - Video.js might not handle these properly
+      const playerElement = player.el();
+      if (playerElement) {
+        // Better mobile touch handling with tap detection
+        let touchStartTime = 0;
+        let touchStartY = 0;
+        let touchStartX = 0;
+
+        playerElement.addEventListener(
+          "touchstart",
+          function (event) {
+            touchStartTime = Date.now();
+            if (event.touches && event.touches[0]) {
+              touchStartY = event.touches[0].clientY;
+              touchStartX = event.touches[0].clientX;
+            }
+          },
+          { passive: true }
+        );
+
+        playerElement.addEventListener(
+          "touchend",
+          function (event) {
+            const touchDuration = Date.now() - touchStartTime;
+            let touchEndY = 0;
+            let touchEndX = 0;
+
+            if (event.changedTouches && event.changedTouches[0]) {
+              touchEndY = event.changedTouches[0].clientY;
+              touchEndX = event.changedTouches[0].clientX;
+            }
+
+            // Calculate movement distance
+            const moveY = Math.abs(touchEndY - touchStartY);
+            const moveX = Math.abs(touchEndX - touchStartX);
+            const totalMove = Math.sqrt(moveX * moveX + moveY * moveY);
+
+            // Only trigger on quick taps with minimal movement (not swipes or long presses)
+            if (touchDuration < 300 && totalMove < 10) {
+              console.log("Quick tap detected on mobile");
+              event.preventDefault();
+              handleFullscreenToggle(event);
+            }
+          },
+          { passive: false }
+        );
+      }
 
       // Handle fullscreen events with better playback preservation
       player.on("fullscreenchange", function () {
@@ -314,6 +380,8 @@ import Section from "../Section.astro";
         }
       });
 
+      // Video dimensions are now controlled by CSS, no need for resize handler
+
       // Handle cleanup
       window.addEventListener("beforeunload", () => {
         if (player) {
@@ -325,9 +393,81 @@ import Section from "../Section.astro";
 </script>
 
 <style>
+  /* iPhone Mockup Container - Safari Compatible */
+  .iphone-mockup-container {
+    /* Ensure proper stacking context */
+    isolation: isolate;
+  }
+
+  /* iPhone Screen Container - Precise video containment */
+  .iphone-screen-container {
+    /* Ensure video is perfectly contained within iPhone screen boundaries */
+    position: absolute;
+    overflow: hidden;
+    /* Use CSS mask for perfect screen shape matching - Safari compatible */
+    -webkit-mask: radial-gradient(
+      ellipse at center,
+      black 99%,
+      transparent 100%
+    );
+    mask: radial-gradient(ellipse at center, black 99%, transparent 100%);
+    /* Additional containment for video overflow */
+    contain: layout style paint;
+    /* Safari-specific fixes */
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+
+  .iphone-screen-container video {
+    /* Ensure video respects container boundaries */
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+    object-position: center;
+    /* Prevent any potential overflow - Safari specific */
+    transform: scale(0.999); /* Slight scale down to ensure no edge overflow */
+    -webkit-transform: scale(0.999);
+    /* Force hardware acceleration on Safari */
+    -webkit-transform: translateZ(0) scale(0.999);
+    will-change: transform;
+  }
+
+  /* Ensure proper stacking and containment */
+  [data-screen-content] {
+    /* Create a new stacking context */
+    isolation: isolate;
+    /* Ensure content doesn't overflow iPhone frame */
+    overflow: hidden;
+    /* Safari-specific containment */
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+  }
+
   /* Custom Video.js styling for iPhone mockup */
   #iphone-video-player {
     border-radius: 35px !important;
+    /* Safari-specific video fixes */
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    /* Force container dimensions to match iPhone screen */
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    min-width: 100% !important;
+    min-height: 100% !important;
+  }
+
+  /* Override Video.js auto-generated dimension classes */
+  .iphone-video-player-dimensions {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
   }
 
   /* Style the big play button to be smaller and more subtle */
@@ -342,6 +482,7 @@ import Section from "../Section.astro";
     top: 50% !important;
     left: 50% !important;
     transform: translate(-50%, -50%) !important;
+    -webkit-transform: translate(-50%, -50%) !important;
   }
 
   /* Style the control bar to fit the iPhone mockup */
@@ -371,16 +512,25 @@ import Section from "../Section.astro";
     border-radius: 3px !important;
   }
 
-  /* Ensure video fills the container */
+  /* Ensure video fills the container with Safari fixes */
   #iphone-video-player .vjs-tech {
     object-fit: cover !important;
     border-radius: 35px !important;
+    /* Safari-specific fixes */
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
   }
 
   /* Remove Video.js default styling that might interfere */
   #iphone-video-player.video-js {
     background-color: transparent !important;
     border-radius: 35px !important;
+    /* Safari containment fixes */
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    overflow: hidden !important;
   }
 
   /* Fullscreen centering styles */
@@ -395,6 +545,9 @@ import Section from "../Section.astro";
     top: 0 !important;
     left: 0 !important;
     z-index: 9999 !important;
+    /* Reset transforms in fullscreen */
+    -webkit-transform: none !important;
+    transform: none !important;
   }
 
   #iphone-video-player.vjs-fullscreen .vjs-tech {
@@ -407,6 +560,20 @@ import Section from "../Section.astro";
     top: auto !important;
     left: auto !important;
     transform: none !important;
+    -webkit-transform: none !important;
     margin: 0 !important;
+  }
+
+  /* Accessibility: Respect reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    .iphone-screen-container video {
+      animation: none !important;
+      transform: scale(0.999) !important;
+      -webkit-transform: scale(0.999) !important;
+    }
+
+    #iphone-video-player .vjs-big-play-button {
+      transition: none !important;
+    }
   }
 </style>
