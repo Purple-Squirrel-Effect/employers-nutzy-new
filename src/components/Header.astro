@@ -9,7 +9,7 @@ const currentPath = Astro.url.pathname;
 ---
 
 <header
-  class="fixed px-4 md:px-8 lg:px-32 z-[60] backdrop-blur-md bg-primary-500/40 w-full text-white"
+  class="fixed px-4 md:px-8 lg:px-32 z-[60] backdrop-blur-md bg-primary-200/70 w-full text-white"
 >
   <!-- Desktop Navigation -->
   <nav
@@ -74,17 +74,17 @@ const currentPath = Astro.url.pathname;
           return (
             <a
               href={link.href}
-              class={`text-sm font-medium transition-colors px-2 rounded-xs duration-200 hover:text-secondary-200 ${
-                isActive
-                  ? "text-secondary-200 bg-primary-900/30     "
-                  : "text-gray-700"
+              class={`text-sm relative font-medium transition-colors mx-2 rounded-xs duration-200 hover:text-primary-500 ${
+                isActive ? "text-primary-900     " : "text-gray-700"
               }`}
               target={link.external ? "_blank" : undefined}
               rel={link.external ? "noopener noreferrer" : undefined}
               aria-current={isActive ? "page" : undefined}
             >
               {link.label}
-              <div class="absolute top-0 w-full" />
+              {isActive && (
+                <div class="absolute bottom-0 w-full bg-primary-900 h-0.5" />
+              )}
             </a>
           );
         })
