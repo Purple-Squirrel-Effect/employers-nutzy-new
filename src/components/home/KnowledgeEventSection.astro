@@ -11,7 +11,7 @@ import Section from "../Section.astro";
 
   <!-- Content Container -->
   <!-- Text Content -->
-  <div class="text-center mb-8 lg:mb-12 relative">
+  <div class="text-center flex flex-col items-center mb-8 lg:mb-12 relative">
     <h1
       class="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white relative z-50 text-shadow shadow-black"
     >
@@ -22,14 +22,15 @@ import Section from "../Section.astro";
       generatie en werkgever te dichten. Op events, in artikelen en samen met
       onze ambassadeurs delen we kennis en inzichten die direct toepasbaar zijn.
     </p>
-    <button
-      class="mt-8 bg-tertiary-500 text-black font-bold py-2 px-4 lg:py-4 lg:px-8 rounded-lg hover:brightness-105 transition-all duration-300"
+    <a
+      href="/blog"
+      class="mt-8 w-fit lock bg-tertiary-500 text-black font-bold py-2 px-4 lg:py-4 lg:px-8 rounded-lg hover:brightness-105 transition-all duration-300"
     >
       Lees onze inzichten
-    </button>
+    </a>
   </div>
 
-  <!-- Calendar Component -->
+  <!-- Calendar Component -->s
   <div class="w-full relative">
     <EventCalendar />
   </div>

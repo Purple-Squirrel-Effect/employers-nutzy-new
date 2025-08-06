@@ -9,7 +9,7 @@ const { className = "" } = Astro.props;
 ---
 
 <Section {className} sectionClassName={`bg-primary-900`}>
-  <div class="min-h-screen bg-gradient-to-br py-20">
+  <div class="min-h-screen flex flex-col items-center bg-gradient-to-br py-20">
     <img
       class="absolute opacity-5 z-0"
       src="svg/Cohort-analysis-amico.svg"
@@ -90,10 +90,11 @@ const { className = "" } = Astro.props;
         <p class="text-xl font-semibold mb-2">maandelijkse bezoeken</p>
       </div>
     </div>
-    <button
+    <a
+      href="#contact"
       class="mt-8 relative mx-auto bg-tertiary-500 text-black font-bold py-2 px-4 lg:py-4 lg:px-8 rounded-lg hover:brightness-105 transition-all duration-300"
     >
       Neem contact op
-    </button>
+    </a>
   </div>
 </Section>
