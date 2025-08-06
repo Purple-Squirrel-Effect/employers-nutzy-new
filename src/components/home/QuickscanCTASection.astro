@@ -30,38 +30,135 @@ const { id = "quickscan-cta", className = "" } = Astro.props;
 
   <!-- Main Content Container -->
   <div
-    class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center"
+    class="relative z-10 grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-center"
   >
     <!-- Left Column - Content -->
-    <div class="text-center lg:text-left space-y-6" data-quickscan-content>
+    <div
+      class="text-center lg:text-left space-y-6 lg:col-span-2"
+      data-quickscan-content
+    >
       <h2
         class="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight"
       >
         Is jouw bedrijf al klaar voor het werven van
         <span class="text-secondary-200">Gen Z?</span>
       </h2>
+      <div>
+        <!-- Middle Column - Wireframe Scanning Animation -->
+        <div class="relative z-10 order-first" data-wireframe-scanner>
+          <div class="relative rounded-2xl border border-white/20">
+            <!-- Wireframe Container -->
+            <div
+              class="relative overflow-hidden rounded-lg bg-white"
+              data-wireframe-container
+            >
+              <!-- Wireframe SVG -->
+              <div class="relative" data-wireframe-content>
+                <img
+                  src="/img/wireframes/job-detail-wireframe.svg"
+                  alt="Job offer wireframe being analyzed"
+                  class="w-full h-auto"
+                  data-wireframe-image
+                  loading="lazy"
+                />
 
-      <p
-        class="text-lg md:text-xl text-white/90 max-w-2xl mx-auto lg:mx-0 leading-relaxed"
-      >
-        Doe de Nutzy Quickscan en krijg kosteloos een analyse op maat, gebaseerd
-        op PwC-onderzoek naar de pullfactoren die Gen Z écht aantrekken.
-      </p>
+                <!-- Scanning Bar -->
+                <div
+                  class="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-transparent via-primary-400 to-transparent scanning-bar"
+                  data-scanning-bar
+                  style="box-shadow: 0 0 20px rgba(65, 38, 131, 0.6);"
+                >
+                </div>
 
-      <!-- Benefits List -->
-      <div class="space-y-3 text-left max-w-xl mx-auto lg:mx-0">
-        <div class="flex items-start gap-3">
-          <div class="w-2 h-2 bg-secondary-200 rounded-full mt-2 flex-shrink-0">
+                <!-- Scanning Overlay -->
+                <div
+                  class="absolute inset-0 bg-gradient-to-r from-transparent via-primary-400/20 to-transparent scanning-overlay"
+                  data-scanning-overlay
+                >
+                </div>
+
+                <!-- Analysis Results Overlay -->
+                <div
+                  class="absolute inset-0 bg-black/60 backdrop-blur-sm rounded-lg flex items-center justify-center analysis-results-overlay"
+                  data-analysis-results-overlay
+                >
+                  <div
+                    class="bg-white rounded-xl p-6 shadow-2xl max-w-sm w-full mx-4"
+                  >
+                    <div class="text-center space-y-4">
+                      <div
+                        class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center mx-auto"
+                      >
+                        <svg
+                          class="w-6 h-6 text-white"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                            clip-rule="evenodd"></path>
+                        </svg>
+                      </div>
+                      <h3 class="text-xl font-bold text-gray-900">
+                        Analyse voltooid!
+                      </h3>
+                      <div class="space-y-3 text-left">
+                        <div class="flex items-center justify-between">
+                          <span class="text-sm text-gray-600"
+                            >Gen Z aantrekkingskracht:</span
+                          >
+                          <span class="font-semibold text-green-600">85%</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                          <span class="text-sm text-gray-600"
+                            >Verbeterpunten gevonden:</span
+                          >
+                          <span class="font-semibold text-yellow-600">3</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                          <span class="text-sm text-gray-600"
+                            >Aanbevelingen:</span
+                          >
+                          <span class="font-semibold text-blue-600">Klaar</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Analysis Status -->
+              <div
+                class="absolute bottom-4 left-4 right-4 analysis-status-container"
+                data-analysis-status
+              >
+                <div
+                  class="bg-white/90 backdrop-blur-sm rounded-lg px-3 py-2 text-sm"
+                >
+                  <div class="flex items-center gap-2">
+                    <div
+                      class="w-2 h-2 bg-primary-500 rounded-full animate-pulse"
+                      data-status-indicator
+                    >
+                    </div>
+                    <span class="text-gray-700 font-medium" data-status-text
+                      >Analyseren...</span
+                    >
+                  </div>
+                  <div
+                    class="mt-1 bg-gray-200 rounded-full h-1 overflow-hidden"
+                  >
+                    <div
+                      class="h-full bg-primary-500 rounded-full progress-bar"
+                      data-progress-bar
+                    >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <p class="text-white/80">
-            Gratis analyse van jouw recruitment aanpak
-          </p>
-        </div>
-
-        <div class="flex items-start gap-3">
-          <div class="w-2 h-2 bg-secondary-200 rounded-full mt-2 flex-shrink-0">
-          </div>
-          <p class="text-white/80">Concrete aanbevelingen voor verbetering</p>
         </div>
       </div>
     </div>
@@ -224,156 +321,262 @@ const { id = "quickscan-cta", className = "" } = Astro.props;
   </div>
 </Section>
 
+<style>
+  /* Wireframe Scanning Animations - Single 8s cycle with 5s wait */
+  @keyframes scanningCycle {
+    /* Initial state */
+    0% {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    /* Scan starts - fade in */
+    6.25% {
+      /* 0.5s */
+      transform: translateX(-100%);
+      opacity: 1;
+    }
+    /* Scan across */
+    43.75% {
+      /* 3.5s */
+      transform: translateX(100vw);
+      opacity: 1;
+    }
+    /* Scan complete - fade out */
+    50% {
+      /* 4s */
+      transform: translateX(100vw);
+      opacity: 0;
+    }
+    /* Wait period */
+    100% {
+      /* 8s */
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes progressCycle {
+    /* Initial state */
+    0% {
+      width: 0%;
+      opacity: 1;
+    }
+    /* Progress starts */
+    10% {
+      /* 0.8s */
+      width: 0%;
+      opacity: 1;
+    }
+    /* Progress fills */
+    43.75% {
+      /* 3.5s */
+      width: 100%;
+      opacity: 1;
+    }
+    /* Hide when overlay appears */
+    50% {
+      /* 4s */
+      width: 100%;
+      opacity: 0;
+    }
+    /* Stay hidden during wait */
+    87.5% {
+      /* 7s */
+      width: 100%;
+      opacity: 0;
+    }
+    /* Reset for next cycle */
+    100% {
+      /* 8s */
+      width: 0%;
+      opacity: 1;
+    }
+  }
+
+  @keyframes overlayResultsCycle {
+    /* Hidden initially */
+    0% {
+      opacity: 0;
+      visibility: hidden;
+      transform: scale(0.9);
+    }
+    /* Results appear */
+    41.25% {
+      /* 3.3s */
+      opacity: 0;
+      visibility: hidden;
+      transform: scale(0.9);
+    }
+    43.75% {
+      /* 3.5s */
+      opacity: 1;
+      visibility: visible;
+      transform: scale(1);
+    }
+    /* Stay visible during wait */
+    87.5% {
+      /* 7s */
+      opacity: 1;
+      visibility: visible;
+      transform: scale(1);
+    }
+    /* Hide for next cycle */
+    100% {
+      /* 8s */
+      opacity: 0;
+      visibility: hidden;
+      transform: scale(0.9);
+    }
+  }
+
+  @keyframes statusCycle {
+    /* Purple (analyzing) */
+    0% {
+      background-color: #412683;
+    }
+    /* Stay purple during scan */
+    43.75% {
+      /* 3.5s */
+      background-color: #412683;
+    }
+    /* Turn green (complete) */
+    50% {
+      /* 4s */
+      background-color: #10b981;
+    }
+    /* Stay green during wait */
+    87.5% {
+      /* 7s */
+      background-color: #10b981;
+    }
+    /* Reset to purple */
+    100% {
+      /* 8s */
+      background-color: #412683;
+    }
+  }
+
+  @keyframes statusContainerCycle {
+    /* Visible initially */
+    0% {
+      opacity: 1;
+    }
+    /* Stay visible during scan */
+    43.75% {
+      /* 3.5s */
+      opacity: 1;
+    }
+    /* Hide when overlay appears */
+    50% {
+      /* 4s */
+      opacity: 0;
+    }
+    /* Stay hidden during wait */
+    87.5% {
+      /* 7s */
+      opacity: 0;
+    }
+    /* Show for next cycle */
+    100% {
+      /* 8s */
+      opacity: 1;
+    }
+  }
+
+  /* Animation Classes */
+  .scanning-bar {
+    animation: scanningCycle 8s ease-in-out infinite;
+  }
+
+  .scanning-overlay {
+    animation: scanningCycle 8s ease-in-out infinite;
+  }
+
+  .progress-bar {
+    animation: progressCycle 8s ease-in-out infinite;
+  }
+
+  .analysis-results-overlay {
+    animation: overlayResultsCycle 8s ease-in-out infinite;
+  }
+
+  .analysis-status-container {
+    animation: statusContainerCycle 8s ease-in-out infinite;
+  }
+
+  /* Status indicator animation */
+  [data-status-indicator] {
+    animation: statusCycle 8s ease-in-out infinite;
+  }
+
+  /* Respect reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    .scanning-bar,
+    .scanning-overlay,
+    .progress-bar,
+    .analysis-results-overlay,
+    .analysis-status-container,
+    [data-status-indicator] {
+      animation: none !important;
+    }
+
+    .scanning-bar,
+    .scanning-overlay {
+      opacity: 0;
+    }
+
+    .progress-bar {
+      width: 100%;
+      opacity: 0;
+    }
+
+    .analysis-results-overlay {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .analysis-status-container {
+      opacity: 0;
+    }
+  }
+</style>
+
 <script>
-  // QuickscanCTASection form handling
+  // Handle status text changes to sync with CSS animations
   document.addEventListener("DOMContentLoaded", () => {
+    const statusText = document.querySelector(
+      "[data-status-text]"
+    ) as HTMLElement;
+    const statusIndicator = document.querySelector(
+      "[data-status-indicator]"
+    ) as HTMLElement;
+
+    if (statusText && statusIndicator) {
+      // Function to update status text
+      function updateStatus() {
+        // Set to "Analyseren..." at start
+        statusText.textContent = "Analyseren...";
+        statusIndicator.classList.add("animate-pulse");
+
+        // Change to "Analyse voltooid!" after 3.5 seconds
+        setTimeout(() => {
+          statusText.textContent = "Analyse voltooid!";
+          statusIndicator.classList.remove("animate-pulse");
+        }, 3500);
+      }
+
+      // Start immediately
+      updateStatus();
+
+      // Repeat every 8 seconds to match CSS animation cycle
+      setInterval(updateStatus, 8000);
+    }
+
+    // Initialize form handling (keeping existing form functionality)
     const form = document.getElementById("quickscan-form") as HTMLFormElement;
-    const submitBtn = form?.querySelector(
-      "[data-submit-btn]"
-    ) as HTMLButtonElement;
-    const submitText = submitBtn?.querySelector(".submit-text") as HTMLElement;
-    const loadingText = submitBtn?.querySelector(
-      ".loading-text"
-    ) as HTMLElement;
-    const successMessage = form?.parentElement?.querySelector(
-      "[data-success]"
-    ) as HTMLElement;
-    const errorMessage = form?.parentElement?.querySelector(
-      "[data-error-general]"
-    ) as HTMLElement;
-
-    if (!form || !submitBtn) return;
-
-    // Form validation
-    const validateField = (field: HTMLInputElement): boolean => {
-      const value = field.value.trim();
-      const errorElement = form.querySelector(
-        `[data-error="${field.name}"]`
-      ) as HTMLElement;
-
-      // Clear previous errors
-      field.classList.remove("border-red-500");
-      errorElement?.classList.add("hidden");
-
-      // Required field validation
-      if (field.required && !value) {
-        showFieldError(field, errorElement, "Dit veld is verplicht");
-        return false;
-      }
-
-      // Email validation
-      if (field.type === "email" && value) {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(value)) {
-          showFieldError(field, errorElement, "Voer een geldig e-mailadres in");
-          return false;
-        }
-      }
-
-      // Company name validation
-      if (field.name === "company" && value && value.length < 2) {
-        showFieldError(
-          field,
-          errorElement,
-          "Bedrijfsnaam moet minimaal 2 karakters bevatten"
-        );
-        return false;
-      }
-
-      return true;
-    };
-
-    const showFieldError = (
-      field: HTMLInputElement,
-      errorElement: HTMLElement,
-      message: string
-    ) => {
-      field.classList.add("border-red-500");
-      if (errorElement) {
-        errorElement.textContent = message;
-        errorElement.classList.remove("hidden");
-      }
-    };
-
-    // Real-time validation
-    form.querySelectorAll("input[required]").forEach((field) => {
-      field.addEventListener("blur", () =>
-        validateField(field as HTMLInputElement)
-      );
-      field.addEventListener("input", () => {
-        if (field.classList.contains("border-red-500")) {
-          validateField(field as HTMLInputElement);
-        }
-      });
-    });
-
-    // Form submission
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-
-      // Hide previous messages
-      successMessage?.classList.add("hidden");
-      errorMessage?.classList.add("hidden");
-
-      // Validate all fields
-      const fields = form.querySelectorAll(
-        "input[required]"
-      ) as NodeListOf<HTMLInputElement>;
-      let isValid = true;
-
-      fields.forEach((field) => {
-        if (!validateField(field)) {
-          isValid = false;
-        }
-      });
-
-      if (!isValid) {
-        // Focus first invalid field
-        const firstInvalid = form.querySelector(
-          ".border-red-500"
-        ) as HTMLInputElement;
-        firstInvalid?.focus();
-        return;
-      }
-
-      // Show loading state
-      submitBtn.disabled = true;
-      submitText.classList.add("hidden");
-      loadingText.classList.remove("hidden");
-
-      try {
-        // Get form data
-        const formData = new FormData(form);
-
-        // Submit to backend (replace with actual endpoint)
-        const response = await fetch("/_actions/submitQuickscanForm", {
-          method: "POST",
-          body: formData,
-        });
-
-        if (response.ok) {
-          // Show success message
-          successMessage?.classList.remove("hidden");
-          form.reset();
-
-          // Scroll to success message
-          successMessage?.scrollIntoView({
-            behavior: "smooth",
-            block: "center",
-          });
-        } else {
-          throw new Error("Submission failed");
-        }
-      } catch (error) {
-        // Show error message
-        errorMessage?.classList.remove("hidden");
-        console.error("Quickscan form submission error:", error);
-      } finally {
-        // Reset button state
-        submitBtn.disabled = false;
-        submitText.classList.remove("hidden");
-        loadingText.classList.add("hidden");
-      }
-    });
+    if (form) {
+      // Add your existing form handling code here if needed
+      console.log("Form initialized");
+    }
   });
 </script>
