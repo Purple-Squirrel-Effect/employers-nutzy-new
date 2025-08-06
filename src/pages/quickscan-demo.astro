@@ -1,0 +1,100 @@
+---
+// Demo page for the QuickscanCTASection component
+import App from "../layouts/App.astro";
+import QuickscanCTASection from "../components/home/QuickscanCTASection.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<html lang="nl">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Quickscan CTA Demo - Nutzy</title>
+    <meta
+      name="description"
+      content="Demo page showcasing the Nutzy Quickscan CTA Section component"
+    />
+  </head>
+  <body>
+    <App>
+      <Header />
+      
+      <!-- Demo Content -->
+      <section class="bg-gray-50 py-16">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+          <h1 class="text-4xl font-bold text-gray-900 mb-4">
+            Quickscan CTA Section Demo
+          </h1>
+          <p class="text-lg text-gray-600 mb-8">
+            This page demonstrates the QuickscanCTASection component in isolation.
+            The component follows Nutzy's design system and includes a fully functional form.
+          </p>
+          
+          <!-- Component Features -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+            <div class="bg-white p-6 rounded-lg shadow-sm">
+              <h3 class="font-bold text-gray-900 mb-2">Responsive Design</h3>
+              <p class="text-sm text-gray-600">
+                Adapts perfectly to mobile, tablet, and desktop screens
+              </p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-sm">
+              <h3 class="font-bold text-gray-900 mb-2">Form Validation</h3>
+              <p class="text-sm text-gray-600">
+                Real-time validation with accessible error messages
+              </p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-sm">
+              <h3 class="font-bold text-gray-900 mb-2">Brand Consistency</h3>
+              <p class="text-sm text-gray-600">
+                Uses Nutzy's color palette and typography system
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- The Quickscan CTA Component -->
+      <QuickscanCTASection />
+      
+      <!-- Additional Demo Content -->
+      <section class="bg-white py-16">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+          <h2 class="text-3xl font-bold text-gray-900 mb-6">
+            Component Integration
+          </h2>
+          <p class="text-lg text-gray-600 mb-8">
+            This component can be easily integrated into any page by importing and using it:
+          </p>
+          
+          <div class="bg-gray-100 rounded-lg p-6 text-left">
+            <pre class="text-sm text-gray-800"><code>---
+import QuickscanCTASection from "../components/home/QuickscanCTASection.astro";
+---
+
+&lt;QuickscanCTASection /&gt;</code></pre>
+          </div>
+          
+          <div class="mt-8 space-y-4">
+            <h3 class="text-xl font-bold text-gray-900">Key Features:</h3>
+            <ul class="text-left max-w-2xl mx-auto space-y-2 text-gray-600">
+              <li>• Follows the established design system with primary brand colors</li>
+              <li>• Responsive layout that works on all screen sizes</li>
+              <li>• Accessible form with proper ARIA labels and keyboard navigation</li>
+              <li>• Real-time form validation with user-friendly error messages</li>
+              <li>• Loading states and success/error feedback</li>
+              <li>• TypeScript support for type safety</li>
+              <li>• Smooth animations and transitions</li>
+              <li>• Privacy notice with link to privacy policy</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <Footer />
+    </App>
+  </body>
+</html>

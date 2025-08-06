@@ -1,0 +1,379 @@
+---
+// QuickscanCTASection.astro
+// Call-to-action section for the Nutzy Quickscan feature
+// Follows the established design system with primary brand colors and responsive layout
+
+import Section from "../Section.astro";
+
+export interface Props {
+  id?: string;
+  className?: string;
+}
+
+const { id = "quickscan-cta", className = "" } = Astro.props;
+---
+
+<Section
+  id={id}
+  sectionClassName="bg-primary-500 overflow-hidden"
+  className={`relative py-16 md:py-24 lg:py-32 ${className}`}
+>
+  <!-- Background Pattern -->
+  <div class="absolute inset-0 opacity-10">
+    <img
+      src="/svg/Content-creator-amico.svg"
+      alt="Quickscan background illustration"
+      class="w-full h-full object-cover"
+      loading="lazy"
+    />
+  </div>
+
+  <!-- Main Content Container -->
+  <div
+    class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center"
+  >
+    <!-- Left Column - Content -->
+    <div class="text-center lg:text-left space-y-6" data-quickscan-content>
+      <h2
+        class="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight"
+      >
+        Is jouw bedrijf al klaar voor het werven van
+        <span class="text-secondary-200">Gen Z?</span>
+      </h2>
+
+      <p
+        class="text-lg md:text-xl text-white/90 max-w-2xl mx-auto lg:mx-0 leading-relaxed"
+      >
+        Doe de Nutzy Quickscan en krijg kosteloos een analyse op maat, gebaseerd
+        op PwC-onderzoek naar de pullfactoren die Gen Z écht aantrekken.
+      </p>
+
+      <!-- Benefits List -->
+      <div class="space-y-3 text-left max-w-xl mx-auto lg:mx-0">
+        <div class="flex items-start gap-3">
+          <div class="w-2 h-2 bg-secondary-200 rounded-full mt-2 flex-shrink-0">
+          </div>
+          <p class="text-white/80">
+            Gratis analyse van jouw recruitment aanpak
+          </p>
+        </div>
+
+        <div class="flex items-start gap-3">
+          <div class="w-2 h-2 bg-secondary-200 rounded-full mt-2 flex-shrink-0">
+          </div>
+          <p class="text-white/80">Concrete aanbevelingen voor verbetering</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column - Form -->
+    <div class="relative z-10" data-quickscan-form>
+      <div
+        class="bg-white/95 backdrop-blur-sm rounded-2xl p-6 lg:p-8 shadow-2xl border border-white/20"
+      >
+        <form class="space-y-4" id="quickscan-form" novalidate>
+          <!-- Form Header -->
+          <div class="text-center mb-6">
+            <h3 class="text-xl font-bold text-gray-900 mb-2">
+              Start je gratis quickscan
+            </h3>
+          </div>
+
+          <!-- Company Name Field -->
+          <div class="form-group">
+            <label
+              for="company"
+              class="block text-sm font-semibold text-gray-900 mb-2"
+            >
+              Je bedrijf <span class="text-secondary-500">*</span>
+            </label>
+            <input
+              type="text"
+              id="company"
+              name="company"
+              placeholder="Je bedrijfsnaam"
+              required
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
+            />
+            <div
+              class="error-message hidden text-sm text-red-600 mt-1"
+              data-error="company"
+            >
+            </div>
+          </div>
+
+          <!-- Email Field -->
+          <div class="form-group">
+            <label
+              for="email"
+              class="block text-sm font-semibold text-gray-900 mb-2"
+            >
+              Je email <span class="text-secondary-500">*</span>
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="je@bedrijf.nl"
+              required
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
+            />
+            <div
+              class="error-message hidden text-sm text-red-600 mt-1"
+              data-error="email"
+            >
+            </div>
+          </div>
+
+          <!-- Phone Field (Optional) -->
+          <div class="form-group">
+            <label
+              for="phone"
+              class="block text-sm font-semibold text-gray-900 mb-2"
+            >
+              Je telefoonnummer <span class="text-gray-500">(optioneel)</span>
+            </label>
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              placeholder="+31 6 12345678"
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
+            />
+          </div>
+
+          <!-- Submit Button -->
+          <button
+            type="submit"
+            class="w-full bg-tertiary-500 text-black hover:brightness-110 font-bold py-4 px-6 rounded-xl transition-all duration-300 focus:ring-4 focus:ring-primary-200 focus:outline-none"
+            data-submit-btn
+          >
+            <span class="submit-text">Verstuur</span>
+            <span class="loading-text hidden">Versturen...</span>
+          </button>
+
+          <!-- Privacy Notice -->
+          <p class="text-xs text-gray-500 text-center mt-4">
+            Door je gegevens in te vullen ga je akkoord met onze
+            <a href="/privacy" class="text-primary-500 hover:underline"
+              >privacyverklaring</a
+            >
+          </p>
+        </form>
+
+        <!-- Success Message -->
+        <div
+          class="success-message hidden bg-green-50 border border-green-200 rounded-lg p-4 mt-4"
+          data-success
+        >
+          <div class="flex items-center gap-3">
+            <div
+              class="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0"
+            >
+              <svg
+                class="w-4 h-4 text-white"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                  clip-rule="evenodd"></path>
+              </svg>
+            </div>
+            <div>
+              <h4 class="font-semibold text-green-800">Bedankt!</h4>
+              <p class="text-sm text-green-700">
+                Je quickscan is verstuurd. We nemen binnen 24 uur contact met je
+                op.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Error Message -->
+        <div
+          class="error-message hidden bg-red-50 border border-red-200 rounded-lg p-4 mt-4"
+          data-error-general
+        >
+          <div class="flex items-center gap-3">
+            <div
+              class="w-6 h-6 bg-red-500 rounded-full flex items-center justify-center flex-shrink-0"
+            >
+              <svg
+                class="w-4 h-4 text-white"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                  clip-rule="evenodd"></path>
+              </svg>
+            </div>
+            <div>
+              <h4 class="font-semibold text-red-800">Er ging iets mis</h4>
+              <p class="text-sm text-red-700">
+                Probeer het opnieuw of neem contact met ons op.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</Section>
+
+<script>
+  // QuickscanCTASection form handling
+  document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("quickscan-form") as HTMLFormElement;
+    const submitBtn = form?.querySelector(
+      "[data-submit-btn]"
+    ) as HTMLButtonElement;
+    const submitText = submitBtn?.querySelector(".submit-text") as HTMLElement;
+    const loadingText = submitBtn?.querySelector(
+      ".loading-text"
+    ) as HTMLElement;
+    const successMessage = form?.parentElement?.querySelector(
+      "[data-success]"
+    ) as HTMLElement;
+    const errorMessage = form?.parentElement?.querySelector(
+      "[data-error-general]"
+    ) as HTMLElement;
+
+    if (!form || !submitBtn) return;
+
+    // Form validation
+    const validateField = (field: HTMLInputElement): boolean => {
+      const value = field.value.trim();
+      const errorElement = form.querySelector(
+        `[data-error="${field.name}"]`
+      ) as HTMLElement;
+
+      // Clear previous errors
+      field.classList.remove("border-red-500");
+      errorElement?.classList.add("hidden");
+
+      // Required field validation
+      if (field.required && !value) {
+        showFieldError(field, errorElement, "Dit veld is verplicht");
+        return false;
+      }
+
+      // Email validation
+      if (field.type === "email" && value) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(value)) {
+          showFieldError(field, errorElement, "Voer een geldig e-mailadres in");
+          return false;
+        }
+      }
+
+      // Company name validation
+      if (field.name === "company" && value && value.length < 2) {
+        showFieldError(
+          field,
+          errorElement,
+          "Bedrijfsnaam moet minimaal 2 karakters bevatten"
+        );
+        return false;
+      }
+
+      return true;
+    };
+
+    const showFieldError = (
+      field: HTMLInputElement,
+      errorElement: HTMLElement,
+      message: string
+    ) => {
+      field.classList.add("border-red-500");
+      if (errorElement) {
+        errorElement.textContent = message;
+        errorElement.classList.remove("hidden");
+      }
+    };
+
+    // Real-time validation
+    form.querySelectorAll("input[required]").forEach((field) => {
+      field.addEventListener("blur", () =>
+        validateField(field as HTMLInputElement)
+      );
+      field.addEventListener("input", () => {
+        if (field.classList.contains("border-red-500")) {
+          validateField(field as HTMLInputElement);
+        }
+      });
+    });
+
+    // Form submission
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      // Hide previous messages
+      successMessage?.classList.add("hidden");
+      errorMessage?.classList.add("hidden");
+
+      // Validate all fields
+      const fields = form.querySelectorAll(
+        "input[required]"
+      ) as NodeListOf<HTMLInputElement>;
+      let isValid = true;
+
+      fields.forEach((field) => {
+        if (!validateField(field)) {
+          isValid = false;
+        }
+      });
+
+      if (!isValid) {
+        // Focus first invalid field
+        const firstInvalid = form.querySelector(
+          ".border-red-500"
+        ) as HTMLInputElement;
+        firstInvalid?.focus();
+        return;
+      }
+
+      // Show loading state
+      submitBtn.disabled = true;
+      submitText.classList.add("hidden");
+      loadingText.classList.remove("hidden");
+
+      try {
+        // Get form data
+        const formData = new FormData(form);
+
+        // Submit to backend (replace with actual endpoint)
+        const response = await fetch("/_actions/submitQuickscanForm", {
+          method: "POST",
+          body: formData,
+        });
+
+        if (response.ok) {
+          // Show success message
+          successMessage?.classList.remove("hidden");
+          form.reset();
+
+          // Scroll to success message
+          successMessage?.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+          });
+        } else {
+          throw new Error("Submission failed");
+        }
+      } catch (error) {
+        // Show error message
+        errorMessage?.classList.remove("hidden");
+        console.error("Quickscan form submission error:", error);
+      } finally {
+        // Reset button state
+        submitBtn.disabled = false;
+        submitText.classList.remove("hidden");
+        loadingText.classList.add("hidden");
+      }
+    });
+  });
+</script>

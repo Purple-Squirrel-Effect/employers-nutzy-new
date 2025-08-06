@@ -28,6 +28,19 @@ const newsletterSchema = z.object({
   email: z.string().email("Voer een geldig e-mailadres in"),
 });
 
+// Quickscan form schema validation
+const quickscanSchema = z.object({
+  company: z
+    .string()
+    .min(2, "Bedrijfsnaam moet minimaal 2 karakters bevatten")
+    .max(100, "Bedrijfsnaam mag maximaal 100 karakters bevatten"),
+  email: z.string().email("Voer een geldig e-mailadres in"),
+  phone: z
+    .string()
+    .max(20, "Telefoonnummer mag maximaal 20 karakters bevatten")
+    .optional(),
+});
+
 export const server = {
   // Contact form submission action
   submitContactForm: defineAction({
@@ -116,6 +129,44 @@ export const server = {
         // Return error response
         throw new Error(
           "Er is een fout opgetreden bij het aanmelden voor de nieuwsbrief. Probeer het opnieuw."
+        );
+      }
+    },
+  }),
+
+  // Quickscan form submission action
+  submitQuickscanForm: defineAction({
+    accept: "form",
+    input: quickscanSchema,
+    handler: async (input) => {
+      try {
+        // Authenticate with PocketBase using admin credentials
+        await pb.admins.authWithPassword("rowan@nutzy.nl", "wGskmmfvy7kkGvS");
+
+        // Prepare data for PocketBase
+        const data = {
+          company: input.company,
+          email: input.email,
+          phone: input.phone || "",
+          type: "quickscan", // Add type to distinguish from other form submissions
+        };
+
+        // Create the quickscan submission record
+        const record = await pb.collection("form_submissions").create(data);
+
+        // Return success response
+        return {
+          success: true,
+          message:
+            "Bedankt voor je interesse! We nemen binnen 24 uur contact met je op voor je quickscan.",
+          id: record.id,
+        };
+      } catch (error) {
+        console.error("Quickscan form submission error:", error);
+
+        // Return error response
+        throw new Error(
+          "Er is een fout opgetreden bij het verzenden van je quickscan aanvraag. Probeer het opnieuw of neem direct contact met ons op."
         );
       }
     },
