@@ -1,15 +1,124 @@
-<div class="h-[150svh] overflow-hidden text-center bg-primary-200">
-  <h1
-    class="text-5xl lg:text-8xl font-anton text-shadow shadow-primary-500 my-16"
-  >
-    Nutzy selfie squad
-  </h1>
-  <iframe
-    seamless="seamless"
-    style="overflow:hidden"
-    scrolling="no"
-    class="w-full h-full lg:max-w-7xl mx-auto overflow-hidden shadow-2xl rounded-lg shadow-primary-500"
-    src="https://www.selfie-squad.com/nutzy"
-  >
-  </iframe>
+<div
+  class="flex flex-col justify-end min-h-screen w-full overflow-hidden text-center bg-primary-200 relative"
+>
+  <div>
+    <h1
+      class="text-5xl lg:text-8xl px-16 font-anton text-shadow shadow-primary-500 my-16"
+    >
+      Nutzy selfie squad
+    </h1>
+  </div>
+
+  <div class="relative">
+    <iframe
+      id="selfie-iframe"
+      seamless="seamless"
+      scrolling="no"
+      class="w-full h-[100svh] mx-auto overflow-hidden shadow-2xl rounded-lg shadow-primary-500"
+      src="https://www.selfie-squad.com/nutzy"
+    >
+    </iframe>
+    <button
+      id="fullscreen-btn"
+      class="absolute top-8 right-8 bg-primary-500 bg-opacity-50 text-white p-3 rounded-lg hover:bg-opacity-70 transition-all duration-200"
+      aria-label="Enter fullscreen"
+    >
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+        <path
+          d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"
+        ></path>
+      </svg>
+    </button>
+  </div>
 </div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const iframe = document.getElementById(
+      "selfie-iframe"
+    ) as HTMLIFrameElement;
+    const fullscreenBtn = document.getElementById(
+      "fullscreen-btn"
+    ) as HTMLButtonElement;
+
+    if (!iframe || !fullscreenBtn) return;
+
+    function enterFullscreen() {
+      // Create a fullscreen container
+      const fullscreenContainer = document.createElement("div");
+      fullscreenContainer.id = "fullscreen-container";
+      fullscreenContainer.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: black;
+        z-index: 9999;
+        overflow: hidden;
+      `;
+
+      // Clone the iframe for fullscreen
+      const fullscreenIframe = iframe.cloneNode(true) as HTMLIFrameElement;
+      // Remove any deprecated attributes
+      fullscreenIframe.removeAttribute("scrolling");
+      fullscreenIframe.style.cssText = `
+        width: 100%;
+        height: 100%;
+        border: none;
+        overflow: hidden;
+      `;
+
+      // Create exit button
+      const exitBtn = document.createElement("button");
+      exitBtn.innerHTML = `
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+        </svg>
+      `;
+      exitBtn.style.cssText = `
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: rgba(0, 0, 0, 0.7);
+        color: white;
+        border: none;
+        padding: 12px;
+        border-radius: 8px;
+        cursor: pointer;
+        z-index: 10000;
+        transition: background-color 0.2s;
+      `;
+      exitBtn.addEventListener("mouseenter", () => {
+        exitBtn.style.backgroundColor = "rgba(0, 0, 0, 0.9)";
+      });
+      exitBtn.addEventListener("mouseleave", () => {
+        exitBtn.style.backgroundColor = "rgba(0, 0, 0, 0.7)";
+      });
+
+      // Add elements to container
+      fullscreenContainer.appendChild(fullscreenIframe);
+      fullscreenContainer.appendChild(exitBtn);
+      document.body.appendChild(fullscreenContainer);
+
+      // Hide body overflow
+      document.body.style.overflow = "hidden";
+
+      // Exit fullscreen function
+      function exitFullscreen() {
+        document.body.removeChild(fullscreenContainer);
+        document.body.style.overflow = "";
+      }
+
+      // Event listeners for exit
+      exitBtn.addEventListener("click", exitFullscreen);
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") {
+          exitFullscreen();
+        }
+      });
+    }
+
+    fullscreenBtn.addEventListener("click", enterFullscreen);
+  });
+</script>
