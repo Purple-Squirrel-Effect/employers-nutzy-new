@@ -21,7 +21,7 @@ const { id = "quickscan-cta", className = "" } = Astro.props;
   <!-- Background Pattern -->
   <div class="absolute inset-0 opacity-10">
     <img
-      src="/svg/Content-creator-amico.svg"
+      src="/svg/Analysis-amico.svg"
       alt="Quickscan background illustration"
       class="w-full h-full object-cover"
       loading="lazy"
@@ -30,11 +30,11 @@ const { id = "quickscan-cta", className = "" } = Astro.props;
 
   <!-- Main Content Container -->
   <div
-    class="relative z-10 grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-center"
+    class="relative z-10 flex flex-col lg:flex-row gap-8 lg:gap-12 items-center"
   >
     <!-- Left Column - Content -->
     <div
-      class="text-center lg:text-left space-y-6 lg:col-span-2"
+      class="text-center lg:w-1/2 w-full lg:text-left space-y-6 lg:col-span-2"
       data-quickscan-content
     >
       <h2
@@ -176,25 +176,25 @@ const { id = "quickscan-cta", className = "" } = Astro.props;
             </h3>
           </div>
 
-          <!-- Company Name Field -->
+          <!-- Vacature URL Field -->
           <div class="form-group">
             <label
-              for="company"
+              for="vacature-url"
               class="block text-sm font-semibold text-gray-900 mb-2"
             >
-              Je bedrijf <span class="text-secondary-500">*</span>
+              Vacature URL <span class="text-secondary-500">*</span>
             </label>
             <input
-              type="text"
-              id="company"
-              name="company"
-              placeholder="Je bedrijfsnaam"
+              type="url"
+              id="vacature-url"
+              name="vacature-url"
+              placeholder="https://www.bedrijf.nl/vacatures/functie"
               required
               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
             />
             <div
               class="error-message hidden text-sm text-red-600 mt-1"
-              data-error="company"
+              data-error="vacature-url"
             >
             </div>
           </div>
