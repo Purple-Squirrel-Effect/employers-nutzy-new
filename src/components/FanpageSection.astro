@@ -10,10 +10,12 @@ import Section from "./Section.astro";
     id="smooth-wrapper-2"
     class="grid grid-cols-1 lg:grid-cols-2 gap-8 relative w-full"
   >
-    <div class="w-full order-2">
+    <div
+      id="fanpage-video"
+      class="w-full order-2 rounded-3xl shadow-2xl overflow-hidden"
+    >
       <video
-        id="fanpage-video"
-        class="h-full w-full rounded-lg"
+        class="h-full w-full object-cover"
         loop
         autoplay
         muted
