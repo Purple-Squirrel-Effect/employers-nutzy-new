@@ -88,14 +88,14 @@ const workplaceValues = [
     <!-- Three-Phase Journey -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
       {workplaceValues.map((value, index) => (
-        <div class="relative group">
+        <div class="relative group grow h-full">
           <!-- Connection Line (hidden on mobile) -->
           {index < workplaceValues.length - 1 && (
             <div class="hidden md:block absolute top-16 -right-6 lg:-right-12 w-12 lg:w-24 h-0.5 bg-gradient-to-r from-primary-300 to-secondary-300 z-0"></div>
           )}
 
           <!-- Card -->
-          <div class="relative bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-primary-100 group-hover:border-secondary-300">
+          <div class="relative h-full bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-primary-100 group-hover:border-secondary-300">
             <!-- Phase Badge -->
             <div class="absolute -top-4 left-8 bg-gradient-to-r from-primary-500 to-secondary-500 text-white px-4 py-2 rounded-full text-sm font-bold">
               {value.phase}
@@ -155,13 +155,13 @@ const workplaceValues = [
             <div class="flex flex-col sm:flex-row gap-4">
               <a
                 href="/contact"
-                class="inline-flex items-center justify-center px-8 py-4 bg-secondary-500 text-white font-bold rounded-xl hover:bg-secondary-400 transition-all duration-300 hover:scale-105 shadow-lg"
+                class="inline-flex items-center justify-center px-8 py-4 bg-tertiary-500 text-black  font-bold rounded-xl  transition-all duration-300  shadow-lg"
               >
                 Start Gesprek
               </a>
               <a
                 href="/quickscan"
-                class="inline-flex items-center justify-center px-8 py-4 bg-transparent border-2 border-secondary-200 text-secondary-200 font-bold rounded-xl hover:bg-secondary-200 hover:text-primary-900 transition-all duration-300"
+                class="inline-flex items-center justify-center px-8 py-4 bg-transparent border-2 border-white text-white font-bold rounded-xl hover:bg-white/20  transition-all duration-300"
               >
                 Doe de Quickscan
               </a>
