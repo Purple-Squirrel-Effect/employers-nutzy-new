@@ -147,7 +147,6 @@ export const companyInfo = {
   name: "Nutzy",
   description:
     "Gen-Z Recruitment Platform voor visuele vacatures en creator partnerships",
-  email: "mitch@nutzy.nl",
   phone: "+31 (0) 85 782 1400",
   address: "Gasfabriek 10, 5613 CP Eindhoven",
   kvk: "12345678",
