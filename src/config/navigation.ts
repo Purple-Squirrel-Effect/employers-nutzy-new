@@ -149,6 +149,6 @@ export const companyInfo = {
     "Gen-Z Recruitment Platform voor visuele vacatures en creator partnerships",
   phone: "+31 (0) 85 782 1400",
   address: "Gasfabriek 10, 5613 CP Eindhoven",
-  kvk: "12345678",
-  btw: "NL123456789B01",
+  kvk: "87934655",
+  // btw: "NL123456789B01",
 };
