@@ -3,6 +3,8 @@
 // Modern card-based layout with central focus and dynamic visual hierarchy
 // Emphasizes the journey from understanding to action
 
+import CardDescription from "../CardDescription.astro";
+import CardTitle from "../CardTitle.astro";
 import Section from "../Section.astro";
 import SectionDescription from "../SectionDescription.astro";
 import SectionTitle from "../SectionTitle.astro";
@@ -82,8 +84,10 @@ const workplaceValues = [
       </SectionTitle>
 
       <SectionDescription>
+<span class='text-black'> 
         Het betekent dat je begrijpt wat Generatie Z spannend vindt en
-        <strong class="text-primary-900">laat zien dat je er bent om hen te ondersteunen.</strong>
+  
+</span>        <strong class="text-primary-900">laat zien dat je er bent om hen te ondersteunen.</strong>
       </SectionDescription>
     </div>
 
@@ -109,12 +113,12 @@ const workplaceValues = [
             </div>
 
             <!-- Content -->
-            <h3 class="text-2xl font-bold text-primary-900 mb-4 leading-tight">
+            <CardTitle >
               {value.title}
-            </h3>
-            <p class="text-gray-700 leading-relaxed text-lg">
+            </CardTitle>
+            <CardDescription>
               {value.content}
-            </p>
+            </CardDescription>
           </div>
         </div>
       ))}
@@ -138,13 +142,15 @@ const workplaceValues = [
 
           <!-- Action -->
           <div class="space-y-6">
-            <h3 class="text-3xl font-bold text-secondary-200">
-              Het Resultaat?
-            </h3>
-            <p class="text-xl text-primary-100 leading-relaxed">
-              Zo trek je niet alleen talent aan, maar houd je het ook vast.
+            <CardTitle class="text-3xl ">
+              <span class="font-bold text-secondary-200">Het Resultaat?</span>
+            </CardTitle>
+            <CardDescription >
+              <span class="text-white">
+                Zo trek je niet alleen talent aan, maar houd je het ook vast.
               Door vanaf dag één een gevoel van veiligheid en vertrouwen te creëren.
-            </p>
+              </span>
+            </CardDescription>
             <div class="flex flex-col sm:flex-row gap-4">
               <a
                 href="/contact"

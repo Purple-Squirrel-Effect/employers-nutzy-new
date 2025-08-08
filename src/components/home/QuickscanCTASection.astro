@@ -3,6 +3,8 @@
 // Call-to-action section for the Nutzy Quickscan feature
 // Follows the established design system with primary brand colors and responsive layout
 
+import CardDescription from "../CardDescription.astro";
+import CardTitle from "../CardTitle.astro";
 import Section from "../Section.astro";
 import SectionTitle from "../SectionTitle.astro";
 
@@ -50,14 +52,12 @@ const { id = "quickscan-cta", className = "" } = Astro.props;
         <form class="space-y-4" id="quickscan-form" novalidate>
           <!-- Form Header -->
           <div class="text-center mb-6">
-            <h3 class="text-xl font-bold text-gray-900 mb-2">
-              Start je gratis quickscan
-            </h3>
-            <p>
+            <CardTitle> Start je gratis quickscan </CardTitle>
+            <CardDescription>
               Doe de Nutzy Quickscan en krijg kosteloos een analyse op maat,
               gebaseerd op PwC-onderzoek naar de pullfactoren die Gen Z écht
               aantrekken.
-            </p>
+            </CardDescription>
           </div>
 
           <!-- Vacature URL Field -->
