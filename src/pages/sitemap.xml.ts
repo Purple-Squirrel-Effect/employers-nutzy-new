@@ -41,7 +41,7 @@ export async function GET(context: APIContext) {
       priority: "0.8",
     },
     {
-      url: "campain-strategy",
+      url: "campaign-strategy",
       lastmod: new Date().toISOString(),
       changefreq: "weekly",
       priority: "0.7",

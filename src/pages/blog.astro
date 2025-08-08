@@ -5,6 +5,8 @@ import Footer from "../components/Footer.astro";
 import HeroDescription from "../components/HeroDescription.astro";
 import HeroTitle from "../components/HeroTitle.astro";
 import Section from "../components/Section.astro";
+import SectionTitle from "../components/SectionTitle.astro";
+import SectionDescription from "../components/SectionDescription.astro";
 import App from "../layouts/App.astro";
 
 // Get all blog posts from the content collection
@@ -114,13 +116,19 @@ function getExcerpt(post: any, maxLength: number = 150): string {
       >
         <div class="mx-auto">
           <div class="text-center mb-12">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Laatste Blog Posts
-            </h2>
-            <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-              Ontdek de nieuwste inzichten, trends en strategieën voor moderne
-              recruitment
-            </p>
+            <div class="mb-4">
+              <SectionTitle>
+                <span class="text-gray-900 text-shadow shadow-white">Laatste Blog Posts</span>
+              </SectionTitle>
+            </div>
+            <div class="max-w-2xl mx-auto">
+              <SectionDescription>
+                <span class="text-gray-600">
+                  Ontdek de nieuwste inzichten, trends en strategieën voor moderne
+                  recruitment
+                </span>
+              </SectionDescription>
+            </div>
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

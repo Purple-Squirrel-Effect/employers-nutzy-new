@@ -71,6 +71,9 @@ const quickActions = [
     color: "bg-primary-900 hover:bg-primary-900"
   }
 ];
+
+import CardTitle from "./CardTitle.astro";
+import CardDescription from "./CardDescription.astro";
 ---
 
 <div class="space-y-8">
@@ -117,9 +120,9 @@ const quickActions = [
           
           <!-- Content -->
           <div class="flex-1 min-w-0">
-            <h3 class="text-lg font-semibold text-gray-900 mb-1">
-              {method.label}
-            </h3>
+            <CardTitle>
+              <span class="text-gray-900 text-lg">{method.label}</span>
+            </CardTitle>
             {method.href ? (
               <a
                 href={method.href}
@@ -133,7 +136,9 @@ const quickActions = [
               <p class="text-gray-900 text-lg mb-2">{method.value}</p>
             )}
             {method.description && (
-              <p class="text-gray-600 text-sm">{method.description}</p>
+              <CardDescription>
+                <span class="text-gray-600 text-sm">{method.description}</span>
+              </CardDescription>
             )}
           </div>
         </div>
@@ -143,12 +148,14 @@ const quickActions = [
 
   <!-- Office Hours -->
   <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-lg" data-office-hours>
-    <h3 class="text-xl font-bold text-gray-900 mb-4 flex items-center">
-      <svg class="w-5 h-5 mr-2 text-secondary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-      </svg>
-      Openingstijden
-    </h3>
+    <CardTitle>
+      <span class="text-gray-900 flex items-center">
+        <svg class="w-5 h-5 mr-2 text-secondary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        Openingstijden
+      </span>
+    </CardTitle>
     <div class="space-y-2">
       {officeHours.map((schedule) => (
         <div class="flex justify-between items-center text-gray-900">

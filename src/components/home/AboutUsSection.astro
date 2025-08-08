@@ -159,6 +159,8 @@ const companyValues: CompanyValue[] = [
 import HeroDescription from "../HeroDescription.astro";
 import HeroTitle from "../HeroTitle.astro";
 import Section from "../Section.astro";
+import SectionTitle from "../SectionTitle.astro";
+import SectionDescription from "../SectionDescription.astro";
 ---
 
 <Section
@@ -207,15 +209,17 @@ import Section from "../Section.astro";
         <!-- Mission Content -->
         <div class="order-1 lg:order-2">
           <div class="space-y-6">
-            <h2
-              class="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight"
-            >
-              Onze <span class="text-secondary-200">Missie</span>
-            </h2>
+            <div class="mb-4">
+              <SectionTitle>
+                Onze <span class="text-secondary-200">Missie</span>
+              </SectionTitle>
+            </div>
 
-            <p class="text-lg text-white/90 leading-relaxed">
-            Gen Z werkt anders, denkt anders en kiest anders. Wij maken recruitment toekomstproof door verhalen te vertellen die vertrouwen wekken en laten zien dat ze passen bij jouw organisatie.
-            </p>
+            <div class="mb-6">
+              <SectionDescription>
+                Gen Z werkt anders, denkt anders en kiest anders. Wij maken recruitment toekomstproof door verhalen te vertellen die vertrouwen wekken en laten zien dat ze passen bij jouw organisatie.
+              </SectionDescription>
+            </div>
 
           
 
@@ -239,15 +243,17 @@ import Section from "../Section.astro";
     <!-- Company Values -->
     <div class="mb-12 lg:mb-16 w-full flex flex-col items-center justify-center" data-values-section>
       <div class="text-center mb-8 lg:mb-12">
-        <h2
-          class="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 text-shadow shadow-black"
-        >
-          Onze <span class="text-secondary-200">Waarden</span>
-        </h2>
-        <p class="text-lg text-white/90 leading-relaxed max-w-2xl mx-auto">
-          Deze kernwaarden sturen alles wat we doen en bepalen hoe we samenwerken
-          met onze klanten en partners.
-        </p>
+        <div class="mb-4">
+          <SectionTitle>
+            Onze <span class="text-secondary-200">Waarden</span>
+          </SectionTitle>
+        </div>
+        <div class="max-w-2xl mx-auto">
+          <SectionDescription>
+            Deze kernwaarden sturen alles wat we doen en bepalen hoe we samenwerken
+            met onze klanten en partners.
+          </SectionDescription>
+        </div>
       </div>
 
       <!-- Values Grid -->

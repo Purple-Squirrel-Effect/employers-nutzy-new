@@ -1,5 +1,9 @@
 ---
 import Section from "../Section.astro";
+import SectionTitle from "../SectionTitle.astro";
+import SectionDescription from "../SectionDescription.astro";
+import CardTitle from "../CardTitle.astro";
+import CardDescription from "../CardDescription.astro";
 ---
 
 <Section
@@ -19,44 +23,52 @@ import Section from "../Section.astro";
 
   <!-- Creative Content -->
   <div class="order-2 lg:order-2">
-    <h2
-      class="text-4xl md:text-6xl lg:text-8xl font-bold text-white relative z-50 mb-6 text-shadow shadow-black"
-    >
-      <span class="text-primary-200">Creatieve</span> content
-    </h2>
-    <p class="text-lg md:text-xl text-white mb-8 leading-relaxed">
+    <div class="mb-6">
+      <SectionTitle>
+        <span class="text-primary-200">Creatieve</span> content
+      </SectionTitle>
+    </div>
+    <div class="mb-8">
+      <SectionDescription>
       Onze creators spreken de taal van Gen Z. We maken video’s, visuals en
       verhalen die laten zien: “Jij past hier.”
-    </p>
+      </SectionDescription>
+    </div>
 
     <!-- Creative Features -->
     <div class="space-y-6 relative z-20">
       <div class="bg-white backdrop-blur-sm rounded-lg p-6">
-        <h3 class="text-xl font-bold text-gray-900 mb-3">
-          Visuele storytelling
-        </h3>
-        <p class="text-gray-700">
-          Van TikTok-video's tot Instagram Stories - wij creëren visuele
-          verhalen die jouw vacatures tot leven brengen.
-        </p>
+        <CardTitle>
+          <span class="text-gray-900">Visuele storytelling</span>
+        </CardTitle>
+        <CardDescription>
+          <span class="text-gray-700">
+            Van TikTok-video's tot Instagram Stories - wij creëren visuele
+            verhalen die jouw vacatures tot leven brengen.
+          </span>
+        </CardDescription>
       </div>
       <div class="bg-white backdrop-blur-sm rounded-lg p-6">
-        <h3 class="text-xl font-bold text-gray-900 mb-3">
-          Multi-Platform Aanpak
-        </h3>
-        <p class="text-gray-700">
-          Geoptimaliseerde content voor elk platform - van LinkedIn tot TikTok,
-          elk met zijn eigen tone of voice.
-        </p>
+        <CardTitle>
+          <span class="text-gray-900">Multi-Platform Aanpak</span>
+        </CardTitle>
+        <CardDescription>
+          <span class="text-gray-700">
+            Geoptimaliseerde content voor elk platform - van LinkedIn tot TikTok,
+            elk met zijn eigen tone of voice.
+          </span>
+        </CardDescription>
       </div>
       <div class="bg-white backdrop-blur-sm rounded-lg p-6">
-        <h3 class="text-xl font-bold text-gray-900 mb-3">
-          Echte mensen, echte verhalen
-        </h3>
-        <p class="text-gray-700">
-          Content die aanvoelt als een gesprek met vrienden, niet als
-          traditionele recruitment advertenties.
-        </p>
+        <CardTitle>
+          <span class="text-gray-900">Echte mensen, echte verhalen</span>
+        </CardTitle>
+        <CardDescription>
+          <span class="text-gray-700">
+            Content die aanvoelt als een gesprek met vrienden, niet als
+            traditionele recruitment advertenties.
+          </span>
+        </CardDescription>
       </div>
     </div>
   </div>

@@ -34,7 +34,7 @@ export const mainNavigationLinks: NavigationLink[] = [
   },
   {
     label: "Content & Campagnes",
-    href: "/campain-strategy",
+    href: "/campaign-strategy",
     description: "Strategische content en campagne services",
   },
   {
@@ -71,8 +71,8 @@ export const footerNavigationSections: NavigationSection[] = [
   {
     title: "Services",
     links: [
-      { label: "Content Creatie & Campagnes", href: "/campain-strategy" },
-      { label: "Strategische Planning", href: "/campain-strategy#strategy" },
+      { label: "Content Creatie & Campagnes", href: "/campaign-strategy" },
+      { label: "Strategische Planning", href: "/campaign-strategy#strategy" },
     ],
   },
   {

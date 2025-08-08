@@ -1,5 +1,9 @@
 ---
 import Section from "../Section.astro";
+import SectionTitle from "../SectionTitle.astro";
+import SectionDescription from "../SectionDescription.astro";
+import CardTitle from "../CardTitle.astro";
+import CardDescription from "../CardDescription.astro";
 ---
 
 <Section
@@ -9,16 +13,20 @@ import Section from "../Section.astro";
 >
   <!-- Strategy Content -->
   <div class="order-2 lg:order-1 col-start-2">
-    <h2
-      class="text-4xl md:text-6xl lg:text-8xl font-bold text-primary-900 relative z-50 mb-6"
-    >
-      Strategische <span class="text-secondary-500">planning</span>
-    </h2>
-    <p class="text-lg md:text-xl text-gray-700 mb-8 leading-relaxed">
-      Elke campagne begint met inzicht. Wij analyseren gedrag en voorkeuren van
-      Gen Z, kiezen de juiste kanalen en ontwikkelen boodschappen die hen echt
-      raken.
-    </p>
+    <div class="mb-6">
+      <SectionTitle>
+        <span class="text-primary-900">Strategische</span> <span class="text-secondary-500">planning</span>
+      </SectionTitle>
+    </div>
+    <div class="mb-8">
+      <SectionDescription>
+        <span class="text-gray-700">
+          Elke campagne begint met inzicht. Wij analyseren gedrag en voorkeuren van
+          Gen Z, kiezen de juiste kanalen en ontwikkelen boodschappen die hen echt
+          raken.
+        </span>
+      </SectionDescription>
+    </div>
 
     <!-- Strategy Steps -->
     <div class="space-y-6">
@@ -29,13 +37,15 @@ import Section from "../Section.astro";
           <span class="text-white font-bold text-sm">1</span>
         </div>
         <div>
-          <h3 class="text-xl font-bold text-primary-900 mb-2">
-            Doelgroep Analyse
-          </h3>
-          <p class="text-gray-600">
-            Diepgaande analyse van Gen-Z gedrag, voorkeuren en online gewoonten
-            om de perfecte match te vinden.
-          </p>
+          <CardTitle>
+            <span class="text-primary-900">Doelgroep Analyse</span>
+          </CardTitle>
+          <CardDescription>
+            <span class="text-gray-600">
+              Diepgaande analyse van Gen-Z gedrag, voorkeuren en online gewoonten
+              om de perfecte match te vinden.
+            </span>
+          </CardDescription>
         </div>
       </div>
 
@@ -46,13 +56,15 @@ import Section from "../Section.astro";
           <span class="text-white font-bold text-sm">2</span>
         </div>
         <div>
-          <h3 class="text-xl font-bold text-primary-900 mb-2">
-            Kanaal Selectie
-          </h3>
-          <p class="text-gray-600">
-            Identificatie van de meest effectieve platforms en kanalen waar jouw
-            doelgroep actief is.
-          </p>
+          <CardTitle>
+            <span class="text-primary-900">Kanaal Selectie</span>
+          </CardTitle>
+          <CardDescription>
+            <span class="text-gray-600">
+              Identificatie van de meest effectieve platforms en kanalen waar jouw
+              doelgroep actief is.
+            </span>
+          </CardDescription>
         </div>
       </div>
 
@@ -63,13 +75,15 @@ import Section from "../Section.astro";
           <span class="text-white font-bold text-sm">3</span>
         </div>
         <div>
-          <h3 class="text-xl font-bold text-primary-900 mb-2">
-            Boodschap Ontwikkeling
-          </h3>
-          <p class="text-gray-600">
-            Creatie van authentieke en relevante boodschappen die resoneren met
-            Gen-Z waarden en aspiraties.
-          </p>
+          <CardTitle>
+            <span class="text-primary-900">Boodschap Ontwikkeling</span>
+          </CardTitle>
+          <CardDescription>
+            <span class="text-gray-600">
+              Creatie van authentieke en relevante boodschappen die resoneren met
+              Gen-Z waarden en aspiraties.
+            </span>
+          </CardDescription>
         </div>
       </div>
     </div>
