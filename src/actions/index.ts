@@ -49,7 +49,10 @@ export const server = {
     handler: async (input) => {
       try {
         // Authenticate with PocketBase using admin credentials
-        await pb.admins.authWithPassword("rowan@nutzy.nl", "wGskmmfvy7kkGvS");
+        await pb.admins.authWithPassword(
+          import.meta.env.POCKETBASE_USERNAME,
+          import.meta.env.POCKETBASE_PASSWORD
+        );
 
         // Prepare data for PocketBase
         const data = {
@@ -88,7 +91,10 @@ export const server = {
     handler: async (input) => {
       try {
         // Authenticate with PocketBase using admin credentials
-        await pb.admins.authWithPassword("rowan@nutzy.nl", "wGskmmfvy7kkGvS");
+        await pb.admins.authWithPassword(
+          import.meta.env.POCKETBASE_USERNAME,
+          import.meta.env.POCKETBASE_PASSWORD
+        );
 
         // Check if email already exists
         try {
@@ -141,8 +147,10 @@ export const server = {
     handler: async (input) => {
       try {
         // Authenticate with PocketBase using admin credentials
-        await pb.admins.authWithPassword("rowan@nutzy.nl", "wGskmmfvy7kkGvS");
-
+        await pb.admins.authWithPassword(
+          import.meta.env.POCKETBASE_USERNAME,
+          import.meta.env.POCKETBASE_PASSWORD
+        );
         // Prepare data for PocketBase
         const data = {
           company: input.company,
