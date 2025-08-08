@@ -73,7 +73,7 @@ import Section from "../Section.astro";
 
   timeline.fromTo(
     floorVanBergen,
-    { x: "0%", duration: 1, scale: 0.8, zIndex: 1 },
+    { x: "4%", duration: 1, scale: 1, zIndex: 1 },
     { x: "0", duration: 1, scale: 1, zIndex: 1 },
     0
   );
@@ -81,7 +81,7 @@ import Section from "../Section.astro";
   timeline.fromTo(
     lotteMoerkens,
     { x: "-100%", duration: 1, scale: 0.8, zIndex: 1 },
-    { x: "-0%", duration: 1, scale: 0.8, zIndex: 1 },
+    { x: "4%", duration: 1, scale: 0.8, zIndex: 1 },
     1
   );
 
@@ -98,7 +98,7 @@ import Section from "../Section.astro";
     end: "bottom +=10px",
     pinType: "fixed",
     pin: true,
-    scrub: 1,
+    scrub: 0.8,
     animation: timeline,
   });
 </script>

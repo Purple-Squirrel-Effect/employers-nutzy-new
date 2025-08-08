@@ -16,19 +16,19 @@ const { id = "gen-z-workplace", className = "" } = Astro.props;
 const workplaceValues = [
   {
     phase: "Begrijpen",
-    icon: "👁️",
+    icon: "/svg/steps_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg",
     title: "Wat Gen Z Spannend Vindt",
     content: "Hun eerste stappen in het werkende leven, het ontdekken van hun talenten en het vinden van hun plek in een nieuwe omgeving."
   },
   {
     phase: "Ondersteunen",
-    icon: "🤝",
+    icon: "/svg/handshake_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg",
     title: "Zelfvertrouwen Voeden",
     content: "Open communicatie, realistische verwachtingen en een werkomgeving waar fouten maken mag – omdat het hoort bij groeien."
   },
   {
     phase: "Realiseren",
-    icon: "✨",
+    icon: "/svg/star_shine_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg",
     title: "Zichtbaar Maken",
     content: "Met visuele verhalen, eerlijke content en echte ervaringen van collega's laten we zien: 'Hier mag je leren, groeien en jezelf zijn.'"
   }
@@ -40,6 +40,15 @@ const workplaceValues = [
   sectionClassName="bg-primary-200 overflow-hidden"
   className={`relative py-20 md:py-28 lg:py-36 ${className}`}
 >
+  <!-- Decorative Background Elements -->
+  <div class="absolute top-0 right-0 w-96 h-96 opacity-10 transform rotate-12">
+    <img
+      src="/svg/Team-spirit-amico.svg"
+      alt="Background decoration"
+      class="w-full h-full object-contain"
+      loading="lazy"
+    />
+  </div>
 
   <div class="absolute bottom-0 left-0 w-80 h-80 opacity-5 transform -rotate-12">
     <img
@@ -56,7 +65,7 @@ const workplaceValues = [
     <!-- Hero Section -->
     <div class="text-center max-w-4xl mx-auto space-y-8">
       <div class="inline-flex items-center gap-3 bg-white/80 backdrop-blur-sm rounded-full px-6 py-3 border border-primary-200">
-        <span class="text-2xl">🚀</span>
+        <img src="/svg/rocket_launch_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg" alt="Rocket icon" class="w-6 h-6 text-primary-500" />
         <span class="text-primary-900 font-bold">Goed Werkgeverschap</span>
       </div>
 
@@ -88,12 +97,14 @@ const workplaceValues = [
           <!-- Card -->
           <div class="relative h-full bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-primary-100 group-hover:border-secondary-300">
             <!-- Phase Badge -->
-            <div class="absolute -top-4 left-8 bg-gradient-to-r from-primary-500 to-secondary-500 text-white px-4 py-2 rounded-full text-sm font-bold">
+            <div class="absolute -top-4 left-8 bg-primary-500 text-white px-4 py-2 rounded-full text-sm font-bold">
               {value.phase}
             </div>
 
             <!-- Icon -->
-            <div class="text-5xl mb-6 mt-4">{value.icon}</div>
+            <div class="mb-6 mt-4">
+              <img src={value.icon} alt={`${value.phase} icon`} class="w-12 h-12 text-primary-500" />
+            </div>
 
             <!-- Content -->
             <h3 class="text-2xl font-bold text-primary-900 mb-4 leading-tight">
@@ -135,7 +146,7 @@ const workplaceValues = [
             <div class="flex flex-col sm:flex-row gap-4">
               <a
                 href="/contact"
-                class="inline-flex hover:brightness-105  items-center justify-center px-8 py-4 bg-tertiary-500 text-black  font-bold rounded-xl  transition-all duration-300  shadow-lg"
+                class="inline-flex items-center justify-center px-8 py-4 bg-tertiary-500 text-black  font-bold rounded-xl  transition-all duration-300  shadow-lg"
               >
                 Start Gesprek
               </a>
