@@ -1,5 +1,4 @@
 ---
-
 // About Us section data structure
 interface TeamMember {
   id: string;
@@ -20,105 +19,113 @@ interface CompanyValue {
 
 // Team members data
 const teamMembers: TeamMember[] = [
-
   {
     expertise: ["Content Strategy", "Social Media", "Video Production"],
-    "name": "Caro van Dijk",
-    "role": "Content Creator",
-    "linkedinUrl": "https://www.linkedin.com/in/caro-van-dijk/",
-    "image": "https://imagedelivery.net/E7Eayshix4aN786AJOti1g/cdabfc63-8f28-4226-8537-a0da93309800/public",
-    "imageAlt": "Caro van Dijk"
-  },
-  {
-    expertise: ["Content Strategy", "Social Media", "Video Production"],
-    "name": "Mike Overeem",
-    "role": "Customer Succes Held",
-    "linkedinUrl": "https://www.linkedin.com/in/mike-overeem-2405a5256/",
-    "image": "https://imagedelivery.net/E7Eayshix4aN786AJOti1g/a2513c87-46b9-4734-08ff-d96420bfc100/public",
-    "imageAlt": "Mike Overeem"
+    name: "Caro van Dijk",
+    role: "Content Creator",
+    linkedinUrl: "https://www.linkedin.com/in/caro-van-dijk/",
+    image:
+      "https://imagedelivery.net/E7Eayshix4aN786AJOti1g/cdabfc63-8f28-4226-8537-a0da93309800/public",
+    imageAlt: "Caro van Dijk",
   },
   {
     expertise: ["Content Strategy", "Social Media", "Video Production"],
-    "name": "Kevin van Houten",
-    "role": "Sales & Partners",
-    "linkedinUrl": "https://www.linkedin.com/in/kevinvanhouten/",
-    "image": "https://imagedelivery.net/E7Eayshix4aN786AJOti1g/63298920-a263-4eb3-b675-653dde38fa00/public",
-    "imageAlt": "Kevin van Houten"
+    name: "Mike Overeem",
+    role: "Customer Succes Held",
+    linkedinUrl: "https://www.linkedin.com/in/mike-overeem-2405a5256/",
+    image:
+      "https://imagedelivery.net/E7Eayshix4aN786AJOti1g/a2513c87-46b9-4734-08ff-d96420bfc100/public",
+    imageAlt: "Mike Overeem",
   },
   {
-        expertise: ["Content Strategy", "Social Media", "Video Production"],
-
-    "name": "Rowan van Winden",
-    "role": "Frontend Developer",
-    "linkedinUrl": "https://www.linkedin.com/in/rowan-van-winden-a9b127290/",
-    "image": "https://imagedelivery.net/E7Eayshix4aN786AJOti1g/f8d576fc-9bbc-42cb-0d76-6e901f53d900/public",
-    "imageAlt": "Rowan van Winden"
+    expertise: ["Content Strategy", "Social Media", "Video Production"],
+    name: "Kevin van Houten",
+    role: "Sales & Partners",
+    linkedinUrl: "https://www.linkedin.com/in/kevinvanhouten/",
+    image:
+      "https://imagedelivery.net/E7Eayshix4aN786AJOti1g/63298920-a263-4eb3-b675-653dde38fa00/public",
+    imageAlt: "Kevin van Houten",
   },
   {
-        expertise: ["Content Strategy", "Social Media", "Video Production"],
+    expertise: ["Content Strategy", "Social Media", "Video Production"],
 
-    "name": "Pieter den Toom",
-    "role": "Backend Developer",
-    "linkedinUrl": "https://www.linkedin.com/in/pieter-den-toom/",
-    "image": "https://imagedelivery.net/E7Eayshix4aN786AJOti1g/80a63a73-4008-4e1f-148b-a0fb61728f00/public",
-    "imageAlt": "Pieter den Toom"
+    name: "Rowan van Winden",
+    role: "Frontend Developer",
+    linkedinUrl: "https://www.linkedin.com/in/rowan-van-winden-a9b127290/",
+    image:
+      "https://imagedelivery.net/E7Eayshix4aN786AJOti1g/f8d576fc-9bbc-42cb-0d76-6e901f53d900/public",
+    imageAlt: "Rowan van Winden",
   },
   {
-        expertise: ["Content Strategy", "Social Media", "Video Production"],
+    expertise: ["Content Strategy", "Social Media", "Video Production"],
 
-    "name": "Mitch Gielen",
-    "role": "Creative Director",
-    "linkedinUrl": "https://www.linkedin.com/in/mitch-gielen-82326514",
-    "image": "https://imagedelivery.net/E7Eayshix4aN786AJOti1g/846fb2ad-1d42-4ffb-ad7c-5aa698ac1800/public",
-    "imageAlt": "Mitch Gielen"
+    name: "Pieter den Toom",
+    role: "Backend Developer",
+    linkedinUrl: "https://www.linkedin.com/in/pieter-den-toom/",
+    image:
+      "https://imagedelivery.net/E7Eayshix4aN786AJOti1g/80a63a73-4008-4e1f-148b-a0fb61728f00/public",
+    imageAlt: "Pieter den Toom",
   },
   {
-        expertise: ["Content Strategy", "Social Media", "Video Production"],
+    expertise: ["Content Strategy", "Social Media", "Video Production"],
 
-    "name": "Floor van Bergen",
-    "role": "Creator",
-    "linkedinUrl": "https://www.linkedin.com/in/floor-van-bergen-27199b147",
-    "image": "https://imagedelivery.net/E7Eayshix4aN786AJOti1g/6903d35b-dee2-4221-8705-95d363102e00/public",
-    "imageAlt": "Floor van Bergen"
+    name: "Mitch Gielen",
+    role: "Creative Director",
+    linkedinUrl: "https://www.linkedin.com/in/mitch-gielen-82326514",
+    image:
+      "https://imagedelivery.net/E7Eayshix4aN786AJOti1g/846fb2ad-1d42-4ffb-ad7c-5aa698ac1800/public",
+    imageAlt: "Mitch Gielen",
   },
   {
-        expertise: ["Content Strategy", "Social Media", "Video Production"],
+    expertise: ["Content Strategy", "Social Media", "Video Production"],
 
-    "name": "Koen van Ham",
-    "role": "Sales Support",
-    "linkedinUrl": "https://www.linkedin.com/in/koen-van-ham/",
-    "image": "https://imagedelivery.net/E7Eayshix4aN786AJOti1g/aaef0f95-38a3-42a1-d129-3d2d2eeaba00/public",
-    "imageAlt": "Koen van Ham"
+    name: "Floor van Bergen",
+    role: "Creator",
+    linkedinUrl: "https://www.linkedin.com/in/floor-van-bergen-27199b147",
+    image:
+      "https://imagedelivery.net/E7Eayshix4aN786AJOti1g/6903d35b-dee2-4221-8705-95d363102e00/public",
+    imageAlt: "Floor van Bergen",
   },
   {
-        expertise: ["Content Strategy", "Social Media", "Video Production"],
+    expertise: ["Content Strategy", "Social Media", "Video Production"],
 
-    "name": "Jisca Mannessen",
-    "role": "Accountmanager",
-    "linkedinUrl": "https://www.linkedin.com/in/jisca-mannessen-406763a7",
-    "image": "https://imagedelivery.net/E7Eayshix4aN786AJOti1g/18657cf3-1d1b-435d-3c0d-5e045f727a00/public",
-    "imageAlt": "Jisca Mannessen"
+    name: "Koen van Ham",
+    role: "Sales Support",
+    linkedinUrl: "https://www.linkedin.com/in/koen-van-ham/",
+    image:
+      "https://imagedelivery.net/E7Eayshix4aN786AJOti1g/aaef0f95-38a3-42a1-d129-3d2d2eeaba00/public",
+    imageAlt: "Koen van Ham",
   },
   {
-        expertise: ["Content Strategy", "Social Media", "Video Production"],
+    expertise: ["Content Strategy", "Social Media", "Video Production"],
 
-    "name": "Lotte Moerkens",
-    "role": "Creator",
-    "linkedinUrl": "https://www.linkedin.com/in/lotte-moerkens-585725338",
-    "image": "https://imagedelivery.net/E7Eayshix4aN786AJOti1g/bc61e144-253c-4393-c18e-8828377d2100/public",
-    "imageAlt": "Lotte Moerkens"
+    name: "Jisca Mannessen",
+    role: "Accountmanager",
+    linkedinUrl: "https://www.linkedin.com/in/jisca-mannessen-406763a7",
+    image:
+      "https://imagedelivery.net/E7Eayshix4aN786AJOti1g/18657cf3-1d1b-435d-3c0d-5e045f727a00/public",
+    imageAlt: "Jisca Mannessen",
   },
   {
+    expertise: ["Content Strategy", "Social Media", "Video Production"],
 
-        expertise: ["Content Strategy", "Social Media", "Video Production"],
+    name: "Lotte Moerkens",
+    role: "Creator",
+    linkedinUrl: "https://www.linkedin.com/in/lotte-moerkens-585725338",
+    image:
+      "https://imagedelivery.net/E7Eayshix4aN786AJOti1g/bc61e144-253c-4393-c18e-8828377d2100/public",
+    imageAlt: "Lotte Moerkens",
+  },
+  {
+    expertise: ["Content Strategy", "Social Media", "Video Production"],
 
-    "name": "Chris de Romph",
-    "role": "Recruitment Marketeer",
-    "linkedinUrl": "https://www.linkedin.com/in/chrisderomph",
-    "image": "https://imagedelivery.net/E7Eayshix4aN786AJOti1g/73055737-557a-4713-f198-9937940c1900/public",
-    "imageAlt": "Chris de Romph"
-  }
-
+    name: "Chris de Romph",
+    role: "Recruitment Marketeer",
+    linkedinUrl: "https://www.linkedin.com/in/chrisderomph",
+    image:
+      "https://imagedelivery.net/E7Eayshix4aN786AJOti1g/73055737-557a-4713-f198-9937940c1900/public",
+    imageAlt: "Chris de Romph",
+  },
 ];
 
 // Company values data
@@ -127,34 +134,36 @@ const companyValues: CompanyValue[] = [
     id: "authenticity",
     title: "Authenticiteit",
     description: "Eerlijk, transparant en herkenbaar",
-    icon: "/svg/objects-color-diamond-svgrepo-com.svg"
+    icon: "/svg/objects-color-diamond-svgrepo-com.svg",
   },
   {
     id: "innovation",
     title: "Innovatie",
     description: "Voorop in tech en creativiteit",
-    icon: "/svg/objects-color-diamond-svgrepo-com.svg"
+    icon: "/svg/objects-color-diamond-svgrepo-com.svg",
   },
   {
     id: "impact",
     title: "Impact",
     description: "Waarde voor werkgever én kandidaat",
-    icon: "/svg/objects-color-diamond-svgrepo-com.svg"
+    icon: "/svg/objects-color-diamond-svgrepo-com.svg",
   },
   {
     id: "community",
     title: "Community",
     description: "Een netwerk waar groei centraal staat",
-    icon: "/svg/objects-color-diamond-svgrepo-com.svg"
-  }
+    icon: "/svg/objects-color-diamond-svgrepo-com.svg",
+  },
 ];
 
+import HeroDescription from "../HeroDescription.astro";
+import HeroTitle from "../HeroTitle.astro";
 import Section from "../Section.astro";
 ---
 
 <Section
   sectionClassName="bg-primary-500 overflow-hidden "
-  className="grid grid-cols-1 mx-auto relative py-24 lg:py-32"
+  className="min-h-screen items-center justify-between overflow-hidden gap-8 w-full grid grid-cols-1 lg:grid-cols-1"
 >
   <!-- Background Pattern -->
   <img
@@ -165,22 +174,22 @@ import Section from "../Section.astro";
   />
 
   <!-- Content Container -->
-  <div class="relative z-10 w-full mx-auto">
+  <div class="relative z-10 w-full mx-auto  min-h-1/2">
     <!-- Section Header -->
-    <div class="text-center mb-12 lg:mb-16 pt-4" data-about-header>
-      <h1
-        class="text-4xl md:text-6xl lg:text-8xl font-bold text-white relative z-50 mb-4 lg:mb-6 text-shadow shadow-black"
-      >
+      <HeroTitle>
         Over <span class="text-primary-200">Nutzy</span>
-      </h1>
-      <p
-        class="text-lg md:text-xl text-white leading-relaxed max-w-3xl mx-auto"
-      >
-        Wij zijn de brug tussen werkgevers en Gen Z. Met visuele vacatures en authentieke verhalen helpen we jonge talenten ontdekken dat ze klaar zijn voor hun eerste stap.
-      </p>
-    </div>
+      </HeroTitle>
+      <HeroDescription>
+        Wij zijn de brug tussen werkgevers en Gen Z. Met visuele vacatures en
+        authentieke verhalen helpen we jonge talenten ontdekken dat ze klaar
+        zijn voor hun eerste stap.
+      </HeroDescription>
+  </div>
+</Section>
 
-    <!-- Company Mission -->
+
+<Section>
+      <!-- Company Mission -->
     <div class="mb-12 lg:mb-16" data-mission-section>
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
         <!-- Mission Image -->
@@ -398,6 +407,4 @@ import Section from "../Section.astro";
         </div>
       </div>
     </div>
-  </div>
 </Section>
-

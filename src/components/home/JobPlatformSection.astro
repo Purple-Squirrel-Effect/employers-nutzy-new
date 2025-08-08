@@ -1,5 +1,7 @@
 ---
 import Section from "../Section.astro";
+import SectionDescription from "../SectionDescription.astro";
+import SectionTitle from "../SectionTitle.astro";
 ---
 
 <div class="h-screen w-full overflow-hidden absolute">
@@ -159,17 +161,15 @@ import Section from "../Section.astro";
   <div
     class="relative flex flex-col gap-4 z-30 text-center lg:text-left order-1 lg:order-2"
   >
-    <h1
-      class="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white relative z-50 text-shadow shadow-black"
-    >
+    <SectionTitle>
       Het <span class="text-secondary-200">Nutzy</span> Jobplatform
-    </h1>
-    <!-- <img src="/svg/" -->
-    <p class="text-md lg:text-xl pt-4 text-white max-w-2xl mx-auto lg:mx-0">
+    </SectionTitle>
+    <SectionDescription>
       Met 30.000 bezoekers per maand en een conversie van 5% is ons jobplatform
       dé plek waar Gen Z hun eerste baan, stage of traineeship vindt. Hier zien
       ze in één oogopslag dat ze passen bij jouw organisatie.
-    </p>
+    </SectionDescription>
+
     <a
       href="/platform"
       class="lg:px-8 lg:py-4 mx-auto lg:mx-0 px-4 py-2 w-fit bg-tertiary-500 text-black font-bold rounded-lg hover:brightness-105 transition-all duration-300"
@@ -196,30 +196,46 @@ import Section from "../Section.astro";
   sectionClassName="bg-primary-300"
   className="relative text-center py-8 md:py-16 lg:py-24 gap-8 items-center justify-center grid grid-cols-1 "
 >
-  <h1
+  <SectionTitle
     class="text-5xl font-bold text-white relative z-50 text-shadow shadow-black"
   >
     Gemakkelijk te integreren via
-  </h1>
-  <div class="flex flex-wrap justify-center gap-8">
-    <div>
-      <img src="/companies/logos/otys-logo.svg" />
-    </div>
-    <div>
-      <img class="w-42" src="/companies/logos/serena.svg" />
-    </div>
-    <div>
+  </SectionTitle>
+  <div class="grid grid-cols-4 items-center justify-center h-24">
+    <a
+      class="hover:bg-primary-500/5 h-full flex items-center justify-center transition-colors duration-500 hover:inset-shadow-sm"
+      target="_blank"
+      href="https://www.otys.com/nl/"
+    >
+      <img class="w-32" src="/companies/logos/otys-logo.svg" />
+    </a>
+    <a
+      class="hover:bg-primary-500/5 h-full flex items-center justify-center transition-colors duration-500 hover:inset-shadow-sm"
+      target="_blank"
+      href="https://www.serenacms.com/"
+    >
+      <img class="w-32" src="/companies/logos/serena.svg" />
+    </a>
+    <a
+      class="hover:bg-primary-500/5 h-full flex items-center justify-center transition-colors duration-500 hover:inset-shadow-sm"
+      target="_blank"
+      href='https://www.brockmeyer.com/nl/"'
+    >
       <img
-        class="w-42 rounded-lg"
+        class="translate-y-2 w-32"
         src="/companies/logos/BM Signature Logo (1).png"
       />
-    </div>
-    <div>
+    </a>
+    <a
+      class="hover:bg-primary-500/5 h-full flex items-center justify-center transition-colors duration-500 hover:inset-shadow-sm"
+      target="_blank"
+      href="https://www.vonq.com/"
+    >
       <img
-        class="w-42 rounded-lg"
+        class="w-32"
         src="/companies/logos/VONQ_logo_white_small-1-768x328.png"
       />
-    </div>
+    </a>
   </div>
 </Section>
 

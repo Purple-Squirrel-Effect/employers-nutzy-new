@@ -1,6 +1,8 @@
 ---
 import CharacterCard from "../CharacterCard.astro";
 import Section from "../Section.astro";
+import SectionDescription from "../SectionDescription.astro";
+import SectionTitle from "../SectionTitle.astro";
 ---
 
 <Section
@@ -9,16 +11,15 @@ import Section from "../Section.astro";
   className="relative min-h-screen  mx-auto gap-16 items-center justify-center flex z-50  flex-col lg:flex-row"
 >
   <div class="text-center flex w-full flex-col gap-4 lg:text-left">
-    <h1
-      class="text-4xl md:text-6xl lg:text-7xl xl:text-7xl font-bold text-white relative z-50 text-shadow shadow-black"
-    >
+    <SectionTitle>
       Contentcreatie & <span class="text-primary-200">campagnes </span>
-    </h1>
-    <p class="text-md lg:text-xl pt-4 text-white max-w-2xl mx-auto lg:mx-0">
+    </SectionTitle>
+    <SectionDescription>
       Gen Z leeft online – en wij spreken hun taal. Ons team van jonge creators
       maakt content die zelfvertrouwen geeft en laat zien wat jouw bedrijf te
       bieden heeft. Van TikTok tot LinkedIn, wij brengen jouw verhaal tot leven.
-    </p>
+    </SectionDescription>
+
     <a
       href="/campain-strategy"
       class="lg:px-8 lg:py-4 mx-auto lg:mx-0 px-4 py-2 w-fit bg-tertiary-500 text-black font-bold rounded-lg hover:brightness-105 transition-all duration-300"

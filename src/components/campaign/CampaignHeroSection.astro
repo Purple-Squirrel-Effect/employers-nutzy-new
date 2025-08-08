@@ -1,26 +1,29 @@
 ---
+import HeroDescription from "../HeroDescription.astro";
+import HeroTitle from "../HeroTitle.astro";
 import Section from "../Section.astro";
 ---
 
 <Section
   sectionClassName="bg-primary-500"
-  className="min-h-screen overflow-hidden gap-8 py-24 lg:py-32w-full grid grid-cols-1 lg:grid-cols-2"
+  className="min-h-screen items-center justify-between overflow-hidden gap-8 w-full grid grid-cols-1 lg:grid-cols-3"
 >
   <img
     class="absolute left-0 top-0 z-30 opacity-20 h-[200svh] w-[200svh] scale-100"
     src="/svg/particle/particle-2.svg"
   />
-  <div class="order-2 lg:order-1 rounded-full relative z-50">
-    <h1
-      class="text-5xl text-shadow shadow-black lg:text-8xl font-bold text-white relative z-50"
-    >
+  <div
+    class="order-2 lg:order-1 rounded-full relative z-50 lg:col-span-2 min-h-1/2"
+  >
+    <HeroTitle>
       Campagnes die <span class="text-secondary-200">Gen Z</span> raken <br /> én
       <span class="text-primary-200">versterken</span>
-    </h1>
-    <p class="text-xl text-white mt-6 max-w-2xl">
+    </HeroTitle>
+    <HeroDescription>
       Wij ontwikkelen campagnes die meer doen dan vacatures vullen – ze geven
       Gen Z het vertrouwen om te solliciteren.
-    </p>
+    </HeroDescription>
+
     <div class="mt-8 flex flex-wrap gap-4">
       <a
         href="#strategy"

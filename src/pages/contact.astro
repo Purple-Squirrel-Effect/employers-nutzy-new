@@ -2,6 +2,8 @@
 import ContactForm from "../components/ContactForm.astro";
 import ContactInfo from "../components/ContactInfo.astro";
 import Footer from "../components/Footer.astro";
+import HeroDescription from "../components/HeroDescription.astro";
+import HeroTitle from "../components/HeroTitle.astro";
 import Section from "../components/Section.astro";
 import App from "../layouts/App.astro";
 ---
@@ -101,18 +103,15 @@ import App from "../layouts/App.astro";
           <div class="mx-auto w-full">
             <!-- Hero Content -->
             <div class="text-center mb-12 md:mb-16" data-hero-content>
-              <h1
-                class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 mb-4 md:mb-6 vsk-text-balance"
-              >
+              <HeroTitle>
                 Laten we <span class="text-secondary-500">samen</span><br />
                 jong talent <span class="text-primary-900">versterken</span>
-              </h1>
-              <p
-                class="text-lg sm:text-xl md:text-2xl text-gray-700 max-w-3xl mx-auto leading-relaxed mb-6 md:mb-8 px-4"
-              >
+              </HeroTitle>
+
+              <HeroDescription>
                 Heb je vragen, wil je een demo of zoek je een partner die Gen Z
                 écht begrijpt? Wij staan klaar om met je mee te denken.
-              </p>
+              </HeroDescription>
             </div>
 
             <!-- Contact Content Grid -->

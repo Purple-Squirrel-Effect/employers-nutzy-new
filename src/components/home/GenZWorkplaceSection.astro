@@ -4,6 +4,8 @@
 // Emphasizes the journey from understanding to action
 
 import Section from "../Section.astro";
+import SectionDescription from "../SectionDescription.astro";
+import SectionTitle from "../SectionTitle.astro";
 
 export interface Props {
   id?: string;
@@ -17,19 +19,19 @@ const workplaceValues = [
   {
     phase: "Begrijpen",
     icon: "/svg/steps_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg",
-    title: "Wat Gen Z Spannend Vindt",
+    title: "Wat gen Z spannend vindt",
     content: "Hun eerste stappen in het werkende leven, het ontdekken van hun talenten en het vinden van hun plek in een nieuwe omgeving."
   },
   {
     phase: "Ondersteunen",
     icon: "/svg/handshake_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg",
-    title: "Zelfvertrouwen Voeden",
+    title: "Zelfvertrouwen voeden",
     content: "Open communicatie, realistische verwachtingen en een werkomgeving waar fouten maken mag – omdat het hoort bij groeien."
   },
   {
     phase: "Realiseren",
     icon: "/svg/star_shine_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg",
-    title: "Zichtbaar Maken",
+    title: "Zichtbaar maken",
     content: "Met visuele verhalen, eerlijke content en echte ervaringen van collega's laten we zien: 'Hier mag je leren, groeien en jezelf zijn.'"
   }
 ];
@@ -63,13 +65,13 @@ const workplaceValues = [
   <div class="relative z-10 space-y-16">
 
     <!-- Hero Section -->
-    <div class="text-center max-w-4xl mx-auto space-y-8">
-      <div class="inline-flex items-center gap-3 bg-white/80 backdrop-blur-sm rounded-full px-6 py-3 border border-primary-200">
+    <div class="text-center ">
+      <div class="inline-flex mb-8 items-center gap-3 bg-white/80 backdrop-blur-sm rounded-full px-6 py-3 border border-primary-200">
         <img src="/svg/rocket_launch_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg" alt="Rocket icon" class="w-6 h-6 text-primary-500" />
         <span class="text-primary-900 font-bold">Goed Werkgeverschap</span>
       </div>
 
-      <h2 class="text-5xl md:text-6xl lg:text-7xl font-bold text-primary-900 leading-tight">
+      <SectionTitle>
         Meer dan een salaris en werkplek voor
         <span class="text-secondary-500 relative">
           Gen Z
@@ -77,12 +79,12 @@ const workplaceValues = [
             <path d="M0,8 Q50,0 100,8" stroke="currentColor" stroke-width="2" fill="none"/>
           </svg>
         </span>
-      </h2>
+      </SectionTitle>
 
-      <p class="text-xl md:text-2xl text-gray-700 leading-relaxed max-w-3xl mx-auto">
+      <SectionDescription>
         Het betekent dat je begrijpt wat Generatie Z spannend vindt en
         <strong class="text-primary-900">laat zien dat je er bent om hen te ondersteunen.</strong>
-      </p>
+      </SectionDescription>
     </div>
 
     <!-- Three-Phase Journey -->
@@ -130,7 +132,7 @@ const workplaceValues = [
               <span class="text-secondary-200">'Je kunt dit, wij geloven in jou.'"</span>
             </blockquote>
             <div class="text-primary-200 font-medium">
-              — Nutzy Employer Branding Expertise
+              — Mitch
             </div>
           </div>
 

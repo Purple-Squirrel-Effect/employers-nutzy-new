@@ -1,5 +1,7 @@
 ---
 import Section from "../Section.astro";
+import HeroTitle from "../HeroTitle.astro";
+import HeroDescription from "../HeroDescription.astro";
 ---
 
 <svg
@@ -18,22 +20,19 @@ import Section from "../Section.astro";
 </svg>
 <Section
   sectionClassName="bg-primary-500"
-  className="lg:min-h-screen  mx-auto py-24 lg:py-32 gap-4 md:gap-8  items-center justify-center grid grid-cols-1 lg:grid-cols-2 overflow-hidden"
+  className="min-h-screen items-center justify-between overflow-hidden gap-8 w-full grid grid-cols-1 lg:grid-cols-2"
   data-hero-section
 >
-  <div class="relative z-50 text-center lg:text-left">
-    <h1
-      class="text-5xl lg:text-6xl font-bold text-white leading-tight"
-      data-hero-title
-    >
+  <div class="relative z-50 text-center lg:text-left min-h-1/2">
+    <HeroTitle>
       Wij <span class="text-secondary-200">begrijpen</span> én versterken<br />
       <span class="text-primary-200">generatie Z</span>
-    </h1>
-    <p class="text-xl md:text-xl text-white/90 max-w-3xl mx-auto lg:mx-0 pt-4">
+    </HeroTitle>
+    <HeroDescription>
       Gen Z zoekt geen droge vacatureteksten, maar verhalen, beleving en
       vertrouwen. Wij helpen werkgevers om jonge talenten te vinden én te
       inspireren – met content die laat zien dat ze het kunnen.
-    </p>
+    </HeroDescription>
   </div>
   <div class="relative z-50 flex justify-center lg:justify-end" data-hero-image>
     <svg
@@ -809,8 +808,7 @@ import Section from "../Section.astro";
 
 <script>
   import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
   const acorn = document.getElementById("acorn");
 
   gsap.registerPlugin(ScrollTrigger);

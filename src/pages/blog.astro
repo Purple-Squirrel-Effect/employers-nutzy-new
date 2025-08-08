@@ -1,8 +1,9 @@
 ---
 import { getCollection } from "astro:content";
 import ContactSection from "../components/ContactSection.astro";
-import EventCalendar from "../components/EventCalendar.astro";
 import Footer from "../components/Footer.astro";
+import HeroDescription from "../components/HeroDescription.astro";
+import HeroTitle from "../components/HeroTitle.astro";
 import Section from "../components/Section.astro";
 import App from "../layouts/App.astro";
 
@@ -77,18 +78,19 @@ function getExcerpt(post: any, maxLength: number = 150): string {
           src="/svg/particle/share.svg"
         />
 
-        <div class="order-2 lg:order-1 relative z-10 rounded-full">
-          <h1
-                class="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white leading-tight text-shadow shadow-black"
-
-          >
-            Kennis delen
-          </h1>
-          <p class="text-xl text-white mt-6 max-w-2xl">
+        <div class="order-2 lg:order-1 relative z-10 rounded-full  min-h-1/2">
+          <HeroTitle>
+               <span class="text-shadow shadow-black">
+                Kennis delen
+               </span>
+          </HeroTitle>
+          <HeroDescription>
             Bereik de juiste doelgroep met onze strategische campagnes speciaal
             ontworpen voor het werven van Gen-Z talent. Van concept tot
             uitvoering - wij zorgen voor resultaat.
-          </p>
+          </HeroDescription>
+         
+          
           <div class="mt-8 flex flex-wrap gap-4">
             <a
               href="#strategy"
@@ -104,9 +106,7 @@ function getExcerpt(post: any, maxLength: number = 150): string {
             </a>
           </div>
         </div>
-        <div class="order-2">
-          <!-- <img class="h-screen w-screen relative z-20" src="/svg/a-group-of-people-sharing-ideas.svg" /> -->
-        </div>
+      
       </Section>
       <Section
         sectionClassName=" min-h-screen bg-primary-200"
@@ -253,11 +253,7 @@ function getExcerpt(post: any, maxLength: number = 150): string {
         </div>
       </Section>
 
-      <Section sectionClassName="py-32 bg-primary-900 ">
-        <div class="w-full z-20 relative my-16">
-          <EventCalendar />
-        </div>
-      </Section>
+     
       <ContactSection />
       <Footer />
     </App>
